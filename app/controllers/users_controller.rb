@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  def show
+  def chat
     @user = User.find(params[:id])
     @current_user = current_user
     @rooms = Room.public_rooms
@@ -11,6 +11,18 @@ class UsersController < ApplicationController
     @messages = @single_room.messages
 
     render 'rooms/index'
+  end
+
+  def show
+    @user = User.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render partial: 'users/modal', locals: { user: @user } }
+    end
+  end
+
+  def index
+    @users = User.all
   end
 
   private

@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   }
   root 'rooms#index'
 
-  resources :users
+  resources :users do
+    member do
+      get :chat
+    end
+  end
+
   resources :rooms do
     resources :messages
   end
