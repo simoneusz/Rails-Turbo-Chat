@@ -13,3 +13,10 @@
 .sidebar-inner{
   height: calc(100vh - 60px);
 }
+.btn-modal{
+  background-color: transparent;
+  transition: all 0s;
+  &:hover{
+    background-color: var(--shadow-bg-color)
+  }
+}

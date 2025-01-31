@@ -1,24 +1,95 @@
 <turbo-frame id="modal_frame">
   <div class="modal" id="user-modal">
     <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2><%= @user.username %></h2>
-      <p>Email: <%= @user.email %></p>
-      <%= link_to @user.username, chat_user_path(@user), data: {turbo: false}, class:"btn btn-primary" %>
+      <div class="modal-header justify-content-between">
+        <h5 class="modal-title" id="exampleModalLabel">User info</h5>
+        <button type="button" class="close" onclick="closeModal()" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="d-flex gap-3 btn btn-modal">
+        <div class="icon">
+          <span class="display-6"><i class="bi bi-at"></i></span>
+        </div>
+        <div class="row-content d-flex flex-column">
+          <div class="row-title fw-bold"><%= @user.username %></div>
+          <div class="row-subtitle text-muted align-self-baseline">Username</div>
+        </div>
+      </div>
+      <div class="d-flex gap-3 btn btn-modal">
+        <div class="icon">
+          <span class="display-6"><i class="bi bi-envelope"></i></span>
+        </div>
+        <div class="row-content d-flex flex-column">
+          <div class="row-title fw-bold"><%= @user.email%></div>
+          <div class="row-subtitle text-muted align-self-baseline">Email</div>
+        </div>
+      </div>
+      <div class="d-flex gap-3 btn btn-modal">
+        <div class="icon">
+          <span class="display-6"><i class="bi bi-info-circle"></i></span>
+        </div>
+        <div class="row-content d-flex flex-column">
+<!--          TODO-->
+          <div class="row-title fw-bold">TODO INFO</div>
+          <div class="row-subtitle text-muted align-self-baseline">Bio</div>
+        </div>
+      </div>
+      <%= link_to "SEND MESSAGE", chat_user_path(@user), data: {turbo: false}, class:"btn btn-modal text-blue text-primary" %>
     </div>
   </div>
 
   <script>
-      document.getElementById("user-modal").style.display = "block";
+      document.addEventListener("turbo:before-frame-render", (event) => {
+          let existingModal = document.getElementById("user-modal");
+          if (existingModal) {
+              existingModal.remove();
+          }
+      });
+
+      document.addEventListener("turbo:frame-load", () => {
+          let modal = document.getElementById("user-modal");
+          if (modal) {
+              modal.style.display = "block";
+              document.addEventListener("click", (e) => {
+                  if (!modal.querySelector(".modal-content").contains(e.target)) {
+                      closeModal();
+                  }
+              });
+          }
+      });
 
       function closeModal() {
-          document.getElementById("user-modal").style.display = "none";
+          let modal = document.getElementById("user-modal");
+          if (modal) {
+              modal.style.opacity = "0";
+              setTimeout(() => modal.remove(), 300);
+          }
       }
   </script>
 
   <style>
-      .modal { display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); }
-      .modal-content { background: white; margin: 15% auto; padding: 20px; width: 50%; }
-      .close { float: right; font-size: 28px; cursor: pointer; }
+      .modal {
+          display: none;
+          position: fixed;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          color: black;
+      }
+      .modal-content {
+          background: white;
+          margin: 15% auto;
+          padding: 20px;
+          width: 50%;
+      }
+      .close{
+          border: none;
+          background: transparent;
+          font-size: 20px;
+      }
+
   </style>
 </turbo-frame>
