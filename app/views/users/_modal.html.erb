@@ -1,0 +1,24 @@
+<turbo-frame id="modal_frame">
+  <div class="modal" id="user-modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2><%= @user.username %></h2>
+      <p>Email: <%= @user.email %></p>
+      <%= link_to @user.username, chat_user_path(@user), data: {turbo: false}, class:"btn btn-primary" %>
+    </div>
+  </div>
+
+  <script>
+      document.getElementById("user-modal").style.display = "block";
+
+      function closeModal() {
+          document.getElementById("user-modal").style.display = "none";
+      }
+  </script>
+
+  <style>
+      .modal { display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); }
+      .modal-content { background: white; margin: 15% auto; padding: 20px; width: 50%; }
+      .close { float: right; font-size: 28px; cursor: pointer; }
+  </style>
+</turbo-frame>
