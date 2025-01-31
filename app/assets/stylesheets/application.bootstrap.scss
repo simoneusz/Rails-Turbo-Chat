@@ -1,2 +1,15 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+@import 'vars';
+@import 'navbar';
+@import 'rooms';
+
+.bg-main{
+  background-color: var(--main-bg-color);
+}
+.main{
+  border-radius: 12px;
+}
+.sidebar-inner{
+  height: calc(100vh - 60px);
+}
