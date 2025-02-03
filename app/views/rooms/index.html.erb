@@ -1,4 +1,7 @@
-<div id="chatroom_container" class="row bg-dark text-light">
+<div class="sidebar col-auto col-md-3 col-xl-2 bg-secondary">
+  <%= render partial: 'layouts/sidebar', locals: { public_rooms: Room.public_rooms.last(5) } %>
+</div>
+<div id="chatroom_container" class="d-flex col-auto bg-dark text-light">
   <div id="side_panel" class="col-md-4 col-sm-4">
     <h5> Hi <%= current_user.email %> </h5>
     <h4> Users </h4>
