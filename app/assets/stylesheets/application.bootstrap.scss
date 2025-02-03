@@ -3,10 +3,15 @@
 @import 'vars';
 @import 'navbar';
 @import 'rooms';
+@import 'tabs';
 
 .bg-main{
-  background-color: var(--main-bg-color);
+  background-color: var(--main-bg-color) !important;
 }
+.bg-secondary{
+  background-color: var(--secondary-bg-color) !important;
+}
+
 .main{
   border-radius: 12px;
 }
