@@ -12,6 +12,10 @@
 .bg-secondary{
   background-color: var(--secondary-bg-color) !important;
 }
+body{
+  height: 100vh;
+  overflow: hidden;
+}
 
 .main{
   border-radius: 12px;
