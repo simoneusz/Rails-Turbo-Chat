@@ -3,11 +3,11 @@ class Room < ApplicationRecord
   scope :public_rooms, -> { where(is_private: false) }
   has_many :messages
   has_many :participants, dependent: :destroy
-  after_create_commit { broadcast_if_public }
-
-  def broadcast_if_public
-    broadcast_append_to 'rooms' unless is_private
-  end
+  # after_create_commit { broadcast_if_public }
+  #
+  # def broadcast_if_public
+  #   broadcast_append_to 'rooms' unless is_private
+  # end
 
   def self.create_private_room(users, room_name)
     single_room = Room.create(name: room_name, is_private: true)
