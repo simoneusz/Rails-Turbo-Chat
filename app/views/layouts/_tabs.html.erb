@@ -1,5 +1,7 @@
 <nav class="nav tabs flex-column justify-content-center align-items-center gap-3">
+  <% if current_user %>
   <button class="tabs__logo btn"><i class="tabs__logo_icon"><%= current_user.username.first.upcase %></i></button>
+  <% end %>
   <div class="tabs__container rounded"></div>
   <a class="nav-link tabs__content active" aria-current="page" href="#">
     <i class="bi bi-house tabs__content_icon"></i>
