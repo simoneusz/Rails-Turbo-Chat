@@ -16,4 +16,8 @@ class Room < ApplicationRecord
     end
     single_room
   end
+
+  def participant?(user)
+    participants.find_by(user_id: user.id)
+  end
 end
