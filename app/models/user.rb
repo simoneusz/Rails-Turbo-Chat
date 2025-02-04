@@ -42,6 +42,14 @@ class User < ApplicationRecord
     end
   end
 
+  def delete_contact(other_user)
+    contact_request = received_contacts.find_by(user: other_user)
+
+    return unless contact_request
+
+    contact_request.destroy
+  end
+
   def reject_contact(other_user)
     contact_request = received_contacts.find_by(user: other_user, status: :pending)
     contact_request&.update(status: :rejected)
