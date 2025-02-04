@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   resources :rooms do
     resources :messages
   end
-  resources :contacts, only: %i[index create update destroy]
+  resources :contacts, only: %i[index create update destroy] do
+    collection do
+      get 'requests'
+    end
+  end
 
   get 'up' => 'rails/health#show', as: :rails_health_check
 end

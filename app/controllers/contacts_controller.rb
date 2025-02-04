@@ -1,9 +1,6 @@
 class ContactsController < ApplicationController
   def index
     @contacts = current_user.contacts
-    @pending_contacts = current_user.pending_contacts
-    @users = User.all_except(current_user)
-    render 'rooms/index'
   end
 
   def create
@@ -28,5 +25,9 @@ class ContactsController < ApplicationController
     user = User.find(params[:id])
     current_user.reject_contact(user)
     redirect_to contact_path(user), notice: 'Request destroyed'
+  end
+
+  def requests
+    @requests = current_user.pending_contacts
   end
 end
