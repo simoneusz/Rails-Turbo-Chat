@@ -2,7 +2,7 @@
   <div class="row flex-grow-1">
     <div class="col-8 flex-grow-1">
       <div class="tab-content p-2 border contacts" id="myTabContent">
-        <div class="tab-pane fade contacts-all" id="userContacts" role="tabpanel" aria-labelledby="userContacts-tab">
+        <div class="tab-pane show active fade contacts-all" id="userContacts" role="tabpanel" aria-labelledby="userContacts-tab">
           <div class="contacts-all-actions mb-3">
 <!--            Todo: active users-->
             <button class="btn btn-primary tab-button" data-bs-toggle="modal" data-bs-target="#addContactModal">
@@ -41,7 +41,7 @@
           </div>
         </div>
 
-        <div class="tab-pane show active fade" id="outgoingRequests" role="tabpanel" aria-labelledby="outgoingRequests-tab">
+        <div class="tab-pane fade" id="outgoingRequests" role="tabpanel" aria-labelledby="outgoingRequests-tab">
           <div class="outgoing-list">
             <% current_user.outgoing_contacts.each do |contact| %>
               <div class="outgoing-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
