@@ -22,6 +22,10 @@ class User < ApplicationRecord
     received_contacts.where(status: :pending)
   end
 
+  def outgoing_contacts
+    Contact.where(user_id: id, status: :pending)
+  end
+
   def request_contact(other_user)
     return false if other_user == self || Contact.exists?(user: self, contact: other_user)
 
@@ -53,5 +57,9 @@ class User < ApplicationRecord
   def reject_contact(other_user)
     contact_request = received_contacts.find_by(user: other_user, status: :pending)
     contact_request&.update(status: :rejected)
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 end

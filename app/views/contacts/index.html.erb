@@ -1,70 +1,77 @@
-<div class="wrapper p-1 flex-grow-1">
+<div class="wrapper p-2 flex-grow-1 z-0">
   <div class="row flex-grow-1">
     <div class="col-8 flex-grow-1">
-      <div class="tab-content contacts" id="myTabContent">
-        <div class="tab-pane fade show active contacts-all" id="userContacts" role="tabpanel" aria-labelledby="userContacts-tab">
+      <div class="tab-content p-2 border contacts" id="myTabContent">
+        <div class="tab-pane fade contacts-all" id="userContacts" role="tabpanel" aria-labelledby="userContacts-tab">
           <div class="contacts-all-actions mb-3">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContactModal">
-              Add Contact
+<!--            Todo: active users-->
+            <button class="btn btn-primary tab-button" data-bs-toggle="modal" data-bs-target="#addContactModal">
+              <span class="text-">All contacts: </span><%= current_user.contacts.size %>
             </button>
           </div>
           <div class="contact-list">
-            <div class="contact-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
-              <div class="d-flex align-items-center">
-                <img src="https://placehold.jp/150x150.png" alt="user" class="rounded-circle me-3" style="height: 40px;width: 40px">
-                <span>John Doe</span>
+            <% current_user.contacts.each do |contact| %>
+              <div class="contact-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
+                <div class="d-flex align-items-center">
+                  <img src="https://placehold.jp/150x150.png" alt="user" class="rounded-circle me-3 contacts-avatar" style="height: 40px;width: 40px">
+                  <span><%= contact.full_name %></span>
+                </div>
+                <div>
+                  <%= link_to "Message", chat_user_path(contact), class:"btn btn-outline-secondary btn-sm" %>
+                </div>
               </div>
-              <div>
-                <button class="btn btn-outline-secondary btn-sm">Message</button>
-              </div>
-            </div>
+            <% end %>
           </div>
         </div>
 
         <div class="tab-pane fade" id="contactRequests" role="tabpanel" aria-labelledby="contactRequests-tab">
           <div class="request-list">
-            <div class="request-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
-              <div class="d-flex align-items-center">
-                <img src="https://placehold.jp/150x150.png" alt="user" class="rounded-circle me-3">
-                <span>Jane Smith</span>
+            <% current_user.pending_contacts.each do |contact| %>
+              <div class="request-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
+                <div class="d-flex align-items-center">
+                  <img src="https://placehold.jp/150x150.png" alt="user" class="contacts-avatar rounded-circle me-3">
+                  <span><%= contact.user.full_name %></span>
+                </div>
+                <div>
+                  <%= button_to "Accept", contact_path(contact.user), method: :put, class: "btn btn-success btn-sm" %>
+                  <%= button_to "Decline", contact_path(contact.user), method: :delete, class: "btn btn-danger btn-sm" %>
+                </div>
               </div>
-              <div>
-                <button class="btn btn-success btn-sm">Accept</button>
-                <button class="btn btn-danger btn-sm">Reject</button>
-              </div>
-            </div>
+            <% end %>
           </div>
         </div>
 
-        <div class="tab-pane fade" id="outgoingRequests" role="tabpanel" aria-labelledby="outgoingRequests-tab">
+        <div class="tab-pane show active fade" id="outgoingRequests" role="tabpanel" aria-labelledby="outgoingRequests-tab">
           <div class="outgoing-list">
-            <div class="outgoing-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
-              <div class="d-flex align-items-center">
-                <img src="https://placehold.jp/150x150.png" alt="user" class="rounded-circle me-3">
-                <span>Mark Johnson</span>
+            <% current_user.outgoing_contacts.each do |contact| %>
+              <div class="outgoing-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
+                <div class="d-flex align-items-center">
+                  <img src="https://placehold.jp/150x150.png" alt="user" class="rounded-circle me-3 contacts-avatar">
+                  <span><%= contact.user.full_name %></span>
+                </div>
+                <div>
+                  <%= button_to "Decline", contact_path(contact.user), method: :delete, class: "btn btn-warning btn-sm" %>
+                </div>
               </div>
-              <div>
-                <button class="btn btn-warning btn-sm">Cancel Request</button>
-              </div>
-            </div>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
     <div class="col-4 flex-grow-1">
-      <div class="tabs">
+      <div class="tabs bg-secondary">
         <ul class="nav nav-tabs tabs-list flex-column" id="myTab" role="tablist">
           <li class="nav-item flex-grow-0" role="presentation">
-            <button class="nav-link active" id="userContacts-tab" data-bs-toggle="tab" data-bs-target="#userContacts" type="button" role="tab" aria-controls="userContacts" aria-selected="true">
+            <button class="nav-link active text-white" id="userContacts-tab" data-bs-toggle="tab" data-bs-target="#userContacts" type="button" role="tab" aria-controls="userContacts" aria-selected="true">
               Your contacts
             </button>
           </li>
           <li class="nav-item flex-grow-0" role="presentation">
-            <button class="nav-link" id="contactRequests-tab" data-bs-toggle="tab" data-bs-target="#contactRequests" type="button" role="tab" aria-controls="contactRequests" aria-selected="false">
+            <button class="nav-link text-white" id="contactRequests-tab" data-bs-toggle="tab" data-bs-target="#contactRequests" type="button" role="tab" aria-controls="contactRequests" aria-selected="false">
               Contact requests
             </button>
           </li>
-          <li class="nav-item flex-grow-0" role="presentation">
+          <li class="nav-item flex-grow-0 text-white" role="presentation">
             <button class="nav-link" id="outgoingRequests-tab" data-bs-toggle="tab" data-bs-target="#outgoingRequests" type="button" role="tab" aria-controls="outgoingRequests" aria-selected="false">
               Outgoing requests
             </button>
