@@ -35,7 +35,11 @@
           <div class="row-subtitle text-muted align-self-baseline">Bio</div>
         </div>
       </div>
-      <%= link_to "SEND MESSAGE", chat_user_path(@user), data: {turbo: false}, class:"btn btn-modal text-blue text-primary" %>
+      <% unless current_user.contacts.include?(@user) || @user.pending_contacts.where(user_id: current_user.id).exists? %>
+        <%= button_to "Add to contacts", contacts_path(contact_id: @user.id), method: :post, data:{ turbo:false },
+             class:"btn btn-modal text-blue text-primary w-100"%>
+      <% end %>
+      <%= link_to "SEND MESSAGE", chat_user_path(@user), data: { turbo: false }, class:"btn btn-modal text-blue text-primary" %>
     </div>
   </div>
 
