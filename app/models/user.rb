@@ -23,7 +23,7 @@ class User < ApplicationRecord
   end
 
   def request_contact(other_user)
-    return if other_user == self || Contact.exists?(user: self, contact: other_user)
+    return false if other_user == self || Contact.exists?(user: self, contact: other_user)
 
     Contact.create(user: self, contact: other_user, status: :pending)
   end
