@@ -30,7 +30,16 @@ class User < ApplicationRecord
 
   def accept_contact(other_user)
     contact_request = received_contacts.find_by(user: other_user, status: :pending)
-    contact_request&.update(status: :accepted)
+
+    return unless contact_request
+
+    ActiveRecord::Base.transaction do
+      contact_request.update!(status: :accepted)
+
+      unless Contact.exists?(user: self, contact: other_user)
+        Contact.create!(user: self, contact: other_user, status: :accepted)
+      end
+    end
   end
 
   def reject_contact(other_user)

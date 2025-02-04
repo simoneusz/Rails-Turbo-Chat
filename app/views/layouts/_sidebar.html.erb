@@ -25,9 +25,9 @@
     </li>
     <li>
       <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-        <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Last Users</span></a>
+        <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Last Users</span>
+      </a>
       <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-
         <% last_users.each do |user| %>
           <li class="w-100">
             <%= render user %>
@@ -51,7 +51,20 @@
     <% end %>
     <li>
       <a href="#" class="nav-link px-0 align-middle">
-        <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+        <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span>
+      </a>
+    </li>
+    <li>
+      <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+        <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Pending contacts</span>
+      </a>
+      <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
+        <% current_user.pending_contacts.each do |request| %>
+          <%= request.user.username %>
+          <%= button_to "Accept", contact_path(request.user), method: :put %>
+          <%= button_to "Decline", contact_path(request.user), method: :delete %>
+        <% end %>
+      </ul>
     </li>
   </ul>
   <hr>
