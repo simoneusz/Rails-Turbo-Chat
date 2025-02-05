@@ -47,10 +47,10 @@
               <div class="outgoing-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
                 <div class="d-flex align-items-center">
                   <img src="https://placehold.jp/150x150.png" alt="user" class="rounded-circle me-3 contacts-avatar">
-                  <span><%= contact.user.full_name %></span>
+                  <span><%= contact.contact.full_name %></span>
                 </div>
                 <div>
-                  <%= button_to "Decline", contact_path(contact.user), method: :delete, class: "btn btn-warning btn-sm" %>
+                  <%= button_to "Decline", contact_path(contact.contact), method: :delete, class: "btn btn-warning btn-sm" %>
                 </div>
               </div>
             <% end %>
