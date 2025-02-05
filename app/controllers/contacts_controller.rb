@@ -24,7 +24,7 @@ class ContactsController < ApplicationController
   def destroy
     user = User.find(params[:id])
     current_user.reject_contact(user)
-    redirect_to contact_path(user), notice: 'Request destroyed'
+    redirect_to contacts_path, notice: 'Request destroyed'
   end
 
   def requests
