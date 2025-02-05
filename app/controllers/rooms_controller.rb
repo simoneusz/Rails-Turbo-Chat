@@ -7,7 +7,7 @@ class RoomsController < ApplicationController
   end
 
   def create
-    @room = Room.create(name: params['room']['name'])
+    @room = Room.create(name: room_params[:name], is_private: room_params[:is_private])
     @room.add_participant(current_user, :owner)
   end
 
@@ -24,5 +24,11 @@ class RoomsController < ApplicationController
 
     @messages = @single_room.messages.order(created_at: :asc).last(6)
     render 'index'
+  end
+
+  private
+
+  def room_params
+    params.require(:room).permit(:name, :is_private)
   end
 end
