@@ -8,7 +8,7 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.create(name: params['room']['name'])
-    @room.add_participant(current_user)
+    @room.add_participant(current_user, :owner)
   end
 
   def show

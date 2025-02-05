@@ -17,8 +17,8 @@ class Room < ApplicationRecord
     single_room
   end
 
-  def add_participant(user)
-    Participant.create(user_id: user.id, room_id: id)
+  def add_participant(user, role)
+    Participant.create(user_id: user.id, room_id: id, role: role)
   end
 
   def participant?(user)
