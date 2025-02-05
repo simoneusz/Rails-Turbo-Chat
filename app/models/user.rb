@@ -27,9 +27,24 @@ class User < ApplicationRecord
   end
 
   def request_contact(other_user)
-    return false if other_user == self || Contact.exists?(user: self, contact: other_user)
+    return false if other_user == self
 
-    Contact.create(user: self, contact: other_user, status: :pending)
+    existing_request = Contact.find_by(user: other_user, contact: self, status: :pending)
+
+    if existing_request
+      accept_contact(other_user)
+      return true
+    end
+
+    contact = Contact.find_by(user: self, contact: other_user)
+
+    if contact
+      return false if contact.accepted?
+
+      contact.update!(status: :pending) if contact.rejected?
+    else
+      Contact.create!(user: self, contact: other_user, status: :pending)
+    end
   end
 
   def accept_contact(other_user)
@@ -55,7 +70,7 @@ class User < ApplicationRecord
   end
 
   def reject_contact(other_user)
-    contact_request = received_contacts.find_by(user: other_user, status: :pending)
+    contact_request = other_user.received_contacts.find_by(user: self, status: :pending)
     contact_request&.update(status: :rejected)
   end
 
