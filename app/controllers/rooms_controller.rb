@@ -12,7 +12,10 @@ class RoomsController < ApplicationController
 
   def show
     @single_room = Room.find(params[:id])
-
+    if @single_room.is_private || !@single_room.participants.include?(current_user)
+      redirect_to root_path, alert: 'You do not have permission to view this room'
+      return
+    end
     @rooms = Room.public_rooms
     @users = User.all_except(current_user)
     @room = Room.new
