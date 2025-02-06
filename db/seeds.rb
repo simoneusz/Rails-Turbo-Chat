@@ -7,3 +7,15 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+10.times do
+  user = User.new(
+    email: Faker::Internet.unique.email,
+    username: Faker::Internet.username,
+    first_name: Faker::Name.name,
+    last_name: Faker::Name.last_name,
+    password: '123123',
+    password_confirmation: '123123'
+  )
+  p "cant create #{user}  #{user.errors.full_messages}" unless user.save
+end
