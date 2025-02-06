@@ -15,21 +15,21 @@
         <% user.contacts.each do |contact| %>
           <div class="row">
             <div class="col-10"><%= contact.username %></div>
-            <% unless room.participants.where(user_id: contact.id).exists? %>
+            <% if room.participants.where(user_id: contact.id).exists? %>
               <div class="col-2">
-                <%= form_with url: add_participant_room_path, method: :post, local: true do%>
+                <%=  form_with url: remove_participant_room_path, method: :delete, local: true do %>
                   <%= hidden_field_tag :contact_id, contact.id %>
-                  <%= submit_tag "Add", class:"btn border" %>
-                <% end %>
+                  <%=  submit_tag "Delete", class:"btn btn-danger border"  %>
+                <%  end %>
               </div>
-            <% else %>
+            <%  else  %>
               <div class="col-2">
-                <%= form_with url: remove_participant_room_path, method: :delete, local: true do%>
-                  <%= hidden_field_tag :contact_id, contact.id %>
-                  <%= submit_tag "Delete", class:"btn btn-danger border" %>
-                <% end %>
+                <%=  form_with url: add_participant_room_path, method: :post, local: true do %>
+                  <%=  hidden_field_tag :contact_id, contact.id  %>
+                  <%=  submit_tag "Add", class:"btn border"  %>
+                <%  end  %>
               </div>
-            <% end %>
+            <%  end %>
           </div>
         <% end %>
       </div>
