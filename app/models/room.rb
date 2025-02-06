@@ -18,16 +18,13 @@ class Room < ApplicationRecord
     single_room
   end
 
-  def add_participant(sender, recipient, _role)
-    # Participant.create(user_id: user.id, room_id: id, role: role)
-    send_invitation(sender, recipient)
+  def add_participant(user, role)
+    Participant.create(user_id: user.id, room_id: id, role: role)
   end
 
   def send_invitation(sender, recipient)
     InviteReceivedNotifier.with(inviter: sender, room: self).deliver_later(recipient)
   end
-
-  def accept_invitation(user); end
 
   def participant?(user)
     participants.find_by(user_id: user.id)

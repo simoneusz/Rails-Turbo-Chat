@@ -4,6 +4,10 @@
   <% @notifications.each do |notification| %>
     <li>
       <%= notification.event.message %>
+      <%= form_with url: accept_invitation_room_path(notification.event.params[:room]), method: :post, local: true do%>
+        <%= hidden_field_tag :user_id, current_user.id %>
+        <%= submit_tag "Accept", class:"btn border" %>
+      <% end %>
     </li>
   <% end %>
 </ul>
