@@ -26,6 +26,18 @@ class RoomsController < ApplicationController
     render 'index'
   end
 
+  def add_participant
+    @room = Room.find(params[:id])
+    contact = User.find(params[:contact_id])
+
+    return if @room.participants.where(user_id: contact.id).exists?
+
+    @room.add_participant(contact, :member)
+    flash[:notice] = "#{contact.username} was added to the room"
+
+    redirect_to room_path(@room)
+  end
+
   private
 
   def room_params
