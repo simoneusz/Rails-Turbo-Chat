@@ -13,7 +13,14 @@
         <% user.contacts.each do |contact| %>
           <div class="row">
             <div class="col-10"><%= contact.username %></div>
-            <div class="col-2"><button>Add</button></div>
+            <% unless room.participants.where(user_id: contact.id).exists? %>
+              <div class="col-2">
+                <%= form_with url: add_participant_room_path, method: :post, local: true do%>
+                  <%= hidden_field_tag :contact_id, contact.id %>
+                  <%= submit_tag "Add", class:"btn border" %>
+                <% end %>
+              </div>
+            <% end %>
           </div>
         <% end %>
       </div>
