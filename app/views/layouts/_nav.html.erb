@@ -28,6 +28,14 @@
         </li>
       </ul>
       <form class="d-flex">
+        <div class="notifications mx-2 d-flex align-items-center">
+          <%= link_to notifications_path, class:"notifications-link"  do %>
+            <i class="notifications-icon bi bi-bell"></i>
+            <% if current_user.notifications.any? %>
+              <p class="notifications-badge text-center rounded p-0 m-0"><%= current_user.notifications.size %></p>
+            <% end %>
+          <% end %>
+        </div>
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
