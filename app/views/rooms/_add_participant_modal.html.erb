@@ -1,5 +1,7 @@
 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
   <%= user&.email || room.name %>
+  <span class="border">Type: <%= room.is_private ? "Private" : "Public" %></span>
+  <span class="border">Name: <%= room.name %></span>
 </button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
