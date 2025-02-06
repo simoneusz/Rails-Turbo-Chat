@@ -18,13 +18,17 @@ class Room < ApplicationRecord
     single_room
   end
 
-  def add_participant(user, role)
+  def add_participant(sender, recipient, role)
     Participant.create(user_id: user.id, room_id: id, role: role)
-  end
-
-  def send_invitation(sender, recipient)
     InviteReceivedNotifier.with(inviter: sender, room: self).deliver_later(recipient)
   end
+
+  def url
+    Rails.application.routes.url_helpers.product_url(self)
+  end
+  # def send_invitation(sender, recipient)
+  #   InviteReceivedNotifier.with(inviter: sender, room: self).deliver_later(recipient)
+  # end
 
   def participant?(user)
     participants.find_by(user_id: user.id)

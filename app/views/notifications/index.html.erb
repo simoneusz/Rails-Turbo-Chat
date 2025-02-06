@@ -3,10 +3,8 @@
 <ul>
   <% @notifications.each do |notification| %>
     <li>
-      <%= notification.event.message %>
-      <%= form_with url: accept_invitation_room_path(notification.event.params[:room]), method: :post, local: true do%>
-        <%= hidden_field_tag :user_id, current_user.id %>
-        <%= submit_tag "Accept", class:"btn border" %>
+      <%= link_to notification.event.url do  %>
+          <%= notification.event.message %> [<%= notification.event.params[:room].id %>]
       <% end %>
     </li>
   <% end %>

@@ -8,8 +8,13 @@ class InviteReceivedNotifier < ApplicationNotifier
     c.message = 'abo'
   end
   def message
-    "#{params[:inviter].username} has sent you an invitation to #{params[:room].name}."
+    "#{params[:inviter].username} has added you to #{params[:room].name}."
   end
+
+  def url
+    room_path(params[:room])
+  end
+
   notification_methods do
     def message
       "#{params[:inviter].username} has sent you an invitation to #{params[:room].name}."

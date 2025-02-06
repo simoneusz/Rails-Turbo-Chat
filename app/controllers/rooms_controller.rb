@@ -31,17 +31,17 @@ class RoomsController < ApplicationController
 
     return if @room.participants.where(user_id: contact.id).exists?
 
-    @room.send_invitation(current_user, contact)
+    @room.add_participant(current_user, contact, :member)
     flash[:notice] = "#{contact.username} was added to the room"
 
     redirect_to room_path(@room)
   end
 
-  def accept_invitation
-    @room = Room.find(params[:id])
-    user = User.find(params[:user_id])
-    @room.add_participant(user, :member)
-  end
+  # def accept_invitation
+  #   @room = Room.find(params[:id])
+  #   recipient = User.find(params[:user_id])
+  #   @room.add_participant(current_user, recipient, :member)
+  # end
 
   private
 
