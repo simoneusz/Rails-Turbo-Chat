@@ -22,6 +22,7 @@
       <div id="single_room">
         <div class="single-room-top">
           <%= render partial: 'rooms/add_participant_modal', locals: {room: @single_room, user: current_user, } %>
+          <span>Room Type: <%= @single_room.is_private ? "Private" : "Public" %></span>
         </div>
         <%= turbo_stream_from @single_room%>
         <div id="messages" data-controller="scroll">
