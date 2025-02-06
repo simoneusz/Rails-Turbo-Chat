@@ -32,11 +32,22 @@ class RoomsController < ApplicationController
     return if @room.participants.where(user_id: contact.id).exists?
 
     @room.add_participant(current_user, contact, :member)
-    flash[:notice] = "#{contact.username} was added to the room"
 
+    flash[:notice] = "#{contact.username} was added to the room"
     redirect_to room_path(@room)
   end
 
+  def remove_participant
+    @room = Room.find(params[:id])
+    contact = User.find(params[:contact_id])
+
+    return unless @room.participants.where(user_id: contact.id).exists?
+
+    @room.participants.where(user_id: contact.id).destroy_all
+
+    flash[:notice] = "#{contact.username} was removed from the room"
+    redirect_to room_path(@room)
+  end
   # def accept_invitation
   #   @room = Room.find(params[:id])
   #   recipient = User.find(params[:user_id])
