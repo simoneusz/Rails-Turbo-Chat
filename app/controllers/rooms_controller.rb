@@ -8,7 +8,7 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.create(name: room_params[:name], is_private: room_params[:is_private])
-    @room.add_participant(current_user, :owner)
+    # @room.add_participant(current_user, :owner)
   end
 
   def show
@@ -21,7 +21,6 @@ class RoomsController < ApplicationController
     @users = User.all_except(current_user)
     @room = Room.new
     @message = Message.new
-
     @messages = @single_room.messages.order(created_at: :asc).last(6)
     render 'index'
   end
@@ -32,7 +31,7 @@ class RoomsController < ApplicationController
 
     return if @room.participants.where(user_id: contact.id).exists?
 
-    @room.add_participant(contact, :member)
+    @room.add_participant(current_user, contact, :member)
     flash[:notice] = "#{contact.username} was added to the room"
 
     redirect_to room_path(@room)

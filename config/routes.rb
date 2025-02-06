@@ -22,6 +22,6 @@ Rails.application.routes.draw do
       get 'requests'
     end
   end
-
+  resources :notifications, only: %i[index create destroy]
   get 'up' => 'rails/health#show', as: :rails_health_check
 end
