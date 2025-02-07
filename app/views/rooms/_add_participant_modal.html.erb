@@ -4,7 +4,7 @@
   <span class="border">Name: <%= room.name %></span>
 </button>
 
-<div class="modal fade show" style="display: block;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -17,7 +17,7 @@
           <div class="row">
             <div class="col-10"><%= participant.user.username %></div>
             <div class="col-2">
-              <%=  form_with url: add_participant_room_path, method: :delete, local: true do %>
+              <%=  form_with url: remove_participant_room_path, method: :delete, local: true do %>
                 <%=  hidden_field_tag :contact_id, participant.user.id  %>
                 <%=  submit_tag "Kick", class:"btn btn-danger border"  %>
               <%  end  %>
