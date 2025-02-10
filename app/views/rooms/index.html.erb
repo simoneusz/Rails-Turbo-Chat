@@ -13,7 +13,9 @@
         <div id="messages" class="flex-grow-1">
           <%= render @messages %>
         </div>
-        <%= render partial: 'layouts/new_message_form' %>
+        <div class="form_fixed">
+          <%= render partial: 'layouts/new_message_form' %>
+        </div>
       </div>
     <% end %>
   </div>
