@@ -24,9 +24,9 @@ gem 'image_processing', '~> 1.2'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
+  gem 'faker'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
-  gem 'faker'
 end
 
 group :development do
@@ -41,3 +41,5 @@ end
 gem 'devise'
 
 gem 'noticed', '~> 2.6'
+
+gem "pundit", "~> 2.4"
