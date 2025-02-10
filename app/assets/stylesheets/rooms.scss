@@ -1,13 +1,11 @@
 #chatroom_container{
   flex: 1 1 auto;
 }
-#room_container{
-  max-height: 500px;
-
+.room-container{
+  padding-bottom: 100px;
 }
 #single_room{
   overflow-y: auto;
-  max-height: 50vh;
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;
