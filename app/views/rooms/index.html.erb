@@ -33,3 +33,8 @@
     <% end %>
   </div>
 </div>
+<ul>
+  <% @search_results.each do |user|%>
+   <li> <%= user.username %></li>
+  <% end %>
+</ul>

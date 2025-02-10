@@ -3,8 +3,28 @@ class ApplicationController < ActionController::Base
   before_action :set_query
 
   def set_query
-    @query = User.ransack(params[:query])
+    @query = User.ransack(search_query)
     @users = []
+
+    @search_results = search_query.empty? ? {} : @query.result
+  end
+
+  def search_query
+    unless params[:q]
+      logger.info('NOTHING IN QUERY')
+      return {}
+    end
+
+    unless params[:q][:search]
+      logger.info('NOTHING IN SEARCH')
+      return {}
+    end
+
+    logger.info(params[:q][:search])
+    query = params[:q][:search]&.strip
+    return {} if query.blank?
+
+    { username_or_email_or_first_name_or_last_name_cont_any: query.split }
   end
 
   protected
