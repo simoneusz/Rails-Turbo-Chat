@@ -36,7 +36,19 @@
             <% end %>
           <% end %>
         </div>
-        <%= render partial: "search/form" %>
+        <div type="button" class="btn d-flex" data-bs-toggle="modal" data-bs-target="#searchModal">
+          <form class="form-inline">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text rounded-0" id="basic-addon1">@</span>
+              </div>
+<!--              <input class="form-control rounded-0" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">-->
+              <div class="form-control px-5 rounded-0">Username</div>
+            </div>
+          </form>
+        </div>
+
+        <%= render partial: "search/search_modal" %>
       </form>
     </div>
   </div>
