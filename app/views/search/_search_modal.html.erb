@@ -1,20 +1,15 @@
-<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+<div class="modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="searchModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="searchModalLabel">Search Results</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <%= render partial: "search/form" %>
-        <h2>Search Results:</h2>
-        <div id="search-results">
-          <ul>
-            <% @search_results.each do |user|%>
-              <li> <%= user.username %></li>
-            <% end %>
-          </ul>
-        </div>
+        <turbo-frame id="search_results">
+          <%= render "search/search_results", search_results: @search_results %>
+        </turbo-frame>
       </div>
     </div>
   </div>
