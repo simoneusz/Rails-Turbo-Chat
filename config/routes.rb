@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get :chat
     end
   end
+  get 'search_users', to: 'users#search'
 
   resources :rooms do
     resources :messages
