@@ -10,15 +10,9 @@ class ApplicationController < ActionController::Base
   end
 
   def search_query
-    unless params[:q]
-      logger.info('NOTHING IN QUERY')
-      return {}
-    end
+    return {} unless params[:q]
 
-    unless params[:q][:search]
-      logger.info('NOTHING IN SEARCH')
-      return {}
-    end
+    return {} unless params[:q][:search]
 
     logger.info(params[:q][:search])
     query = params[:q][:search]&.strip

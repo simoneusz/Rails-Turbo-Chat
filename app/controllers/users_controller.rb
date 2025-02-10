@@ -26,6 +26,19 @@ class UsersController < ApplicationController
     @users = @query.result
   end
 
+  def search
+    @query = User.ransack(search_query)
+    @search_results = @query.result
+
+    respond_to do |format|
+      format.html { render partial: 'search/search_results', locals: { search_results: @search_results } }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace('search_results', partial: 'search/search_results',
+                                                                    locals: { search_results: @search_results })
+      end
+    end
+  end
+
   private
 
   def search_query
