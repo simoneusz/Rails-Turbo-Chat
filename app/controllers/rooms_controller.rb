@@ -1,8 +1,8 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_room, only: %i[add_participant remove_participant]
-  before_action :authorize_room, only: %i[add_participant remove_participant]
+  before_action :set_room, only: %i[add_participant remove_participant block_participant]
+  before_action :authorize_room, only: %i[add_participant remove_participant block_participant]
   def index
     @room = Room.new
     @rooms = Room.public_rooms
@@ -60,6 +60,7 @@ class RoomsController < ApplicationController
     redirect_to room_path(@room)
   end
 
+  def block_participant; end
   # def accept_invitation
   #   @room = Room.find(params[:id])
   #   recipient = User.find(params[:user_id])

@@ -5,7 +5,8 @@ class Participant < ApplicationRecord
     member: 0,
     moderator: 1,
     owner: 2,
-    peer: 3
+    peer: 3,
+    blocked: 4
   }
   validates :role, presence: true
 end

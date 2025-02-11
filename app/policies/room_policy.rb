@@ -11,6 +11,10 @@ class RoomPolicy < ApplicationPolicy
     owner? || moderator?
   end
 
+  def block_participant?
+    owner? || moderator?
+  end
+
   def chat?
     true
   end
@@ -31,6 +35,10 @@ class RoomPolicy < ApplicationPolicy
 
   def peer?
     user_role == 'peer'
+  end
+
+  def blocked?
+    user_role == 'blocked'
   end
 
   def user_role
