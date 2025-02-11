@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_room, only: %i[show add_participant remove_participant]
+  before_action :set_room, only: %i[add_participant remove_participant]
   before_action :authorize_room, only: %i[add_participant remove_participant]
   def index
     @room = Room.new
@@ -22,7 +22,8 @@ class RoomsController < ApplicationController
   end
 
   def show
-    if @room.is_private && !@room.participants.where(user_id: current_user.id).exists?
+    @single_room = Room.find(params[:id])
+    if @single_room.is_private && !@single_room.participants.where(user_id: current_user.id).exists?
       redirect_to root_path, alert: 'You do not have permission to view this room'
       return
     end
@@ -35,8 +36,7 @@ class RoomsController < ApplicationController
 
   def add_participant
     contact = User.find(params[:contact_id])
-
-    if Pundit.policy(current_user, @room).invite_users?
+    if Pundit.policy(current_user, @room).add_participant?
       @room.add_participant(current_user, contact, :member)
       flash[:notice] = "#{contact.username} was added to the room"
     else
@@ -50,7 +50,7 @@ class RoomsController < ApplicationController
     contact = User.find(params[:contact_id])
     participant = @room.participants.find_by(user_id: contact.id)
 
-    if participant && Pundit.policy(current_user, @room).kick_users?
+    if participant && Pundit.policy(current_user, @room).remove_participant?
       participant.destroy
       flash[:notice] = "#{contact.username} was removed from the room"
     else
@@ -59,6 +59,7 @@ class RoomsController < ApplicationController
 
     redirect_to room_path(@room)
   end
+
   # def accept_invitation
   #   @room = Room.find(params[:id])
   #   recipient = User.find(params[:user_id])
@@ -68,7 +69,11 @@ class RoomsController < ApplicationController
   private
 
   def set_room
-    @room = Room.find(params[:id])
+    @room = if params[:room_id].present?
+              Room.find(params[:room_id])
+            else
+              Room.find(params[:id])
+            end
   end
 
   def authorize_room
