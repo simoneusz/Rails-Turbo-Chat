@@ -15,13 +15,23 @@
         <h2> Members: </h2>
         <% room.participants.where.not(user_id: current_user.id).each do |participant| %>
           <div class="row">
-            <div class="col-10"><%= participant.user.username %></div>
-            <div class="col-2">
-              <%=  form_with url: remove_participant_room_path, method: :delete, local: true do %>
-                <%=  hidden_field_tag :contact_id, participant.user.id  %>
-                <%=  hidden_field_tag :room_id, room.id  %>
-                <%=  submit_tag "Kick", class:"btn btn-danger border"  %>
-              <%  end  %>
+            <div class="dropdown">
+              <a class="btn d-flex dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="col-10"><%= participant.user.username %></div>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                  <div class="remove-participant-btn col-2">
+                    <%=  form_with url: remove_participant_room_path, method: :delete, local: true do %>
+                      <%=  hidden_field_tag :contact_id, participant.user.id  %>
+                      <%=  hidden_field_tag :room_id, room.id  %>
+                      <%=  submit_tag "Kick", class:"btn btn-danger border"  %>
+                    <%  end  %>
+                  </div>
+                </li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
             </div>
           </div>
         <% end %>
@@ -30,7 +40,7 @@
           <div class="row">
             <% unless room.participants.where(user_id: contact.id).exists? %>
               <div class="col-10"><%= contact.username %></div>
-                <div class="col-2">
+                <div class="add-participant-btn col-2">
                   <%=  form_with url: add_participant_room_path, method: :post, local: true do %>
                     <%=  hidden_field_tag :contact_id, contact.id  %>
                     <%=  hidden_field_tag :id, room.id  %>
