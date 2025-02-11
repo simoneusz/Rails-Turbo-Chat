@@ -35,10 +35,10 @@ class RoomsController < ApplicationController
   end
 
   def add_participant
-    contact = User.find(params[:contact_id])
+    user = User.find(params[:user_id])
     if Pundit.policy(current_user, @room).add_participant?
-      @room.add_participant(current_user, contact, :member)
-      flash[:notice] = "#{contact.username} was added to the room"
+      @room.add_participant(current_user, user, :member)
+      flash[:notice] = "#{user.username} was added to the room"
     else
       flash[:alert] = "You don't have permission to add users"
     end
@@ -47,12 +47,12 @@ class RoomsController < ApplicationController
   end
 
   def remove_participant
-    contact = User.find(params[:contact_id])
-    participant = @room.participants.find_by(user_id: contact.id)
+    user = User.find(params[:user_id])
+    participant = @room.participants.find_by(user_id: user.id)
 
     if participant && Pundit.policy(current_user, @room).remove_participant?
       participant.destroy
-      flash[:notice] = "#{contact.username} was removed from the room"
+      flash[:notice] = "#{user.username} was removed from the room"
     else
       flash[:alert] = "You don't have permission to remove users"
     end
@@ -60,7 +60,16 @@ class RoomsController < ApplicationController
     redirect_to room_path(@room)
   end
 
-  def block_participant; end
+  def block_participant
+    user = User.find(params[:user_id])
+    participant = @room.participants.find_by(user_id: user.id)
+    if Pundit.policy(current_user, @room).block_participant?
+      participant.update(role: :blocked)
+      flash[:notice] = "#{user.username} was blocked"
+    else
+      flash[:alert] = "You don't have permission to block users"
+    end
+  end
   # def accept_invitation
   #   @room = Room.find(params[:id])
   #   recipient = User.find(params[:user_id])
