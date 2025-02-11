@@ -1,8 +1,8 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_room, only: %i[add_participant remove_participant block_participant]
-  before_action :authorize_room, only: %i[add_participant remove_participant block_participant]
+  before_action :set_room, only: %i[add_participant remove_participant block_participant unblock_participant]
+  before_action :authorize_room, only: %i[add_participant remove_participant block_participant unblock_participant]
   def index
     @room = Room.new
     @rooms = Room.public_rooms
@@ -69,6 +69,19 @@ class RoomsController < ApplicationController
     else
       flash[:alert] = "You don't have permission to block users"
     end
+    redirect_to room_path(@room)
+  end
+
+  def unblock_participant
+    user = User.find(params[:user_id])
+    participant = @room.participants.find_by(user_id: user.id)
+    if Pundit.policy(current_user, @room).block_participant?
+      participant.update(role: :member)
+      flash[:notice] = "#{user.username} was unblocked"
+    else
+      flash[:alert] = "You don't have permission to unblock users"
+    end
+    redirect_to room_path(@room)
   end
   # def accept_invitation
   #   @room = Room.find(params[:id])

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     post 'add_participant', on: :member
     delete 'remove_participant', on: :member
     post 'block_participant', on: :member
+    post 'unblock_participant', on: :member
     post 'accept_invitation', on: :member
   end
   resources :contacts, only: %i[index create update destroy] do

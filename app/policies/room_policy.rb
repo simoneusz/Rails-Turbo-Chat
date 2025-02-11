@@ -15,6 +15,10 @@ class RoomPolicy < ApplicationPolicy
     owner? || moderator?
   end
 
+  def unblock_participant?
+    owner? || moderator?
+  end
+
   def chat?
     true
   end
