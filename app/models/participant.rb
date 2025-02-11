@@ -4,6 +4,7 @@ class Participant < ApplicationRecord
   enum role: {
     member: 0,
     moderator: 1,
-    owner: 2
+    owner: 2,
+    peer: 3
   }
 end
