@@ -1,5 +1,8 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
+
+  before_action :set_room, only: %i[show add_participant remove_participant]
+  before_action :authorize_room, only: %i[add_participant remove_participant]
   def index
     @room = Room.new
     @rooms = Room.public_rooms
@@ -19,40 +22,41 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @single_room = Room.find(params[:id])
-    if @single_room.is_private && !@single_room.participants.where(user_id: current_user.id).exists?
+    if @room.is_private && !@room.participants.where(user_id: current_user.id).exists?
       redirect_to root_path, alert: 'You do not have permission to view this room'
       return
     end
     @rooms = Room.public_rooms
     @users = User.all_except(current_user)
-    @room = Room.new
     @message = Message.new
     @messages = @single_room.messages.order(created_at: :asc).last(6)
     render 'index'
   end
 
   def add_participant
-    @room = Room.find(params[:id])
     contact = User.find(params[:contact_id])
 
-    return if @room.participants.where(user_id: contact.id).exists?
+    if Pundit.policy(current_user, @room).invite_users?
+      @room.add_participant(current_user, contact, :member)
+      flash[:notice] = "#{contact.username} was added to the room"
+    else
+      flash[:alert] = "You don't have permission to add users"
+    end
 
-    @room.add_participant(current_user, contact, :member)
-
-    flash[:notice] = "#{contact.username} was added to the room"
     redirect_to room_path(@room)
   end
 
   def remove_participant
-    @room = Room.find(params[:id])
     contact = User.find(params[:contact_id])
+    participant = @room.participants.find_by(user_id: contact.id)
 
-    return unless @room.participants.where(user_id: contact.id).exists?
+    if participant && Pundit.policy(current_user, @room).kick_users?
+      participant.destroy
+      flash[:notice] = "#{contact.username} was removed from the room"
+    else
+      flash[:alert] = "You don't have permission to remove users"
+    end
 
-    @room.participants.where(user_id: contact.id).destroy_all
-
-    flash[:notice] = "#{contact.username} was removed from the room"
     redirect_to room_path(@room)
   end
   # def accept_invitation
@@ -62,6 +66,14 @@ class RoomsController < ApplicationController
   # end
 
   private
+
+  def set_room
+    @room = Room.find(params[:id])
+  end
+
+  def authorize_room
+    authorize @room
+  end
 
   def room_params
     params.require(:room).permit(:name, :is_private)
