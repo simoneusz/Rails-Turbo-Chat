@@ -68,10 +68,12 @@
 
       function closeModal() {
           let modal = document.getElementById("user-modal");
+          let turbo = document.getElementById("modal_frame")
           if (modal) {
               modal.style.opacity = "0";
               setTimeout(() => modal.remove(), 300);
           }
+          turbo.innerHTML = ""
       }
   </script>
 
