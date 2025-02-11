@@ -19,6 +19,7 @@
             <div class="col-2">
               <%=  form_with url: remove_participant_room_path, method: :delete, local: true do %>
                 <%=  hidden_field_tag :contact_id, participant.user.id  %>
+                <%=  hidden_field_tag :room_id, room.id  %>
                 <%=  submit_tag "Kick", class:"btn btn-danger border"  %>
               <%  end  %>
             </div>
@@ -32,6 +33,7 @@
                 <div class="col-2">
                   <%=  form_with url: add_participant_room_path, method: :post, local: true do %>
                     <%=  hidden_field_tag :contact_id, contact.id  %>
+                    <%=  hidden_field_tag :id, room.id  %>
                     <%=  submit_tag "Add", class:"btn border"  %>
                   <%  end  %>
                 </div>
