@@ -3,11 +3,11 @@ class RoomPolicy < ApplicationPolicy
     owner?
   end
 
-  def invite_users?
+  def add_participant?
     owner? || moderator? || member?
   end
 
-  def kick_users?
+  def remove_participant?
     owner? || moderator?
   end
 
@@ -18,22 +18,22 @@ class RoomPolicy < ApplicationPolicy
   private
 
   def owner?
-    participant&.role == 'owner'
+    user_role == 'owner'
   end
 
   def moderator?
-    participant&.role == 'moderator'
+    user_role == 'moderator'
   end
 
   def member?
-    participant&.role == 'member'
+    user_role == 'member'
   end
 
   def peer?
-    participant&.role == 'peer'
+    user_role == 'peer'
   end
 
   def user_role
-    record.role[user.id]
+    record.participants.find_by(user_id: user.id)&.role
   end
 end
