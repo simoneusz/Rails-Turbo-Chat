@@ -29,6 +29,10 @@ body{
   &:hover{
     background-color: var(--shadow-bg-color)
   }
+  &:disabled,
+  &[disabled]{
+    color: #2E2F30!important;
+  }
 }
 .notifications-icon{
   font-size: 20px;

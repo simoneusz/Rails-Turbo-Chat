@@ -41,7 +41,7 @@
         <div class="d-flex gap-3 btn btn-modal">Waiting for user to accept your request!</div>
       <% else %>
         <%=  button_to "Add to contacts", contacts_path(contact_id: @user.id), data: { "turbo-method": :post },
-                       class:"btn btn-modal text-blue text-primary w-100" %>
+                       class:"btn btn-modal text-blue text-primary w-100", disabled:  @user == current_user %>
       <%  end %>
     </div>
   </div>
