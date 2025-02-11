@@ -7,7 +7,14 @@ class RoomsController < ApplicationController
   end
 
   def create
-    @room = Room.create(name: room_params[:name], is_private: room_params[:is_private])
+    @room = Room.new(room_params)
+    if @room.save
+      @room.add_participant(current_user, current_user, :owner)
+      flash[:success] = 'New room has been created'
+    else
+      flash[:alert] = @room.errors.full_messages.to_sentence
+      render :index
+    end
     # @room.add_participant(current_user, :owner)
   end
 
