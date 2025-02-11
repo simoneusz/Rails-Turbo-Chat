@@ -7,4 +7,5 @@ class Participant < ApplicationRecord
     owner: 2,
     peer: 3
   }
+  validates :role, presence: true
 end
