@@ -18,19 +18,19 @@ class RoomPolicy < ApplicationPolicy
   private
 
   def owner?
-    user_role == 'owner'
+    participant&.role == 'owner'
   end
 
   def moderator?
-    user_role == 'moderator'
+    participant&.role == 'moderator'
   end
 
   def member?
-    user_role == 'member'
+    participant&.role == 'member'
   end
 
   def peer?
-    user_role == 'peer'
+    participant&.role == 'peer'
   end
 
   def user_role
