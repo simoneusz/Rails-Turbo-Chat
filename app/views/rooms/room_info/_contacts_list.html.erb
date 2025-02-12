@@ -1,0 +1,15 @@
+<h5>Contact to add: </h5>
+<% user.contacts.last(5).each do |contact| %>
+  <div class="row">
+    <% unless room.participants.where(user_id: contact.id).exists? %>
+      <div class="col-10"><%= contact.username %></div>
+      <div class="add-participant-btn col-2">
+        <%=  form_with url: add_participant_room_path, method: :post, local: true do %>
+          <%=  hidden_field_tag :user_id, contact.id  %>
+          <%=  hidden_field_tag :id, room.id  %>
+          <%=  submit_tag "Add", class:"btn border"  %>
+        <%  end  %>
+      </div>
+    <%  end %>
+  </div>
+<% end %>

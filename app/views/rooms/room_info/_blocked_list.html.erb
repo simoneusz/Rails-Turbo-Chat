@@ -1,0 +1,16 @@
+<% participant = room.participants.find_by(user_id: current_user.id) %>
+<% if participant.owner? || participant.moderator? %>
+  <h2>Blocked: </h2>
+  <% room.participants.where(role: :blocked).each do |blocked|%>
+    <div class="row">
+      <div class="col-10"><%= blocked.user.username %></div>
+      <div class="add-participant-btn col-2">
+        <%=  form_with url: unblock_participant_room_path, method: :post, local: true do %>
+          <%=  hidden_field_tag :user_id, blocked.user.id  %>
+          <%=  hidden_field_tag :id, room.id  %>
+          <%=  submit_tag "Unblock", class:"btn btn-danger"  %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
