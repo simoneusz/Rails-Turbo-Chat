@@ -50,7 +50,7 @@ class RoomsController < ApplicationController
     participant = @room.participants.find_by(user_id: @user.id)
 
     if participant && Pundit.policy(current_user, @room).remove_participant?
-      participant.destroy
+      @room.remove_participant(current_user, participant)
       flash[:notice] = "#{@user.username} was removed from the room"
     else
       flash[:alert] = "You don't have permission to remove users"

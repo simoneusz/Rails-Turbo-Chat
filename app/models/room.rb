@@ -23,8 +23,9 @@ class Room < ApplicationRecord
     InviteReceivedNotifier.with(inviter: sender, room: self).deliver_later(recipient) unless sender == recipient
   end
 
-  def remove_participant(_participant)
-    Participant.create(user_id: user.id, room_id: id, role: role)
+  def remove_participant(sender, participant)
+    participant.destroy
+    recipient = participant.user
     InviteReceivedNotifier.with(inviter: sender, room: self).deliver_later(recipient) unless sender == recipient
   end
 
