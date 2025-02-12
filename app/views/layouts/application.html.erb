@@ -10,9 +10,16 @@
   </head>
   <style>
     <%= ".msg-#{current_user&.id}" %> {
-        background-color: #007bff !important;
         padding: 10px;
     }
+    <%= ".msg-#{current_user&.id}" %> > .message-top {
+        align-self: end;
+    }
+    <%= ".message-body-#{current_user.id}" %>{
+        align-self: end;
+    }
+
+
     <%= ".cont-#{current_user&.id}" %> {
         display: flex;
         justify-content: flex-end
