@@ -1,8 +1,8 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_room, only: %i[add_participant remove_participant block_participant unblock_participant]
-  before_action :set_user, only: %i[add_participant remove_participant block_participant unblock_participant]
+  before_action :set_room, only: %i[add_participant join remove_participant block_participant unblock_participant]
+  before_action :set_user, only: %i[add_participant join remove_participant block_participant unblock_participant]
   before_action :authorize_room, only: %i[add_participant remove_participant block_participant unblock_participant]
   def index
     @room = Room.new
@@ -43,6 +43,14 @@ class RoomsController < ApplicationController
       flash[:alert] = "You don't have permission to add users"
     end
 
+    redirect_to room_path(@room)
+  end
+
+  def join
+    return if @room.is_private
+
+    @room.add_participant(current_user, current_user, :member)
+    flash[:notice] = "Welcome to #{@room.name}"
     redirect_to room_path(@room)
   end
 

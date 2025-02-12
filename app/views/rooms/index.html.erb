@@ -14,7 +14,15 @@
           <%= render @messages %>
         </div>
         <div class="form_fixed">
-          <%= render partial: 'layouts/new_message_form' %>
+          <% if @single_room.participant?(current_user) %>
+            <%= render partial: 'layouts/new_message_form' %>
+          <% else %>
+            <%=  form_with url: join_room_path, method: :post, local: true do %>
+              <%=  hidden_field_tag :user_id, current_user.id  %>
+              <%=  hidden_field_tag :id, @single_room.id  %>
+              <%=  submit_tag "Join Room", class:"btn w-100 border"  %>
+            <%  end  %>
+          <% end %>
         </div>
       </div>
     <% end %>

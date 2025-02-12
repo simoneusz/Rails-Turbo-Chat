@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     post 'block_participant', on: :member
     post 'unblock_participant', on: :member
     post 'accept_invitation', on: :member
+    post 'join', on: :member
   end
   resources :contacts, only: %i[index create update destroy] do
     collection do
