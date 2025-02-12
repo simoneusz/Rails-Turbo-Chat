@@ -1,9 +1,9 @@
 <turbo-frame id="modal_frame">
-  <div class="modal fade show" id="user-modal">
-    <div class="modal-content">
+  <div class="user-info-modal modal fade show" id="user-modal">
+    <div class="user-info-modal-content modal-content">
       <div class="modal-header justify-content-between">
         <h5 class="modal-title" id="exampleModalLabel">User info</h5>
-        <button type="button" class="close" onclick="closeModal()" >
+        <button type="button" class="user-info-close close" onclick="closeModal()" >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -78,7 +78,7 @@
   </script>
 
   <style>
-      .modal {
+      .user-info-modal {
           display: none;
           position: fixed;
           left: 0;
@@ -88,13 +88,13 @@
           background: rgba(0, 0, 0, 0.5);
           color: black;
       }
-      .modal-content {
+      .user-info-modal-content {
           background: white;
           margin: 15% auto;
           padding: 20px;
           width: 50%;
       }
-      .close{
+      .user-info-close{
           border: none;
           background: transparent;
           font-size: 20px;
