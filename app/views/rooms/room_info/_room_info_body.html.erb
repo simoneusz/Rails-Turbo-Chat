@@ -6,7 +6,7 @@
     <%= render partial: "rooms/room_info/contacts_list", locals: { room: room, user: user }%>
   </div>
   <% participant = room.participants.find_by(user_id: current_user.id) %>
-  <% if participant.owner? || participant.moderator? %>
+  <% if participant&.owner? || participant&.moderator? %>
     <div class="room-info--blocked-list">
       <%= render partial: "rooms/room_info/blocked_list", locals: { room: room, user: user } %>
     </div>
