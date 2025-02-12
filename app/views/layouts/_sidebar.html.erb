@@ -26,8 +26,16 @@
       </ul>
     </li>
     <li>
-      <a href="#" class="nav-link px-0 align-middle">
-        <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
+      <a href="#submenu5"  data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+        <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Private Chats</span>
+      </a>
+      <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
+        <% Room.for_user(current_user).each do |room| %>
+          <li class="w-100">
+            <%= render room  %>
+          </li>
+        <% end %>
+      </ul>
     </li>
     <li>
       <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
