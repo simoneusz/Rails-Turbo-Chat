@@ -1,9 +1,7 @@
 <turbo-frame id="search_results">
   <ul>
     <% search_results.each do |user| %>
-      <li>
-        <%= user.username %>
-      </li>
+      <%= render user %>
     <% end %>
   </ul>
 </turbo-frame>
