@@ -31,7 +31,7 @@ class RoomsController < ApplicationController
     @rooms = Room.public_rooms
     @users = User.all_except(current_user)
     @message = Message.new
-    @messages = @single_room.messages.order(created_at: :asc).last(6)
+    @messages = @single_room.messages.order(created_at: :asc)
     render 'index'
   end
 
