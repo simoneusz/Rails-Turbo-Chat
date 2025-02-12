@@ -1,0 +1,22 @@
+.search{
+  background-color: var(--secondary-light-bg-color);
+  &:hover{
+    background-color: var(--secondary-light-bg-color);
+  }
+  height: 26px;
+}
+.search-wrapper{
+  width: var(--search-bar-width);
+  min-width: 300px;
+}
+.search-placeholder{
+  color: #fff;
+  font-size: 12px;
+}
+.search-icon{
+  font-size: 12px;
+}
+
+.search-modal-dialog{
+  max-width: var(--search-bar-width);
+}
