@@ -1,6 +1,7 @@
 class Room < ApplicationRecord
   validates_uniqueness_of :name
   scope :public_rooms, -> { where(is_private: false) }
+  scope :private_rooms, -> { where(is_private: true) }
   has_many :messages, dependent: :destroy
   has_many :participants, dependent: :destroy
   has_many :notifications_mentions, as: :record, dependent: :destroy, class_name: 'Noticed::Event'
@@ -38,5 +39,9 @@ class Room < ApplicationRecord
 
   def participant?(user)
     participants.find_by(user_id: user.id).present?
+  end
+
+  def self.for_user(user)
+    private_rooms.joins(:participants).where(participants: { user_id: user })
   end
 end
