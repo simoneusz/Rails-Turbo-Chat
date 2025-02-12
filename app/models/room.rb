@@ -20,12 +20,12 @@ class Room < ApplicationRecord
 
   def add_participant(sender, recipient, role)
     Participant.create(user_id: recipient.id, room_id: id, role: role)
-    InviteReceivedNotifier.with(inviter: sender, room: self).deliver_later(recipient)
+    InviteReceivedNotifier.with(inviter: sender, room: self).deliver_later(recipient) unless sender == recipient
   end
 
   def remove_participant(_participant)
     Participant.create(user_id: user.id, room_id: id, role: role)
-    InviteReceivedNotifier.with(inviter: sender, room: self).deliver_later(recipient)
+    InviteReceivedNotifier.with(inviter: sender, room: self).deliver_later(recipient) unless sender == recipient
   end
 
   def url
