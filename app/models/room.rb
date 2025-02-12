@@ -36,6 +36,6 @@ class Room < ApplicationRecord
   # end
 
   def participant?(user)
-    participants.find_by(user_id: user.id)
+    participants.find_by(user_id: user.id).present?
   end
 end
