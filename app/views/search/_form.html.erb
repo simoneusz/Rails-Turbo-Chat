@@ -1,0 +1,14 @@
+<%= search_form_for @query,
+                    url: search_users_path,
+                    method: :get,
+                    data: { turbo_frame: "search_results" },
+                    html: { class: "d-flex", role: "search" } do |f|
+%>
+  <%= f.label :search, "Search Users" %>
+  <%= f.search_field :search,
+                     value: params.dig(:q, :search),
+                     class: "form-control me-2",
+                     placeholder: "Enter name, email, or username"
+  %>
+  <%= f.submit "Search" %>
+<% end %>

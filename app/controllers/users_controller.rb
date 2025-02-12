@@ -22,10 +22,34 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @query = User.ransack(search_query)
+    @users = @query.result
+  end
+
+  def search
+    @query = User.ransack(search_query)
+    @search_results = @query.result
+
+    respond_to do |format|
+      format.html { render partial: 'search/search_results', locals: { search_results: @search_results } }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace('search_results', partial: 'search/search_results',
+                                                                    locals: { search_results: @search_results })
+      end
+    end
   end
 
   private
+
+  def search_query
+    return {} unless params[:q]
+
+    logger.info(params[:q][:search])
+    query = params[:q][:search]&.strip
+    return {} if query.blank?
+
+    { username_or_email_or_first_name_or_last_name_cont_any: query.split }
+  end
 
   def get_name(user1, user2)
     users = [user1, user2].sort

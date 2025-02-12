@@ -79,4 +79,12 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[username email first_name last_name created_at updated_at]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    []
+  end
 end
