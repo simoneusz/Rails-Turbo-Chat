@@ -1,0 +1,17 @@
+<% last_user_id = nil %>
+<% messages.each do |message| %>
+  <div class="cont-<%= message.user.id %> ">
+    <div class="message-box msg-<%= message.user.id %> d-flex flex-column">
+      <div class="message-top d-flex align-items-center">
+        <% if message.user.id != last_user_id %>
+          <%= render partial: "shared/default_avatar" %>
+          <h6 class="name m-0"> <%= message.user.username %> </h6>
+        <% end %>
+      </div>
+      <div class="message-body-<%= message.user.id %>">
+        <%= message.content %>
+      </div>
+    </div>
+  </div>
+  <% last_user_id = message.user.id %>
+<% end %>
