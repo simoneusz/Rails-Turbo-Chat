@@ -9,21 +9,23 @@
     <%= javascript_importmap_tags %>
   </head>
   <style>
-    <%= ".msg-#{current_user&.id}" %> {
-        padding: 10px;
-    }
-    <%= ".msg-#{current_user&.id}" %> > .message-top {
-        align-self: end;
-    }
-    <%= ".message-body-#{current_user.id}" %>{
-        align-self: end;
-    }
+    <% if current_user %>
+      <%= ".msg-#{current_user&.id}" %> {
+          padding: 10px;
+      }
+      <%= ".msg-#{current_user&.id}" %> > .message-top {
+          align-self: end;
+      }
+      <%= ".message-body-#{current_user.id}" %>{
+          align-self: end;
+      }
 
 
-    <%= ".cont-#{current_user&.id}" %> {
-        display: flex;
-        justify-content: flex-end
-    }
+      <%= ".cont-#{current_user&.id}" %> {
+          display: flex;
+          justify-content: flex-end
+      }
+    <% end %>
   </style>
   <body class="bg-main overflow-hidden">
     <%= render partial: 'layouts/nav' %>
