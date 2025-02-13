@@ -52,6 +52,8 @@ class RoomsController < ApplicationController
   def join
     return if @room.is_private
 
+    UserJoinedNotifier.with(user: current_user, room: @room).deliver
+
     @room.add_participant(current_user, current_user, :member)
     flash[:notice] = "Welcome to #{@room.name}"
     redirect_to room_path(@room)
