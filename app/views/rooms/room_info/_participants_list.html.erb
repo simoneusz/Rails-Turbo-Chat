@@ -27,7 +27,30 @@
               </div>
             </li>
             <% if policy(room).change_role? %>
-              <li><a class="dropdown-item" href="#">assign moderator: todo</a></li>
+              <h6>Assign role: </h6>
+              <% if participant.member? %>
+                <li>
+                  <div class="remove-participant-btn dropdown-item col-2">
+                    <%=  form_with url: change_role_room_path, method: :post, local: true do %>
+                      <%=  hidden_field_tag :user_id, participant.user.id  %>
+                      <%=  hidden_field_tag :role, :moderator  %>
+                      <%=  hidden_field_tag :room_id, room.id  %>
+                      <%=  submit_tag "Moderator", class:"btn border"  %>
+                    <%  end  %>
+                  </div>
+                </li>
+              <% else %>
+                <li>
+                  <div class="remove-participant-btn dropdown-item col-2">
+                    <%=  form_with url: change_role_room_path, method: :post, local: true do %>
+                      <%=  hidden_field_tag :user_id, participant.user.id  %>
+                      <%=  hidden_field_tag :role, :member  %>
+                      <%=  hidden_field_tag :room_id, room.id  %>
+                      <%=  submit_tag "Member", class:"btn border"  %>
+                    <%  end  %>
+                  </div>
+                </li>
+              <% end %>
             <% end %>
           </ul>
         <% else %>

@@ -1,9 +1,12 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_room, only: %i[add_participant join remove_participant block_participant unblock_participant]
-  before_action :set_user, only: %i[add_participant join remove_participant block_participant unblock_participant]
-  before_action :authorize_room, only: %i[add_participant remove_participant block_participant unblock_participant]
+  before_action :set_room,
+                only: %i[add_participant change_role join remove_participant block_participant unblock_participant]
+  before_action :set_user,
+                only: %i[add_participant change_role join remove_participant block_participant unblock_participant]
+  before_action :authorize_room,
+                only: %i[add_participant change_role remove_participant block_participant unblock_participant]
   def index
     @room = Room.new
     @rooms = Room.public_rooms
@@ -85,6 +88,18 @@ class RoomsController < ApplicationController
       flash[:notice] = "#{@user.username} was unblocked"
     else
       flash[:alert] = "You don't have permission to unblock users"
+    end
+    redirect_to room_path(@room)
+  end
+
+  def change_role
+    participant = @room.participants.find_by(user_id: @user.id)
+    if Pundit.policy(current_user, @room).change_role?
+      role = params[:role]
+      participant.update(role: role)
+      flash[:notice] = "#{@user.username} was changed to #{role}"
+    else
+      flash[:alert] = "You don't have permission to change role"
     end
     redirect_to room_path(@room)
   end
