@@ -7,7 +7,6 @@
       <%= render partial: "rooms/room_info/contacts_list", locals: { room: room, user: user }%>
     <% end %>
   </div>
-  <% participant = room.participants.find_by(user_id: current_user.id) %>
   <% if policy(room).unblock_participant? %>
     <div class="room-info--blocked-list">
       <%= render partial: "rooms/room_info/blocked_list", locals: { room: room, user: user } %>
