@@ -26,7 +26,7 @@
                 <%  end  %>
               </div>
             </li>
-            <% if policy(room).assign_moderator? %>
+            <% if policy(room).change_role? %>
               <li><a class="dropdown-item" href="#">assign moderator: todo</a></li>
             <% end %>
           </ul>

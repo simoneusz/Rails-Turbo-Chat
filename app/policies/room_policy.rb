@@ -1,5 +1,5 @@
 class RoomPolicy < ApplicationPolicy
-  def assign_moderator?
+  def change_role?
     owner?
   end
 
