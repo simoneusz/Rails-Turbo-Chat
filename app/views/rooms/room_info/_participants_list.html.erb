@@ -3,30 +3,38 @@
   <% unless participant.blocked? %>
     <div class="row">
       <div class="dropdown">
-        <a class="btn d-flex dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-          <div class="col-10"><%= participant.user.username %> <span>role: <%= participant.role %></span></div>
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li>
-            <div class="remove-participant-btn dropdown-item col-2">
-              <%=  form_with url: remove_participant_room_path, method: :delete, local: true do %>
-                <%=  hidden_field_tag :user_id, participant.user.id  %>
-                <%=  hidden_field_tag :room_id, room.id  %>
-                <%=  submit_tag "Kick", class:"btn btn-danger border"  %>
-              <%  end  %>
-            </div>
-          </li>
-          <li>
-            <div class="remove-participant-btn dropdown-item col-2">
-              <%=  form_with url: block_participant_room_path, method: :post, local: true do %>
-                <%=  hidden_field_tag :user_id, participant.user.id  %>
-                <%=  hidden_field_tag :room_id, room.id  %>
-                <%=  submit_tag "Block", class:"btn btn-danger border"  %>
-              <%  end  %>
-            </div>
-          </li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
+        <% if policy(room).remove_participant? %>
+          <a class="btn d-flex dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="col-10"><%= participant.user.username %> <span>role: <%= participant.role %></span></div>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li>
+              <div class="remove-participant-btn dropdown-item col-2">
+                <%=  form_with url: remove_participant_room_path, method: :delete, local: true do %>
+                  <%=  hidden_field_tag :user_id, participant.user.id  %>
+                  <%=  hidden_field_tag :room_id, room.id  %>
+                  <%=  submit_tag "Kick", class:"btn btn-danger border"  %>
+                <%  end  %>
+              </div>
+            </li>
+            <li>
+              <div class="remove-participant-btn dropdown-item col-2">
+                <%=  form_with url: block_participant_room_path, method: :post, local: true do %>
+                  <%=  hidden_field_tag :user_id, participant.user.id  %>
+                  <%=  hidden_field_tag :room_id, room.id  %>
+                  <%=  submit_tag "Block", class:"btn btn-danger border"  %>
+                <%  end  %>
+              </div>
+            </li>
+            <% if policy(room).assign_moderator? %>
+              <li><a class="dropdown-item" href="#">assign moderator: todo</a></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <a class="btn d-flex " href="#">
+            <div class="col-10"><%= participant.user.username %></div>
+          </a>
+        <% end %>
       </div>
     </div>
   <% end %>

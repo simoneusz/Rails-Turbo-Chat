@@ -3,10 +3,12 @@
     <%= render partial: "rooms/room_info/participants_list", locals: { room: room, user: user } %>
   </div>
   <div class="room-info--contacts-list">
-    <%= render partial: "rooms/room_info/contacts_list", locals: { room: room, user: user }%>
+    <% if policy(room).add_participant? %>
+      <%= render partial: "rooms/room_info/contacts_list", locals: { room: room, user: user }%>
+    <% end %>
   </div>
   <% participant = room.participants.find_by(user_id: current_user.id) %>
-  <% if participant&.owner? || participant&.moderator? %>
+  <% if policy(room).unblock_participant? %>
     <div class="room-info--blocked-list">
       <%= render partial: "rooms/room_info/blocked_list", locals: { room: room, user: user } %>
     </div>
