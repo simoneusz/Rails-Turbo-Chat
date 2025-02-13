@@ -11,8 +11,15 @@
     <i class="bi bi-chat tabs__content_icon"></i>
     <p class="tabs__content_label">DMs</p>
   <% end %>
-  <a class="nav-link tabs__content" href="#">
-    <i class="bi bi-bell tabs__content_icon"></i>
+  <a class="nav-link tabs__content" href="<%= notifications_path %>">
+    <i class="bi bi-bell tabs__content_icon position-relative">
+      <% if current_user.notifications.any? %>
+        <span class="notifications-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          <%= current_user.notifications.size %>
+          <span class="visually-hidden">unread messages</span>
+        </span>
+      <% end %>
+    </i>
     <p class="tabs__content_label">Activity</p>
   </a>
 </nav>

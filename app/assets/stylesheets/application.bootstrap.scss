@@ -47,16 +47,8 @@ body{
 
 /* Make the badge float in the top right corner of the button */
 .notifications-badge {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 9px;
-  width: 9px;
-  background-color: #fa3e3e;
-  border-radius: 2px;
-  color: white;
-  padding: 1px 3px;
-  font-size: 6px;
+  font-size: 8px;
+  font-weight: normal;
 }
 
 .form_fixed {
