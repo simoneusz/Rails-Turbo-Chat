@@ -13,7 +13,7 @@
   <% end %>
   <a class="nav-link tabs__content" href="<%= notifications_path %>">
     <i class="bi bi-bell tabs__content_icon position-relative">
-      <% if current_user.notifications.unread.any? %>
+      <% if current_user&.notifications&.unread&.any? %>
         <span class="notifications-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
           <%= current_user.notifications.unread.size %>
           <span class="visually-hidden">unread messages</span>
