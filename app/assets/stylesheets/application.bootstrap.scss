@@ -8,6 +8,7 @@
 @import 'contacts';
 @import 'search';
 @import 'actiontext.css';
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 
 .bg-main{
   background-color: var(--main-bg-color) !important;
@@ -18,6 +19,8 @@
 body{
   height: 100vh;
   overflow: hidden;
+  font-family: "Lato", serif;
+  font-weight: 400;
 }
 
 .main{
@@ -63,3 +66,28 @@ body{
   background: white;
   padding: 5px;
 }
+
+.lato-light {
+  font-family: "Lato", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.lato-regular {
+  font-family: "Lato", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.lato-bold {
+  font-family: "Lato", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lato-black {
+  font-family: "Lato", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
