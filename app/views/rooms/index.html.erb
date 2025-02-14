@@ -5,8 +5,9 @@
 <div id="chatroom_container" class="d-flex flex-column vh-100">
   <div class="room-container w-100 flex-grow-1 d-flex flex-column">
     <% if @single_room %>
-      <div class="single-room-top text-center">
+      <div class="single-room-top text-center d-flex flex-row justify-content-center">
         <%= render partial: 'rooms/room_info/room_info_modal', locals: { room: @single_room, user: current_user } %>
+        <%= render partial: 'rooms/room_info/room_settings_dropdown' %>
       </div>
       <div class="notifications">
         <%= turbo_stream_from "room_#{@single_room.id}_notifications" %>
