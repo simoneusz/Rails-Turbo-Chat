@@ -1,4 +1,5 @@
-<%= form_with(model: @room, remote: true, class: "form d-flex flex-column") do |f| %>
+<%= form_with(model: Room.new, remote: true, class: "form d-flex flex-column") do |f| %>
+  <%= f.label :name,"New room @", class:"form-label" %>
   <%= f.text_field :name, class: "form-control", autocomplete: 'off' %>
   <div class="form-check form-switch">
     <%= f.check_box :is_private, class:"form-check-input", role: "switch" %>
