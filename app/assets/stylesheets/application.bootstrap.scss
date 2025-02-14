@@ -91,3 +91,8 @@ body{
   font-style: normal;
 }
 
+.dropdown-no-arrow{
+  &::after{
+    display: none;
+  }
+}
