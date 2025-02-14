@@ -17,10 +17,9 @@ class RoomsController < ApplicationController
     @room = Room.new(room_params)
     if @room.save
       @room.add_participant(current_user, current_user, :owner)
-      flash[:success] = 'New room has been created'
+      redirect_to @room, success: 'New room has been created'
     else
-      flash[:alert] = @room.errors.full_messages.to_sentence
-      render :index
+      redirect_to root_path, alert: @room.errors.full_messages.to_sentence
     end
     # @room.add_participant(current_user, :owner)
   end
