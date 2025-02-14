@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     post 'unblock_participant', on: :member
     post 'accept_invitation', on: :member
     post 'join', on: :member
+    delete 'leave', on: :member
     post 'change_role', on: :member
   end
   resources :contacts, only: %i[index create update destroy] do

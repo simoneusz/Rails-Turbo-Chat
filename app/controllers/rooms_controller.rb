@@ -2,11 +2,14 @@ class RoomsController < ApplicationController
   before_action :authenticate_user!
 
   before_action :set_room,
-                only: %i[add_participant change_role join remove_participant block_participant unblock_participant]
+                only: %i[add_participant change_role join leave remove_participant block_participant
+                         unblock_participant]
   before_action :set_user,
-                only: %i[add_participant change_role join remove_participant block_participant unblock_participant]
+                only: %i[add_participant change_role join leave remove_participant block_participant
+                         unblock_participant]
   before_action :authorize_room,
-                only: %i[add_participant change_role remove_participant block_participant unblock_participant]
+                only: %i[add_participant change_role remove_participant block_participant
+                         unblock_participant]
   def index
     @room = Room.new
     @rooms = Room.public_rooms
@@ -56,6 +59,13 @@ class RoomsController < ApplicationController
     @room.add_participant(current_user, current_user, :member)
     flash[:notice] = "Welcome to #{@room.name}"
     redirect_to room_path(@room)
+  end
+
+  def leave
+    participant = @room.participants.where(user_id: current_user).first
+    @room.remove_participant(current_user, participant)
+
+    redirect_to root_path
   end
 
   def remove_participant
