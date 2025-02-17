@@ -1,8 +1,8 @@
 <div id="pager" class="text-center">
   <% if pagy.next %>
-    <%= link_to("Load More Messages",
+    <%= link_to("***",
                 url_for(page: pagy.next),
-                class: "btn btn-primary",
+                class: "btn",
                 data: {
                   turbo_frame: "page_handler",
                   controller: "autoclick"
