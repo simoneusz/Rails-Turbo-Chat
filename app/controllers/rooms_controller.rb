@@ -1,15 +1,12 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_room_and_user, only: %i[
+    add_participant change_role join leave remove_participant block_participant unblock_participant
+  ]
+  before_action :authorize_room, only: %i[
+    add_participant change_role remove_participant block_participant unblock_participant
+  ]
 
-  before_action :set_room,
-                only: %i[add_participant change_role join leave remove_participant block_participant
-                         unblock_participant]
-  before_action :set_user,
-                only: %i[add_participant change_role join leave remove_participant block_participant
-                         unblock_participant]
-  before_action :authorize_room,
-                only: %i[add_participant change_role remove_participant block_participant
-                         unblock_participant]
   def index
     @room = Room.new
     @rooms = Room.public_rooms
@@ -24,114 +21,107 @@ class RoomsController < ApplicationController
     else
       redirect_to root_path, alert: @room.errors.full_messages.to_sentence
     end
-    # @room.add_participant(current_user, :owner)
   end
 
   def show
     @single_room = Room.find(params[:id])
-    if @single_room.is_private && !@single_room.participants.where(user_id: current_user.id).exists?
-      redirect_to root_path, alert: 'You do not have permission to view this room'
-      return
+    if @single_room.is_private && !@single_room.participants.exists?(user_id: current_user.id)
+      redirect_to root_path, alert: 'You do not have permission to view this room' and return
     end
+
     @rooms = Room.public_rooms
     @users = User.all_except(current_user)
     @message = Message.new
-    @messages = @single_room.messages.order(created_at: :asc)
+    @messages = @single_room.messages.order(:created_at)
     render 'index'
   end
 
   def add_participant
-    if Pundit.policy(current_user, @room).add_participant?
+    if authorized?(:add_participant)
       @room.add_participant(current_user, @user, :member)
-      flash[:notice] = "#{@user.username} was added to the room"
+      set_flash_and_redirect(:notice, "#{@user.username} was added to the room")
     else
-      flash[:alert] = "You don't have permission to add users"
+      set_flash_and_redirect(:alert, "You don't have permission to add users")
     end
-
-    redirect_to room_path(@room)
   end
 
   def join
-    return if @room.is_private
-
-    UserJoinedNotifier.with(user: current_user, room: @room).deliver
-
-    @room.add_participant(current_user, current_user, :member)
-    flash[:notice] = "Welcome to #{@room.name}"
-    redirect_to room_path(@room)
+    if @room.is_private
+      redirect_to root_path, alert: 'This is a private room'
+    else
+      UserJoinedNotifier.with(user: current_user, room: @room).deliver
+      @room.add_participant(current_user, current_user, :member)
+      set_flash_and_redirect(:notice, "Welcome to #{@room.name}")
+    end
   end
 
   def leave
-    participant = @room.participants.where(user_id: current_user).first
-    @room.remove_participant(current_user, participant)
-
+    if (participant = find_participant(current_user.id))
+      @room.remove_participant(current_user, participant)
+    end
     redirect_to root_path
   end
 
   def remove_participant
-    participant = @room.participants.find_by(user_id: @user.id)
-
-    if participant && Pundit.policy(current_user, @room).remove_participant?
-      @room.remove_participant(current_user, participant)
-      flash[:notice] = "#{@user.username} was removed from the room"
-    else
-      flash[:alert] = "You don't have permission to remove users"
+    if (participant = find_participant(@user.id))
+      if authorized?(:remove_participant)
+        @room.remove_participant(current_user, participant)
+        set_flash_and_redirect(:notice, "#{@user.username} was removed from the room")
+      else
+        set_flash_and_redirect(:alert, "You don't have permission to remove users")
+      end
     end
-
-    redirect_to room_path(@room)
   end
 
   def block_participant
-    participant = @room.participants.find_by(user_id: @user.id)
-    if Pundit.policy(current_user, @room).block_participant?
-      participant.update(role: :blocked)
-      flash[:notice] = "#{@user.username} was blocked"
-    else
-      flash[:alert] = "You don't have permission to block users"
-    end
-    redirect_to room_path(@room)
+    update_role(:blocked, 'blocked', :block_participant)
   end
 
   def unblock_participant
-    participant = @room.participants.find_by(user_id: @user.id)
-    if Pundit.policy(current_user, @room).block_participant?
-      participant.update(role: :member)
-      flash[:notice] = "#{@user.username} was unblocked"
-    else
-      flash[:alert] = "You don't have permission to unblock users"
-    end
-    redirect_to room_path(@room)
+    update_role(:member, 'unblocked', :block_participant)
   end
 
   def change_role
-    participant = @room.participants.find_by(user_id: @user.id)
-    if Pundit.policy(current_user, @room).change_role?
+    return unless (participant = find_participant(@user.id))
+
+    if authorized?(:change_role)
       role = params[:role]
       participant.update(role: role)
-      flash[:notice] = "#{@user.username} was changed to #{role}"
+      set_flash_and_redirect(:notice, "#{@user.username} was changed to #{role}")
     else
-      flash[:alert] = "You don't have permission to change role"
+      set_flash_and_redirect(:alert, "You don't have permission to change role")
     end
-    redirect_to room_path(@room)
   end
-  # def accept_invitation
-  #   @room = Room.find(params[:id])
-  #   recipient = User.find(params[:user_id])
-  #   @room.add_participant(current_user, recipient, :member)
-  # end
 
   private
 
-  def set_room
-    @room = if params[:room_id].present?
-              Room.find(params[:room_id])
-            else
-              Room.find(params[:id])
-            end
+  def set_room_and_user
+    @room = Room.find_by(id: params[:room_id] || params[:id])
+    @user = User.find_by(id: params[:user_id])
   end
 
-  def set_user
-    @user = User.find(params[:user_id])
+  def find_participant(user_id)
+    @room.participants.find_by(user_id: user_id)
+  end
+
+  def authorized?(action)
+    Pundit.policy(current_user, @room).public_send("#{action}?")
+  end
+
+  def update_role(new_role, action_message, policy_action)
+    return unless (participant = find_participant(@user.id))
+
+    if authorized?(policy_action)
+      participant.update(role: new_role)
+      set_flash_and_redirect(:notice, "#{@user.username} was #{action_message}")
+    else
+      set_flash_and_redirect(:alert, "You don't have permission to #{action_message} users")
+    end
+  end
+
+  def set_flash_and_redirect(type, message)
+    flash[type] = message
+    redirect_to room_path(@room)
   end
 
   def authorize_room
