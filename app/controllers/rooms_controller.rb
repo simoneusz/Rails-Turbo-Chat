@@ -8,9 +8,10 @@ class RoomsController < ApplicationController
   ]
 
   def index
-    @room = Room.new
-    @rooms = Room.public_rooms
-    @users = User.all_except(current_user)
+    # @room = Room.new
+    # @rooms = Room.public_rooms
+    # @users = User.all_except(current_user)
+    Rooms::Index.call(current_user: current_user)
   end
 
   def create
@@ -60,9 +61,8 @@ class RoomsController < ApplicationController
   end
 
   def leave
-    if (participant = find_participant(current_user.id))
-      @room.remove_participant(current_user, participant)
-    end
+    participant = find_participant(current_user.id)
+    @room.remove_participant(current_user, participant) if participant
     redirect_to root_path
   end
 
