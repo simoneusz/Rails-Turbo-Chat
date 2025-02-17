@@ -11,6 +11,10 @@ class Room < ApplicationRecord
   #   broadcast_append_to 'rooms' unless is_private
   # end
 
+  scope :for_user, lambda { |user|
+    private_rooms.joins(:participants).where(participants: { user_id: user })
+  }
+
   broadcasts_to ->(room) { "room_#{room.id}_notifications" }
 
   def self.create_private_room(users, room_name)
@@ -43,7 +47,7 @@ class Room < ApplicationRecord
     participants.find_by(user_id: user.id).present?
   end
 
-  def self.for_user(user)
-    private_rooms.joins(:participants).where(participants: { user_id: user })
-  end
+  # def self.for_user(user)
+  #   private_rooms.joins(:participants).where(participants: { user_id: user })
+  # end
 end
