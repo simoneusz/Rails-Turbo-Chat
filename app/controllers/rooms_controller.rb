@@ -32,7 +32,11 @@ class RoomsController < ApplicationController
     @rooms = Room.public_rooms
     @users = User.all_except(current_user)
     @message = Message.new
-    @messages = @single_room.messages.order(:created_at)
+
+    pagy_messages = @single_room.messages.order(created_at: :desc)
+    @pagy, messages = pagy(pagy_messages)
+    @messages = messages.reverse
+
     render 'index'
   end
 
