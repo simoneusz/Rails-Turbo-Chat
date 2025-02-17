@@ -1,3 +1,5 @@
+##  THIS PROJECT IS CURRENTLY UNDER CONSTRUCTION
+
 # Project Chat
 Use slack as UI and functional examples
 
