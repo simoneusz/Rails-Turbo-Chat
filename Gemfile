@@ -44,3 +44,5 @@ gem 'noticed', '~> 2.6'
 gem 'ransack'
 
 gem 'pundit', '~> 2.4'
+
+gem 'pagy', '~> 9.3'

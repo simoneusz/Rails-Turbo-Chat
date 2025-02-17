@@ -191,6 +191,7 @@ GEM
     noticed (2.6.0)
       rails (>= 6.1.0)
     orm_adapter (0.5.0)
+    pagy (9.3.3)
     parallel (1.26.3)
     parser (3.3.7.0)
       ast (~> 2.4.1)
@@ -351,6 +352,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   noticed (~> 2.6)
+  pagy (~> 9.3)
   pg (~> 1.1)
   puma (>= 5.0)
   pundit (~> 2.4)
