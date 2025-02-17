@@ -8,6 +8,10 @@ export default class TrixController extends Controller {
     // ".trix-button-group--block-tools",
     // ".trix-button-group--file-tools",
     // ".trix-button-group--history-tools"
+      ".trix-button--icon-bullet-list",
+      ".trix-button--icon-number-list",
+      ".trix-button--icon-decrease-nesting-level",
+      ".trix-button--icon-increase-nesting-level",
   ];
 
   connect() {
