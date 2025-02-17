@@ -13,6 +13,8 @@ class InviteReceivedNotifier < ApplicationNotifier
 
   def url
     room_path(params[:room])
+  rescue ActionController::UrlGenerationError
+    root_path
   end
 
   notification_methods do
