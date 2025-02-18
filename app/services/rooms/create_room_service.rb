@@ -1,25 +1,21 @@
+# frozen_string_literal: true
+
 module Rooms
-  class CreateRoomService < ApplicationService
-    def initialize(room, current_user)
-      super()
-      @room = room
+  class CreateRoomService
+    def initialize(room_params, current_user)
+      @room_params = room_params
       @current_user = current_user
     end
 
-    def self.call(room, current_user)
-      new(room, current_user).call
-    end
-
     def call
-      return unless @room.save
+      @room = Room.new(@room_params)
+      ActiveRecord::Base.transaction do
+        raise ActiveRecord::Rollback unless @room.save
 
-      room_owner
-    end
+        @room.participants.create(user: @current_user, role: owner) if @room.save
+      end
 
-    private
-
-    def room_owner
-      @room.participants.build(user: @current_user, role: :owner).save
+      @room
     end
   end
 end
