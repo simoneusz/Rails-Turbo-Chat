@@ -8,17 +8,17 @@ class RoomsController < ApplicationController
   ]
 
   def index
-    # @room = Room.new
-    # @rooms = Room.public_rooms
-    # @users = User.all_except(current_user)
-    Rooms::Index.call(current_user: current_user)
+    @room = Room.new
+    @rooms = Room.public_rooms
+    @users = User.all_except(current_user)
   end
 
   def create
     @room = Room.new(room_params)
-    if @room.save
-      @room.add_participant(current_user, current_user, :owner)
-      redirect_to @room, success: 'New room has been created'
+    if @room.valid?
+      Rooms::CreateRoomService.call(@room, current_user)
+      flash[:success] = 'Room created successfully.'
+      redirect_to @room
     else
       redirect_to root_path, alert: @room.errors.full_messages.to_sentence
     end
