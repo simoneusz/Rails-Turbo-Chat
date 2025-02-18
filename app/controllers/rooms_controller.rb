@@ -1,5 +1,4 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_room_and_user, only: %i[
     add_participant change_role join leave remove_participant block_participant unblock_participant
   ]
