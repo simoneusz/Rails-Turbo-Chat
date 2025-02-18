@@ -15,8 +15,6 @@ class Room < ApplicationRecord
     private_rooms.joins(:participants).where(participants: { user_id: user })
   }
 
-  broadcasts_to ->(room) { "room_#{room.id}_notifications" }
-
   def self.create_private_room(users, room_name)
     single_room = Room.create(name: room_name, is_private: true)
     users.each do |user|
