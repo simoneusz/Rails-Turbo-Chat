@@ -6,6 +6,16 @@ class Message < ApplicationRecord
   after_create_commit { broadcast_append_to room }
   before_create :confirm_participant
 
+  def next
+    room = Room.find(self.room.id)
+    room.messages.where('id > ?', id).first
+  end
+
+  def prev
+    room = Room.find(self.room.id)
+    room.messages.where('id < ?', id).last
+  end
+
   def confirm_participant
     return unless room.is_private
 
