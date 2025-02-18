@@ -17,10 +17,8 @@ class RoomsController < ApplicationController
     result = Rooms::CreateRoomService.new(room_params, current_user).call
     logger.info(result)
     if result.valid?
-      logger.info('IFIFIFIFIFIIFIFIFIFIIFIFIFIIFIFIFIIF')
       redirect_to result, success: 'New room has been created'
     else
-      logger.info('ELSEELSELSELSELSLELSE')
       redirect_to root_path, alert: result.errors.full_messages.to_sentence
     end
   end
