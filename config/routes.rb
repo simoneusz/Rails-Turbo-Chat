@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'search_users', to: 'users#search'
 
   resources :rooms do
-    resources :messages
+    resources :messages, only: %i[create destroy]
     post 'add_participant', on: :member
     delete 'remove_participant', on: :member
     post 'block_participant', on: :member
