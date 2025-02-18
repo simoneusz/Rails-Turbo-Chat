@@ -26,9 +26,9 @@ export default class extends Controller {
 
     let clickedElement = event.target;
     let messageId = this.getMessageId(clickedElement);
-
-    if (messageId) {
-      this.prepareMenuForTodoItem(messageId);
+    let roomId = this.getRoomId(clickedElement);
+    if (messageId && roomId) {
+      this.prepareMenuForTodoItem(messageId, roomId);
     } else {
       this.hideMenuOptions();
     }
@@ -37,8 +37,8 @@ export default class extends Controller {
     this.menuTarget.classList.remove("d-none");
   }
 
-  prepareMenuForTodoItem(messageId) {
-    this.updateLinkTargets(messageId);
+  prepareMenuForTodoItem(messageId, roomId) {
+    this.updateLinkTargets(messageId, roomId);
     this.showMenuOptions();
   }
 
@@ -50,22 +50,25 @@ export default class extends Controller {
     this.toggleMenuOptions(false);
   }
 
-  updateLinkTargets(messageId) {
+  updateLinkTargets(messageId, roomId) {
     // TODO: Maybe consider refactoring to use a stimulus value instead,
     // then feed the stimulus value the todos_path?
-    const todoPath = `/todos/${messageId}`;
-    this.showLinkTarget.href = todoPath;
-    this.editLinkTarget.href = `${todoPath}/edit`;
-    this.deleteLinkTarget.href = todoPath;
+    const messagePath = `/rooms/${roomId}/messages/${messageId}`;
+    // this.showLinkTarget.href = todoPath;
+    // this.editLinkTarget.href = `${todoPath}/edit`;
+    this.deleteLinkTarget.href = messagePath;
   }
 
   getMessageId(clickedElement) {
     return clickedElement.closest("[data-message-id]").dataset.messageId;
   }
+  getRoomId(clickedElement) {
+    return clickedElement.closest("[data-room-id]").dataset.roomId;
+  }
 
   toggleMenuOptions(hide) {
-    this.showLinkTarget.classList.toggle("d-none", hide);
-    this.editLinkTarget.classList.toggle("d-none", hide);
+    // this.showLinkTarget.classList.toggle("d-none", hide);
+    // this.editLinkTarget.classList.toggle("d-none", hide);
     this.deleteLinkTarget.classList.toggle("d-none", hide);
   }
 
