@@ -84,7 +84,8 @@ class RoomsController < ApplicationController
   end
 
   def change_role
-    return unless (participant = find_participant(@user.id))
+    participant = find_participant(@user.id)
+    return unless participant
 
     if authorized?(:change_role)
       role = params[:role]
@@ -111,7 +112,8 @@ class RoomsController < ApplicationController
   end
 
   def update_role(new_role, action_message, policy_action)
-    return unless (participant = find_participant(@user.id))
+    participant = find_participant(@user.id)
+    return unless participant
 
     if authorized?(policy_action)
       participant.update(role: new_role)
