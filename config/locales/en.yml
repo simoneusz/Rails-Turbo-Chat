@@ -32,3 +32,4 @@ en:
   errors:
     new_room_invalid: "Can't create this room"
     new_participant_invalid: "Can't create this participant"
+    participant_already_exists: "User already in room"
