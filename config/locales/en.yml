@@ -30,4 +30,4 @@
 en:
   hello: "Hello world"
   errors:
-    CODE_RECORD_NOT_VALID: "Can't process this data"
+    room_not_valid: "Can't create this room"
