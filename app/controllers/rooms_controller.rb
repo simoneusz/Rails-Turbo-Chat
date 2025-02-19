@@ -14,11 +14,10 @@ class RoomsController < ApplicationController
 
   def create
     result = Rooms::CreateRoomService.new(room_params, current_user).call
-    logger.info(result)
-    if result.valid?
-      redirect_to result, success: 'New room has been created'
+    if result.success?
+      redirect_to result.data, success: 'New room has been created'
     else
-      redirect_to root_path, alert: result.errors.full_messages.to_sentence
+      render_service_error(result)
     end
   end
 
@@ -40,11 +39,11 @@ class RoomsController < ApplicationController
   end
 
   def add_participant
-    if authorized?(:add_participant)
-      @room.add_participant(current_user, @user, :member)
-      set_flash_and_redirect(:notice, "#{@user.username} was added to the room")
+    result = Participants::AddParticipantService.new(@room, current_user, @user, :member).call
+    if result&.success?
+      set_flash_and_redirect(:notice, "#{@user.username} was added to the room", rooms_path(result.data))
     else
-      set_flash_and_redirect(:alert, "You don't have permission to add users")
+      render_service_error(result)
     end
   end
 
@@ -52,8 +51,8 @@ class RoomsController < ApplicationController
     if @room.is_private
       redirect_to root_path, alert: 'This is a private room'
     else
-      UserJoinedNotifier.with(user: current_user, room: @room).deliver
-      @room.add_participant(current_user, current_user, :member)
+      # UserJoinedNotifier.with(user: current_user, room: @room).deliver
+      Rooms::JoinRoomService.new(@room, @user).call
       set_flash_and_redirect(:notice, "Welcome to #{@room.name}")
     end
   end
@@ -65,13 +64,12 @@ class RoomsController < ApplicationController
   end
 
   def remove_participant
-    if (participant = find_participant(@user.id))
-      if authorized?(:remove_participant)
-        @room.remove_participant(current_user, participant)
-        set_flash_and_redirect(:notice, "#{@user.username} was removed from the room")
-      else
-        set_flash_and_redirect(:alert, "You don't have permission to remove users")
-      end
+    set_flash_and_redirect(:alert, "You don't have permission to remove users") unless authorized?(:remove_participant)
+    result = Participants::RemoveParticipantService.new(@room, @user).call
+    if result
+      set_flash_and_redirect(:notice, "#{@user.username} was removed from the room")
+    else
+      set_flash_and_redirect(:alert, 'Could not remove user')
     end
   end
 
@@ -123,9 +121,16 @@ class RoomsController < ApplicationController
     end
   end
 
-  def set_flash_and_redirect(type, message)
+  def render_service_error(result)
+    error_message = I18n.t("errors.#{result.error_code}")
+    error_message += " #{result.message}" if result.message.present?
+
+    set_flash_and_redirect(:alert, error_message)
+  end
+
+  def set_flash_and_redirect(type, message, redirect_path = root_path)
     flash[type] = message
-    redirect_to room_path(@room)
+    redirect_to redirect_path
   end
 
   def authorize_room
