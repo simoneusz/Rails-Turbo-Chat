@@ -46,6 +46,12 @@ class Room < ApplicationRecord
     participants.find_by(user_id: user.id).present?
   end
 
+  def find_participant(user)
+    return nil if user.nil?
+
+    participants.find_by(user_id: user.id)
+  end
+
   # def self.for_user(user)
   #   private_rooms.joins(:participants).where(participants: { user_id: user })
   # end
