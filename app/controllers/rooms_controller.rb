@@ -48,12 +48,11 @@ class RoomsController < ApplicationController
   end
 
   def join
-    if @room.is_private
-      redirect_to root_path, alert: 'This is a private room'
+    result = Participants::AddParticipantService.new(@room, current_user, @user, :member).call
+    if result&.success?
+      set_flash_and_redirect(:notice, "Welcome to #{@room.name}", room_path(@room))
     else
-      # UserJoinedNotifier.with(user: current_user, room: @room).deliver
-      Rooms::JoinRoomService.new(@room, @user).call
-      set_flash_and_redirect(:notice, "Welcome to #{@room.name}")
+      render_service_error(result)
     end
   end
 

@@ -1,0 +1,30 @@
+# frozen_string_literal: true
+
+module Rooms
+  class JoinRoomService < ApplicationService
+    CODE_CANT_JOIN_PRIVATE_ROOM = :cant_join_private_room
+    CODE_PARTICIPANT_INVALID = :new_participant_invalid
+
+    def initialize(room, user)
+      super()
+      @room = room
+      @user = user
+      @joined_user_role = :member
+    end
+
+    def call
+      return error(code: :cant_join_private_room) if @room.is_private
+
+      result = create_participant
+      if result&.success?
+        success(result.data)
+      else
+        error(result&.errors, code: CODE_PARTICIPANT_INVALID)
+      end
+    end
+  end
+
+  def create_participant
+    Participants::CreateParticipantService.new(@room, @target_user, @joined_user_role).call
+  end
+end
