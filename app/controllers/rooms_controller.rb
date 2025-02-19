@@ -41,7 +41,7 @@ class RoomsController < ApplicationController
   def add_participant
     result = Participants::AddParticipantService.new(@room, current_user, @user, :member).call
     if result&.success?
-      set_flash_and_redirect(:notice, "#{@user.username} was added to the room", rooms_path(result.data))
+      set_flash_and_redirect(:notice, "#{@user.username} was added to the room", room_path(@room))
     else
       render_service_error(result)
     end
