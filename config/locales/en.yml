@@ -30,4 +30,4 @@
 en:
   hello: "Hello world"
   errors:
-    room_not_valid: "Can't create this room"
+    room_invalid: "Can't create this room"
