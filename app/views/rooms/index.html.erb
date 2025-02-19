@@ -15,8 +15,7 @@
           <%= render "messages/pager", pagy: @pagy %>
           <div id="messages-container" data-action="contextmenu->message-context-menu#open">
               <%= turbo_frame_tag "page_handler" %>
-
-              <%= render partial: "messages/messages", locals: { messages: @messages } %>
+              <%= render @messages %>
           </div>
           <%= render partial: "rooms/context_menu" %>
         </div>
