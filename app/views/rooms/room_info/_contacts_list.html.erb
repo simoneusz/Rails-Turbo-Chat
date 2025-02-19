@@ -1,5 +1,5 @@
 <h5>Contact to add: </h5>
-<% user.contacts.last(5).each do |contact| %>
+<% user.contacts.each do |contact| %>
   <div class="row">
     <% unless room.participants.where(user_id: contact.id).exists? %>
       <div class="col-10"><%= contact.username %></div>
