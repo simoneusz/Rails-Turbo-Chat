@@ -19,6 +19,8 @@ module Participants
       success(participant)
     end
 
+    private
+
     def remove_participant(participant)
       @room.participants.delete(participant)
     end
