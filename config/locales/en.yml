@@ -35,3 +35,5 @@ en:
     participant_doesnt_exist: "Can't find this participant"
     participant_already_exists: "User already in room"
     cant_join_private_room: "Can't join private room"
+    unknown_role: "This role are not allowed"
+
