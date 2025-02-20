@@ -60,8 +60,14 @@ class RoomsController < ApplicationController
 
   def leave
     participant = find_participant(current_user.id)
-    @room.remove_participant(current_user, participant) if participant
-    redirect_to root_path
+
+    result = Rooms::LeaveRoomService.new(@room, participant).call
+
+    if result&.success?
+      set_flash_and_redirect(:notice, 'You have been removed from the room')
+    else
+      render_service_error(result)
+    end
   end
 
   def remove_participant
