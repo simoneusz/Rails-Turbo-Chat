@@ -6,6 +6,8 @@ class RoomsController < ApplicationController
     add_participant change_role remove_participant block_participant unblock_participant
   ]
 
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
+
   def index
     @room = Room.new
     @rooms = Room.public_rooms
@@ -98,6 +100,10 @@ class RoomsController < ApplicationController
 
   def authorized?(action)
     Pundit.policy(current_user, @room).public_send("#{action}?")
+  end
+
+  def not_authorized
+    set_flash_and_redirect(:alert, 'You are not authorized to perform this action', root_path)
   end
 
   def update_role(new_role)
