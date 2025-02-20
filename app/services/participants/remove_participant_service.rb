@@ -12,7 +12,7 @@ module Participants
 
     def call
       participant = @room.find_participant(@user)
-      return error_cant_find_participants(participant) unless participant
+      return error_cant_find_participants unless participant
 
       remove_participant(participant)
 
@@ -25,7 +25,7 @@ module Participants
       @room.participants.delete(participant)
     end
 
-    def error_cant_find_participants(_participant)
+    def error_cant_find_participants
       error(code: CODE_PARTICIPANT_DOESNT_EXIST)
     end
   end
