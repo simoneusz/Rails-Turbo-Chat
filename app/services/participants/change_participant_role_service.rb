@@ -12,25 +12,25 @@ module Participants
 
     def call
       return error_invalid_participant unless @participant
-      return error_unknown_role unless Participant.roles.include?(role)
+      return error_unknown_role unless Participant.roles.include?(@new_role)
 
       update_participant_role
 
       success(@participant)
     end
-  end
 
-  private
+    private
 
-  def update_participant_role
-    @participant.update(role: @new_role)
-  end
+    def update_participant_role
+      @participant.update(role: @new_role)
+    end
 
-  def error_invalid_participant
-    error(code: CODE_PARTICIPANT_DOESNT_EXIST)
-  end
+    def error_invalid_participant
+      error(code: CODE_PARTICIPANT_DOESNT_EXIST)
+    end
 
-  def error_unknown_role
-    error(code: CODE_UNKNOWN_ROLE)
+    def error_unknown_role
+      error(code: CODE_UNKNOWN_ROLE)
+    end
   end
 end
