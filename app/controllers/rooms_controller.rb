@@ -66,31 +66,23 @@ class RoomsController < ApplicationController
     set_flash_and_redirect(:alert, "You don't have permission to remove users") unless authorized?(:remove_participant)
     result = Participants::RemoveParticipantService.new(@room, @user).call
     if result.success?
-      set_flash_and_redirect(:notice, "#{@user.username} was removed from the room")
+      set_flash_and_redirect(:notice, "#{@user.username} was removed from the room", room_path(@room))
     else
       render_service_error(result, room_path(@room))
     end
   end
 
   def block_participant
-    update_role(:blocked, 'blocked', :block_participant)
+    update_role(:blocked)
   end
 
   def unblock_participant
-    update_role(:member, 'unblocked', :block_participant)
+    update_role(:member)
   end
 
   def change_role
-    participant = find_participant(@user.id)
-    return unless participant
-
-    if authorized?(:change_role)
-      role = params[:role]
-      participant.update(role: role)
-      set_flash_and_redirect(:notice, "#{@user.username} was changed to #{role}")
-    else
-      set_flash_and_redirect(:alert, "You don't have permission to change role")
-    end
+    new_role = params[:role]
+    update_role(new_role)
   end
 
   private
@@ -108,15 +100,15 @@ class RoomsController < ApplicationController
     Pundit.policy(current_user, @room).public_send("#{action}?")
   end
 
-  def update_role(new_role, action_message, policy_action)
+  def update_role(new_role)
     participant = find_participant(@user.id)
-    return unless participant
-
-    if authorized?(policy_action)
-      participant.update(role: new_role)
-      set_flash_and_redirect(:notice, "#{@user.username} was #{action_message}")
+    params[:role]
+    result = Participants::ChangeParticipantRoleService.new(participant, new_role).call
+    if result.success?
+      set_flash_and_redirect(:notice, "Role for #{participant.user.username} was changed to #{new_role}",
+                             room_path(@room))
     else
-      set_flash_and_redirect(:alert, "You don't have permission to #{action_message} users")
+      render_service_error(result, room_path(@room))
     end
   end
 
