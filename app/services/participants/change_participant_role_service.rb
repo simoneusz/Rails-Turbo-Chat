@@ -12,7 +12,7 @@ module Participants
 
     def call
       return error_invalid_participant unless @participant
-      return error_unknown_role unless role_exist?(@new_role)
+      return error_unknown_role unless Participant.roles.include?(role)
 
       update_participant_role
 
@@ -24,10 +24,6 @@ module Participants
 
   def update_participant_role
     @participant.update(role: @new_role)
-  end
-
-  def role_exist?(role)
-    Participant.roles.include?(role)
   end
 
   def error_invalid_participant
