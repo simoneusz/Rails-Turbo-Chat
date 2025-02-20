@@ -108,7 +108,6 @@ class RoomsController < ApplicationController
 
   def update_role(new_role)
     participant = find_participant(@user.id)
-    params[:role]
     result = Participants::ChangeParticipantRoleService.new(participant, new_role).call
     if result.success?
       set_flash_and_redirect(:notice, "Role for #{participant.user.username} was changed to #{new_role}",
