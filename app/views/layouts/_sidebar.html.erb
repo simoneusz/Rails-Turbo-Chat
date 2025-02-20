@@ -7,13 +7,28 @@
       <%= render partial: "layouts/new_room_modal" %>
     </li>
     <li class="nav-item w-100 px-1">
+      <a href="#rooms" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+        <i class="fs-5 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Rooms</span>
+      </a>
+      <ul class="collapse nav flex-column ms-1" id="rooms" data-bs-parent="#menu">
+        <% Room.all_group_for_user(current_user).each do |room| %>
+          <li class="w-100">
+            <div class="sidebar__room d-flex align-items-center">
+              <div class="sidebar__room_icon"><i class="bi bi-hash"></i></div>
+              <%= render room  %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+    <li class="nav-item w-100 px-1">
       <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
         <i class="fs-5 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Last Public Chats</span>
       </a>
       <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
         <% last_public_rooms.each do |room| %>
           <li class="w-100">
-            <%= render room  %>
+            <%= render room %>
           </li>
         <% end %>
       </ul>
@@ -23,7 +38,7 @@
         <i class="fs-5 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Private Chats</span>
       </a>
       <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
-        <% Room.for_user(current_user).each do |room| %>
+        <% Room.private_for_user(current_user).each do |room| %>
           <li class="w-100">
             <%= render room  %>
           </li>
