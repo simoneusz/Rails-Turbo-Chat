@@ -2,7 +2,6 @@
 
 FactoryBot.define do
   factory :participant do
-    title { Faker::Lorem.unique.word }
     room
     user
     role { :member }
