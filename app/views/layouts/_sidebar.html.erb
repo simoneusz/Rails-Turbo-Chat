@@ -2,25 +2,14 @@
   <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
     <span class="fs-5 d-none d-sm-inline">Menu</span>
   </a>
-  <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-    <li class="nav-item">
-      <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        <i class="bi bi-arrow-90deg-down"></i>
-        <span>Rooms</span>
-      </button>
-      <div class="collapse" id="collapseExample">
-        <div class="card card-body text-dark">
-
-        </div>
-      </div>
-    </li>
-
-    <li class="nav-item">
+  <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100" id="menu">
+    <li class="nav-item w-100 px-1">
       <%= render partial: "layouts/new_room_modal" %>
     </li>
-    <li>
-      <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-        <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Last Public Chats</span> </a>
+    <li class="nav-item w-100 px-1">
+      <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+        <i class="fs-5 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Last Public Chats</span>
+      </a>
       <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
         <% last_public_rooms.each do |room| %>
           <li class="w-100">
@@ -29,9 +18,9 @@
         <% end %>
       </ul>
     </li>
-    <li>
+    <li class="nav-item w-100 px-1">
       <a href="#submenu5"  data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-        <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Private Chats</span>
+        <i class="fs-5 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Private Chats</span>
       </a>
       <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
         <% Room.for_user(current_user).each do |room| %>
@@ -41,9 +30,9 @@
         <% end %>
       </ul>
     </li>
-    <li>
+    <li class="nav-item w-100 px-1">
       <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-        <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Last Users</span>
+        <i class="fs-5 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Last Users</span>
       </a>
       <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
         <% last_users.each do |user| %>
@@ -54,9 +43,9 @@
       </ul>
     </li>
     <% if current_user %>
-      <li>
+      <li class="nav-item w-100 px-1">
         <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-          <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Contacts</span>
+          <i class="fs-5 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Contacts</span>
         </a>
         <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
           <% current_user.contacts.each do |contact| %>
@@ -67,14 +56,14 @@
         </ul>
       </li>
     <% end %>
-    <li>
+    <li class="nav-item w-100 px-1">
       <a href="#" class="nav-link px-0 align-middle">
-        <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span>
+        <i class="fs-5 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span>
       </a>
     </li>
-    <li>
+    <li class="nav-item w-100 px-1">
       <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-        <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Pending contacts</span>
+        <i class="fs-5 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Pending contacts</span>
       </a>
       <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
         <% current_user.pending_contacts.each do |request| %>
