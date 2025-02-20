@@ -25,8 +25,10 @@ gem 'image_processing', '~> 1.2'
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
   gem 'faker'
+  gem 'rspec-rails', '~> 7.0.0'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
+  gem 'factory_bot_rails'
 end
 
 group :development do
