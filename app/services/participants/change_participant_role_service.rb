@@ -3,6 +3,7 @@
 module Participants
   class ChangeParticipantRoleService < ApplicationService
     CODE_UNKNOWN_ROLE = :unknown_role
+    CODE_PARTICIPANT_DOESNT_EXIST = :participant_doesnt_exist
 
     def initialize(participant, new_role)
       super()
