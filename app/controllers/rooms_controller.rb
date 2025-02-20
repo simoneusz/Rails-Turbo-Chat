@@ -125,7 +125,7 @@ class RoomsController < ApplicationController
 
   def render_service_error(result, redirect_path = root_path)
     error_message = I18n.t("errors.#{result.error_code}")
-    error_message += " #{result.data.errors.full_message}" unless result.data.nil?
+    error_message += " #{result.data.errors.full_messages.join(', ')}" if result.data&.errors&.any?
 
     set_flash_and_redirect(:alert, error_message, redirect_path)
   end
