@@ -12,9 +12,10 @@
   cursor: pointer;
 }
 
-.sidebar__room{
-
+.sidebar__room, .sidebar__room > a{
+  color: var(--sidebar-text-color);
 }
+
 .sidebar-footer--username{
   color: var(--sidebar-text-color);
 }
