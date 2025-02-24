@@ -1,5 +1,5 @@
 <div class="sidebar col-auto col-md-5 col-xl-2 bg-secondary">
-  <%= render partial: 'layouts/sidebar', locals: { last_public_rooms: Room.public_rooms.last(5), last_users: User.last(5)} %>
+  <%= render partial: 'layouts/sidebar/sidebar' %>
 </div>
 
 <div id="chatroom_container" class="d-flex flex-column vh-100">

@@ -1,0 +1,89 @@
+<div class="sidebar-main">
+  <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100" id="menu">
+    <li class="nav-item w-100 px-1">
+      <%= render partial: "layouts/new_room_modal" %>
+    </li>
+    <li class="nav-item w-100 px-1">
+      <a href="#rooms" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+        <i class="fs-5 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Rooms</span>
+      </a>
+      <ul class="collapse nav flex-column ms-1" id="rooms" data-bs-parent="#menu">
+        <% Room.all_group_for_user(current_user).each do |room| %>
+          <li class="w-100">
+            <div class="sidebar__room d-flex align-items-center">
+              <div class="sidebar__room_icon"><i class="bi bi-hash"></i></div>
+              <%= render room  %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+    <li class="nav-item w-100 px-1">
+      <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+        <i class="fs-5 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Last Public Chats</span>
+      </a>
+      <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+        <% @last_public_rooms.each do |room| %>
+          <li class="w-100">
+            <%= render room %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+    <li class="nav-item w-100 px-1">
+      <a href="#submenu5"  data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+        <i class="fs-5 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Private Chats</span>
+      </a>
+      <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
+        <% Room.private_for_user(current_user).each do |room| %>
+          <li class="w-100">
+            <%= render room  %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+    <li class="nav-item w-100 px-1">
+      <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+        <i class="fs-5 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Last Users</span>
+      </a>
+      <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+        <% User.last(5).each do |user| %>
+          <li class="w-100">
+            <%= render user %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+    <% if current_user %>
+      <li class="nav-item w-100 px-1">
+        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+          <i class="fs-5 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Contacts</span>
+        </a>
+        <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+          <% current_user.contacts.each do |contact| %>
+            <li class="w-100">
+              <%= render contact %>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+    <li class="nav-item w-100 px-1">
+      <a href="#" class="nav-link px-0 align-middle">
+        <i class="fs-5 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span>
+      </a>
+    </li>
+    <li class="nav-item w-100 px-1">
+      <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+        <i class="fs-5 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Pending contacts</span>
+      </a>
+      <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
+        <% current_user.pending_contacts.each do |request| %>
+          <%= request.user.username %>
+          <%= button_to "Accept", contact_path(request.user), method: :put %>
+          <%= button_to "Decline", contact_path(request.user), method: :delete %>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
+</div>
