@@ -1,10 +1,10 @@
 <div class="sidebar-inner d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
   <div class="sidebar-top">
-    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <span class="fs-5 d-none d-sm-inline">Menu</span>
+    <a href="/" class="d-flex align-items-center pb-2 mb-md-0 me-md-auto text-white text-decoration-none">
+      <span class="fs-5 d-none d-sm-inline">Hey, <%= current_user.full_name.capitalize %>!</span>
     </a>
   </div>
-  <hr>
+  <hr class="w-100 m-0">
   <div class="sidebar-main">
     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100" id="menu">
       <li class="nav-item w-100 px-1">
