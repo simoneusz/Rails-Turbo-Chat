@@ -12,7 +12,6 @@ class RoomsController < ApplicationController
     @room = Room.new
     @rooms = Room.public_rooms
     @users = User.all_except(current_user)
-    @last_public_rooms = Room.public_rooms.last(5)
   end
 
   def create
@@ -29,8 +28,6 @@ class RoomsController < ApplicationController
     if @single_room.is_private && !@single_room.participants.exists?(user_id: current_user.id)
       redirect_to root_path, alert: 'You do not have permission to view this room' and return
     end
-
-    @last_public_rooms = Room.public_rooms.last(5)
 
     @rooms = Room.public_rooms
     @users = User.all_except(current_user)

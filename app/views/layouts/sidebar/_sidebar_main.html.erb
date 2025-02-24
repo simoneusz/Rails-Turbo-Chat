@@ -26,7 +26,7 @@
         <i class="bi bi-chat-left-quote"></i> <span class="ms-1 d-none d-sm-inline">Last Public Rooms</span>
       </div>
       <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-        <% @last_public_rooms.each do |room| %>
+        <% Room.public_rooms.last(5).each do |room| %>
           <li class="w-100">
             <div class="sidebar__room sidebar-hoverable d-flex align-items-center">
               <div class="sidebar__room_icon"><i class="bi bi-hash"></i></div>
