@@ -5,12 +5,29 @@
 .sidebar-text-color{
   color: var(--sidebar-text-color);
 }
+
+.sidebar-link{
+  color: var(--sidebar-text-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .sidebar__room{
+
+}
+.sidebar-footer--username{
+  color: var(--sidebar-text-color);
+}
+
+.sidebar-hoverable{
+  border-radius: 7px;
   &:hover{
     background-color: var(--main-bg-color-hover);
     color: var(--nav-text-color);
   }
 }
-.sidebar-footer--username{
-  color: var(--sidebar-text-color);
+.sidebar-newroom--icon{
+  background-color: var(--secondary-light-bg-color);
+  border-radius: 3px;
+  padding: 1px;
 }
