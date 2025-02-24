@@ -1,10 +1,16 @@
 .sidebar{
   border-radius: 10px 0 0 10px;
+  color: var(--sidebar-text-color);
 }
-
+.sidebar-text-color{
+  color: var(--sidebar-text-color);
+}
 .sidebar__room{
   &:hover{
     background-color: var(--main-bg-color-hover);
     color: var(--nav-text-color);
   }
+}
+.sidebar-footer--username{
+  color: var(--sidebar-text-color);
 }
