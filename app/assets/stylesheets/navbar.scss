@@ -9,3 +9,9 @@
     color: var(--sidebar-text-color);
   }
 }
+
+.nav-link{
+  &:focus{
+    color: inherit;
+  }
+}
