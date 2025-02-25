@@ -1,0 +1,36 @@
+.devise-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-bg-color);
+}
+
+.devise-box {
+  background-color: var(--secondary-bg-color);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--secondary-light-bg-color);
+  width: 100%;
+  max-width: 360px;
+}
+
+.devise-form .form-control {
+  background-color: var(--main-bg-color);
+  color: white;
+  border: 1px solid var(--shadow-bg-color);
+}
+
+.devise-form .form-control:focus {
+  background-color: var(--secondary-bg-color);
+  border-color: var(--secondary-light-bg-color);
+  box-shadow: 0 0 5px var(--secondary-light-bg-color);
+}
+
+.login-btn, .signup-btn {
+  background-color: var(--secondary-light-bg-color);
+  border: none;
+}
+
+.login-btn:hover, .signup-btn:hover {
+  background-color: var(--main-bg-color-hover);
+}
