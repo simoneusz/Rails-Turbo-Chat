@@ -1,12 +1,14 @@
 <h2> Members: </h2>
 <% room.participants.where.not(user_id: current_user.id).each do |participant| %>
   <% unless participant.blocked? %>
-    <div class="row">
+    <div class="d-flex justify-content-between align-items-center">
+      <%= render partial: "rooms/room_info/room_info_user", locals: { user: user } %>
       <div class="dropdown">
         <% if policy(room).remove_participant? %>
-          <a class="btn d-flex dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            <div class="col-10"><%= participant.user.username %> <span>role: <%= participant.role %></span></div>
-          </a>
+
+          <div class="btn d-flex" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-gear h3"></i>
+          </div>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <li>
               <div class="remove-participant-btn dropdown-item col-2">
