@@ -28,6 +28,35 @@ body{
   border-radius: 12px;
 }
 
+.btn{
+  &:hover{
+    background-color: inherit;
+    color: inherit;
+  }
+}
+
+.main-btn-primary{
+  background-color: var(--secondary-light-bg-color);
+  color: var(--shadow-bg-color);
+  &:hover{
+    background-color: var(--secondary-light-bg-color);
+    color: var(--shadow-bg-color);
+  }
+}
+.main-btn-secondary{
+  background-color: var(--shadow-bg-color);
+  color: var(--main-bg-color);
+  &:hover{
+    background-color: var(--shadow-bg-color);
+    color: var(--main-bg-color);
+  }
+}
+.main-btn-danger{
+  background-color: var(--danger-bg-color);
+  &:hover{
+    background-color: var(--danger-bg-color);
+  }
+}
 .btn-modal{
   background-color: transparent;
   transition: all 0s;
