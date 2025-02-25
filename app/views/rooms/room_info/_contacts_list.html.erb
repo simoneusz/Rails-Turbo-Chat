@@ -1,14 +1,15 @@
 <h5>Contact to add: </h5>
 <% user.contacts.each do |user| %>
-  <div class="d-flex justify-content-around">
+  <div class="contact-list users-list"></div>
+  <div class="d-flex justify-content-between">
     <% unless room.participants.where(user_id: user.id).exists? %>
       <%= render partial: "rooms/room_info/room_info_user", locals: {user: user} %>
-      <div class="add-participant-btn col-2">
+      <div class="add-participant-btn">
         <%=  form_with url: add_participant_room_path, method: :post, local: true do %>
           <%=  hidden_field_tag :user_id, user.id  %>
           <%=  hidden_field_tag :id, room.id  %>
           <%=  button_tag nil, class:"btn"  do %>
-            <i class="bi bi-patch-plus h2"></i>
+            <i class="bi bi-patch-plus h3"></i>
           <% end %>
         <%  end  %>
       </div>
