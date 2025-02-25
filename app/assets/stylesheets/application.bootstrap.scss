@@ -39,7 +39,7 @@ body{
   background-color: var(--secondary-light-bg-color);
   color: var(--shadow-bg-color);
   &:hover{
-    background-color: var(--secondary-light-bg-color);
+    background-color: var(--main-bg-color);
     color: var(--shadow-bg-color);
   }
 }
