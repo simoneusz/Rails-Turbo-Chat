@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-  root 'rooms#index'
+  root 'home#index'
 
   resources :users do
     member do

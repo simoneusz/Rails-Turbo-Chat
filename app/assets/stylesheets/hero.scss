@@ -1,0 +1,35 @@
+.hero {
+  text-align: center;
+}
+.hero-container{
+  margin-top: 100px;
+}
+.hero-main{
+}
+.hero-image{
+
+}
+.hero h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+.hero p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+.hero-image-img{
+  height: 500px;
+  width: 500px;
+}
+.btn-hero {
+  background-color: var(--danger-bg-color);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+.btn-custom:hover {
+  background-color: var(--main-bg-color-hover);
+}
