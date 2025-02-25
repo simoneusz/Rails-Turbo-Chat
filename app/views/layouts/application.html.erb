@@ -28,13 +28,17 @@
     <% end %>
   </style>
   <body class="bg-main overflow-hidden">
-    <%= render partial: 'layouts/nav' %>
+    <% if user_signed_in? %>
+      <%= render partial: 'layouts/nav' %>
+    <% end %>
 
 
     <div class="container-fluid h-100">
       <div class="row flex-nowrap h-100">
         <div class="col-auto bg-main">
-          <%= render partial: 'layouts/tabs' %>
+          <% if user_signed_in? %>
+            <%= render partial: 'layouts/tabs' %>
+          <% end %>
         </div>
         <div class="col ps-0">
           <%= render partial: "layouts/flash" %>
