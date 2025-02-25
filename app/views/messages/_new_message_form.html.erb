@@ -5,6 +5,6 @@
       emoji_picker_target: "pickerContainer",
     }) %>
     <%= f.rich_text_area :content, id: 'chat-text', class: "form-control msg-content", autocomplete: 'off', data: {  controller: "trix",emoji_picker_target: "trixEditor" } %>
-    <%= f.submit data: { disable_with: false }, class: "btn btn-primary" %>
+    <%= f.submit data: { disable_with: false }, class: "btn main-btn-primary" %>
   <% end %>
 <% end %>
