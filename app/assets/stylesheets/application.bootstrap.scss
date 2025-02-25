@@ -53,8 +53,10 @@ body{
 }
 .main-btn-danger{
   background-color: var(--danger-bg-color);
+  color: var(--shadow-bg-color);
   &:hover{
     background-color: var(--danger-bg-color);
+    color: var(--shadow-bg-color);
   }
 }
 .btn-modal{
