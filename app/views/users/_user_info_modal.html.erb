@@ -7,21 +7,21 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="d-flex gap-3 btn btn-modal">
+      <div class="d-flex gap-3 btn btn-modal" data-controller="clipboard" data-action="click->clipboard#copy">
         <div class="icon">
           <span class="display-6"><i class="bi bi-at"></i></span>
         </div>
         <div class="row-content d-flex flex-column">
-          <div class="row-title fw-bold"><%= @user.username %></div>
+          <div class="row-title copyable fw-bold"><%= @user.username %></div>
           <div class="row-subtitle text-muted align-self-baseline">Username</div>
         </div>
       </div>
-      <div class="d-flex gap-3 btn btn-modal">
+      <div class="d-flex gap-3 btn btn-modal" data-controller="clipboard" data-action="click->clipboard#copy">
         <div class="icon">
           <span class="display-6"><i class="bi bi-envelope"></i></span>
         </div>
         <div class="row-content d-flex flex-column">
-          <div class="row-title fw-bold"><%= @user.email%></div>
+          <div class="row-title copyable fw-bold"><%= @user.email%></div>
           <div class="row-subtitle text-muted align-self-baseline">Email</div>
         </div>
       </div>
