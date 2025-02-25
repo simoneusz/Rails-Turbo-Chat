@@ -3,58 +3,15 @@
     <div class="col-8 flex-grow-1  h-100 overflow-auto">
       <div class="tab-content p-2 border contacts" id="myTabContent">
         <div class="tab-pane show active fade contacts-all" id="userContacts" role="tabpanel" aria-labelledby="userContacts-tab">
-          <div class="contacts-all-actions mb-3">
-<!--            Todo: active users-->
-            <button class="btn btn-primary tab-button" data-bs-toggle="modal" data-bs-target="#addContactModal">
-              <span class="text-">All contacts: </span><%= current_user.contacts.size %>
-            </button>
-          </div>
-          <div class="contact-list">
-            <% current_user.contacts.each do |contact| %>
-              <div class="contact-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
-                <div class="d-flex align-items-center">
-                  <img src="https://placehold.jp/150x150.png" alt="user" class="rounded-circle me-3 contacts-avatar" style="height: 40px;width: 40px">
-                  <span><%= contact.full_name %></span>
-                </div>
-                <div>
-                  <%= link_to "Message", chat_user_path(contact), class:"btn btn-outline-secondary btn-sm" %>
-                </div>
-              </div>
-            <% end %>
-          </div>
+         <%= render partial: "contacts/all_contacts" %>
         </div>
 
         <div class="tab-pane fade" id="contactRequests" role="tabpanel" aria-labelledby="contactRequests-tab">
-          <div class="request-list">
-            <% current_user.pending_contacts.each do |contact| %>
-              <div class="request-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
-                <div class="d-flex align-items-center">
-                  <img src="https://placehold.jp/150x150.png" alt="user" class="contacts-avatar rounded-circle me-3">
-                  <span><%= contact.user.full_name %></span>
-                </div>
-                <div>
-                  <%= button_to "Accept", contact_path(contact.user), method: :put, class: "btn btn-success btn-sm" %>
-                  <%= button_to "Decline", contact_path(contact.user), method: :delete, class: "btn btn-danger btn-sm" %>
-                </div>
-              </div>
-            <% end %>
-          </div>
+         <%= render partial: "contacts/pending_contacts" %>
         </div>
 
         <div class="tab-pane fade" id="outgoingRequests" role="tabpanel" aria-labelledby="outgoingRequests-tab">
-          <div class="outgoing-list">
-            <% current_user.outgoing_contacts.each do |contact| %>
-              <div class="outgoing-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
-                <div class="d-flex align-items-center">
-                  <img src="https://placehold.jp/150x150.png" alt="user" class="rounded-circle me-3 contacts-avatar">
-                  <span><%= contact.contact.full_name %></span>
-                </div>
-                <div>
-                  <%= button_to "Decline", contact_path(contact.contact), method: :delete, class: "btn btn-warning btn-sm" %>
-                </div>
-              </div>
-            <% end %>
-          </div>
+          <%= render partial: "contacts/requested_contacts" %>
         </div>
       </div>
     </div>

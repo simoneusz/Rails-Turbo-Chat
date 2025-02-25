@@ -1,0 +1,24 @@
+<% contacts = current_user.contacts %>
+<div class="contacts-all-actions mb-3">
+  <!--            Todo: active users-->
+  <button class="btn main-btn-primary tab-button" data-bs-toggle="modal" data-bs-target="#addContactModal">
+    <span class="text-">All contacts: </span><%= current_user.contacts.size %>
+  </button>
+</div>
+<div class="contact-list">
+  <% unless contacts.present? %>
+    <h3>You dont have any contacts yet.</h3>
+  <% end %>
+  <% contacts.each do |contact| %>
+    <%= link_to user_path(contact), data: { turbo_frame: "modal_frame", "turbo-prefetch": false }, class:"nav-link px-0"  do %>
+      <div class="contact-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
+        <div class="d-flex align-items-center">
+          <img src="https://placehold.jp/150x150.png" alt="user" class="rounded-circle me-3 contacts-avatar" style="height: 40px;width: 40px">
+          <span><%= contact.full_name %></span>
+
+        </div>
+      </div>
+    <% end %>
+
+  <% end %>
+</div>
