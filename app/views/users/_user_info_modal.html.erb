@@ -1,9 +1,9 @@
 <turbo-frame id="modal_frame">
-  <div class="user-info-modal modal fade show" id="user-modal">
+  <div class="user-info-modal modal fade show" id="user-modal" data-controller="user-modal">
     <div class="user-info-modal-content modal-content">
       <div class="modal-header justify-content-between">
         <h5 class="modal-title" id="exampleModalLabel">User info</h5>
-        <button type="button" class="user-info-close close" onclick="closeModal()" >
+        <button type="button" class="user-info-close close" data-action="click->user-modal#closeModal" >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -45,62 +45,4 @@
       <%  end %>
     </div>
   </div>
-
-  <script>
-      document.addEventListener("turbo:before-frame-render", (event) => {
-          let existingModal = document.getElementById("user-modal");
-          if (existingModal) {
-              existingModal.remove();
-          }
-      });
-
-      document.addEventListener("turbo:frame-load", () => {
-          let modal = document.getElementById("user-modal");
-          if (modal) {
-              modal.style.display = "block";
-              document.addEventListener("click", (e) => {
-                  if (!modal.querySelector(".modal-content").contains(e.target)) {
-                      closeModal();
-                  }
-              });
-          }
-      });
-
-      function closeModal() {
-          let modal = document.getElementById("user-modal");
-          let turbo = document.getElementById("modal_frame")
-          if (modal) {
-              modal.style.opacity = "0";
-              setTimeout(() => modal.remove(), 300);
-          }
-          turbo.innerHTML = ""
-          turbo.removeAttribute("src")
-          turbo.removeAttribute("complete")
-      }
-  </script>
-
-  <style>
-      .user-info-modal {
-          display: none;
-          position: fixed;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.5);
-          color: black;
-      }
-      .user-info-modal-content {
-          background: white;
-          margin: 15% auto;
-          padding: 20px;
-          width: 50%;
-      }
-      .user-info-close{
-          border: none;
-          background: transparent;
-          font-size: 20px;
-      }
-
-  </style>
 </turbo-frame>
