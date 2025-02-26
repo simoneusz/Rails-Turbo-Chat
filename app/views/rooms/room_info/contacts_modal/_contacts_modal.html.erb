@@ -1,0 +1,32 @@
+<!-- Button trigger modal -->
+<!--data-bs-toggle="modal" data-bs-target="#contactsModal"-->
+<button type="button" class="btn btn-primary" data-action="click->open-child-modal#openTargetModal" data-bs-target="#contactsModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="contactsModal" tabindex="-1" aria-labelledby="contactsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contactsModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render partial: "rooms/room_info/contacts_list", locals: { room: room, user: user } %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    function openMyModal2() {
+        let myModal = new
+        bootstrap.Modal(document.getElementById('contactsModal'), {});
+        myModal.show();
+    }
+</script>

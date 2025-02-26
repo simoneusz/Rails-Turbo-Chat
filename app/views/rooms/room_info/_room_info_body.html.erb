@@ -4,7 +4,7 @@
   </div>
   <div class="room-info--contacts-list">
     <% if policy(room).add_participant? %>
-      <%= render partial: "rooms/room_info/contacts_list", locals: { room: room, user: user }%>
+      <%= render partial: "rooms/room_info/contacts_modal/contacts_modal", locals: { room: room, user: user }%>
     <% end %>
   </div>
   <% if policy(room).unblock_participant? %>
