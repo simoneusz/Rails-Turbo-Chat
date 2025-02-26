@@ -1,7 +1,9 @@
 <turbo-frame id="search_results">
-  <ul>
+  <ul class="list-group gap-1">
     <% search_results.each do |user| %>
-      <%= render user %>
+      <li class="list-group-item list-group-item-action px-1 rounded">
+        <%= render partial: "rooms/room_info/room_info_user", locals: { user: user } %>
+      </li>
     <% end %>
   </ul>
 </turbo-frame>
