@@ -5,60 +5,12 @@
       <%= render partial: "rooms/room_info/room_info_user", locals: { user: participant.user } %>
       <div class="dropdown">
         <% if policy(room).remove_participant? %>
-
           <div class="btn d-flex" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-gear h3"></i>
           </div>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li>
-              <div class="remove-participant-btn dropdown-item col-2">
-                <%=  form_with url: remove_participant_room_path, method: :delete, local: true do %>
-                  <%=  hidden_field_tag :user_id, participant.user.id  %>
-                  <%=  hidden_field_tag :room_id, room.id  %>
-                  <%=  submit_tag "Kick", class:"btn btn-danger border"  %>
-                <%  end  %>
-              </div>
-            </li>
-            <li>
-              <div class="remove-participant-btn dropdown-item col-2">
-                <%=  form_with url: block_participant_room_path, method: :post, local: true do %>
-                  <%=  hidden_field_tag :user_id, participant.user.id  %>
-                  <%=  hidden_field_tag :room_id, room.id  %>
-                  <%=  submit_tag "Block", class:"btn btn-danger border"  %>
-                <%  end  %>
-              </div>
-            </li>
-            <% if policy(room).change_role? %>
-              <h6>Assign role: </h6>
-              <% if participant.member? %>
-                <li>
-                  <div class="remove-participant-btn dropdown-item col-2">
-                    <%=  form_with url: change_role_room_path, method: :post, local: true do %>
-                      <%=  hidden_field_tag :user_id, participant.user.id  %>
-                      <%=  hidden_field_tag :role, :moderator  %>
-                      <%=  hidden_field_tag :room_id, room.id  %>
-                      <%=  submit_tag "Moderator", class:"btn border"  %>
-                    <%  end  %>
-                  </div>
-                </li>
-              <% else %>
-                <li>
-                  <div class="remove-participant-btn dropdown-item col-2">
-                    <%=  form_with url: change_role_room_path, method: :post, local: true do %>
-                      <%=  hidden_field_tag :user_id, participant.user.id  %>
-                      <%=  hidden_field_tag :role, :member  %>
-                      <%=  hidden_field_tag :room_id, room.id  %>
-                      <%=  submit_tag "Member", class:"btn border"  %>
-                    <%  end  %>
-                  </div>
-                </li>
-              <% end %>
-            <% end %>
+            <%= render partial: "rooms/room_info/participants/participants_actions", locals: { participant: participant, room: room } %>
           </ul>
-        <% else %>
-          <a class="btn d-flex " href="#">
-            <div class="col-10"><%= participant.user.username %></div>
-          </a>
         <% end %>
       </div>
     </div>
