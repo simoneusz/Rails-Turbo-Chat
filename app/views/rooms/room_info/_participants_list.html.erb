@@ -3,7 +3,7 @@
 </div>
 <% room.participants.where.not(user_id: current_user.id).each do |participant| %>
   <% unless participant.blocked? %>
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center rounded px-1 btn-modal">
       <%= render partial: "rooms/room_info/room_info_user", locals: { user: participant.user } %>
       <div class="dropdown">
         <% if policy(room).remove_participant? %>
