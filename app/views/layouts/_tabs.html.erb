@@ -3,15 +3,15 @@
     <a class="tabs__logo btn" href="<%= root_path %>"><i class="tabs__logo_icon"><%= current_user.username.first.upcase %></i></a>
   <% end %>
   <div class="tabs__container rounded"></div>
-  <a class="nav-link tabs__content active" aria-current="page" href="<%= root_path %>">
+  <a class="nav-link tabs__content btn-squeeze" aria-current="page" href="<%= root_path %>">
     <i class="bi bi-house tabs__content_icon"></i>
     <p class="tabs__content_label">Home</p>
   </a>
-  <%= link_to contacts_path, class:"link tabs__content" do %>
+  <%= link_to contacts_path, class:"link tabs__content btn-squeeze" do %>
     <i class="bi bi-people tabs__content_icon"></i>
     <p class="tabs__content_label">Contacts</p>
   <% end %>
-  <a class="nav-link tabs__content" href="<%= notifications_path %>">
+  <a class="nav-link tabs__content btn-squeeze" href="<%= notifications_path %>">
     <i class="bi bi-bell tabs__content_icon position-relative">
       <% if current_user&.notifications&.unread&.any? %>
         <span class="notifications-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
