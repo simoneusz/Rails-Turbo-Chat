@@ -1,7 +1,7 @@
 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#roomInfo">
-  <%= user&.email || room.name %>
-  <span class="border">Type: <%= room.is_private ? "Private" : "Public" %></span>
-  <span class="border">Name: <%= room.name %></span>
+  <%= room.name || user&.email %>
+<!--  <span class="border">Type: <%#= room.is_private ? "Private" : "Public" %></span>-->
+<!--  <span class="border">Name: <%#= room.name %></span>-->
 </button>
 
 <div class="modal fade" id="roomInfo" tabindex="-1" aria-labelledby="roomInfoLabel" aria-hidden="true" data-controller="open-child-modal">

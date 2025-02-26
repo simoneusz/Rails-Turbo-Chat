@@ -5,7 +5,7 @@
 <div id="chatroom_container" class="d-flex flex-column vh-100">
   <div class="room-container h-100 w-100 justify-content-between d-flex flex-column">
     <% if @single_room %>
-      <div class="single-room-top text-center d-flex flex-row justify-content-center">
+      <div class="single-room-top text-center d-flex flex-row justify-content-between">
         <%= render partial: 'rooms/room_info/room_info_modal', locals: { room: @single_room, user: current_user } %>
         <%= render partial: 'rooms/room_info/room_settings_dropdown' %>
       </div>
