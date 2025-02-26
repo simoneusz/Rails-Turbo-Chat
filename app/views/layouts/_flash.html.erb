@@ -1,10 +1,17 @@
-<% if flash[:notice]%>
-    <div class="fixed-alert alert alert-info" role="alert">
-        <%= notice %>
-    </div>
-<% end%>
-  <% if flash[:alert]%>
-    <div class="fixed-alert alert alert-danger" role="alert">
-        <%= alert %>
-    </div>
-<% end%>
+<% flash.each do |key, value| %>
+  <% alert_class = case key
+                   when "notice" then "info"
+                   when "alert" then "danger"
+                   else key
+                   end %>
+  <%= content_tag :div, class: "alert alert-#{alert_class} fixed-alert" do %>
+    <button type="button"
+            class="btn close"
+            data-dismiss="alert"
+            aria-label="Close"
+            onclick="this.closest('.alert').remove()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <%= value %>
+  <% end %>
+<% end %>
