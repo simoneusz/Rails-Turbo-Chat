@@ -37,6 +37,11 @@ body{
     color: inherit;
   }
 }
+.btn-active-no-borders{
+  &:active{
+    border: none!important;
+  }
+}
 
 .main-btn-primary{
   background-color: var(--secondary-light-bg-color);
