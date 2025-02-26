@@ -2,11 +2,6 @@
   <div class="room-info--participants-list">
     <%= render partial: "rooms/room_info/participants_list", locals: { room: room, user: user } %>
   </div>
-  <div class="room-info--contacts-list">
-    <% if policy(room).add_participant? %>
-      <%= render partial: "rooms/room_info/contacts_modal/contacts_modal", locals: { room: room, user: user }%>
-    <% end %>
-  </div>
   <% if policy(room).unblock_participant? %>
     <div class="room-info--blocked-list">
       <%= render partial: "rooms/room_info/blocked_list", locals: { room: room, user: user } %>

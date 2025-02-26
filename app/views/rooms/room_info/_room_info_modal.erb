@@ -7,7 +7,7 @@
 <div class="modal fade" id="roomInfo" tabindex="-1" aria-labelledby="roomInfoLabel" aria-hidden="true" data-controller="open-child-modal">
   <div class="modal-dialog">
     <div class="modal-content m-auto w-75">
-      <%= render partial: "rooms/room_info/room_info_header" %>
+      <%= render partial: "rooms/room_info/room_info_header", locals: { room: room, user: user } %>
       <%= render partial: "rooms/room_info/room_info_body", locals: { room: room, user: user } %>
     </div>
   </div>
