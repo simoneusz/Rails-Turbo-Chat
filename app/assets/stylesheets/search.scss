@@ -4,6 +4,7 @@
     background-color: var(--secondary-light-bg-color);
   }
   height: 26px;
+  z-index: 1;
 }
 .search-wrapper{
   width: var(--search-bar-width);
