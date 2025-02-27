@@ -1,0 +1,35 @@
+<nav id="sidebar" class="col-md-3 col-lg-2  w-100 d-md-block sidebar">
+  <div class="position-sticky">
+    <h5 class="text-light p-3">Direct Messages</h5>
+    <ul class="nav flex-column mx-2 ">
+      <% @dms.each do |room| %>
+        <% other_user = room.participants.where.not(user_id: current_user.id).first.user %>
+        <%= link_to room_path(room), class:"text-decoration-none" do %>
+          <li class="w-100 p-1 sidebar-hoverable">
+            <div class="user-info">
+              <div class="user-info--container w-100 d-flex align-items-center gap-2">
+                <div class="user-info--avatar">
+                  <%= render partial: "shared/default_avatar", locals: { size: 50 } %>
+                </div>
+                <div class="user-body w-100 text-white">
+                  <p class="user-info--username mb-1 align"><%= other_user.username %></p>
+                  <p class="user-info--message mb-1">
+                    <% last_message = room.messages.last %>
+                    <% if last_message %>
+                      <% if last_message.user.eql?(current_user) %>
+                        You:
+                      <% else %>
+                        <%= last_message.user.username %>:
+                      <% end %>
+                      <%= last_message.content&.body&.to_plain_text&.truncate(25) %>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</nav>
