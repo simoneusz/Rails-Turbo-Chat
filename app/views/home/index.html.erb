@@ -1,11 +1,12 @@
-<div class="hero w-100 h-100 fade-in">
-  <div class="hero-container d-flex flex-row  justify-content-center gap-5">
-    <div class="hero-main d-flex flex-column justify-content-center">
+<div class="hero w-100 h-100 animated-bg">
+  <div class="hero-background rotating-bg"></div>
+  <div class="hero-container d-flex flex-row justify-content-center gap-5">
+    <div class="hero-main text-white fade-in d-flex flex-column justify-content-center">
       <h1>Welcome to TurboChat</h1>
       <p>Fast, secure, and modern chat for everyone.</p>
       <%= link_to "Get Started", rooms_path, class:"btn btn-hero"%>
     </div>
-    <div class="hero-image">
+    <div class="hero-image fade-in">
       <%= image_tag("/images/hero-main-img.svg", class:"hero-image-img")  %>
     </div>
   </div>
