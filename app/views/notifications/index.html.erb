@@ -1,11 +1,14 @@
-<h1>Notifications</h1>
-
-<ul>
+<ul class="list-group flex m-3">
   <% @notifications.each do |notification| %>
-    <li>
-      <%= link_to notification.event.url do  %>
-          <%= notification.event.message %> [<%= notification.event.params[:room].id %>]
+    <li class="list-group-item">
+      <%= link_to notification.event.url, class:"text-black text-decoration-none" do  %>
+        <%= notification.event.message %> [<%= notification.event.params[:room].id %>]
       <% end %>
+    </li>
+  <% end %>
+  <% unless @notifications.first %>
+    <li class="list-group-item">
+      Notifications are clear
     </li>
   <% end %>
 </ul>
