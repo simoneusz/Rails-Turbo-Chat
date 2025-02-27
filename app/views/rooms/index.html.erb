@@ -1,6 +1,13 @@
-<div class="sidebar col-auto bg-secondary">
-  <%= render partial: 'layouts/sidebar/sidebar' %>
-</div>
+<% if @dms %>
+  <div class="sidebar col-auto bg-secondary">
+    <%= render partial: 'rooms/sidebar_dms' %>
+  </div>
+<% else %>
+  <div class="sidebar col-auto bg-secondary">
+    <%= render partial: 'layouts/sidebar/sidebar' %>
+  </div>
+<% end %>
+
 
 <div id="chatroom_container" class="d-flex flex-column vh-100">
   <div class="room-container h-100 w-100 justify-content-between d-flex flex-column">

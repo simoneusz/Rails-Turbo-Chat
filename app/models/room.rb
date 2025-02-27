@@ -22,6 +22,12 @@ class Room < ApplicationRecord
       .where(participants: { user_id: user.id })
       .where.not(participants: { role: :peer })
   }
+
+  scope :all_peer_rooms_for_user, lambda { |user|
+    joins(:participants)
+      .where(participants: { user_id: user.id, role: :peer })
+  }
+
   def self.create_private_room(users, room_name)
     single_room = Room.create(name: room_name, is_private: true)
     users.each do |user|

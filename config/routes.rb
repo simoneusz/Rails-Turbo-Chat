@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
   get 'search_users', to: 'users#search'
-
+  get 'dms', to: 'rooms#dms'
   resources :rooms do
     resources :messages, only: %i[create destroy]
     post 'add_participant', on: :member

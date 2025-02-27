@@ -40,6 +40,10 @@ class RoomsController < ApplicationController
     render 'index'
   end
 
+  def dms
+    @dms = Room.all_peer_rooms_for_user(current_user)
+    render 'index'
+  end
   def add_participant
     result = Participants::AddParticipantService.new(@room, current_user, @user, :member).call
     if result&.success?
