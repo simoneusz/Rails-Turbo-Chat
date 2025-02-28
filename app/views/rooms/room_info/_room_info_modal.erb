@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-active-no-borders flex-grow-1 text-start" data-bs-toggle="modal" data-bs-target="#roomInfo">
-  <% other_user = room.participants.where.not(user_id: current_user.id).first.user %>
+  <% other_user = room.participants.where.not(user_id: current_user.id).first&.user %>
   <% if room.peer_room? %>
     <%= other_user&.username %>
   <% else %>
