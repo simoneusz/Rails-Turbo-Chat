@@ -10,9 +10,16 @@
   width: fit-content;
   max-width: 40%;
   border-radius: 10px;
-  margin-bottom: 10px;
-  padding: 10px
+  padding: 5px
 }
 .single-room-top{
   border-bottom: 3px solid var(--shadow-bg-color);
+}
+
+.trix-content{
+  &:first-child{
+    background-color: var(--shadow-bg-color);
+    padding: 2px 5px ;
+    border-radius: 5px;
+  }
 }
