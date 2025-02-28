@@ -30,13 +30,13 @@ models:
   user
 services
   participants
-    add_participant
+    add_participant✅
     change_participant_role✅
     create_participant✅
     remove_participant✅
   rooms
-    create_room
-    join_room
+    create_room✅
+    join_room✅
     leave_room✅
 application
 result
