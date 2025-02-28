@@ -22,7 +22,18 @@
 .hero-main{
 }
 .hero-image{
-
+  position: relative;
+  &:hover ~ .eyes{
+    display: block;
+  }
+}
+.eyes{
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
 }
 .hero h1 {
   font-size: 3em;
