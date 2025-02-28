@@ -26,7 +26,8 @@ class Room < ApplicationRecord
   }
 
   scope :all_private_rooms_for_user, lambda { |user|
-    private_rooms.joins(:participants)
+    private_rooms
+      .joins(:participants)
       .where(participants: { user_id: user.id })
       .where.not(participants: { role: :peer })
   }
@@ -37,17 +38,6 @@ class Room < ApplicationRecord
       Participant.create(user_id: user.id, room_id: single_room.id, role: :peer)
     end
     single_room
-  end
-
-  def add_participant(sender, recipient, role)
-    Participant.create(user_id: recipient.id, room_id: id, role: role)
-    InviteReceivedNotifier.with(inviter: sender, room: self).deliver_later(recipient) unless sender == recipient
-  end
-
-  def remove_participant(sender, participant)
-    participant.destroy
-    recipient = participant.user
-    InviteReceivedNotifier.with(inviter: sender, room: self).deliver_later(recipient) unless sender == recipient
   end
 
   def url
@@ -70,8 +60,4 @@ class Room < ApplicationRecord
   def peer_room?
     participants.where(role: :peer).size == 2
   end
-
-  # def self.for_user(user)
-  #   private_rooms.joins(:participants).where(participants: { user_id: user })
-  # end
 end
