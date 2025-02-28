@@ -41,7 +41,7 @@
         <i class="bi bi-incognito"></i> <span class="ms-1 d-none d-sm-inline">Private Rooms</span>
       </div>
       <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
-        <% Room.private_for_user(current_user).each do |room| %>
+        <% Room.all_private_rooms_for_user(current_user).each do |room| %>
         <li class="w-100">
             <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
               <div class="sidebar__room_icon"><i class="bi bi-hash"></i></div>

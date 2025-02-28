@@ -7,9 +7,6 @@ class Room < ApplicationRecord
   has_many :participants, dependent: :destroy
   has_many :notifications_mentions, as: :record, dependent: :destroy, class_name: 'Noticed::Event'
 
-  scope :private_for_user, lambda { |user|
-    private_rooms.joins(:participants).where(participants: { user_id: user })
-  }
   scope :all_for_user, lambda { |user|
     left_outer_joins(:participants)
       .where(is_private: false)
@@ -26,6 +23,12 @@ class Room < ApplicationRecord
   scope :all_peer_rooms_for_user, lambda { |user|
     joins(:participants)
       .where(participants: { user_id: user.id, role: :peer })
+  }
+
+  scope :all_private_rooms_for_user, lambda { |user|
+    private_rooms.joins(:participants)
+      .where(participants: { user_id: user.id })
+      .where.not(participants: { role: :peer })
   }
 
   def self.create_private_room(users, room_name)
@@ -62,6 +65,10 @@ class Room < ApplicationRecord
     return [] if user.nil?
 
     participants.find_by(user_id: user.id)
+  end
+
+  def peer_room?
+    participants.where(role: :peer).size == 2
   end
 
   # def self.for_user(user)
