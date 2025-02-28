@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# RoomsController handles all actions related to room management, including creating and viewing rooms,
+# adding/removing/changing role participants.
 class RoomsController < ApplicationController
   before_action :set_room_and_user, only: %i[
     add_participant change_role join leave remove_participant block_participant unblock_participant
@@ -16,29 +20,18 @@ class RoomsController < ApplicationController
 
   def create
     result = Rooms::CreateRoomService.new(room_params, current_user).call
-    if result.success?
-      redirect_to result.data, success: 'New room has been created'
-    else
-      render_service_error(result)
-    end
+    handle_service_result(result, 'New room has been created')
   end
 
   def show
     @single_room = Room.find(params[:id])
-    if @single_room.is_private && !@single_room.participants.exists?(user_id: current_user.id)
-      redirect_to root_path, alert: 'You do not have permission to view this room' and return
+    unless authorized_to_view?(@single_room)
+      return redirect_to root_path, alert: 'You do not have permission to view this room'
     end
 
-    redirect_to rooms_path, alert: 'You are banned in this room' and return if @single_room.user_blocked?(current_user)
+    return redirect_to rooms_path, alert: 'You are banned in this room' if @single_room.user_blocked?(current_user)
 
-    @rooms = Room.public_rooms
-    @users = User.all_except(current_user)
-    @message = Message.new
-
-    pagy_messages = @single_room.messages.order(created_at: :desc)
-    @pagy, messages = pagy(pagy_messages)
-    @messages = messages.reverse
-
+    prepare_show_page
     render 'index'
   end
 
@@ -46,57 +39,33 @@ class RoomsController < ApplicationController
     @dms = Room.all_peer_rooms_for_user(current_user)
     render 'index'
   end
+
   def add_participant
-    result = Participants::AddParticipantService.new(@room, current_user, @user, :member).call
-    if result&.success?
-      set_flash_and_redirect(:notice, "#{@user.username} was added to the room", room_path(@room))
-    else
-      render_service_error(result)
-    end
+    handle_participant_action(:add)
   end
 
   def join
-    result = Participants::AddParticipantService.new(@room, current_user, @user, :member).call
-    if result&.success?
-      set_flash_and_redirect(:notice, "Welcome to #{@room.name}", room_path(@room))
-    else
-      render_service_error(result)
-    end
+    handle_participant_action(:add)
   end
 
   def leave
-    participant = find_participant(current_user.id)
-
-    result = Rooms::LeaveRoomService.new(@room, participant).call
-
-    if result&.success?
-      set_flash_and_redirect(:notice, 'You have been removed from the room')
-    else
-      render_service_error(result)
-    end
+    handle_participant_action(:remove)
   end
 
   def remove_participant
-    set_flash_and_redirect(:alert, "You don't have permission to remove users") unless authorized?(:remove_participant)
-    result = Participants::RemoveParticipantService.new(@room, @user).call
-    if result.success?
-      set_flash_and_redirect(:notice, "#{@user.username} was removed from the room", room_path(@room))
-    else
-      render_service_error(result, room_path(@room))
-    end
+    handle_participant_action(:remove)
   end
 
   def block_participant
-    update_role(:blocked)
+    handle_role_change(:blocked)
   end
 
   def unblock_participant
-    update_role(:member)
+    handle_role_change(:member)
   end
 
   def change_role
-    new_role = params[:role]
-    update_role(new_role)
+    handle_role_change(params[:role])
   end
 
   private
@@ -104,6 +73,45 @@ class RoomsController < ApplicationController
   def set_room_and_user
     @room = Room.find_by(id: params[:room_id] || params[:id])
     @user = User.find_by(id: params[:user_id])
+  end
+
+  def authorized_to_view?(room)
+    room.is_private ? room.participants.exists?(user_id: current_user.id) : true
+  end
+
+  def prepare_show_page
+    @rooms = Room.public_rooms
+    @users = User.all_except(current_user)
+    @message = Message.new
+    pagy_messages = @single_room.messages.order(created_at: :desc)
+    @pagy, messages = pagy(pagy_messages)
+    @messages = messages.reverse
+  end
+
+  def handle_participant_action(action)
+    result = case action
+             when :add
+               Participants::AddParticipantService.new(@room, current_user, @user, :member).call
+             when :remove
+               Participants::RemoveParticipantService.new(@room, @user).call
+             end
+    return unless result
+
+    handle_service_result(result, "#{@user.username} was #{action == :add ? 'added' : 'removed'} from the room")
+  end
+
+  def handle_role_change(new_role)
+    participant = find_participant(@user.id)
+    result = Participants::ChangeParticipantRoleService.new(participant, new_role).call
+    handle_service_result(result, "Role for #{@user.username} changed to #{new_role}")
+  end
+
+  def handle_service_result(result, success_message)
+    if result.success?
+      set_flash_and_redirect(:notice, success_message, room_path(@room))
+    else
+      render_service_error(result)
+    end
   end
 
   def find_participant(user_id)
@@ -118,21 +126,9 @@ class RoomsController < ApplicationController
     set_flash_and_redirect(:alert, 'You are not authorized to perform this action', root_path)
   end
 
-  def update_role(new_role)
-    participant = find_participant(@user.id)
-    result = Participants::ChangeParticipantRoleService.new(participant, new_role).call
-    if result.success?
-      set_flash_and_redirect(:notice, "Role for #{participant.user.username} was changed to #{new_role}",
-                             room_path(@room))
-    else
-      render_service_error(result, room_path(@room))
-    end
-  end
-
   def render_service_error(result, redirect_path = root_path)
     error_message = I18n.t("errors.#{result.error_code}")
     error_message += " #{result.data.errors.full_messages.join(', ')}" if result.data&.errors&.any?
-
     set_flash_and_redirect(:alert, error_message, redirect_path)
   end
 
