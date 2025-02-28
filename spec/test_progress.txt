@@ -1,0 +1,45 @@
+❌✅
+channels:
+controllers
+  application
+  contacts
+  home
+  messages
+  notifications
+  participants
+  rooms
+  users
+concerns:
+js:
+  autoclick
+  clipboard
+  emoji_picker
+  messages_context_menu
+  open_child_modal
+  reset_form
+  scroll
+  trix
+  user_modal
+jobs:
+mailer:
+models:
+  contact
+  message
+  participant
+  room
+  user
+services
+  participants
+    add_participant
+    change_participant_role✅
+    create_participant✅
+    remove_participant✅
+  rooms
+    create_room
+    join_room
+    leave_room✅
+application
+result
+
+
+
