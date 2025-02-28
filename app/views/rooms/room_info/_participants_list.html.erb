@@ -1,4 +1,4 @@
-<div class="w-100 d-flex gap-1">
+<div class="w-100 d-flex gap-1 ps-3">
   <i class="bi bi-people"></i> <%= room.participants.size %>
 </div>
 <% room.participants.where.not(user_id: current_user.id).each do |participant| %>
