@@ -51,6 +51,10 @@ class Room < ApplicationRecord
     participants.find_by(user_id: user.id).present?
   end
 
+  def user_blocked?(user)
+    participants.where(user_id: user.id, role: :blocked).present?
+  end
+
   def find_participant(user)
     return [] if user.nil?
 

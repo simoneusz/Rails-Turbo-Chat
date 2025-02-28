@@ -29,6 +29,10 @@ class RoomsController < ApplicationController
       redirect_to root_path, alert: 'You do not have permission to view this room' and return
     end
 
+    if @single_room.user_blocked?(current_user)
+      redirect_to rooms_path, alert: 'You are banned in this room' and return
+    end
+
     @rooms = Room.public_rooms
     @users = User.all_except(current_user)
     @message = Message.new
