@@ -134,7 +134,7 @@ class RoomsController < ApplicationController
     set_flash_and_redirect(:alert, error_message, redirect_path)
   end
 
-  def set_flash_and_redirect(type, message, redirect_path = root_path)
+  def set_flash_and_redirect(type, message, redirect_path = rooms_path)
     flash[type] = message
     redirect_to redirect_path
   end
