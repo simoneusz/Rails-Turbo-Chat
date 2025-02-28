@@ -26,6 +26,11 @@
   box-shadow: 0 0 5px var(--secondary-light-bg-color);
 }
 
+.form-control[value][readonly] {
+  background-color: var(--secondary-bg-color);
+  user-select: none;
+  pointer-events: none;
+}
 .login-btn, .signup-btn {
   background-color: var(--secondary-light-bg-color);
   border: none;
