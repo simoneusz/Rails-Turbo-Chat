@@ -7,6 +7,7 @@
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
         <li><%= link_to "Your profile", user_path(current_user), data: { turbo_frame: "modal_frame", "turbo-prefetch": false }, class:"dropdown-item" %></li>
+        <li><%= link_to "Edit profile", edit_user_registration_path, class:"dropdown-item"%></li>
         <li>
           <hr class="dropdown-divider">
         </li>
