@@ -2,8 +2,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :username, presence: true, length: { minimum: 3, maximum: 20 }
-  validates :email, presence: true, length: { minimum: 6, maximum: 255 }
+  validates :username, presence: true, length: { minimum: 3, maximum: 20 }, uniqueness: true
+  validates :email, presence: true, length: { minimum: 6, maximum: 255 }, uniqueness: true
   validates :first_name, presence: true, length: { minimum: 2, maximum: 20 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 20 }
 
@@ -64,15 +64,13 @@ class User < ApplicationRecord
   end
 
   def delete_contact(other_user)
-    contact_request = received_contacts.find_by(user: other_user)
-
-    return unless contact_request
-
-    contact_request.destroy
+    received_contacts.find_by(user: other_user)&.destroy
+    sent_contacts.find_by(contact: other_user)&.destroy
   end
 
   def reject_contact(other_user)
-    contact_request = other_user.received_contacts.find_by(user: self, status: :pending)
+    contact_request = received_contacts.find_by(user: other_user, status: :pending) ||
+                      sent_contacts.find_by(contact: other_user, status: :pending)
     contact_request&.update(status: :rejected)
   end
 
