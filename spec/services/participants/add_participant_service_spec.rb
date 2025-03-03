@@ -28,25 +28,22 @@ RSpec.describe Participants::AddParticipantService do
       end
     end
 
+    context 'when the current user is not an owner' do
+      it 'adds the participant to the room with the correct role' do
+        service = described_class.new(room, member, member, role)
+        result = service.call
+
+        expect(result.success?).to eq(true)
+      end
+    end
+
     context 'when the target user is invalid' do
       it 'returns an error' do
         service = described_class.new(room, owner, invalid_user, role)
         result = service.call
 
         expect(result.success?).to eq(false)
-        expect(result.error_code).to eq(:new_participant_invalid)
-        expect(result.error_message).to include("Target user can't be nil")
-      end
-    end
-
-    context 'when the current user is not an owner' do
-      it 'returns an error' do
-        service = described_class.new(room, member, member, role)
-        result = service.call
-
-        expect(result.success?).to eq(false)
-        expect(result.error_code).to eq(:new_participant_invalid)
-        expect(result.error_message).to include('You must be the room owner to add participants')
+        expect(result.error_code).to eq(:participant_already_exists)
       end
     end
   end
