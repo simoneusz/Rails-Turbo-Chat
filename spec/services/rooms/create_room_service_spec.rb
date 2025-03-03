@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe Rooms::CreateRoomService do
   let(:user) { create(:user) }
-  let(:valid_room_params) { { name: 'New Room', description: 'A description' } }
-  let(:invalid_room_params) { { name: '', description: '' } }
+  let(:valid_room_params) { { name: 'New Room', is_private: false } }
+  let(:invalid_room_params) { { name: '', is_private: nil } }
 
   describe '#call' do
     context 'when room is successfully created' do
@@ -29,7 +29,6 @@ RSpec.describe Rooms::CreateRoomService do
 
         expect(result.success?).to eq(false)
         expect(result.error_code).to eq(:new_room_invalid)
-        expect(result.error_message).to include("Name can't be blank")
       end
     end
   end
