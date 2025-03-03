@@ -9,9 +9,9 @@ class ContactsController < ApplicationController
     # current_user.accept_contact(user)
     # redirect_to contact_path(user), notice: "Request sent to #{user.email}"
     if current_user.request_contact(user)
-      render 'rooms/index', notice: 'Requested contact successfully.'
+      redirect_to rooms_path notice: 'Requested contact successfully.'
     else
-      render 'rooms/index', alert: 'Requested contact could not be created.'
+      redirect_to rooms_path, alert: 'Requested contact could not be created.'
     end
   end
 
