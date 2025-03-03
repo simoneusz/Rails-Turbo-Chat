@@ -17,7 +17,7 @@ module Participants
       if result&.success?
         success(result.data)
       else
-        error(result&.errors, code: CODE_PARTICIPANT_INVALID)
+        error(code: result.error_code || CODE_PARTICIPANT_INVALID)
       end
     end
 

@@ -24,7 +24,7 @@ RSpec.describe Participants::AddParticipantService do
         expect(result.data).to be_a(Participant)
         expect(result.data.user).to eq(member)
         expect(result.data.room).to eq(room)
-        expect(result.data.role).to eq(role.to_s)  # assuming role is stored as a string
+        expect(result.data.role).to eq(role.to_s)
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe Participants::AddParticipantService do
 
         expect(result.success?).to eq(false)
         expect(result.error_code).to eq(:new_participant_invalid)
-        expect(result.error_message).to include("Target user can't be nil")  # Assuming nil is an invalid user case
+        expect(result.error_message).to include("Target user can't be nil")
       end
     end
 
@@ -46,7 +46,7 @@ RSpec.describe Participants::AddParticipantService do
 
         expect(result.success?).to eq(false)
         expect(result.error_code).to eq(:new_participant_invalid)
-        expect(result.error_message).to include("You must be the room owner to add participants")
+        expect(result.error_message).to include('You must be the room owner to add participants')
       end
     end
   end
