@@ -240,3 +240,11 @@ body{
   background: transparent;
   font-size: 20px;
 }
+
+// trix
+.trix-button--icon-bullet-list,
+.trix-button--icon-number-list,
+.trix-button--icon-decrease-nesting-level,
+.trix-button--icon-increase-nesting-level{
+  display: none;
+}
