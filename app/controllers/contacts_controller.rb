@@ -9,7 +9,7 @@ class ContactsController < ApplicationController
     # current_user.accept_contact(user)
     # redirect_to contact_path(user), notice: "Request sent to #{user.email}"
     if current_user.request_contact(user)
-      redirect_to rooms_path notice: 'Requested contact successfully.'
+      redirect_to rooms_path, notice: 'Requested contact successfully.'
     else
       redirect_to rooms_path, alert: 'Requested contact could not be created.'
     end
@@ -25,9 +25,5 @@ class ContactsController < ApplicationController
     user = User.find(params[:id])
     current_user.reject_contact(user)
     redirect_to contacts_path, notice: 'Request destroyed'
-  end
-
-  def requests
-    @requests = current_user.pending_contacts
   end
 end
