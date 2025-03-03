@@ -19,12 +19,12 @@ module Rooms
       if result&.success?
         success(result.data)
       else
-        error(result&.errors, code: CODE_PARTICIPANT_INVALID)
+        error(code: CODE_PARTICIPANT_INVALID)
       end
     end
-  end
 
-  def create_participant
-    Participants::CreateParticipantService.new(@room, @target_user, @joined_user_role).call
+    def create_participant
+      Participants::CreateParticipantService.new(@room, @user, @joined_user_role).call
+    end
   end
 end
