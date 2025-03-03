@@ -24,11 +24,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def index
-    @query = User.ransack(search_query)
-    @users = @query.result
-  end
-
   def search
     @query = User.ransack(search_query)
     @search_results = @query.result
