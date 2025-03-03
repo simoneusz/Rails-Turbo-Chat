@@ -2,13 +2,13 @@
 channels:
 controllers
   application
-  contacts
-  home
-  messages
+  contacts✅
+  home✅
+  messages✅
   notifications
-  participants
-  rooms
-  users
+  participants✅
+  rooms✅
+  users✅
 concerns:
 js:
   autoclick
