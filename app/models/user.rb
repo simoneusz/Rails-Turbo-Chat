@@ -2,8 +2,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :username, presence: true, length: { maximum: 20 }
-  validates :email, presence: true, length: { maximum: 255 }
+  validates :username, presence: true, length: { minimum: 3, maximum: 20 }
+  validates :email, presence: true, length: { minimum: 6, maximum: 255 }
   validates :first_name, presence: true, length: { minimum: 2, maximum: 20 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 20 }
 
