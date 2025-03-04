@@ -1,4 +1,4 @@
 <turbo-stream action="remove" target="notification_<%= @notification.id %>"></turbo-stream>
 <turbo-stream action="replace" target="notifications_count">
-  <%= @notification.user.unviewed_notifications_size %>
+  <%= @notification.receiver.unviewed_notifications_size %>
 </turbo-stream>
