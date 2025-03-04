@@ -86,6 +86,13 @@ class RoomsController < ApplicationController
     pagy_messages = @single_room.messages.order(created_at: :desc)
     @pagy, messages = pagy(pagy_messages)
     @messages = messages.reverse
+    mark_messages_as_read
+  end
+
+  def mark_messages_as_read
+    return unless @single_room.messages.unread_by(current_user).exists?
+
+    @messages.each { |message| message.mark_as_read! for: current_user }
   end
 
   def handle_participant_action(action)

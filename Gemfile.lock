@@ -343,6 +343,8 @@ GEM
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
+    unread (0.14.0)
+      activerecord (>= 6.1)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.1)
@@ -399,6 +401,7 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails
   tzinfo-data
+  unread
   web-console
 
 RUBY VERSION

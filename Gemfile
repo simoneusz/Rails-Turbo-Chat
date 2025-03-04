@@ -50,3 +50,5 @@ gem 'ransack'
 gem 'pundit', '~> 2.4'
 
 gem 'pagy', '~> 9.3'
+
+gem 'unread'
