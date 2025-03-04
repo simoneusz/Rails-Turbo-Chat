@@ -98,13 +98,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_04_074803) do
   create_table "notifications", force: :cascade do |t|
     t.string "item_type", null: false
     t.bigint "item_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "receiver_id", null: false
+    t.bigint "sender_id"
     t.boolean "viewed", default: false, null: false
     t.string "notification_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_type", "item_id"], name: "index_notifications_on_item"
-    t.index ["user_id"], name: "index_notifications_on_user_id"
+    t.index ["receiver_id"], name: "index_notifications_on_receiver_id"
+    t.index ["sender_id"], name: "index_notifications_on_sender_id"
   end
 
   create_table "participants", force: :cascade do |t|
@@ -146,7 +148,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_04_074803) do
   add_foreign_key "contacts", "users", column: "contact_id"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
-  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "receiver_id"
+  add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "participants", "rooms"
   add_foreign_key "participants", "users"
 end
