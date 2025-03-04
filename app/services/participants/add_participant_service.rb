@@ -29,7 +29,7 @@ module Participants
     end
 
     def notify_target_user
-      @target_user.notifications.create(notification_type: 'invite_received', item: @room, sender: @current_user)
+      @target_user.notifications.create(notification_type: 'room_invite_received', item: @room, sender: @current_user)
     end
 
     def mark_every_message_as_read
