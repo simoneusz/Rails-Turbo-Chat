@@ -92,12 +92,11 @@ body{
 }
 .notifications-link {
   color: white;
-  display: inline-block; /* Inline elements with width and height. TL;DR they make the icon buttons stack from left-to-right instead of top-to-bottom */
-  position: relative; /* All 'absolute'ly positioned elements are relative to this one */
-  padding: 2px 5px; /* Add some padding so it looks nice */
+  display: inline-block;
+  position: relative;
+  padding: 2px 5px;
 }
 
-/* Make the badge float in the top right corner of the button */
 .notifications-badge {
   font-size: 8px;
   font-weight: normal;
@@ -150,12 +149,10 @@ body{
   position: fixed;
   z-index: 1000;
   background: white;
-  // Make border look like a shadow
   border: 1px solid #ccc;
   display: flex;
   flex-direction: column;
 
-  // Drop shadow
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
 
   a {
