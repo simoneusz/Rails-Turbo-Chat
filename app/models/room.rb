@@ -8,9 +8,6 @@ class Room < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :participants, dependent: :destroy
 
-  def user_ids
-    participants.map(&:user_id)
-  end
   scope :all_for_user, lambda { |user|
     left_outer_joins(:participants)
       .where(is_private: false)
@@ -35,6 +32,10 @@ class Room < ApplicationRecord
       .where(participants: { user_id: user.id })
       .where.not(participants: { role: :peer })
   }
+
+  def user_ids
+    participants.map(&:user_id)
+  end
 
   def self.create_private_room(users, room_name)
     single_room = Room.create(name: room_name, is_private: true)
