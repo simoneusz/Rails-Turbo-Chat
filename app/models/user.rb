@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
   has_many :contacts, -> { where(contacts: { status: 1 }) }, through: :sent_contacts, source: :contact
 
-  has_many :notifications
+  has_many :notifications, foreign_key: 'receiver_id', dependent: :destroy
   def unviewed_notifications_size
     notifications.unviewed.size
   end
