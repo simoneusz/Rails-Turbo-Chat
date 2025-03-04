@@ -30,14 +30,13 @@
   <body class="bg-main main-scroll-bar">
     <% if user_signed_in? %>
       <%= render partial: 'layouts/nav' %>
+      <%= turbo_stream_from  "broadcast_to_user_#{current_user.id}"%>
+      <div id="notifications">
+        <% current_user.notifications.where(viewed: false).each do |notification| %>
+          <%= render "notifications/fixed_notification", notification: notification %>
+        <% end %>
+      </div>
     <% end %>
-
-    <%= turbo_stream_from  "broadcast_to_user_#{current_user.id}"%>
-    <div id="notifications">
-      <% current_user.notifications.where(viewed: false).each do |notification| %>
-        <%= render "notifications/fixed_notification", notification: notification %>
-      <% end %>
-    </div>
 
     <div class="container-fluid h-100">
       <div class="row flex-nowrap h-100">
