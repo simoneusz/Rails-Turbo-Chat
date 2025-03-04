@@ -15,6 +15,7 @@ module Participants
     def call
       result = create_participant
       if result&.success?
+        notify_target_user
         success(result.data)
       else
         error(code: result.error_code || CODE_PARTICIPANT_INVALID)
@@ -26,8 +27,9 @@ module Participants
     def create_participant
       Participants::CreateParticipantService.new(@room, @target_user, @role).call
     end
-    # def notify_users
-    #   UserJoinedNotifier.with(user: @target_user, room: @room).deliver_later
-    # end
+
+    def notify_target_user
+      @target_user.notifications.create(notification_type: 'invite_received', item: @room, sender: @current_user)
+    end
   end
 end
