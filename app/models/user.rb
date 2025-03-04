@@ -15,10 +15,13 @@ class User < ApplicationRecord
   has_many :messages
   has_many :sent_contacts, class_name: 'Contact', foreign_key: 'user_id', dependent: :destroy
   has_many :received_contacts, class_name: 'Contact', foreign_key: 'contact_id', dependent: :destroy
-  has_many :notifications, as: :recipient, dependent: :destroy, class_name: 'Noticed::Notification'
-  has_many :notifications_mentions, as: :record, dependent: :destroy, class_name: 'Noticed::Event'
 
   has_many :contacts, -> { where(contacts: { status: 1 }) }, through: :sent_contacts, source: :contact
+
+  has_many :notifications
+  def unviewed_notifications_size
+    notifications.unviewed.size
+  end
 
   def pending_contacts
     received_contacts.where(status: :pending)

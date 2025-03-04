@@ -22,12 +22,10 @@
   <% end %>
   <a class="nav-link tabs__content btn-squeeze" href="<%= notifications_path %>">
     <i class="bi bi-bell tabs__content_icon position-relative">
-      <% if current_user&.notifications&.unread&.any? %>
-        <span class="notifications-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          <%= current_user.notifications.unread.size %>
-          <span class="visually-hidden">unread messages</span>
-        </span>
+      <%= tag.div id: :notifications_count do %>
+        <%= render "notifications/count", count: current_user.unviewed_notifications_size %>
       <% end %>
+
     </i>
     <p class="tabs__content_label">Activity</p>
   </a>

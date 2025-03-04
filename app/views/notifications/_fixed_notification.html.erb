@@ -1,0 +1,12 @@
+<%= content_tag :div, id: "notification_#{notification.id}",
+                class: "notification d-flex align-items-center alert alert-info fixed-alert" do %>
+  <%= button_to mark_as_read_notification_path(notification),
+                method: :patch,
+                remote: true,
+                class: "btn close",
+                data: { turbo_stream: true } do %>
+    <span aria-hidden="true">&times;</span>
+  <% end %>
+
+  <%= render "notifications/variants/#{notification.notification_type.downcase}", notification: notification %>
+<% end %>

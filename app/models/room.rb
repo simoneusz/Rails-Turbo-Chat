@@ -1,12 +1,16 @@
 class Room < ApplicationRecord
+  include Notificable
+
   validates_uniqueness_of :name
   validates :name, presence: true
   scope :public_rooms, -> { where(is_private: false) }
   scope :private_rooms, -> { where(is_private: true) }
   has_many :messages, dependent: :destroy
   has_many :participants, dependent: :destroy
-  has_many :notifications_mentions, as: :record, dependent: :destroy, class_name: 'Noticed::Event'
 
+  def user_ids
+    participants.map(&:user_id)
+  end
   scope :all_for_user, lambda { |user|
     left_outer_joins(:participants)
       .where(is_private: false)

@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       get 'requests'
     end
   end
-  resources :notifications, only: %i[index create destroy]
+  resources :notifications, only: %i[index] do
+    patch 'mark_as_read', on: :member
+  end
   get 'up' => 'rails/health#show', as: :rails_health_check
 end

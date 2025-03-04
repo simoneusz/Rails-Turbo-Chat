@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_query
   before_action :turbo_frame_request_variant
+
   def set_query
     @query = User.ransack(search_query)
     @users = []

@@ -3,6 +3,7 @@ class MessagesController < ApplicationController
     @room = Room.find(params[:room_id])
     if @room.participant?(current_user)
       @message = current_user.messages.create(content: msg_params[:content], room_id: params[:room_id])
+      current_user.notifications.create(notification_type: 'new_message', item: @room)
     else
       flash[:alert] = 'You cant send messages here'
       redirect_to room_path(@room)
