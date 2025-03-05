@@ -19,11 +19,13 @@ class Room < ApplicationRecord
     joins(:participants)
       .where(participants: { user_id: user.id })
       .where.not(participants: { role: :peer })
+      .order(:created_at)
   }
 
   scope :all_peer_rooms_for_user, lambda { |user|
     joins(:participants)
       .where(participants: { user_id: user.id, role: :peer })
+      .order(:created_at)
   }
 
   scope :all_private_rooms_for_user, lambda { |user|
@@ -31,6 +33,7 @@ class Room < ApplicationRecord
       .joins(:participants)
       .where(participants: { user_id: user.id })
       .where.not(participants: { role: :peer })
+      .order(:created_at)
   }
 
   def user_ids
