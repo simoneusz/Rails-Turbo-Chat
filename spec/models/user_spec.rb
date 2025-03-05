@@ -25,8 +25,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:messages) }
     it { should have_many(:sent_contacts).class_name('Contact').with_foreign_key('user_id').dependent(:destroy) }
     it { should have_many(:received_contacts).class_name('Contact').with_foreign_key('contact_id').dependent(:destroy) }
-    it { should have_many(:notifications).class_name('Noticed::Notification').dependent(:destroy) }
-    it { should have_many(:notifications_mentions).class_name('Noticed::Event').dependent(:destroy) }
+    it { should have_many(:notifications).dependent(:destroy) }
   end
 
   describe '#full_name' do
