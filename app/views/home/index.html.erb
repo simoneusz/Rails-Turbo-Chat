@@ -7,10 +7,8 @@
       <%= link_to "Get Started", rooms_path, class:"btn btn-hero"%>
     </div>
     <div class="hero-image fade-in">
-      <%= image_tag("/images/hero-main-img.svg", class:"hero-image-img")  %>
-      <div class="eyes eyes-animation">
-        👀
-      </div>
+      <% images_paths = %w[/images/hero-main-img-closed.svg /images/hero-main-img.svg] %>
+      <%= image_tag(images_paths.sample, class:"hero-image-img", draggable: false)  %>
     </div>
   </div>
 </div>
