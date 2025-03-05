@@ -33,3 +33,9 @@
   border-radius: 3px;
   padding: 1px;
 }
+.sidebar-rooms-group{
+  flex-wrap: nowrap;
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

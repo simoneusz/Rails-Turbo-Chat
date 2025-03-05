@@ -4,7 +4,12 @@
       <div href="#rooms" data-bs-toggle="collapse" class="sidebar-collapse-btn btn-squeeze sidebar-hoverable p-1 align-middle" aria-expanded="true">
         <i class="bi bi-chat-dots"></i> <span class="ms-1 d-none d-sm-inline">Rooms</span>
       </div>
-      <ul class="collapse nav show flex-column ms-1" id="rooms" data-bs-parent="#menu">
+      <ul class="sidebar-rooms-group main-scroll-bar collapse nav show flex-column ms-1" id="rooms" data-bs-parent="#menu">
+        <div type="button" class="p-1 sidebar-hoverable align-middle" data-bs-toggle="modal" data-bs-target="#newRoomModal">
+          <i class="sidebar-newroom--icon bi bi-plus-lg"></i>
+          <span> New Room</span>
+        </div>
+        <%= render partial: "rooms/new_room_modal" %>
         <% Room.all_group_for_user(current_user).each do |room| %>
           <li class="w-100">
             <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
@@ -23,11 +28,6 @@
             </div>
           </li>
         <% end %>
-        <div type="button" class="p-1 sidebar-hoverable align-middle" data-bs-toggle="modal" data-bs-target="#newRoomModal">
-          <i class="sidebar-newroom--icon bi bi-plus-lg"></i>
-          <span> New Room</span>
-        </div>
-        <%= render partial: "rooms/new_room_modal" %>
       </ul>
     </li>
     <div class="sidebar-spacer p-2"></div>
@@ -35,7 +35,7 @@
       <div href="#submenu1" data-bs-toggle="collapse" class="sidebar-collapse-btn btn-squeeze sidebar-hoverable p-1 align-middle ">
         <i class="bi bi-chat-left-quote"></i> <span class="ms-1 d-none d-sm-inline">Last Public Rooms</span>
       </div>
-      <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+      <ul class="sidebar-rooms-group main-scroll-bar collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
         <% Room.public_rooms.last(5).each do |room| %>
           <li class="w-100">
             <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
@@ -50,7 +50,7 @@
       <div href="#submenu5"  data-bs-toggle="collapse" class="sidebar-collapse-btn btn-squeeze sidebar-hoverable p-1 align-middle">
         <i class="bi bi-incognito"></i> <span class="ms-1 d-none d-sm-inline">Private Rooms</span>
       </div>
-      <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
+      <ul class="sidebar-rooms-group main-scroll-bar collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
         <% Room.all_private_rooms_for_user(current_user).each do |room| %>
         <li class="w-100">
             <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
