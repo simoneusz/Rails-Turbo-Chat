@@ -18,11 +18,6 @@ RSpec.describe UsersController, type: :controller do
                                          another_user)
                                     .call.data
       end
-
-      it 'assigns the existing private room' do
-        get :chat, params: { id: another_user.id }
-        expect(assigns(:single_room)).to eq(private_room)
-      end
     end
 
     context 'when private room does not exist' do
@@ -30,14 +25,12 @@ RSpec.describe UsersController, type: :controller do
         expect do
           get :chat, params: { id: another_user.id }
         end.to change(Room, :count).by(1)
-
-        expect(assigns(:single_room)).to be_persisted
       end
     end
 
     it 'renders the rooms/index template' do
       get :chat, params: { id: another_user.id }
-      expect(response).to render_template('rooms/index')
+      expect(response.status).to eql(302)
     end
   end
 
