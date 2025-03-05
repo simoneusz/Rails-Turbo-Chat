@@ -104,7 +104,7 @@ class RoomsController < ApplicationController
              end
     return unless result
 
-    handle_service_result(result, "#{@user.username} was #{action == :add ? 'added' : 'removed'} from the room")
+    handle_service_result(result, "#{@user.username} was #{action == :add ? 'added in' : 'removed from'}  the room")
   end
 
   def handle_role_change(new_role)
