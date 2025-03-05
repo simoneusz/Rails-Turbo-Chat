@@ -14,15 +14,14 @@ RSpec.describe Message, type: :model do
     let(:user) { create(:user) }
 
     context 'when room is private' do
+      subject { room.messages.create(user: user, room: room) }
       it 'does not allow creating a message if user is not a participant' do
-        message = build(:message, user: user, room: room)
-        expect(message).not_to be_valid
+        expect { subject }.to change(Message, :count).by(0)
       end
 
       it 'allows creating a message if user is a participant' do
         create(:participant, user: user, room: room)
-        message = build(:message, user: user, room: room)
-        expect(message).to be_valid
+        expect { subject }.to change(Message, :count).by(1)
       end
     end
   end
