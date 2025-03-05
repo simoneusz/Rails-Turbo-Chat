@@ -4,10 +4,10 @@
 # adding/removing/changing role participants.
 class RoomsController < ApplicationController
   before_action :set_room_and_user, only: %i[
-    add_participant change_role join leave remove_participant block_participant unblock_participant
+    add_participant change_role join destroy leave remove_participant block_participant unblock_participant
   ]
   before_action :authorize_room, only: %i[
-    add_participant change_role remove_participant block_participant unblock_participant
+    add_participant destroy change_role remove_participant block_participant unblock_participant
   ]
 
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
@@ -33,6 +33,11 @@ class RoomsController < ApplicationController
 
     prepare_show_page
     render 'index'
+  end
+
+  def destroy
+    @room.destroy
+    set_flash_and_redirect(:notice, 'Room has been deleted', rooms_path)
   end
 
   def dms

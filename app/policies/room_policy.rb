@@ -3,6 +3,10 @@ class RoomPolicy < ApplicationPolicy
     owner?
   end
 
+  def destroy?
+    owner?
+  end
+
   def add_participant?
     owner? || moderator? || member?
   end
