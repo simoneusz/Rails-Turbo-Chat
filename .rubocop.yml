@@ -1,0 +1,9 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Exclude:
+    - 'bin/bundle'
+    - 'bin/setup'
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
