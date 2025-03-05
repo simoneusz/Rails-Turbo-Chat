@@ -11,7 +11,13 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'GET #chat' do
     context 'when private room exists' do
-      let!(:private_room) { Room.create_private_room([user, another_user], "private_#{user.id}_#{another_user.id}") }
+      let!(:private_room) do
+        Rooms::CreatePeerRoomService.new({ name: 'name',
+                                           is_private: true },
+                                         user,
+                                         another_user)
+                                    .call.data
+      end
 
       it 'assigns the existing private room' do
         get :chat, params: { id: another_user.id }

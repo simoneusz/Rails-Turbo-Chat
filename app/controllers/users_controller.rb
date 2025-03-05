@@ -2,7 +2,12 @@ class UsersController < ApplicationController
   def chat
     @user = User.find(params[:id])
     @room_name = get_name(@user, current_user)
-    redirect_to Room.where(name: @room_name).first || Room.create_private_room([@user, current_user], @room_name)
+
+    redirect_to Room.where(name: @room_name).first || Rooms::CreatePeerRoomService.new({ name: @room_name,
+                                                                                         is_private: true },
+                                                                                       current_user,
+                                                                                       @user)
+                                                                                  .call.data
   end
 
   def show
