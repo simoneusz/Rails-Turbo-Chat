@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Participant, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'validations' do
+    subject { create(:participant) }
+
+    it { should validate_presence_of(:role).scoped_to(:contact_id) }
+  end
 end
