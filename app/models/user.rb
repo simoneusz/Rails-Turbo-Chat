@@ -34,49 +34,19 @@ class User < ApplicationRecord
   end
 
   def request_contact(other_user)
-    return false if other_user == self
-
-    existing_request = Contact.find_by(user: other_user, contact: self, status: :pending)
-
-    if existing_request
-      accept_contact(other_user)
-      return true
-    end
-
-    contact = Contact.find_by(user: self, contact: other_user)
-
-    if contact
-      return false if contact.accepted?
-
-      contact.update!(status: :pending) if contact.rejected?
-    else
-      Contact.create!(user: self, contact: other_user, status: :pending)
-    end
+    Contacts::ContactService.new(self, other_user).request_contact
   end
 
   def accept_contact(other_user)
-    contact_request = received_contacts.find_by(user: other_user, status: :pending)
-
-    return unless contact_request
-
-    ActiveRecord::Base.transaction do
-      contact_request.update!(status: :accepted)
-
-      unless Contact.exists?(user: self, contact: other_user)
-        Contact.create!(user: self, contact: other_user, status: :accepted)
-      end
-    end
+    Contacts::ContactService.new(self, other_user).accept_contact
   end
 
   def delete_contact(other_user)
-    received_contacts.find_by(user: other_user)&.destroy
-    sent_contacts.find_by(contact: other_user)&.destroy
+    Contacts::ContactService.new(self, other_user).delete_contact
   end
 
   def reject_contact(other_user)
-    contact_request = received_contacts.find_by(user: other_user, status: :pending) ||
-                      sent_contacts.find_by(contact: other_user, status: :pending)
-    contact_request&.update(status: :rejected)
+    Contacts::ContactService.new(self, other_user).reject_contact
   end
 
   def full_name

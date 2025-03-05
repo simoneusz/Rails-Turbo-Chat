@@ -36,4 +36,9 @@ en:
     participant_already_exists: "User already in room"
     cant_join_private_room: "Can't join private room"
     unknown_role: "This role are not allowed"
+    contact_add_self: "You can't add yourself to contacts"
+    contact_invalid: "You can't add this user to contacts"
+    contact_already_exists: "Contact already exists"
+    contact_doesnt_exists: "Can't find this contact"
+    no_pending_contacts: "There's no pending contacts"
 
