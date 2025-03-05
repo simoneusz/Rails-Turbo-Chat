@@ -15,7 +15,7 @@ module Participants
     def call
       result = create_participant
       if result&.success?
-        notify_target_user
+        notify_target_user unless @current_user == @target_user
         success(result.data)
       else
         error(code: result.error_code || CODE_PARTICIPANT_INVALID)
