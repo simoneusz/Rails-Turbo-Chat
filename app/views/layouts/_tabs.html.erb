@@ -8,7 +8,7 @@
     <p class="tabs__content_label">Home</p>
   </a>
   <a class="nav-link tabs__content btn-squeeze" aria-current="page" href="<%= rooms_path %>">
-    <i class="bi bi-chat tabs__content_icon">
+    <i class="bi bi-chat tabs__content_icon position-relative"  >
       <%= render "notifications/count",
                  count: Room.all_group_for_user(current_user).map {|room| room.messages.unread_by(current_user).size}.sum %>
     </i>
