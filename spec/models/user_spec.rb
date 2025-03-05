@@ -29,55 +29,55 @@ RSpec.describe User, type: :model do
   end
 
   describe '#full_name' do
+    subject { build(:user, first_name: 'John', last_name: 'Doe') }
     it 'returns the full name of the user' do
-      user = build(:user, first_name: 'John', last_name: 'Doe')
-      expect(user.full_name).to eq('John Doe')
+      expect(subject.full_name).to eq('John Doe')
     end
   end
 
   describe '#request_contact' do
-    let(:user2) { create(:user) }
+    subject { create(:user) }
 
     it 'creates a new contact request' do
-      expect { user.request_contact(user2) }.to change(Contact, :count).by(1)
+      expect { user.request_contact(subject) }.to change(Contact, :count).by(1)
     end
 
     it 'does not create a duplicate request' do
-      user.request_contact(user2)
-      expect { user.request_contact(user2) }.not_to change(Contact, :count)
+      user.request_contact(subject)
+      expect { user.request_contact(subject) }.not_to change(Contact, :count)
     end
 
     it 'accepts contact if a request already exists from the other user' do
-      user2.request_contact(user)
-      expect { user.request_contact(user2) }.to change { Contact.where(status: 'accepted').count }.by(2)
+      subject.request_contact(user)
+      expect { user.request_contact(subject) }.to change { Contact.where(status: 'accepted').count }.by(2)
     end
   end
 
   describe '#accept_contact' do
-    let(:user2) { create(:user) }
+    subject { create(:user) }
 
     it 'accepts a pending contact request' do
-      user2.request_contact(user)
-      expect { user.accept_contact(user2) }.to change { Contact.where(status: 'accepted').count }.by(2)
+      subject.request_contact(user)
+      expect { user.accept_contact(subject) }.to change { Contact.where(status: 'accepted').count }.by(2)
     end
   end
 
   describe '#delete_contact' do
-    let(:user2) { create(:user) }
+    subject { create(:user) }
 
     it 'removes an existing contact' do
-      user.request_contact(user2)
-      user2.accept_contact(user)
-      expect { user.delete_contact(user2) }.to change(Contact, :count).by(-2)
+      user.request_contact(subject)
+      subject.accept_contact(user)
+      expect { user.delete_contact(subject) }.to change(Contact, :count).by(-2)
     end
   end
 
   describe '#reject_contact' do
-    let(:user2) { create(:user) }
+    subject { create(:user) }
 
     it 'rejects a pending contact request' do
-      user.request_contact(user2)
-      expect { user2.reject_contact(user) }.to change { Contact.where(status: 'rejected').count }.by(1)
+      user.request_contact(subject)
+      expect { subject.reject_contact(user) }.to change { Contact.where(status: 'rejected').count }.by(1)
     end
   end
 end
