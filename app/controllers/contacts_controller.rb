@@ -6,8 +6,6 @@ class ContactsController < ApplicationController
   def create
     user = User.find(params[:contact_id])
     @users = User.all_except(current_user)
-    # current_user.accept_contact(user)
-    # redirect_to contact_path(user), notice: "Request sent to #{user.email}"
     if current_user.request_contact(user)
       redirect_to rooms_path, notice: 'Requested contact successfully.'
     else

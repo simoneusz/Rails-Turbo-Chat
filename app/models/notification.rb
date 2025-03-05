@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Class for user notifications
 class Notification < ApplicationRecord
   belongs_to :item, polymorphic: true
   belongs_to :receiver, class_name: 'User'

@@ -1,7 +1,8 @@
 <div class="login-container devise-container w-100">
   <div class="login-box devise-box">
     <h2 class="text-center text-white">Sign in to your account</h2>
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "login-form devise-form" }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name),
+                 html: { class: "login-form devise-form" }) do |f| %>
       <div class="mb-3">
         <%= f.label :email, class: "form-label text-light" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>

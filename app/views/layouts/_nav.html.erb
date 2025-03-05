@@ -1,27 +1,23 @@
 <nav class="navbar navbar-expand-lg bg-main navbar-dark ">
   <div class="container-fluid">
-    <%#= link_to "TurboChat", root_path, class:"navbar-brand" %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="row d-flex w-100 ">
         <div class="d-flex align-items-center justify-content-center">
-<!--          <div class="notifications mx-2 d-flex align-items-center">-->
-            <%#= link_to notifications_path, class:"notifications-link"  do %>
-<!--              <i class="notifications-icon bi bi-bell"></i>-->
-              <%# if current_user && current_user.notifications.any? %>
-<!--                <p class="notifications-badge text-center rounded p-0 m-0"><%#= current_user.notifications.size %></p>-->
-              <%# end %>
-            <%# end %>
-<!--          </div>-->
           <div type="button" class="btn p-1 search d-flex" data-bs-toggle="modal" data-bs-target="#searchModal">
             <div class="search-wrapper d-flex align-items-center justify-content-between text-white">
               <span class="search-placeholder">#Username, @email, $name </span>
               <i class="search-icon bi bi-search"></i>
             </div>
           </div>
-
           <%= render partial: "search/search_modal" %>
         </div>
       </div>

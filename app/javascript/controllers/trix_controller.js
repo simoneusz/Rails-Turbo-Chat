@@ -15,20 +15,12 @@ export default class TrixController extends Controller {
   ];
 
   connect() {
-
-    // wait for the trix editor is attached to the DOM to do stuff
     addEventListener("trix-initialize", function (event) {
       console.log("im inititalized!");
 
       TrixController.removeToolbarIcons()
 
     }, true);
-
-    // remove file upload handling
-    // addEventListener("trix-file-accept", function (event) {
-    //   event.preventDefault();
-    // }, true);
-
   }
 
   static removeToolbarIcons() {

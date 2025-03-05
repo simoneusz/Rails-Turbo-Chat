@@ -11,7 +11,8 @@
             <i class="bi bi-gear h3"></i>
           </div>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <%= render partial: "rooms/room_info/participants/participants_actions", locals: { participant: participant, room: room } %>
+            <%= render partial: "rooms/room_info/participants/participants_actions",
+                       locals: { participant: participant, room: room } %>
           </ul>
         <% end %>
       </div>

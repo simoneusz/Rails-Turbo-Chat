@@ -1,23 +1,19 @@
 import consumer from "./consumer"
 
 consumer.subscriptions.create("AppearancesChannel", {
-  // Called once when the subscription is created.
   initialized() {
     this.update = this.update.bind(this)
   },
 
-  // Called when the subscription is ready for use on the server.
   connected() {
     this.install()
     this.update()
   },
 
-  // Called when the WebSocket connection is closed.
   disconnected() {
     this.uninstall()
   },
 
-  // Called when the subscription is rejected by the server.
   rejected() {
     this.uninstall()
   },
@@ -27,12 +23,10 @@ consumer.subscriptions.create("AppearancesChannel", {
   },
 
   appear() {
-    // Calls `AppearanceChannel#appear(data)` on the server.
     this.perform("appear", { appearing_on: this.appearingOn })
   },
 
   away() {
-    // Calls `AppearanceChannel#away` on the server.
     this.perform("away")
   },
 

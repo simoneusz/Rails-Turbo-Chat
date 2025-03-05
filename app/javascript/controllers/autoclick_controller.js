@@ -14,8 +14,6 @@ export default class Autoclick extends Controller {
   }
 
   appear(entry) {
-    // callback automatically triggered when the element
-    // intersects with the viewport (or root Element specified in the options)
     if (!Autoclick.throttling) {
       Autoclick.throttling = true;
       Autoclick.messagesContainer =
@@ -34,10 +32,7 @@ export default class Autoclick extends Controller {
     }
   }
 
-  disappear(entry) {
-    // callback automatically triggered when the element
-    // leaves the viewport (or root Element specified in the options)
-  }
+  disappear(entry) {}
 
   /**
    * Throttle the click function.

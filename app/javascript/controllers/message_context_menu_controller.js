@@ -9,11 +9,7 @@ export default class extends Controller {
     console.log("connect to messages context")
     this.hideMenu = this.hideMenu.bind(this);
     document.addEventListener("click", this.hideMenu);
-    // document.addEventListener("scroll", this.hideMenu);
   }
-
-  // This is called when the controller is disconnected from the DOM
-  // Here, we remove the click event listener
   disconnect() {
     document.removeEventListener("click", this.hideMenu);
     document.removeEventListener("scroll", this.hideMenu);
@@ -67,8 +63,6 @@ export default class extends Controller {
   }
 
   toggleMenuOptions(hide) {
-    // this.showLinkTarget.classList.toggle("d-none", hide);
-    // this.editLinkTarget.classList.toggle("d-none", hide);
     this.deleteLinkTarget.classList.toggle("d-none", hide);
   }
 

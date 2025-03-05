@@ -16,11 +16,8 @@ export default class extends Controller {
           rootElement: this.pickerContainerTarget,
         },
         {
-          // The element that triggers the popup
           triggerElement: emojiButton,
-          // The element to position the picker relative to - often this is also the trigger element,
           referenceElement: emojiButton,
-          // specify how to position the popup
           position: "bottom-start",
         }
     );

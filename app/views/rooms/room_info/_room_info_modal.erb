@@ -1,15 +1,20 @@
-<button type="button" class="btn btn-active-no-borders flex-grow-1 text-start" data-bs-toggle="modal" data-bs-target="#roomInfo">
+<button type="button"
+        class="btn btn-active-no-borders flex-grow-1 text-start"
+        data-bs-toggle="modal"
+        data-bs-target="#roomInfo">
   <% other_user = room.participants.where.not(user_id: current_user.id).first&.user %>
   <% if room.peer_room? %>
     <%= other_user&.username %>
   <% else %>
     <%= room.name %>
   <% end %>
-<!--  <span class="border">Type: <%#= room.is_private ? "Private" : "Public" %></span>-->
-<!--  <span class="border">Name: <%#= room.name %></span>-->
 </button>
 
-<div class="modal fade" id="roomInfo" tabindex="-1" aria-labelledby="roomInfoLabel" aria-hidden="true" data-controller="open-child-modal">
+<div class="modal fade"
+     id="roomInfo" tabindex="-1"
+     aria-labelledby="roomInfoLabel"
+     aria-hidden="true"
+     data-controller="open-child-modal">
   <div class="modal-dialog">
     <div class="modal-content m-auto w-75">
       <%= render partial: "rooms/room_info/room_info_header", locals: { room: room, user: user } %>

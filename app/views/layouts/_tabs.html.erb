@@ -1,6 +1,8 @@
 <nav class="nav tabs flex-column justify-content-center align-items-center gap-3">
   <% if current_user %>
-    <a class="tabs__logo btn" href="<%= root_path %>"><i class="tabs__logo_icon"><%= current_user.username.first.upcase %></i></a>
+    <a class="tabs__logo btn" href="<%= root_path %>">
+      <i class="tabs__logo_icon"><%= current_user.username.first.upcase %></i>
+    </a>
   <% end %>
   <div class="tabs__container rounded"></div>
   <a class="nav-link tabs__content btn-squeeze" aria-current="page" href="<%= root_path %>">
@@ -10,7 +12,9 @@
   <a class="nav-link tabs__content btn-squeeze" aria-current="page" href="<%= rooms_path %>">
     <i class="bi bi-chat tabs__content_icon position-relative"  >
       <%= render "notifications/count",
-                 count: Room.all_group_for_user(current_user).map {|room| room.messages.unread_by(current_user).size}.sum %>
+                 count: Room.all_group_for_user(current_user).map {
+                   |room| room.messages.unread_by(current_user).size
+                 }.sum %>
     </i>
     <p class="tabs__content_label">Rooms</p>
   </a>
