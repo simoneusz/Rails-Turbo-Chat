@@ -10,7 +10,7 @@ RSpec.describe Contacts::ContactService, type: :service do
     context 'when requesting self' do
       subject { described_class.new(user, user).request_contact }
       it 'returns an error' do
-        expect(subject).not_to be_success
+        expect(subject.success?).to eq(false)
         expect(subject.error_code).to eq(:contact_add_self)
       end
     end
@@ -19,7 +19,7 @@ RSpec.describe Contacts::ContactService, type: :service do
       subject { described_class.new(user, other_user).request_contact }
       it 'accepts the contact' do
         create(:contact, user: other_user, contact: user, status: :pending)
-        expect(subject).to be_success
+        expect(subject.success?).to eq(true)
         expect(Contact.exists?(user: user, contact: other_user, status: :accepted)).to be true
         expect(Contact.exists?(user: other_user, contact: user, status: :accepted)).to be true
       end
@@ -30,7 +30,7 @@ RSpec.describe Contacts::ContactService, type: :service do
       it 'returns an error' do
         create(:contact, user: user, contact: other_user, status: :accepted)
 
-        expect(subject).not_to be_success
+        expect(subject.success?).to eq(false)
         expect(subject.error_code).to eq(:contact_already_exists)
       end
     end
@@ -38,7 +38,7 @@ RSpec.describe Contacts::ContactService, type: :service do
     context 'when creating a new contact request' do
       subject { described_class.new(user, other_user).request_contact }
       it 'creates a pending contact' do
-        expect(subject).to be_success
+        expect(subject.success?).to eq(true)
         expect(Contact.exists?(user: user, contact: other_user, status: :pending)).to be true
       end
     end
@@ -50,7 +50,7 @@ RSpec.describe Contacts::ContactService, type: :service do
       it 'accepts the contact' do
         create(:contact, user: other_user, contact: user, status: :pending)
 
-        expect(subject).to be_success
+        expect(subject.success?).to eq(true)
         expect(Contact.exists?(user: user, contact: other_user, status: :accepted)).to be true
         expect(Contact.exists?(user: other_user, contact: user, status: :accepted)).to be true
       end
@@ -58,7 +58,7 @@ RSpec.describe Contacts::ContactService, type: :service do
 
     context 'when there is no pending contact request' do
       it 'returns an error' do
-        expect(subject).not_to be_success
+        expect(subject.success?).to eq(false)
         expect(subject.error_code).to eq(:contact_doesnt_exists)
       end
     end
@@ -71,7 +71,7 @@ RSpec.describe Contacts::ContactService, type: :service do
         create(:contact, user: user, contact: other_user, status: :accepted)
         create(:contact, user: other_user, contact: user, status: :accepted)
 
-        expect(subject).to be_success
+        expect(subject.success?).to eq(true)
         expect(Contact.exists?(user: user, contact: other_user)).to be false
         expect(Contact.exists?(user: other_user, contact: user)).to be false
       end
@@ -79,7 +79,7 @@ RSpec.describe Contacts::ContactService, type: :service do
 
     context 'when contact does not exist' do
       it 'returns success without error' do
-        expect(subject).to be_success
+        expect(subject.success?).to eq(true)
       end
     end
   end
@@ -90,14 +90,14 @@ RSpec.describe Contacts::ContactService, type: :service do
       it 'rejects the contact' do
         create(:contact, user: other_user, contact: user, status: :pending)
 
-        expect(subject).to be_success
+        expect(subject.success?).to eq(true)
         expect(Contact.exists?(user: other_user, contact: user, status: :rejected)).to be true
       end
     end
 
     context 'when there is no pending contact request' do
       it 'returns an error' do
-        expect(subject).not_to be_success
+        expect(subject.success?).to eq(false)
         expect(subject.error_code).to eq(:contact_doesnt_exists)
       end
     end
