@@ -5,7 +5,7 @@
         <h5 class="modal-title" id="searchModalLabel">Search Results</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body mb-2">
         <%= render partial: "search/form" %>
         <turbo-frame id="search_results">
           <%= render "search/search_results", search_results: @search_results %>

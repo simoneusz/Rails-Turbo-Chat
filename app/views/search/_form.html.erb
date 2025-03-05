@@ -2,7 +2,7 @@
                     url: search_users_path,
                     method: :get,
                     data: { turbo_frame: "search_results" },
-                    html: { class: "d-flex", role: "search" } do |f|
+                    html: { class: "d-flex gap-2 mb-3", role: "search" } do |f|
 %>
   <%= f.label :search, "Search Users" %>
   <%= f.search_field :search,
