@@ -2,6 +2,8 @@ AllCops:
   Exclude:
     - 'bin/bundle'
     - 'bin/setup'
-Metrics/BlockLength:
-  Exclude:
-    - "spec/**/*"
+    - 'spec/**/*'
+    - 'config/**/*'
+    - 'db/**/*'
+Style/Documentation:
+  Enabled: false

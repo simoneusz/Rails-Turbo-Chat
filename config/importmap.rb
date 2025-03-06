@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Pin npm packages by running ./bin/importmap
 
 pin 'application'
@@ -13,4 +15,4 @@ pin_all_from 'app/javascript/channels', under: 'channels'
 pin 'trix'
 pin '@picmo/popup-picker', to: '@picmo--popup-picker.js' # @5.8.5
 pin 'picmo' # @5.8.5
-pin "stimulus-use" # @0.52.3
+pin 'stimulus-use' # @0.52.3

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Participants
   class CreateParticipantService < ApplicationService
     CODE_PARTICIPANT_INVALID = :participant_creation_failed

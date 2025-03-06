@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :test do
   desc 'TODO'
   task rooms_infection: :environment do

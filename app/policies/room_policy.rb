@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RoomPolicy < ApplicationPolicy
   def change_role?
     owner?
