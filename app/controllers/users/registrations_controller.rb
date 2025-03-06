@@ -1,4 +1,6 @@
 # frozen_string_literal: true
 
-class Users::RegistrationsController < Devise::RegistrationsController
+module Users
+  class RegistrationsController < Devise::RegistrationsController
+  end
 end
