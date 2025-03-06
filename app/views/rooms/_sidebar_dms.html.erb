@@ -9,7 +9,7 @@
             <div class="user-info">
               <div class="user-info--container w-100 d-flex align-items-center gap-2">
                 <div class="user-info--avatar">
-                  <%= render partial: "shared/default_avatar", locals: { size: 50 } %>
+                  <%= render partial: "shared/default_avatar", locals: { size: 50, user: other_user } %>
                 </div>
                 <div class="user-body w-100 text-white">
                   <p class="user-info--username mb-1 align"><%= other_user.username %></p>

@@ -52,3 +52,7 @@ gem 'pundit', '~> 2.4'
 gem 'pagy', '~> 9.3'
 
 gem 'unread'
+
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'

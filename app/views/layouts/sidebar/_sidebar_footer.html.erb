@@ -6,7 +6,7 @@
          id="dropdownUser1"
          data-bs-toggle="dropdown"
          aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+        <%= render partial: "shared/default_avatar", locals: { size: 30, user: current_user } %>
         <span class="sidebar-footer--username d-none d-sm-inline mx-1"><%= current_user.username %></span>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
