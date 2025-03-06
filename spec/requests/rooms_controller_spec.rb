@@ -89,6 +89,15 @@ RSpec.describe RoomsController, type: :controller do
     end
   end
 
+  describe 'GET #all' do
+    context 'when user is unauthorized' do
+      it 'assigns paginated rooms in reverse order' do
+        get :all
+        expect(assigns(:rooms)).to eq(Room.public_rooms.order(created_at: :desc).limit(15).reverse)
+      end
+    end
+  end
+
   describe 'POST #add_participant' do
     before { allow(controller).to receive(:authorize_room) }
 

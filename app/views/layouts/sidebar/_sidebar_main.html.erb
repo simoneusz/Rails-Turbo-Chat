@@ -48,6 +48,12 @@
       <ul class="sidebar-rooms-group main-scroll-bar collapse nav flex-column ms-1"
           id="submenu1"
           data-bs-parent="#menu">
+        <li class="w-100">
+          <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
+            <%= link_to "View all", all_rooms_path, class:"d-block w-100 room-link nav-link px-1" %>
+          </div>
+        </li>
+
         <% Room.public_rooms.last(5).each do |room| %>
           <li class="w-100">
             <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">

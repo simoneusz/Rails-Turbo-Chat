@@ -40,6 +40,12 @@ class RoomsController < ApplicationController
     set_flash_and_redirect(:notice, 'Room has been deleted', rooms_path)
   end
 
+  def all
+    @rooms = Room.public_rooms
+    @pagy, pagy_rooms = pagy(@rooms.order(created_at: :desc), limit: 15)
+    @rooms = pagy_rooms.reverse
+  end
+
   def dms
     @dms = Room.all_peer_rooms_for_user(current_user)
     render 'index'

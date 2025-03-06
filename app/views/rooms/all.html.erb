@@ -1,0 +1,27 @@
+<div class="container mt-4">
+  <div class="row">
+    <% @rooms.each do |room| %>
+      <div class="col-md-4 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body d-flex align-items-center">
+            <img src="https://a.slack-edge.com/80588/img/avatars-teams/ava_0003-88.png" alt="Room Avatar" class="rounded-circle me-3" width="50" height="50">
+            <div class="flex-grow-1">
+              <h5 class="mb-1"><%= room.name %></h5>
+              <div class="d-flex align-items-center">
+                <div class="d-flex">
+                  <% room.participants.limit(3).each do |participant| %>
+                    <%= render partial: "shared/default_avatar", locals: { size: 20, user: participant.user } %>
+                  <% end %>
+                </div>
+                <span class="ms-2"><%= pluralize(room.participants.count, "member") %></span>
+              </div>
+            </div>
+            <a href="<%= room_path(room) %>" class="btn main-btn-primary btn-sm">Join</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%== pagy_bootstrap_nav(@pagy) unless @pagy.count == @rooms.size %>
+</div>

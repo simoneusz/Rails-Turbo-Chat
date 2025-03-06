@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     post 'join', on: :member
     delete 'leave', on: :member
     post 'change_role', on: :member
+    get 'all', on: :collection
   end
   resources :contacts, only: %i[index create update destroy] do
     collection do
