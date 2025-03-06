@@ -7,3 +7,5 @@ AllCops:
     - 'db/**/*'
 Style/Documentation:
   Enabled: false
+Metrics/ClassLength:
+  Enabled: false
