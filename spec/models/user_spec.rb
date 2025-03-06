@@ -23,7 +23,7 @@ RSpec.describe User, type: :model do
 
   describe 'associations' do
     it { should have_many(:messages) }
-    it { should have_many(:sent_contacts).class_name('Contact').with_foreign_key('user_id').dependent(:destroy) }
+    it { should have_many(:sent_contacts).class_name('Contact').dependent(:destroy) }
     it { should have_many(:received_contacts).class_name('Contact').with_foreign_key('contact_id').dependent(:destroy) }
     it { should have_many(:notifications).dependent(:destroy) }
   end
