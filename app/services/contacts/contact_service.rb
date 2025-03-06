@@ -20,17 +20,16 @@ module Contacts
       existing_request = Contact.find_by(user: @other_user, contact: @user, status: :pending)
       return accept_contact if existing_request
 
-      update_or_create_request_contact
+      contact = Contact.find_by(user: @user, contact: @other_user)
+      return error_contact_already_exists if contact&.accepted?
+
+      update_or_create_request_contact(contact)
 
       success(@other_user)
     end
 
-    def update_or_create_request_contact
-      contact = Contact.find_by(user: @user, contact: @other_user)
-
+    def update_or_create_request_contact(contact)
       if contact
-        return error_contact_already_exists if contact.accepted?
-
         contact.update!(status: :pending) if contact.rejected?
       else
         Contact.create!(user: @user, contact: @other_user, status: :pending)
