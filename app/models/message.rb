@@ -17,7 +17,7 @@ class Message < ApplicationRecord
 
   def prev
     room = Room.find(self.room.id)
-    room.messages.where('id < ?', id).last
+    room.messages.where(id: ...id).last
   end
 
   def confirm_participant

@@ -3,7 +3,7 @@
 class Room < ApplicationRecord
   include Notificable
 
-  validates_uniqueness_of :name
+  validates :name, uniqueness: true
   validates :name, presence: true
   scope :public_rooms, -> { where(is_private: false) }
   scope :private_rooms, -> { where(is_private: true) }

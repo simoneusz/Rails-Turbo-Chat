@@ -4,7 +4,7 @@ class Contact < ApplicationRecord
   belongs_to :user
   belongs_to :contact, class_name: 'User'
 
-  enum status: %i[pending accepted rejected], _prefix: true
+  enum :status, { pending: 0, accepted: 1, rejected: 2 }, prefix: true
 
   validates :user_id, uniqueness: { scope: :contact_id }
 

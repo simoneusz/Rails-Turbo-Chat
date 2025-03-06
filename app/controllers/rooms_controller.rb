@@ -18,11 +18,6 @@ class RoomsController < ApplicationController
     @users = User.all_except(current_user)
   end
 
-  def create
-    result = Rooms::CreateRoomService.new(room_params, current_user).call
-    handle_service_result(result, 'New room has been created')
-  end
-
   def show
     @single_room = Room.find(params[:id])
     unless authorized_to_view?(@single_room)
@@ -33,6 +28,11 @@ class RoomsController < ApplicationController
 
     prepare_show_page
     render 'index'
+  end
+
+  def create
+    result = Rooms::CreateRoomService.new(room_params, current_user).call
+    handle_service_result(result, 'New room has been created')
   end
 
   def destroy

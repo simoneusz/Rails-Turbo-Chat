@@ -3,7 +3,7 @@
 class Participant < ApplicationRecord
   belongs_to :user
   belongs_to :room
-  enum role: {
+  enum :role, {
     member: 0,
     moderator: 1,
     owner: 2,
