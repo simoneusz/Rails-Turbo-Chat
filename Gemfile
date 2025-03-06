@@ -63,3 +63,5 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 gem 'sidekiq', '~> 8.0'
 gem 'sidekiq-scheduler'
+
+gem 'carrierwave', '~> 3.0'
