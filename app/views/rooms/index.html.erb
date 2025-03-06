@@ -13,6 +13,7 @@
     <% if @single_room %>
       <div class="single-room-top text-center d-flex flex-row justify-content-between">
         <%= render partial: 'rooms/room_info/room_info_modal', locals: { room: @single_room, user: current_user } %>
+        <%= render partial: 'rooms/notifications', locals: { room: @single_room } %>
         <%= render partial: 'rooms/room_info/room_settings_dropdown' %>
       </div>
       <div id="single_room" data-controller="scroll" class="d-flex flex-column main-scroll-bar">

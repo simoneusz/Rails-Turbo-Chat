@@ -16,6 +16,7 @@ module Participants
       return error_unknown_role unless Participant.roles.include?(@new_role)
 
       update_participant_role
+      notify_room
 
       success(@participant)
     end
@@ -24,6 +25,17 @@ module Participants
 
     def update_participant_role
       @participant.update(role: @new_role)
+    end
+
+    def notify_room
+      case @new_role
+      when :blocked
+        @participant.room
+                    .notifications.create!(message: "#{@participant.user.username}' was blocked.")
+      else
+        @participant.room
+                    .notifications.create!(message: "#{@participant.user.username}'s role was changed to #{@new_role}.")
+      end
     end
 
     def error_invalid_participant

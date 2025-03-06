@@ -19,6 +19,10 @@ module Rooms
 
     private
 
+    def notify_room
+      @room.notifications.create!(message: "#{@participant.user.username} has left the room.")
+    end
+
     def error_cant_find_participants(_participant)
       error(code: CODE_PARTICIPANT_DOESNT_EXIST)
     end

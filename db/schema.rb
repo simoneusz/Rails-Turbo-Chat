@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_06_113926) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_06_122310) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -131,6 +131,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_06_113926) do
     t.index ["reader_type", "reader_id"], name: "index_read_marks_on_reader_type_and_reader_id"
   end
 
+  create_table "room_notifications", force: :cascade do |t|
+    t.bigint "room_id", null: false
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_room_notifications_on_room_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.boolean "is_private", default: false
@@ -168,4 +176,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_06_113926) do
   add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "participants", "rooms"
   add_foreign_key "participants", "users"
+  add_foreign_key "room_notifications", "rooms"
 end

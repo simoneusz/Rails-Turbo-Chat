@@ -16,6 +16,7 @@ module Participants
       result = create_participant
       if result&.success?
         notify_target_user unless @current_user == @target_user
+        notify_room
         success(result.data)
       else
         error(code: result.error_code || CODE_PARTICIPANT_INVALID)
@@ -30,6 +31,10 @@ module Participants
 
     def notify_target_user
       @target_user.notifications.create(notification_type: 'room_invite_received', item: @room, sender: @current_user)
+    end
+
+    def notify_room
+      @room.notifications.create!(message: "#{@current_user.username} added #{@target_user.username}.")
     end
 
     def mark_every_message_as_read

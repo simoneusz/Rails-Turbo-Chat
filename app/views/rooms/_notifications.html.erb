@@ -1,0 +1,23 @@
+<button class="btn"
+        type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight">
+  <i class="bi bi-bell position-relative"></i>
+</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">'<%= room.name %>' notifications</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="list-group">
+      <% room.notifications.order(created_at: :desc).each do |notification| %>
+        <li class="list-group-item">
+          <%= notification.message %>
+          <p class="text-muted p-0 m-0"><%= time_ago_in_words notification.created_at %></p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
