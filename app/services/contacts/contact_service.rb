@@ -20,6 +20,12 @@ module Contacts
       existing_request = Contact.find_by(user: @other_user, contact: @user, status: :pending)
       return accept_contact if existing_request
 
+      update_or_create_request_contact
+
+      success(@other_user)
+    end
+
+    def update_or_create_request_contact
       contact = Contact.find_by(user: @user, contact: @other_user)
 
       if contact
@@ -29,8 +35,6 @@ module Contacts
       else
         Contact.create!(user: @user, contact: @other_user, status: :pending)
       end
-
-      success(@other_user)
     end
 
     def accept_contact
