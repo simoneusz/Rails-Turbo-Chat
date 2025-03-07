@@ -4,9 +4,10 @@ module Participants
   class RemoveParticipantService < ApplicationService
     CODE_PARTICIPANT_DOESNT_EXIST = :participant_doesnt_exist
 
-    def initialize(room, user)
+    def initialize(room, current_user, user)
       super()
       @room = room
+      @current_user = current_user
       @user = user
     end
 
@@ -16,6 +17,8 @@ module Participants
 
       remove_participant(participant)
 
+      notify_room
+
       success(participant)
     end
 
@@ -23,6 +26,10 @@ module Participants
 
     def remove_participant(participant)
       @room.participants.delete(participant)
+    end
+
+    def notify_room
+      @room.notifications.create!(message: "#{@current_user.username} kicked #{@user.username}.")
     end
 
     def error_cant_find_participants

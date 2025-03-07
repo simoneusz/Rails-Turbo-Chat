@@ -111,7 +111,7 @@ class RoomsController < ApplicationController
              when :add
                Participants::AddParticipantService.new(@room, current_user, @user, :member).call
              when :remove
-               Participants::RemoveParticipantService.new(@room, @user).call
+               Participants::RemoveParticipantService.new(@room, current_user, @user).call
              end
     return unless result
 
