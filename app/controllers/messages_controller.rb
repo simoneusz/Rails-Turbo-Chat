@@ -5,6 +5,7 @@ class MessagesController < ApplicationController
     @room = Room.find(params[:room_id])
     if @room.participant?(current_user)
       @message = current_user.messages.create(content: msg_params[:content], room_id: params[:room_id])
+      @message.mark_as_read! for: current_user
     else
       flash[:alert] = 'You cant send messages here'
       redirect_to room_path(@room)
