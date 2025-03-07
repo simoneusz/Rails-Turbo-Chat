@@ -3,11 +3,17 @@
   .hero-image{
     transform: scale(0.5);
   }
+  .sidebar{
+    max-width: 150px;
+  }
 }
 
 @media only screen and (max-width: 768px) {
   .hero-image{
     transform: scale(0.8);
+  }
+  #trix-toolbar-1, {
+    display: none;
   }
 }
 
