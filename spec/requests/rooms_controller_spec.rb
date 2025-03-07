@@ -42,7 +42,7 @@ RSpec.describe RoomsController, type: :controller do
         )
 
         subject
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(rooms_path)
         expect(flash[:alert]).to include('errors.creation_failed')
       end
     end
@@ -122,7 +122,7 @@ RSpec.describe RoomsController, type: :controller do
         )
 
         subject
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(rooms_path)
         expect(flash[:alert]).to include('errors.add_failed')
       end
     end
