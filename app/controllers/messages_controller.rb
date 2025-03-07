@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class MessagesController < ApplicationController
+  before_action :set_room, only: %i[create destroy]
+
   def create
-    @room = Room.find(params[:room_id])
     if @room.participant?(current_user)
       @message = current_user.messages.create(content: msg_params[:content], room_id: params[:room_id])
       @message.mark_as_read! for: current_user
@@ -13,13 +14,16 @@ class MessagesController < ApplicationController
   end
 
   def destroy
-    @room = Room.find(params[:room_id])
     @message = current_user.messages.find(params[:id])
     @message.destroy
     redirect_to room_path(@room)
   end
 
   private
+
+  def set_room
+    @room = Room.find(params[:room_id])
+  end
 
   def msg_params
     params.require(:message).permit(:content)
