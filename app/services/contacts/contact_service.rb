@@ -52,6 +52,8 @@ module Contacts
     end
 
     def delete_contact
+      delete_peer_room
+
       @user.received_contacts.find_by(user: @other_user)&.destroy
       @user.sent_contacts.find_by(contact: @other_user)&.destroy
 
@@ -70,6 +72,10 @@ module Contacts
     end
 
     private
+
+    def delete_peer_room
+      Room.peer_room_for_users(@user, @other_user).destroy_all
+    end
 
     def error_add_self_to_contacts
       error(code: CODE_ADD_SELF_TO_CONTACTS)

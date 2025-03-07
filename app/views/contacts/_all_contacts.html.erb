@@ -9,16 +9,18 @@
     <h3>You dont have any contacts yet.</h3>
   <% end %>
   <% contacts.each do |contact| %>
-    <%= link_to user_path(contact),
-                data: { turbo_frame: "modal_frame", "turbo-prefetch": false },
-                class:"nav-link px-0"  do %>
-      <div class="contact-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
-        <div class="d-flex align-items-center">
-          <%= render partial: "shared/default_avatar", locals: { size: 25, user: contact } %>
-          <span><%= contact.full_name %></span>
+    <div class="contact-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
+      <%= link_to user_path(contact),
+                  data: { turbo_frame: "modal_frame", "turbo-prefetch": false },
+                  class:"nav-link px-0"  do %>
+          <div class="d-flex align-items-center">
+            <%= render partial: "shared/default_avatar", locals: { size: 25, user: contact } %>
+            <span><%= contact.full_name %></span>
         </div>
+      <% end %>
+      <div class="d-flex gap-2">
+        <%= button_to "Delete", delete_contact_path(contact), method: :delete, class: "btn main-btn-danger btn-sm" %>
       </div>
-    <% end %>
-
+    </div>
   <% end %>
 </div>

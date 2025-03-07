@@ -39,6 +39,12 @@ class Room < ApplicationRecord
       .order(:created_at)
   }
 
+  scope :peer_room_for_users, lambda { |user, other_user|
+    joins(:participants)
+      .where(participants: { user_id: [user.id, other_user.id], role: :peer })
+      .group('rooms.id')
+      .having('COUNT(participants.id) = 2')
+  }
   def user_ids
     participants.map(&:user_id)
   end
