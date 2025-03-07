@@ -24,7 +24,7 @@ module Contacts
       return error_contact_already_exists if contact&.accepted?
 
       update_or_create_request_contact(contact)
-
+      notify_contact('contact_invite_requested')
       success(@other_user)
     end
 
@@ -47,7 +47,7 @@ module Contacts
           Contact.create!(user: @user, contact: @other_user, status: :accepted)
         end
       end
-
+      notify_contact('contact_invite_accepted')
       success(@other_user)
     end
 
@@ -67,7 +67,7 @@ module Contacts
       return error_contact_doesnt_exist unless contact_request
 
       contact_request.update!(status: :rejected)
-
+      notify_contact('contact_invite_rejected')
       success(@other_user)
     end
 
@@ -75,6 +75,10 @@ module Contacts
 
     def delete_peer_room
       Room.peer_room_for_users(@user, @other_user).destroy_all
+    end
+
+    def notify_contact(notification_type)
+      @other_user.notifications.create(notification_type: notification_type, item: @user, sender: @user)
     end
 
     def error_add_self_to_contacts
