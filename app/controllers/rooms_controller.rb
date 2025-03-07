@@ -129,7 +129,7 @@ class RoomsController < ApplicationController
     if result.success?
       set_flash_and_redirect(:notice, success_message, room_path(current_room))
     else
-      render_service_error(result)
+      render_service_error(result, rooms_path)
     end
   end
 
