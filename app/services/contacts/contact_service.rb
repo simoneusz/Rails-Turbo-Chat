@@ -52,6 +52,9 @@ module Contacts
     end
 
     def delete_contact
+      contact = @user.received_contacts.find_by(user: @other_user)
+      return error_contact_doesnt_exist unless contact
+
       delete_peer_room
 
       @user.received_contacts.find_by(user: @other_user)&.destroy
