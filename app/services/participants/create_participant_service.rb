@@ -13,7 +13,7 @@ module Participants
     end
 
     def call
-      return error(code: CODE_PARTICIPANT_ALREADY_EXISTS) if @room.find_participant(@user)
+      return error(code: CODE_PARTICIPANT_ALREADY_EXISTS) if @room.find_participant(@user).present?
 
       participant = @room.participants.new(user: @user, role: @role)
       return participant_invalid(participant) unless participant.save
