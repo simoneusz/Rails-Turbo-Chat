@@ -19,7 +19,7 @@ module Participants
       return participant_invalid(participant) unless participant.save
 
       success(participant)
-    rescue ActiveRecord::RecordInvalid => e
+    rescue ActiveRecord::RecordInvalid, ArgumentError => e
       error(e.message, code: CODE_PARTICIPANT_INVALID)
     end
 
