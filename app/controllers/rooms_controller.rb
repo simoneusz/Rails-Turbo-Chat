@@ -165,7 +165,8 @@ class RoomsController < ApplicationController
   end
 
   def authorize_participant
-    authorize find_participant(current_user)
+    participant = find_participant(current_user)
+    authorize participant if participant
   end
 
   def room_params
