@@ -5,10 +5,6 @@ class ParticipantPolicy < ApplicationPolicy
     owner?
   end
 
-  def destroy?
-    owner?
-  end
-
   def add_participant?
     owner? || moderator? || member?
   end
@@ -29,8 +25,32 @@ class ParticipantPolicy < ApplicationPolicy
     !blocked?
   end
 
+  def index?
+    !blocked?
+  end
+
   def show?
     !blocked?
+  end
+
+  def create?
+    !blocked?
+  end
+
+  def new?
+    !blocked?
+  end
+
+  def update?
+    owner? || moderator?
+  end
+
+  def edit?
+    owner?
+  end
+
+  def destroy?
+    owner?
   end
 
   private
