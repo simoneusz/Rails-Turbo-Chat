@@ -14,7 +14,7 @@
                   data: { turbo_frame: "modal_frame", "turbo-prefetch": false },
                   class:"nav-link px-0"  do %>
           <div class="d-flex align-items-center">
-            <%= render partial: "shared/default_avatar", locals: { size: 25, user: contact } %>
+            <%= render partial: "shared/default_avatar", locals: { size: 25, user: contact, rounded: true } %>
             <span><%= contact.full_name %></span>
         </div>
       <% end %>
