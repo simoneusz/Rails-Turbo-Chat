@@ -1,3 +1,10 @@
+#single_room{
+  background-image: url("/images/abstract-2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 #chatroom_container{
   flex: 1 1 auto;
 }
@@ -10,7 +17,8 @@
   width: fit-content;
   max-width: 40%;
   border-radius: 10px;
-  padding: 5px
+  padding: 5px;
+  background-color: var(--secondary-bg-color);
 }
 .single-room-top{
   border-bottom: 3px solid var(--shadow-bg-color);
@@ -18,7 +26,6 @@
 
 .trix-content{
   &:first-child{
-    background-color: var(--shadow-bg-color);
     padding: 2px 5px ;
     border-radius: 5px;
   }

@@ -1,7 +1,7 @@
 <% prev_message_user_id = message.prev&.user&.id %>
 <%=  %>
 <div class="cont-<%= message.user.id %> ">
-  <div class="message-box msg-<%= message.user.id %> d-flex flex-column">
+  <div class="message-box text-white msg-<%= message.user.id %> d-flex flex-column">
     <% if message.user.id != prev_message_user_id %>
       <%= link_to user_path(message.user),
                   data: { turbo_frame: "modal_frame", "turbo-prefetch": false },
