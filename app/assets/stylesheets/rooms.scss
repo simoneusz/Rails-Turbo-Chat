@@ -1,8 +1,7 @@
 #single_room{
-  background-image: url("/images/abstract-2.png");
+  background-image: url("/images/noise.svg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
 }
 
 #chatroom_container{
@@ -28,5 +27,17 @@
   &:first-child{
     padding: 2px 5px ;
     border-radius: 5px;
+  }
+  & pre{
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+    font-family: monospace;
+    font-size: 0.9em;
+    padding: 0.5em;
+    white-space: pre;
+    background-color: var(--main-bg-color-hover);
+    color: white;
+    overflow-x: auto;
   }
 }
