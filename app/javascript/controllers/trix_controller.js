@@ -15,12 +15,32 @@ export default class TrixController extends Controller {
   ];
 
   connect() {
+    this.editor = this.data.element
+    this.editor.addEventListener("keydown", this.handleKeydown.bind(this.editor))
+
     addEventListener("trix-initialize", function (event) {
       console.log("im inititalized!");
 
       TrixController.removeToolbarIcons()
 
     }, true);
+  }
+
+  handleKeydown(event) {
+    if (event.key === "Enter") {
+      if (event.shiftKey) {
+        return
+      }
+
+      event.preventDefault()
+
+      const form = event.target.closest("form")
+      console.log(form)
+      if (form) {
+        form.submit();
+        form.reset();
+      }
+    }
   }
 
   static removeToolbarIcons() {
