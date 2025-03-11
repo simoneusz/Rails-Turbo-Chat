@@ -9,25 +9,28 @@ RSpec.describe Participants::RemoveParticipantService do
 
   describe '#call' do
     context 'when participant exists' do
-      let!(:participant) { create(:participant, room: room, user: user, role: :member) }
+      subject(:service) { described_class.new(room, current_user, user).call }
 
-      it 'removes the participant and returns success' do
-        service = described_class.new(room, current_user,  user)
-        result = service.call
+      before { create(:participant, room:, user:, role: :member) }
 
-        expect(result).to be_success
-        expect(result.data).to eq(participant)
-        expect(room.participants.exists?(user_id: user.id)).to be_falsey
+      it 'returns service success' do
+        expect(service).to be_success
+      end
+
+      it 'removes the participant' do
+        expect(room.participants.size).to eq(0)
       end
     end
 
     context 'when participant does not exist' do
-      it 'returns an error' do
-        service = described_class.new(room, current_user,  user)
-        result = service.call
+      subject(:service) { described_class.new(room, current_user, user).call }
 
-        expect(result.success?).to eq(false)
-        expect(result.error_code).to eq(:participant_doesnt_exist)
+      it 'does not returns service success' do
+        expect(service.success?).to be(false)
+      end
+
+      it 'returns service error code' do
+        expect(service.error_code).to eq(:participant_doesnt_exist)
       end
     end
   end

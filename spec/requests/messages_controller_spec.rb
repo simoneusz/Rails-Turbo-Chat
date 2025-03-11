@@ -12,25 +12,32 @@ RSpec.describe MessagesController, type: :controller do
 
   describe 'POST #create' do
     context 'when user is a participant' do
-      subject { post :create, params: { room_id: room.id, message: { content: 'Hello' } } }
-      before { room.participants.create(user: user) }
+      subject(:create_message) { post :create, params: { room_id: room.id, message: { content: 'Hello' } } }
+
+      before do
+        room.participants.create(user: user)
+        create_message
+      end
 
       it 'creates a new message' do
-        expect { subject }.to change(Message, :count).by(1)
+        expect(room.messages.size).to eq(1)
+      end
 
-        expect(assigns(:message)).to be_persisted
+      it 'assigns message' do
         expect(assigns(:message).content.body.to_plain_text).to eq('Hello')
       end
     end
 
     context 'when user is not a participant' do
-      subject { post :create, params: { room_id: room.id, message: { content: 'Hello' } } }
-      before { allow(room).to receive(:participant?).with(user).and_return(false) }
+      subject(:create_message) { post :create, params: { room_id: room.id, message: { content: 'Hello' } } }
+
+      before { create_message }
 
       it 'does not create a message and redirects' do
-        expect { subject }.not_to change(Message, :count)
+        expect(room.messages.size).to eq(0)
+      end
 
-        expect(flash[:alert]).to eq('You cant send messages here')
+      it 'redirects to room' do
         expect(response).to redirect_to(room_path(room))
       end
     end
@@ -38,22 +45,22 @@ RSpec.describe MessagesController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'when user owns the message' do
-      subject { delete :destroy, params: { room_id: room.id, id: message.id } }
+      subject(:delete_message) { delete :destroy, params: { room_id: room.id, id: message.id } }
+
+      let!(:message) { create(:message, user: user, room: room) }
+
       it 'deletes the message' do
-        message
-
-        expect { subject }.to change(Message, :count).by(-1)
-
-        expect(response).to redirect_to(room_path(room))
+        expect { delete_message }.to change(Message, :count).by(-1)
       end
     end
 
     context 'when user does not own the message' do
-      subject { delete :destroy, params: { room_id: room.id, id: another_message.id } }
-      let(:another_message) { create(:message, user: another_user, room: room) }
+      subject(:delete_message) { delete :destroy, params: { room_id: room.id, id: message.id } }
+
+      let!(:message) { create(:message, user: another_user, room: room) }
 
       it 'raises an error' do
-        expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { delete_message }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

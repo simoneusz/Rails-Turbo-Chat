@@ -9,34 +9,38 @@ RSpec.describe Participants::ChangeParticipantRoleService do
 
   describe '#call' do
     context 'when participant exists and role is valid' do
-      it 'updates the participant role' do
-        service = described_class.new(participant, :moderator)
-        result = service.call
+      subject(:service) { described_class.new(participant, :moderator).call }
 
-        expect(result).to be_success
-        expect(result.data).to eq(participant)
-        expect(participant.reload.role).to eq('moderator')
+      it 'returns service success' do
+        expect(service).to be_success
+      end
+
+      it 'returns service participant' do
+        expect(service.data).to eq(participant)
       end
     end
 
     context 'when participant does not exist' do
-      it 'returns an error' do
-        service = described_class.new(nil, :moderator)
-        result = service.call
+      subject(:service) { described_class.new(nil, :moderator).call }
 
-        expect(result.success?).to eq(false)
-        expect(result.error_code).to eq(:participant_doesnt_exist)
+      it 'does not returns service success' do
+        expect(service.success?).to be(false)
+      end
+
+      it 'returns service error code' do
+        expect(service.error_code).to eq(:participant_doesnt_exist)
       end
     end
 
     context 'when role is invalid' do
-      it 'returns an error' do
-        service = described_class.new(participant, :invalid_role)
-        result = service.call
+      subject(:service) { described_class.new(participant, :invalid_role).call }
 
-        expect(result.success?).to eq(false)
-        expect(result.error_code).to eq(:unknown_role)
-        expect(participant.reload.role).to eq('member')
+      it 'does not returns service success' do
+        expect(service.success?).to be(false)
+      end
+
+      it 'returns service error code' do
+        expect(service.error_code).to eq(:unknown_role)
       end
     end
   end

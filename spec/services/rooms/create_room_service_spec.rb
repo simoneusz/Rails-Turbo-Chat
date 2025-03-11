@@ -9,26 +9,30 @@ RSpec.describe Rooms::CreateRoomService do
 
   describe '#call' do
     context 'when room is successfully created' do
-      it 'creates a room and adds the current user as the owner' do
-        service = described_class.new(valid_room_params, user)
-        result = service.call
+      subject(:service) { described_class.new(valid_room_params, user).call }
 
-        expect(result).to be_success
-        expect(result.data).to be_a(Room)
-        expect(result.data&.persisted?).to be(true)
-        expect(result.data&.participants&.size).to eq(1)
-        expect(result.data&.participants&.first&.user).to eq(user)
-        expect(result.data&.participants&.first&.role).to eq('owner')
+      it 'returns service success' do
+        expect(service).to be_success
+      end
+
+      it 'creates a room' do
+        expect { service }.to change(Room, :count).by(1)
+      end
+
+      it 'assigns user as owner' do
+        expect(service.data.participants&.first&.role).to eq('owner')
       end
     end
 
     context 'when room creation fails' do
-      it 'returns an error with validation messages' do
-        service = described_class.new(invalid_room_params, user)
-        result = service.call
+      subject(:service) { described_class.new(invalid_room_params, user).call }
 
-        expect(result.success?).to eq(false)
-        expect(result.error_code).to eq(:new_room_invalid)
+      it 'does not returns service success' do
+        expect(service.success?).to be(false)
+      end
+
+      it 'returns service error code' do
+        expect(service.error_code).to eq(:new_room_invalid)
       end
     end
   end

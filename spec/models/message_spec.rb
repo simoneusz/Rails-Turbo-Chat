@@ -2,49 +2,50 @@
 
 require 'rails_helper'
 
-RSpec.describe Message, type: :model do
+RSpec.describe Message do
   describe 'associations' do
-    it { should belong_to(:user) }
-    it { should belong_to(:room) }
-    it { should have_rich_text(:content) }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:room) }
+    it { is_expected.to have_rich_text(:content) }
   end
 
   describe 'callbacks' do
+    subject(:message) { room.messages.create(user:, room:) }
+
     let(:room) { create(:room, is_private: true) }
     let(:user) { create(:user) }
 
-    context 'when room is private' do
-      subject { room.messages.create(user: user, room: room) }
-      it 'does not allow creating a message if user is not a participant' do
-        expect { subject }.to change(Message, :count).by(0)
+    context 'when room is private and user is not a participant' do
+      it 'does not allow to create a message' do
+        expect { message }.not_to change(described_class, :count)
       end
+    end
+
+    context 'when room is private and user is a participant' do
+      before { create(:participant, user:, room:) }
 
       it 'allows creating a message if user is a participant' do
-        create(:participant, user: user, room: room)
-        expect { subject }.to change(Message, :count).by(1)
+        expect { message }.to change(described_class, :count).by(1)
       end
     end
   end
 
-  describe '#next' do
-    it 'returns the next message in the room' do
-      room = create(:room)
-      user = create(:user)
-      message1 = create(:message, room: room, user: user)
-      message2 = create(:message, room: room, user: user)
+  describe 'methods' do
+    subject!(:first_message) { create(:message, room:, user:) }
 
-      expect(message1.next).to eq(message2)
-    end
-  end
+    let!(:room) { create(:room) }
+    let!(:user) { create(:user) }
 
-  describe '#prev' do
-    it 'returns the previous message in the room' do
-      room = create(:room)
-      user = create(:user)
-      message1 = create(:message, room: room, user: user)
-      message2 = create(:message, room: room, user: user)
+    context 'when calling' do
+      let!(:second_message) { create(:message, room:, user:) }
 
-      expect(message2.prev).to eq(message1)
+      it '#next' do
+        expect(first_message.next).to eq(second_message)
+      end
+
+      it '#prev' do
+        expect(second_message.prev).to eq(first_message)
+      end
     end
   end
 end

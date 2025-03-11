@@ -10,23 +10,26 @@ RSpec.describe Rooms::JoinRoomService do
 
   describe '#call' do
     context 'when participant joins' do
-      it 'participant joins successfully' do
-        service = described_class.new(room, user)
-        result = service.call
+      subject(:service) { described_class.new(room, user).call }
 
-        expect(result).to be_success
-        expect(result.data.present?).to eq(true)
-        expect(room.participants.size).to eq(1)
+      it 'returns service success' do
+        expect(service).to be_success
+      end
+
+      it 'participant joins successfully' do
+        expect { service }.to change(Participant, :count).by(1)
       end
     end
 
     context 'when participant are trying to join private room' do
-      it 'results an error' do
-        service = described_class.new(private_room, participant)
-        result = service.call
+      subject(:service) { described_class.new(private_room, user).call }
 
-        expect(result).not_to be_success
-        expect(result.error_code).to eq(:cant_join_private_room)
+      it 'does not returns service success' do
+        expect(service.success?).to be(false)
+      end
+
+      it 'returns service error code' do
+        expect(service.error_code).to eq(:cant_join_private_room)
       end
     end
   end

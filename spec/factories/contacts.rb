@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :contact do
     user
-    association :contact, factory: :user
+    contact factory: %i[user]
     status { 'pending' }
   end
 end

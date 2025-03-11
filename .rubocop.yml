@@ -10,7 +10,6 @@ AllCops:
   Exclude:
     - 'bin/bundle'
     - 'bin/setup'
-    - 'spec/**/*'
     - 'config/**/*'
     - 'db/**/*'
 Style/Documentation:

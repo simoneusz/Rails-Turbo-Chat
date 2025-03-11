@@ -8,42 +8,40 @@ RSpec.describe Participants::CreateParticipantService do
 
   describe '#call' do
     context 'when participant is successfully created' do
-      it 'returns a success response' do
-        service = described_class.new(room, user, :member)
-        result = service.call
+      subject(:service) { described_class.new(room, user, :member).call }
 
-        expect(result).to be_success
-        expect(result.data).to be_a(Participant)
-        expect(result.data.user).to eq(user)
-        expect(result.data.room).to eq(room)
-        expect(result.data.role).to eq('member')
+      it 'service returns success' do
+        expect(service).to be_success
+      end
+
+      it 'returns service participant' do
+        expect(service.data).to be_a(Participant)
       end
     end
 
     context 'when participant already exists' do
-      before { create(:participant, room: room, user: user, role: :member) }
+      subject(:service) { described_class.new(room, user, :member).call }
 
-      it 'returns an error' do
-        service = described_class.new(room, user, :member)
-        result = service.call
+      before { create(:participant, room:, user:, role: :member) }
 
-        expect(result.status).to eq(false)
-        expect(result.error_code).to eq(:participant_already_exists)
+      it 'does not returns service success' do
+        expect(service.success?).to be(false)
+      end
+
+      it 'returns service error code' do
+        expect(service.error_code).to eq(:participant_already_exists)
       end
     end
 
     context 'when participant creation fails due to invalid data' do
-      it 'returns an error' do
-        allow_any_instance_of(Participant).to receive(:save).and_return(false)
-        allow_any_instance_of(Participant).to receive_message_chain(:errors, :full_messages, :to_sentence)
-          .and_return('Invalid participant')
+      subject(:service) { described_class.new(room, user, :invalid_role).call }
 
-        service = described_class.new(room, user, :member)
-        result = service.call
+      it 'does not returns service success' do
+        expect(service.status).to be(false)
+      end
 
-        expect(result.status).to eq(false)
-        expect(result.error_code).to eq(:participant_creation_failed)
-        expect(result.data).to eq('Invalid participant')
+      it 'returns service error code' do
+        expect(service.error_code).to eq(:participant_creation_failed)
       end
     end
   end

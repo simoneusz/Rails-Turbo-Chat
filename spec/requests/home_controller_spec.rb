@@ -10,9 +10,11 @@ RSpec.describe HomeController, type: :controller do
   before { sign_in user }
 
   describe 'GET #index' do
-    subject { get :index }
+    subject(:get_index) { get :index }
+
+    before { get_index }
+
     it 'returns success code' do
-      subject
       expect(response).to have_http_status(:success)
     end
   end

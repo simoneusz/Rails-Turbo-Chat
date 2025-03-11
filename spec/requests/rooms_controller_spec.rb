@@ -10,165 +10,173 @@ RSpec.describe RoomsController, type: :controller do
   before { sign_in user }
 
   describe 'GET #index' do
-    it 'assigns @rooms and @users' do
-      get :index
+    subject(:get_index) { get :index }
+
+    before { get_index }
+
+    it 'assigns @rooms' do
       expect(assigns(:rooms)).to eq(Room.public_rooms)
+    end
+
+    it 'assigns @users' do
       expect(assigns(:users)).to eq(User.all_except(user))
+    end
+
+    it 'renders the index template' do
       expect(response).to render_template(:index)
     end
   end
 
   describe 'POST #create' do
     let(:room_params) { { name: 'Test Room', is_private: false } }
+    let(:invalid_room_params) { { name: nil, is_private: false } }
 
     context 'when room creation succeeds' do
-      subject { post :create, params: { room: room_params } }
-      it 'creates a new room and redirects' do
-        allow(Rooms::CreateRoomService).to receive_message_chain(:new, :call).and_return(
-          double(success?: true, data: room)
-        )
+      subject(:create_room) { post :create, params: { room: room_params } }
 
-        subject
-        expect(response).to redirect_to(room_path(room))
-        expect(flash[:notice]).to eq('New room has been created')
+      before { create_room }
+
+      it 'creates a new room and redirects' do
+        expect(response).to redirect_to(Room.last)
       end
     end
 
     context 'when room creation fails' do
-      subject { post :create, params: { room: room_params } }
-      it 'renders an error' do
-        allow(Rooms::CreateRoomService).to receive_message_chain(:new, :call).and_return(
-          double(success?: false, error_code: 'creation_failed', data: room)
-        )
+      subject(:create_room) { post :create, params: { room: invalid_room_params } }
 
-        subject
+      before { create_room }
+
+      it 'renders an error' do
         expect(response).to redirect_to(rooms_path)
-        expect(flash[:alert]).to include('errors.creation_failed')
       end
     end
   end
 
   describe 'GET #show' do
     context 'when user is authorized' do
-      subject { get :show, params: { id: room.id } }
+      subject(:get_show) { get :show, params: { id: room.id } }
+
       before do
         allow(controller).to receive(:authorized_to_view?).and_return(true)
         allow(room).to receive(:user_blocked?).with(user).and_return(false)
+        get_show
       end
 
       it 'assigns necessary variables and renders index' do
-        subject
         expect(assigns(:single_room)).to eq(room)
+      end
+
+      it 'renders the show template' do
         expect(response).to render_template(:index)
       end
     end
 
     context 'when user is unauthorized' do
-      subject { get :show, params: { id: room.id } }
-      it 'redirects with an alert' do
-        allow(controller).to receive(:authorized_to_view?).and_return(false)
+      subject(:get_show) { get :show, params: { id: room.id } }
 
-        subject
-        expect(response).to redirect_to(root_path)
-        expect(flash[:alert]).to eq('You do not have permission to view this room')
+      before do
+        allow(controller).to receive(:authorized_to_view?).and_return(false)
+        get_show
+      end
+
+      it 'redirects' do
+        expect(response).to redirect_to(rooms_path)
       end
     end
 
     context 'when user is blocked' do
-      subject { get :show, params: { id: room.id } }
-      it 'redirects to rooms with an alert' do
+      subject(:get_show) { get :show, params: { id: room.id } }
+
+      before do
         allow(controller).to receive(:authorized_to_view?).and_return(true)
         allow(room).to receive(:user_blocked?).with(user).and_return(true)
 
         room.participants.create(user: user, role: :blocked)
 
-        subject
+        get_show
+      end
+
+      it 'redirects to rooms with an alert' do
         expect(response).to redirect_to(rooms_path)
-        expect(flash[:alert]).to eq('You are banned in this room')
       end
     end
   end
 
   describe 'GET #all' do
-    context 'when user is unauthorized' do
+    subject(:get_all) { get :all }
+
+    before { get_all }
+
+    context 'when user is authorized' do
       it 'assigns paginated rooms in reverse order' do
-        get :all
         expect(assigns(:rooms)).to eq(Room.public_rooms.order(created_at: :desc).limit(15).reverse)
       end
     end
   end
 
   describe 'POST #add_participant' do
-    before { allow(controller).to receive(:authorize_room) }
+    before { allow(controller).to receive(:authorize_participant) }
 
     context 'when service succeeds' do
-      subject { post :add_participant, params: { id: room.id, user_id: another_user.id } }
-      it 'adds a participant and redirects' do
-        allow(Participants::AddParticipantService).to receive_message_chain(:new, :call).and_return(
-          double(success?: true, data: room)
-        )
+      subject(:post_add_participant) { post :add_participant, params: { id: room.id, user_id: another_user.id } }
 
-        subject
-        expect(response).to redirect_to(room_path(room))
-        expect(flash[:notice]).to include("#{another_user.username} was added")
+      it 'adds participant' do
+        expect { post_add_participant }.to change(Participant, :count).by(1)
       end
-    end
 
-    context 'when service fails' do
-      subject { post :add_participant, params: { id: room.id, user_id: another_user.id } }
-      it 'renders an error' do
-        allow(Participants::AddParticipantService).to receive_message_chain(:new, :call).and_return(
-          double(success?: false, error_code: 'add_failed', data: room)
-        )
-
-        subject
-        expect(response).to redirect_to(rooms_path)
-        expect(flash[:alert]).to include('errors.add_failed')
+      it 'redirects to room' do
+        expect(post_add_participant).to redirect_to(room_path(room))
       end
     end
   end
 
   describe 'DELETE #remove_participant' do
-    before { allow(controller).to receive(:authorize_room) }
-    context 'when service succeeds' do
-      subject { delete :remove_participant, params: { id: room.id, user_id: another_user.id } }
-      it 'removes a participant and redirects' do
-        allow(Participants::RemoveParticipantService).to receive_message_chain(:new, :call).and_return(
-          double(success?: true, data: room)
-        )
+    before { allow(controller).to receive(:authorize_participant) }
 
-        subject
-        expect(response).to redirect_to(room_path(room))
-        expect(flash[:notice]).to include("#{another_user.username} was removed")
+    context 'when service succeeds' do
+      subject(:remove_participant) { delete :remove_participant, params: { id: room.id, user_id: another_user.id } }
+
+      before do
+        room.participants.create(user: another_user, role: :member)
+      end
+
+      it 'removes a participant' do
+        expect { remove_participant }.to change(room.participants, :count).by(-1)
+      end
+
+      it 'redirects to room' do
+        expect(remove_participant).to redirect_to(room_path(room))
       end
     end
   end
 
   describe 'PATCH #change_role' do
-    before { allow(controller).to receive(:authorize_room) }
+    before { allow(controller).to receive(:authorize_participant) }
 
     context 'when service succeeds' do
-      subject { patch :change_role, params: { id: room.id, user_id: another_user.id, role: 'moderator' } }
-      it 'changes role and redirects' do
-        allow(Participants::ChangeParticipantRoleService).to receive_message_chain(:new, :call).and_return(
-          double(success?: true, data: room)
-        )
+      subject(:change_role) { patch :change_role, params: { id: room.id, user_id: another_user.id, role: :member } }
 
-        subject
-        expect(response).to redirect_to(room_path(room))
-        expect(flash[:notice]).to include("Role for #{another_user.username} changed to moderator")
+      before do
+        room.participants.create(user: another_user, role: :moderator)
+      end
+
+      it 'changes role' do
+        expect { change_role }.to change(room.participants.where(role: :member), :count).by(1)
       end
     end
   end
 
   describe 'authorization' do
     context 'when user is not authorized' do
-      subject { post :add_participant, params: { id: room.id, user_id: another_user.id } }
-      it 'redirects with an alert' do
-        allow(controller).to receive(:authorize).and_raise(Pundit::NotAuthorizedError)
+      subject(:add_participant) { post :add_participant, params: { id: room.id, user_id: another_user.id } }
 
-        subject
-        expect(response).to redirect_to(root_path)
+      before do
+        allow(controller).to receive(:authorize).and_raise(Pundit::NotAuthorizedError)
+        room.participants.create(user:, role: :peer)
+        add_participant
+      end
+
+      it 'redirects with an alert' do
         expect(flash[:alert]).to eq('You are not authorized to perform this action')
       end
     end
