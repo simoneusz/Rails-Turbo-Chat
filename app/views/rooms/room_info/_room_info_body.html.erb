@@ -2,7 +2,7 @@
   <div class="room-info--participants-list">
     <%= render partial: "rooms/room_info/participants_list", locals: { room: room, user: user } %>
   </div>
-  <% if policy(room).unblock_participant? %>
+  <% if policy(@participant).unblock_participant? %>
     <div class="room-info--blocked-list">
       <%= render partial: "rooms/room_info/blocked_list", locals: { room: room, user: user } %>
     </div>

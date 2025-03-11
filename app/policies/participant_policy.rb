@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RoomPolicy < ApplicationPolicy
+class ParticipantPolicy < ApplicationPolicy
   def change_role?
     owner?
   end
@@ -26,7 +26,11 @@ class RoomPolicy < ApplicationPolicy
   end
 
   def chat?
-    true
+    !blocked?
+  end
+
+  def show?
+    !blocked?
   end
 
   private
@@ -52,6 +56,6 @@ class RoomPolicy < ApplicationPolicy
   end
 
   def user_role
-    record.participants.find_by(user_id: user.id)&.role
+    record&.role
   end
 end

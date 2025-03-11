@@ -6,9 +6,11 @@ class RoomsController < ApplicationController
   before_action :set_room_and_user, only: %i[
     add_participant change_role join destroy leave remove_participant block_participant unblock_participant
   ]
-  before_action :authorize_room, only: %i[
+  before_action :authorize_participant, only: %i[
     add_participant destroy change_role remove_participant block_participant unblock_participant
   ]
+
+  before_action :set_participant, only: %i[show]
 
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
@@ -20,8 +22,9 @@ class RoomsController < ApplicationController
 
   def show
     @single_room = Room.find(params[:id])
+
     unless authorized_to_view?(@single_room)
-      return redirect_to root_path, alert: 'You do not have permission to view this room'
+      return redirect_to rooms_path, alert: 'You do not have permission to view this room'
     end
 
     return redirect_to rooms_path, alert: 'You are banned in this room' if @single_room.user_blocked?(current_user)
@@ -81,6 +84,11 @@ class RoomsController < ApplicationController
 
   private
 
+  def set_participant
+    @room = Room.find_by(id: params[:room_id] || params[:id])
+    @participant = find_participant(current_user)
+  end
+
   def set_room_and_user
     @room = Room.find_by(id: params[:room_id] || params[:id])
     @user = User.find_by(id: params[:user_id])
@@ -119,7 +127,7 @@ class RoomsController < ApplicationController
   end
 
   def handle_role_change(new_role)
-    participant = find_participant(@user.id)
+    participant = find_participant(@user)
     result = Participants::ChangeParticipantRoleService.new(participant, new_role).call
     handle_service_result(result, "Role for #{@user.username} changed to #{new_role}")
   end
@@ -142,7 +150,7 @@ class RoomsController < ApplicationController
   end
 
   def not_authorized
-    set_flash_and_redirect(:alert, 'You are not authorized to perform this action', root_path)
+    set_flash_and_redirect(:alert, 'You are not authorized to perform this action', rooms_path)
   end
 
   def render_service_error(result, redirect_path = root_path)
@@ -156,8 +164,8 @@ class RoomsController < ApplicationController
     redirect_to redirect_path
   end
 
-  def authorize_room
-    authorize @room
+  def authorize_participant
+    authorize find_participant(current_user)
   end
 
   def room_params
