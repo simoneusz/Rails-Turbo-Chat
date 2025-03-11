@@ -64,6 +64,7 @@ class Room < ApplicationRecord
   end
 
   def peer_room?
-    participants.where(role: :peer).size == 2
+    peers_size = participants.where(role: :peer).size
+    peers_size == participants.size && !peers_size&.zero?
   end
 end
