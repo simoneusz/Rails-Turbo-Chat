@@ -1,21 +1,29 @@
 <% prev_message_user_id = message.prev&.user&.id %>
 <%=  %>
-<div class="cont-<%= message.user.id %> ">
-  <div class="message-box text-white msg-<%= message.user.id %> d-flex flex-column">
-    <% if message.user.id != prev_message_user_id %>
-      <%= link_to user_path(message.user),
-                  data: { turbo_frame: "modal_frame", "turbo-prefetch": false },
-                  class:"nav-link px-0"  do %>
-        <div class="message-top d-flex align-items-center">
-          <%= render partial: "shared/default_avatar", locals: { size: 30, user: message.user } %>
-          <h6 class="name m-0"> <%= message.user.username %> </h6>
+<div class="message-content cont-<%= message.user.id %>">
+  <div class="message-box msg-<%= message.user.id %> d-flex flex-row">
+    <div class="d-flex flex-row gap-2">
+      <div class="message-aside px-0">
+        <%= link_to user_path(message.user),
+                    data: { turbo_frame: "modal_frame", "turbo-prefetch": false },
+                    class:"nav-link px-0"  do %>
+          <div class="message-avatar d-flex align-items-center">
+            <%= render partial: "shared/default_avatar", locals: { size: 40, user: message.user, rounded: false } %>
+          </div>
+        <% end %>
+      </div>
+      <div class="px-0">
+        <div class="d-flex gap-2 align-items-center">
+          <h6 class="message-name fw-bold m-0"> <%= message.user.username %> </h6>
+          <p class="text-nowrap mb-0 message-time"><%= message.created_at.strftime("%H:%M %p") %></p>
         </div>
-      <% end %>
-    <% end %>
-    <div class="message-body-<%= message.user.id %>"
-         data-message-id="<%= message.id %>"
-         data-room-id="<%= message.room.id %>">
-      <%= message.content %>
+
+        <div class="message-body-<%= message.user.id %>"
+             data-message-id="<%= message.id %>"
+             data-room-id="<%= message.room.id %>">
+          <%= message.content %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
