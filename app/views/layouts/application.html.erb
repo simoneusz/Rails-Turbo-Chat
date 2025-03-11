@@ -8,25 +8,6 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <style>
-    <% if current_user %>
-      <%= ".msg-#{current_user&.id}" %> {
-
-      }
-      <%= ".msg-#{current_user&.id}" %> > .message-top {
-          align-self: end;
-      }
-      <%= ".message-body-#{current_user.id}" %>{
-          align-self: end;
-      }
-
-
-      <%= ".cont-#{current_user&.id}" %> {
-          display: flex;
-          justify-content: flex-end
-      }
-    <% end %>
-  </style>
   <body class="bg-main main-scroll-bar">
     <% if user_signed_in? %>
       <%= render partial: 'layouts/nav' %>
