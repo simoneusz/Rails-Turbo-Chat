@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  after_create :create_self_room
+
   acts_as_reader
 
   mount_uploader :avatar, UserAvatarUploader
@@ -93,5 +95,10 @@ class User < ApplicationRecord
     username = auth.info.name.downcase.delete(' ')
     username = user.email if User.exists?(username: username)
     user.username = username
+  end
+
+  def create_self_room
+    room_params = { name: "#{username}_self_room", is_private: true }
+    Rooms::CreatePeerRoomService.new(room_params, self, self).call
   end
 end
