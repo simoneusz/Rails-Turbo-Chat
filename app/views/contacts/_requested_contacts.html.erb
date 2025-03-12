@@ -7,11 +7,11 @@
   <% outgoing_contacts.each do |contact| %>
     <div class="outgoing-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
       <div class="d-flex align-items-center">
-        <%= render partial: "shared/default_avatar", locals: { size: 25, user: contact.user, rounded: true } %>
+        <%= render partial: 'shared/default_avatar', locals: { size: 25, user: contact.user, rounded: true } %>
         <span><%= contact.contact.full_name %></span>
       </div>
       <div>
-        <%= button_to "Decline", contact_path(contact.contact), method: :delete, class: "btn btn-warning btn-sm" %>
+        <%= button_to 'Decline', contact_path(contact.contact), method: :delete, class: 'btn btn-warning btn-sm' %>
       </div>
     </div>
   <% end %>

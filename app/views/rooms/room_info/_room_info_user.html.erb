@@ -1,8 +1,8 @@
-<%= link_to user_path(user), data: { turbo_frame: "modal_frame", "turbo-prefetch": false }, class: "nav-link px-0" do %>
+<%= link_to user_path(user), data: { turbo_frame: 'modal_frame', 'turbo-prefetch': false }, class: 'nav-link px-0' do %>
   <div class="user-info">
     <div class="user-info--container d-flex align-items-center gap-1">
       <div class="user-info--avatar">
-        <%= render partial: "shared/default_avatar", locals: { size: 50, user: user, rounded: true} %>
+        <%= render partial: 'shared/default_avatar', locals: { size: 50, user: user, rounded: true } %>
       </div>
       <div class="user-body">
         <p class="user-info--username mb-1 align"><%= user.username %></p>

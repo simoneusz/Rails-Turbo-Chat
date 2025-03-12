@@ -1,4 +1,4 @@
-<% if count > 0 %>
+<% if count.positive? %>
   <span class="notifications-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
           <%= count %>
     <span class="visually-hidden">unread messages</span>

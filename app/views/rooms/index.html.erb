@@ -29,24 +29,24 @@
               This conversation is just between&nbsp;
               <%= link_to other_user&.username,
                           user_path(other_user),
-                          data: { turbo_frame: "modal_frame", "turbo-prefetch": false },
-                          class:"nav-link user-text-link" %>
+                          data: { turbo_frame: 'modal_frame', 'turbo-prefetch': false },
+                          class: 'nav-link user-text-link' %>
               &nbsp; and you. Check out their profile to learn more about them.
             </div>
           <% end %>
 
-          <%= render "messages/pager", pagy: @pagy %>
+          <%= render 'messages/pager', pagy: @pagy %>
           <div id="messages-container" data-action="contextmenu->message-context-menu#open" class="d-flex flex-column gap-1">
-              <%= turbo_frame_tag "page_handler" %>
+              <%= turbo_frame_tag 'page_handler' %>
               <%= render @messages %>
           </div>
-          <%= render partial: "rooms/context_menu" %>
+          <%= render partial: 'rooms/context_menu' %>
         </div>
         <div class="form_fixed">
           <% if @single_room.participant?(current_user) %>
             <%= render partial: 'messages/new_message_form' %>
           <% else %>
-           <%= render partial: "rooms/join_room_button" %>
+           <%= render partial: 'rooms/join_room_button' %>
           <% end %>
         </div>
       </div>

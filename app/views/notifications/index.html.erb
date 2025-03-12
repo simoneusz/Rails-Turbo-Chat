@@ -1,9 +1,9 @@
 <ul class="list-group h-75 overflow-y-scroll main-scroll-bar m-3">
   <% @notifications.each do |notification| %>
     <li class="list-group-item">
-      <% data_attrs = { turbo_frame: "modal_frame", "turbo-prefetch": false } if notification.item.instance_of?(User) %>
+      <% data_attrs = { turbo_frame: 'modal_frame', 'turbo-prefetch': false } if notification.item.instance_of?(User) %>
 
-      <%= link_to notification.item, data: data_attrs, class: "text-black text-decoration-none" do %>
+      <%= link_to notification.item, data: data_attrs, class: 'text-black text-decoration-none' do %>
         <%= render notification, locals: { notification: notification } %>
         <p class="text-muted p-0 m-0"><%= time_ago_in_words(notification.created_at)%> ago</p>
       <% end %>

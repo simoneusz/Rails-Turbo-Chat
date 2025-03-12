@@ -4,12 +4,12 @@
     <ul class="nav flex-column mx-2 ">
       <% @dms.each do |room| %>
         <% other_user = peer_room_other_user_or_self(room) %>
-        <%= link_to room_path(room), class:"text-decoration-none" do %>
+        <%= link_to room_path(room), class: 'text-decoration-none' do %>
           <li class="w-100 p-1 sidebar-hoverable">
             <div class="user-info">
               <div class="user-info--container w-100 d-flex align-items-center gap-2">
                 <div class="user-info--avatar">
-                  <%= render partial: "shared/default_avatar", locals: { size: 50, user: other_user, rounded: true } %>
+                  <%= render partial: 'shared/default_avatar', locals: { size: 50, user: other_user, rounded: true } %>
                 </div>
                 <div class="user-body w-100 text-white">
                   <p class="user-info--username mb-1 align"><%= other_user.username %></p>
@@ -21,7 +21,7 @@
                       <% else %>
                         <%= last_message.user.username %>:
                       <% end %>
-                      <%= last_message.content&.body&.to_plain_text&.truncate(25) %>
+                      <%= last_message.content.body.to_plain_text.truncate(25) %>
                     <% end %>
                   </p>
                 </div>

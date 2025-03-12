@@ -6,19 +6,19 @@
          id="dropdownUser1"
          data-bs-toggle="dropdown"
          aria-expanded="false">
-        <%= render partial: "shared/default_avatar", locals: { size: 30, user: current_user, rounded: true } %>
+        <%= render partial: 'shared/default_avatar', locals: { size: 30, user: current_user, rounded: true } %>
         <span class="sidebar-footer--username d-none d-sm-inline mx-1"><%= current_user.username %></span>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-        <li><%= link_to "Your profile",
+        <li><%= link_to 'Your profile',
                         user_path(current_user),
-                        data: { turbo_frame: "modal_frame", "turbo-prefetch": false },
-                        class:"dropdown-item" %></li>
-        <li><%= link_to "Edit profile", edit_user_registration_path, class:"dropdown-item"%></li>
+                        data: { turbo_frame: 'modal_frame', 'turbo-prefetch': false },
+                        class: 'dropdown-item' %></li>
+        <li><%= link_to 'Edit profile', edit_user_registration_path, class: 'dropdown-item'%></li>
         <li>
           <hr class="dropdown-divider">
         </li>
-        <li><%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
+        <li><%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %></li>
       </ul>
     </div>
   <% end %>

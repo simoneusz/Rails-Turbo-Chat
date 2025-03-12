@@ -2,7 +2,7 @@
   <ul class="list-group">
     <% search_results.each do |user| %>
       <li class="list-group-item list-group-item-action px-1">
-        <%= render partial: "rooms/room_info/room_info_user", locals: { user: user } %>
+        <%= render partial: 'rooms/room_info/room_info_user', locals: { user: user } %>
       </li>
     <% end %>
   </ul>

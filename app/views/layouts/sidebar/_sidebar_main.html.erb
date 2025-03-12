@@ -17,18 +17,18 @@
           <i class="sidebar-newroom--icon bi bi-plus-lg"></i>
           <span> New Room</span>
         </div>
-        <%= render partial: "rooms/new_room_modal" %>
+        <%= render partial: 'rooms/new_room_modal' %>
         <% Room.all_group_for_user(current_user).each do |room| %>
           <li class="w-100">
             <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
               <div class="sidebar__room_icon"><i class="bi bi-hash"></i></div>
-              <%= link_to room.name, room, class:"d-block w-100 room-link nav-link px-0" %>
+              <%= link_to room.name, room, class: 'd-block w-100 room-link nav-link px-0' %>
               <% unread_messages_size = room.messages.unread_by(current_user).size %>
               <div class="px-1">
                 <% if unread_messages_size > 99 %>
                     99+
                 <% else %>
-                  <% unless unread_messages_size == 0 %>
+                  <% unless unread_messages_size.zero? %>
                     <%= unread_messages_size %>
                   <% end %>
                 <% end %>
@@ -50,7 +50,7 @@
           data-bs-parent="#menu">
         <li class="w-100">
           <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
-            <%= link_to "View all", all_rooms_path, class:"d-block w-100 room-link nav-link px-1" %>
+            <%= link_to 'View all', all_rooms_path, class: 'd-block w-100 room-link nav-link px-1' %>
           </div>
         </li>
 
@@ -58,7 +58,7 @@
           <li class="w-100">
             <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
               <div class="sidebar__room_icon"><i class="bi bi-hash"></i></div>
-              <%= link_to room.name, room, class:"d-block w-100 room-link nav-link px-0" %>
+              <%= link_to room.name, room, class: 'd-block w-100 room-link nav-link px-0' %>
             </div>
           </li>
         <% end %>
@@ -77,7 +77,7 @@
         <li class="w-100">
             <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
               <div class="sidebar__room_icon"><i class="bi bi-hash"></i></div>
-              <%= link_to room.name, room, class:"d-block w-100 room-link nav-link px-0" %>
+              <%= link_to room.name, room, class: 'd-block w-100 room-link nav-link px-0' %>
             </div>
           </li>
         <% end %>

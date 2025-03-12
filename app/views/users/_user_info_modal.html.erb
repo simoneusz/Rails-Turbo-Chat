@@ -36,15 +36,15 @@
         </div>
       </div>
       <% if current_user.contacts.include?(@user) %>
-        <%=  link_to "Send message",
+        <%=  link_to 'Send message',
                      chat_user_path(@user),
                      data: { turbo: false },
-                     class:"btn btn-modal text-blue text-primary"  %>
-      <%  elsif @user.pending_contacts.where(user_id: current_user.id).exists? %>
+                     class: 'btn btn-modal text-blue text-primary'  %>
+      <%  elsif @user.pending_contacts.exists?(user_id: current_user.id) %>
         <div class="d-flex gap-3 btn btn-modal">Waiting for user to accept your request!</div>
       <% else %>
-        <%=  button_to "Add to contacts", contacts_path(contact_id: @user.id), data: { "turbo-method": :post },
-                       class:"btn btn-modal text-blue text-primary w-100", disabled:  @user == current_user %>
+        <%=  button_to 'Add to contacts', contacts_path(contact_id: @user.id), data: { 'turbo-method': :post },
+                       class: 'btn btn-modal text-blue text-primary w-100', disabled:  @user == current_user %>
       <%  end %>
     </div>
   </div>

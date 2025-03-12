@@ -14,7 +14,7 @@
         <%=  form_with url: leave_room_path, method: :delete, data: { turbo_confirm: 'Are you sure?' }, local: true do %>
           <%=  hidden_field_tag :user_id, current_user.id  %>
           <%=  hidden_field_tag :room_id, @single_room.id  %>
-          <%=  submit_tag "Leave", class: "btn"  %>
+          <%=  submit_tag 'Leave', class: 'btn'  %>
         <%  end  %>
       </div>
     </li>
@@ -22,7 +22,7 @@
       <li>
         <div class="dropdown-item">
           <%=  form_with model: @single_room, method: :delete, data: { turbo_confirm: 'Are you sure?' }, local: true do %>
-            <%=  submit_tag "Delete Room", class: "btn"  %>
+            <%=  submit_tag 'Delete Room', class: 'btn'  %>
           <%  end  %>
         </div>
       </li>

@@ -4,11 +4,11 @@
     <div class="hero-main text-white fade-in d-flex flex-column justify-content-center">
       <h1>Welcome to TurboChat</h1>
       <p>Fast, secure, and modern chat for everyone.</p>
-      <%= link_to "Get Started", rooms_path, class:"btn btn-hero"%>
+      <%= link_to 'Get Started', rooms_path, class: 'btn btn-hero'%>
     </div>
     <div class="hero-image fade-in">
       <% images_paths = %w[/images/hero-main-img-closed.svg /images/hero-main-img.svg] %>
-      <%= image_tag(images_paths.sample, class:"hero-image-img", draggable: false)  %>
+      <%= image_tag(images_paths.sample, class: 'hero-image-img', draggable: false)  %>
     </div>
   </div>
 </div>

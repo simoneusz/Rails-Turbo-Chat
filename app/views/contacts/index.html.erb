@@ -3,15 +3,15 @@
     <div class="col-8 flex-grow-1  h-100 overflow-auto">
       <div class="tab-content p-2 border contacts" id="myTabContent">
         <div class="tab-pane show active fade contacts-all" id="userContacts" role="tabpanel" aria-labelledby="userContacts-tab">
-         <%= render partial: "contacts/all_contacts" %>
+         <%= render partial: 'contacts/all_contacts' %>
         </div>
 
         <div class="tab-pane fade" id="contactRequests" role="tabpanel" aria-labelledby="contactRequests-tab">
-         <%= render partial: "contacts/pending_contacts" %>
+         <%= render partial: 'contacts/pending_contacts' %>
         </div>
 
         <div class="tab-pane fade" id="outgoingRequests" role="tabpanel" aria-labelledby="outgoingRequests-tab">
-          <%= render partial: "contacts/requested_contacts" %>
+          <%= render partial: 'contacts/requested_contacts' %>
         </div>
       </div>
     </div>

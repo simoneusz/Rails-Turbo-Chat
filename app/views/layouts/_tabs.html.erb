@@ -11,9 +11,9 @@
   </a>
   <a class="nav-link tabs__content btn-squeeze" aria-current="page" href="<%= rooms_path %>">
     <i class="bi bi-chat tabs__content_icon position-relative"  >
-      <%= render "notifications/count",
-                 count: Room.all_group_for_user(current_user).map {
-                   |room| room.messages.unread_by(current_user).size
+      <%= render 'notifications/count',
+                 count: Room.all_group_for_user(current_user).map { |room|
+                          room.messages.unread_by(current_user).size
                  }.sum %>
     </i>
     <p class="tabs__content_label">Rooms</p>
@@ -23,14 +23,14 @@
     <p class="tabs__content_label">DMs</p>
   </a>
 
-  <%= link_to contacts_path, class:"link tabs__content btn-squeeze" do %>
+  <%= link_to contacts_path, class: 'link tabs__content btn-squeeze' do %>
     <i class="bi bi-people tabs__content_icon"></i>
     <p class="tabs__content_label">Contacts</p>
   <% end %>
   <a class="nav-link tabs__content btn-squeeze" href="<%= notifications_path %>">
     <i class="bi bi-bell tabs__content_icon position-relative">
       <%= tag.div id: :notifications_count do %>
-        <%= render "notifications/count", count: current_user.unviewed_notifications_size %>
+        <%= render 'notifications/count', count: current_user.unviewed_notifications_size %>
       <% end %>
 
     </i>

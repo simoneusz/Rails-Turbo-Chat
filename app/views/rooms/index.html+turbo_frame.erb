@@ -1,14 +1,14 @@
 <% if @messages %>
-  <%= turbo_frame_tag "page_handler" do %>
+  <%= turbo_frame_tag 'page_handler' do %>
     <%= turbo_stream_action_tag(
-          "prepend",
-          target: "messages-container",
-          template: %(#{render @messages})
+          'prepend',
+          target: 'messages-container',
+          template: render(@messages).to_s
         ) %>
     <%= turbo_stream_action_tag(
-          "replace",
-          target: "pager",
-          template: %(#{render "messages/pager", pagy: @pagy})
+          'replace',
+          target: 'pager',
+          template: render('messages/pager', pagy: @pagy).to_s
         ) %>
   <% end %>
 <% end %>

@@ -1,13 +1,13 @@
-<%= content_tag(:div, class:"trix-form border rounded form-group msg-form", data: { controller: "emoji-picker", }) do %>
+<%= content_tag(:div, class: 'trix-form border rounded form-group msg-form', data: { controller: 'emoji-picker', }) do %>
   <%= form_with(model: [@single_room, @message], remote: true,
-                data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } ) do |f| %>
-    <%= content_tag(:div, "", class:"pickerContainer", data: {
-      emoji_picker_target: "pickerContainer",
+                data: { controller: 'reset-form', action: 'turbo:submit-end->reset-form#reset' }) do |f| %>
+    <%= content_tag(:div, '', class: 'pickerContainer', data: {
+      emoji_picker_target: 'pickerContainer',
     }) %>
     <%= f.rich_text_area :content, id: 'chat-text',
-                         class: "form-control msg-content",
+                         class: 'form-control msg-content',
                          autocomplete: 'off',
-                         data: {  controller: "trix",emoji_picker_target: "trixEditor" } %>
-    <%= f.submit data: { disable_with: false }, class: "btn main-btn-primary" %>
+                         data: { controller: 'trix', emoji_picker_target: 'trixEditor' } %>
+    <%= f.submit data: { disable_with: false }, class: 'btn main-btn-primary' %>
   <% end %>
 <% end %>

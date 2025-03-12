@@ -10,10 +10,10 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex">
                   <% room.participants.limit(3).each do |participant| %>
-                    <%= render partial: "shared/default_avatar", locals: { size: 20, user: participant.user, rounded: true } %>
+                    <%= render partial: 'shared/default_avatar', locals: { size: 20, user: participant.user, rounded: true } %>
                   <% end %>
                 </div>
-                <span class="ms-2"><%= pluralize(room.participants.count, "member") %></span>
+                <span class="ms-2"><%= pluralize(room.participants.count, 'member') %></span>
               </div>
             </div>
             <a href="<%= room_path(room) %>" class="btn main-btn-primary btn-sm">Join</a>

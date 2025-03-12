@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag 'application', 'data-turbo-track': 'reload' %>
     <%= javascript_importmap_tags %>
   </head>
   <body class="bg-main main-scroll-bar">
     <% if user_signed_in? %>
       <%= render partial: 'layouts/nav' %>
-      <%= turbo_stream_from  "broadcast_to_user_#{current_user.id}"%>
+      <%= turbo_stream_from "broadcast_to_user_#{current_user.id}"%>
       <div id="notifications">
-        <% current_user.notifications.where(viewed: false).each do |notification| %>
-          <%= render "notifications/fixed_notification", notification: notification %>
+        <% current_user.notifications.where(viewed: false).find_each do |notification| %>
+          <%= render 'notifications/fixed_notification', notification: notification %>
         <% end %>
       </div>
     <% end %>
@@ -27,7 +27,7 @@
           <% end %>
         </div>
         <div class="col ps-0">
-          <%= render partial: "layouts/flash" %>
+          <%= render partial: 'layouts/flash' %>
           <main class="main d-flex bg-white w-100 h-100">
             <%= yield %>
           </main>

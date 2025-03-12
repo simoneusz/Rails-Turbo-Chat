@@ -1,7 +1,7 @@
 <div id="message-context-menu" data-message-context-menu-target="menu" class="d-none">
 
   <%# "DESTROY" message %>
-  <%= link_to "#", data: {
+  <%= link_to '#', data: {
     message_context_menu_target: 'deleteLink',
     confirm: 'Are you sure?',
     turbo_method: :delete } do %>
