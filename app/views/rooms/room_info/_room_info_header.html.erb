@@ -1,7 +1,8 @@
 <div class="modal-header">
   <div class="modal-title room-info--contacts-list">
     <% if policy(@participant).add_participant? %>
-      <%= render partial: 'rooms/room_info/contacts_modal/contacts_modal', locals: { room: room, user: user }%>
+      <%= render partial: 'rooms/room_info/contacts_modal/contacts_modal_button',
+                 locals: { button_type: "icon"  }%>
     <% end %>
   </div>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

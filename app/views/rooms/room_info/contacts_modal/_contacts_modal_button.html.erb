@@ -1,0 +1,15 @@
+<button type="button"
+        class="btn ps-3 <%= "border" if button_type == 'text' %> "
+        data-controller="open-child-modal"
+        data-action="click->open-child-modal#openTargetModal"
+        data-bs-target="#contactsModal">
+  <% if button_type == "text" %>
+
+  <% end %>
+  <% case button_type %>
+  <% when "icon" %>
+    <i class="bi bi-person-plus"></i>
+  <% when "text" %>
+    Add participant
+  <% end %>
+</button>

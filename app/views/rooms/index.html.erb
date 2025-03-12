@@ -22,21 +22,25 @@
       <div id="single_room" data-controller="scroll" class="d-flex px-1 flex-column main-scroll-bar">
         <%= turbo_stream_from @single_room %>
         <div id="messages" data-controller="message-context-menu" class="ps-4">
-
-          <% if @single_room.peer_room? %>
-            <% other_user = peer_room_other_user_or_self(@single_room)  %>
-            <div class="d-flex flex-row">
-              This conversation is just between&nbsp;
-              <%= link_to other_user&.username,
-                          user_path(other_user),
-                          data: { turbo_frame: 'modal_frame', 'turbo-prefetch': false },
-                          class: 'nav-link user-text-link' %>
-              &nbsp; and you. Check out their profile to learn more about them.
+          <div class="room-panes">
+            <% if @single_room.peer_room? %>
+              <% other_user = peer_room_other_user_or_self(@single_room)  %>
+              <div class="d-flex flex-row flex-wrap">
+                This conversation is just between&nbsp;
+                <%= link_to other_user&.username,
+                            user_path(other_user),
+                            data: { turbo_frame: 'modal_frame', 'turbo-prefetch': false },
+                            class: 'nav-link user-text-link' %>
+                &nbsp; and you. Check out their profile to learn more about them.
+              </div>
+            <% elsif  @single_room.messages.size < Pagy::DEFAULT[:limit]%>
+              <%= render partial: "rooms/panes/new_room_foreword_pane", locals: { room: @single_room } %>
+            <% end %>
             </div>
-          <% end %>
-
           <%= render 'messages/pager', pagy: @pagy %>
-          <div id="messages-container" data-action="contextmenu->message-context-menu#open" class="d-flex flex-column gap-1">
+          <div id="messages-container"
+               data-action="contextmenu->message-context-menu#open"
+               class="d-flex flex-column gap-1">
               <%= turbo_frame_tag 'page_handler' %>
               <%= render @messages %>
           </div>
@@ -50,6 +54,8 @@
           <% end %>
         </div>
       </div>
+      <%= render partial: "rooms/room_info/contacts_modal/contacts_modal",
+                 locals: { room: @single_room, user: current_user } %>
     <% end %>
   </div>
 </div>

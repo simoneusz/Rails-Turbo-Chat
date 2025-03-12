@@ -1,0 +1,9 @@
+<div class="pane mb-5">
+  <h1># <%= room.name %></h1>
+  <h5>
+    This channel was created <%= time_ago_in_words(room.created_at) %> ago. This is the very beginning of the
+    <b># <%= room.name %></b> channel.
+  </h5>
+
+  <%= render partial: "rooms/room_info/contacts_modal/contacts_modal_button", locals: { button_type: "text" } %>
+</div>
