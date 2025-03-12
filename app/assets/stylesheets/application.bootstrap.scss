@@ -115,6 +115,18 @@ body{
   background: white;
   padding: 5px;
 }
+.attachment__filetype-icon{
+  background-color: var(--secondary-light-bg-color);
+}
+.attachment__filetype-icon > i{
+  font-size: 30px;
+}
+.attachment__filename{
+  font-size: 16px;
+}
+.attachment__size{
+  font-size: 16px;
+}
 
 .lato-light {
   font-family: "Lato", serif;

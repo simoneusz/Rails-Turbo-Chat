@@ -1,14 +1,26 @@
-<figure class="attachment attachment--<%= blob.representable? ? 'preview' : 'file' %> attachment--<%= blob.filename.extension %>">
+<figure class="attachment attachment--<%= blob.representable? ? 'preview' : 'file' %> attachment--<%= blob.filename.extension %> border-0">
   <% if blob.representable? %>
     <%= image_tag blob.representation(resize_to_limit: local_assigns[:in_gallery] ? [800, 600] : [1024, 768]) %>
   <% end %>
 
   <figcaption class="attachment__caption">
-    <% if caption = blob.try(:caption) %>
+    <% caption = blob.try(:caption) %>
+    <% if caption %>
       <%= caption %>
     <% else %>
-      <span class="attachment__name"><%= blob.filename %></span>
-      <span class="attachment__size"><%= number_to_human_size blob.byte_size %></span>
+      <%= link_to rails_blob_path(blob) do %>
+        <div class="attachment__inner d-flex gap-2 align-items-center <%= "justify-content-center" if blob.representable? %>">
+          <div class=" <%= "attachment__filetype-icon" unless blob.representable? %>  rounded p-3">
+            <i class="bi bi-file-earmark text-white"></i>
+          </div>
+          <div class="attachment__text d-flex gap-3 justify-content-center <%= "flex-column" unless blob.representable? %>">
+            <span class="attachment__filename">
+              <%= blob.filename %>
+            </span>
+            <span class="attachment__size align-self-baseline"><%= number_to_human_size blob.byte_size %></span>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </figcaption>
 </figure>
