@@ -24,7 +24,7 @@
         <div id="messages" data-controller="message-context-menu" class="ps-4">
 
           <% if @single_room.peer_room? %>
-            <% other_user = @single_room.participants.where.not(user_id: current_user.id).first&.user %>
+            <% other_user = peer_room_other_user_or_self(@single_room)  %>
             <div class="d-flex flex-row">
               This conversation is just between&nbsp;
               <%= link_to other_user&.username,

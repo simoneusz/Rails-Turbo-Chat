@@ -3,7 +3,7 @@
     <h5 class="text-light p-3">Direct Messages</h5>
     <ul class="nav flex-column mx-2 ">
       <% @dms.each do |room| %>
-        <% other_user = room.participants.where.not(user_id: current_user.id).first.user %>
+        <% other_user = peer_room_other_user_or_self(room) %>
         <%= link_to room_path(room), class:"text-decoration-none" do %>
           <li class="w-100 p-1 sidebar-hoverable">
             <div class="user-info">
