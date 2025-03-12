@@ -1,5 +1,5 @@
 #single_room{
-  //background-image: url("/images/noise.svg");
+  //background-image: url("/images/abstract.png");
   //background-repeat: no-repeat;
   //background-size: cover;
 }
@@ -28,7 +28,11 @@
 .message-avatar > div > img{
   border-radius: clamp(12px, min(22.222%, 12px), 12px);
 }
-
+.message-name{
+  &:hover{
+    text-decoration: underline;
+  }
+}
 .single-room-top{
   border-bottom: 3px solid var(--shadow-bg-color);
 }
