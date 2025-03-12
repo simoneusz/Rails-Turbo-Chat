@@ -19,17 +19,21 @@ class User < ApplicationRecord
   scope :all_except, ->(user) { where.not(id: user) }
   after_create_commit { broadcast_append_to 'users' }
 
-  has_many :messages, dependent: :nullify
+  has_many :messages, dependent: :destroy
   has_many :sent_contacts, class_name: 'Contact', dependent: :destroy
   has_many :received_contacts,
            class_name: 'Contact',
            foreign_key: 'contact_id',
            dependent: :destroy,
            inverse_of: :contact
-
+  has_many :participants, dependent: :destroy
   has_many :contacts, -> { where(contacts: { status: 1 }) }, through: :sent_contacts, source: :contact
 
   has_many :notifications, foreign_key: 'receiver_id', dependent: :destroy, inverse_of: :receiver
+  has_many :sent_notifications, class_name: 'Notification',
+                                foreign_key: 'sender_id',
+                                dependent: :destroy,
+                                inverse_of: :sender
   def unviewed_notifications_size
     notifications.unviewed.size
   end
