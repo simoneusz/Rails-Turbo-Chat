@@ -15,8 +15,12 @@ module Rooms
       room = create_room
       return room_not_valid_error(room) unless room.persisted?
 
-      [@current_user, @other_user].each do |user|
-        add_peer(room, user)
+      if @current_user == @other_user
+        add_peer(room, @current_user)
+      else
+        [@current_user, @other_user].each do |user|
+          add_peer(room, user)
+        end
       end
 
       success(room)
