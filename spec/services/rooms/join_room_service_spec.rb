@@ -17,7 +17,7 @@ RSpec.describe Rooms::JoinRoomService do
       end
 
       it 'participant joins successfully' do
-        expect { service }.to change(Participant, :count).by(1)
+        expect { service }.to change(room.participants, :count).by(1)
       end
     end
 

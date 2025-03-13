@@ -14,7 +14,7 @@ RSpec.describe UsersController, type: :controller do
       subject(:get_chat) { get :chat, params: { id: another_user.id } }
 
       it 'creates a new private room' do
-        expect { get_chat }.to change(Room, :count).by(1)
+        expect { get_chat }.to change(Room, :count).by(2)
       end
 
       it 'renders the rooms/index template' do

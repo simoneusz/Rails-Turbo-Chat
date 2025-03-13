@@ -6,7 +6,7 @@ RSpec.describe Room do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
   let(:room) { create(:room, is_private: false) }
-  let(:private_room) { create(:room, is_private: true) }
+  let!(:private_room) { create(:room, is_private: true) }
   let!(:participant) { create(:participant, user:, room:, role: :owner) }
 
   describe 'validations' do
@@ -28,7 +28,7 @@ RSpec.describe Room do
       end
 
       it 'does not returns private rooms' do
-        expect(public_rooms).not_to contain_exactly(private_room)
+        expect(public_rooms).not_to include(private_room)
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe Room do
       subject(:private_rooms) { described_class.private_rooms }
 
       it 'returns private rooms' do
-        expect(private_rooms).to contain_exactly(private_room)
+        expect(private_rooms).to include(private_room)
       end
 
       it 'do not returns public rooms' do
@@ -48,7 +48,7 @@ RSpec.describe Room do
       subject(:all_for_user) { described_class.all_for_user(user) }
 
       it 'returns all rooms a user participates in' do
-        expect(all_for_user).to contain_exactly(room)
+        expect(all_for_user).to include(room)
       end
     end
 

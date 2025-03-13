@@ -18,7 +18,7 @@ RSpec.describe Participants::RemoveParticipantService do
       end
 
       it 'removes the participant' do
-        expect(room.participants.size).to eq(0)
+        expect { service }.to change(room.participants, :count).by(-1)
       end
     end
 

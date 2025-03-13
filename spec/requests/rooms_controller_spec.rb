@@ -121,7 +121,7 @@ RSpec.describe RoomsController, type: :controller do
       subject(:post_add_participant) { post :add_participant, params: { id: room.id, user_id: another_user.id } }
 
       it 'adds participant' do
-        expect { post_add_participant }.to change(Participant, :count).by(1)
+        expect { post_add_participant }.to change(room.participants, :count).by(1)
       end
 
       it 'redirects to room' do

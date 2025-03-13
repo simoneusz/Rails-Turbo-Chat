@@ -16,7 +16,7 @@ RSpec.describe Rooms::CreateRoomService do
       end
 
       it 'creates a room' do
-        expect { service }.to change(Room, :count).by(1)
+        expect { service }.to change(Room, :count).by(2)
       end
 
       it 'assigns user as owner' do

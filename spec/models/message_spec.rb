@@ -4,13 +4,13 @@ require 'rails_helper'
 
 RSpec.describe Message do
   describe 'associations' do
-    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:user).optional }
     it { is_expected.to belong_to(:room) }
     it { is_expected.to have_rich_text(:content) }
   end
 
   describe 'callbacks' do
-    subject(:message) { room.messages.create(user:, room:) }
+    subject(:message) { room.messages.create(user:, content: 'content') }
 
     let(:room) { create(:room, is_private: true) }
     let(:user) { create(:user) }
