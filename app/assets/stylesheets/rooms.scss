@@ -51,10 +51,13 @@
 }
 
 .message_highlight{
-  animation: highlight 2000ms ease-out;
+  animation: highlight 1000ms ease-out;
 }
 @keyframes highlight {
-  0% {
+  0%{
+    background-color: white;
+  }
+  50% {
     background-color: var(--reply-highlight-color);
   }
   100% {
