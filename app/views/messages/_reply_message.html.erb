@@ -2,13 +2,13 @@
   <div class="d-block message-reply px-2"
        data-controller="message-scroll"
        data-action="click->message-scroll#scrollToMessage"
-       data-message-scroll-parent-message-id-value="<%= message.parent_message.id %>">
+       data-message-scroll-parent-message-id-value="<%= message.id %>">
     <div class="message-reply-box">
       <div class="message-reply-username fw-bold">
-        <%= message.parent_message.user.username %>
+        <%= message.user.username %>
       </div>
       <div class="message-reply-parent-content">
-        <%= message.parent_message.content.body.to_plain_text.truncate(50) %>
+        <%= message.content.body.to_plain_text.truncate(50) %>
       </div>
     </div>
   </div>

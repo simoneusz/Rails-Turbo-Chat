@@ -19,7 +19,7 @@
         <% end %>
       </div>
 
-      <div id="single_room" data-controller="scroll" class="d-flex px-1 flex-column main-scroll-bar">
+      <div id="single_room" data-controller="scroll reply" class="d-flex px-1 flex-column main-scroll-bar">
         <%= turbo_stream_from @single_room %>
         <div id="messages" data-controller="message-context-menu" class="ps-4">
           <div class="room-panes">

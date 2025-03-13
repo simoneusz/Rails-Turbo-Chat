@@ -2,4 +2,4 @@
 
 require 'pagy/extras/bootstrap'
 
-Pagy::DEFAULT[:limit] = 200
+Pagy::DEFAULT[:limit] = 20
