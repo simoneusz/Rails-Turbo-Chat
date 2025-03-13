@@ -1,7 +1,8 @@
-<% if message.parent_message %>
-  <%= render partial: "messages/reply_message", locals: { message: message.parent_message } %>
-<% end %>
-<div class="message-content cont-<%= message.user.id %>">
+
+<div class="message-content cont-<%= message.user.id %> <%= "message-content-replied" if message.parent_message %>">
+  <% if message.parent_message %>
+    <%= render partial: "messages/reply_message", locals: { message: message.parent_message } %>
+  <% end %>
   <div class="message-box msg-<%= message.user.id %> d-flex flex-row">
     <div class="d-flex flex-row gap-2">
       <div class="message-aside px-0">
