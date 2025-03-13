@@ -6,6 +6,9 @@ class Message < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :room
   has_rich_text :content
+  belongs_to :parent_message, class_name: 'Message', optional: true
+  has_many :replies, class_name: 'Message', foreign_key: :parent_message_id, dependent: :destroy,
+                     inverse_of: :parent_message
 
   after_create_commit { broadcast_append_to room }
   before_create :confirm_participant

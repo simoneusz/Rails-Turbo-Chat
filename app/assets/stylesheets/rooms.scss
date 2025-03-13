@@ -33,6 +33,35 @@
     text-decoration: underline;
   }
 }
+
+.message-reply{
+  background-color: var(--reply-bg-color);
+  color: var(--reply-text-color);
+  border-left: 5px solid var(--reply-border-color);
+  border-radius: 5px 0 0 0;
+}
+.message-reply-box{
+
+}
+.message-reply-username{
+
+}
+.message-reply-parent-content{
+  color: var(--reply-text-color);
+}
+
+.message_highlight{
+  animation: highlight 2000ms ease-out;
+}
+@keyframes highlight {
+  0% {
+    background-color: var(--reply-highlight-color);
+  }
+  100% {
+    background-color: white;
+  }
+}
+
 .single-room-top{
   border-bottom: 3px solid var(--shadow-bg-color);
 }

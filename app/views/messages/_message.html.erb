@@ -1,5 +1,6 @@
-<% prev_message_user_id = message.prev&.user&.id %>
-<%=  %>
+<% if message.parent_message %>
+  <%= render partial: "messages/reply_message", locals: { message: } %>
+<% end %>
 <div class="message-content cont-<%= message.user.id %>">
   <div class="message-box msg-<%= message.user.id %> d-flex flex-row">
     <div class="d-flex flex-row gap-2">
@@ -14,7 +15,11 @@
       </div>
       <div class="px-0">
         <div class="d-flex gap-2 align-items-center">
-          <h6 class="message-name fw-bold m-0"> <%= message.user.username %> </h6>
+          <%= link_to user_path(message.user),
+                      data: { turbo_frame: 'modal_frame', 'turbo-prefetch': false },
+                      class: 'nav-link px-0'  do %>
+            <h6 class="message-name fw-bold m-0"> <%= message.user.username %> </h6>
+          <% end %>
           <p class="text-nowrap mb-0 message-time"><%= message.created_at.strftime('%H:%M %p') %></p>
         </div>
 
