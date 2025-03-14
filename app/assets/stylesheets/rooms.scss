@@ -51,6 +51,9 @@
 }
 .message-reply-parent-content{
   color: var(--reply-text-color);
+  & i{
+    font-size: 25px;
+  }
 }
 
 .message_highlight{
