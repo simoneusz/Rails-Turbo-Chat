@@ -1,0 +1,9 @@
+<div class="reactions d-flex gap-1">
+  <% message.reactions.each do |reaction| %>
+    <div class="reaction <%= "reaction-current-user" if reaction.user == current_user %>">
+      <span class="reaction-emoji"><%= reaction.emoji %></span>
+      <span class="reaction-count"><%= reaction.count %></span>
+    </div>
+  <% end %>
+</div>
+

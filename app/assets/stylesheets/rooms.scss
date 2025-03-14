@@ -70,6 +70,18 @@
     background-color: white;
   }
 }
+.reactions{
+
+}
+.reaction{
+  background-color: var(--shadow-bg-color);
+  padding: 3px;
+  border-radius: 7px;
+}
+.reaction-current-user{
+  background-color: var(--reply-bg-color);
+  border: 1px solid var(--reply-border-color);
+}
 
 .single-room-top{
   border-bottom: 3px solid var(--shadow-bg-color);

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_13_080626) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_14_092203) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -121,6 +121,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_13_080626) do
     t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
+  create_table "reactions", force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.bigint "user_id", null: false
+    t.string "emoji"
+    t.integer "count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_reactions_on_message_id"
+    t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
   create_table "read_marks", force: :cascade do |t|
     t.string "readable_type", null: false
     t.bigint "readable_id"
@@ -182,5 +193,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_13_080626) do
   add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "participants", "rooms"
   add_foreign_key "participants", "users"
+  add_foreign_key "reactions", "messages"
+  add_foreign_key "reactions", "users"
   add_foreign_key "room_notifications", "rooms"
 end

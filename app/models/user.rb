@@ -36,6 +36,8 @@ class User < ApplicationRecord
                                 foreign_key: 'sender_id',
                                 dependent: :destroy,
                                 inverse_of: :sender
+
+  has_many :reactions, dependent: :destroy
   def unviewed_notifications_size
     notifications.unviewed.size
   end

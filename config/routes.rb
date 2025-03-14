@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   end
   get 'search_users', to: 'users#search'
   get 'dms', to: 'rooms#dms'
+  resources :messages, only: [] do
+    resources :reactions, only: %i[create destroy]
+  end
   resources :rooms do
     resources :messages, only: %i[create destroy]
     post 'add_participant', on: :member

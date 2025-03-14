@@ -14,7 +14,7 @@
           </div>
         <% end %>
       </div>
-      <div class="px-0">
+      <div class="px-0" data-controller="reactions">
         <div class="d-flex gap-2 align-items-center">
           <%= link_to user_path(message.user),
                       data: { turbo_frame: 'modal_frame', 'turbo-prefetch': false },
@@ -22,18 +22,30 @@
             <h6 class="message-name fw-bold m-0"> <%= message.user.username %> </h6>
           <% end %>
           <p class="text-nowrap mb-0 message-time"><%= message.created_at.strftime('%H:%M %p') %></p>
-          <button class="btn btn-sm reply-btn p-0 m-0"
+          <button class="btn reply-btn p-0 m-0"
                   data-action="click->reply#setReply"
                   data-message-id="<%= message.id %>"
                   data-message-text="<%= message.content.body.to_plain_text.truncate(50) %>">
             reply
           </button>
+          <button class="emoji-picker-button btn p-0 m-0"
+
+                  data-action="click->reactions#open"
+                  data-message-id="<%= message.id %>">
+            <img src="/images/add-reaction.svg" alt="add reactions button" style="width: 25px; height: 25px">
+          </button>
+          <div data-reactions-target="pickerContainer"></div>
         </div>
 
         <div class="message-body-<%= message.user.id %>"
              data-message-id="<%= message.id %>"
              data-room-id="<%= message.room.id %>">
           <%= message.content %>
+          <% if message.reactions %>
+            <%= turbo_frame_tag "message_#{message.id}_reactions" do %>
+              <%= render partial: "messages/message_reactions", locals: { message: } %>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>
