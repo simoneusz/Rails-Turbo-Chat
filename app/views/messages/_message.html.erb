@@ -29,7 +29,6 @@
             reply
           </button>
           <button class="emoji-picker-button btn p-0 m-0"
-
                   data-action="click->reactions#open"
                   data-message-id="<%= message.id %>">
             <img src="/images/add-reaction.svg" alt="add reactions button" style="width: 25px; height: 25px">
@@ -41,10 +40,9 @@
              data-message-id="<%= message.id %>"
              data-room-id="<%= message.room.id %>">
           <%= message.content %>
-          <% if message.reactions %>
-            <%= turbo_frame_tag "message_#{message.id}_reactions" do %>
-              <%= render partial: "messages/message_reactions", locals: { message: } %>
-            <% end %>
+          <%= turbo_stream_from "message_#{message.id}_reactions" %>
+          <%= turbo_frame_tag dom_id(message, :reactions) do %>
+            <%= render partial: "messages/message_reactions", locals: { message: message} %>
           <% end %>
         </div>
       </div>

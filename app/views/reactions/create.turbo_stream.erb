@@ -1,5 +1,1 @@
-<turbo-stream action="replace" target="<%= "message_#{@message.id}_reactions" %>">
-  <template>
-    <%= render partial: 'messages/message_reactions', locals: { message: } %>
-  </template>
-</turbo-stream>
+<%= turbo_stream.replace dom_id(@message, :reactions), partial: "messages/message_reactions", locals: { message: @message } %>
