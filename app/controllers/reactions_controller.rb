@@ -6,8 +6,6 @@ class ReactionsController < ApplicationController
 
   def create
     result = Messages::MessageReactionsService.new(@message, current_user, params[:emoji]).create
-    Rails.logger.debug 'EWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEW'
-    Rails.logger.debug result.data.class
     if result.success?
       broadcast_update_to_message(result.data)
     else
@@ -21,8 +19,7 @@ class ReactionsController < ApplicationController
     @message.broadcast_update_to "message_#{@message.id}_reactions",
                                  target: "reactions_message_#{@message.id}",
                                  partial: 'messages/message_reactions',
-                                 locals: { reaction_counter: @message.reaction_counter, message: @message,
-                                           current_user: }
+                                 locals: { reaction_counter: @message.reaction_counter, message: @message }
   end
 
   def set_message

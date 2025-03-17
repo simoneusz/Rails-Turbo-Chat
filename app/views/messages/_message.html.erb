@@ -46,7 +46,7 @@
             <%# message.reaction_counter.each do |emoji, emoji_size| %>
               <%#= render partial: "reactions/reaction", locals: { reaction: { emoji:, emoji_size: },  current_user: current_user } %>
             <%# end %>
-            <%= render partial: 'messages/message_reactions', locals: { message:, current_user: } %>
+            <%= render partial: 'messages/message_reactions', locals: { message: } %>
           <% end %>
         </div>
       </div>
