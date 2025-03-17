@@ -1,4 +1,7 @@
-<div class="reaction <%= "reaction-current-user" if reaction.user == current_user %>">
-  <span class="reaction-emoji"><%= reaction.emoji %></span>
-  <span class="reaction-count"><%= reaction.count %></span>
+<div class="reaction <%= "reaction-current-user" %>">
+  <span class="reaction-emoji"><%= reaction_counter[:emoji] %></span>
+  <span class="reaction-count"><%= reaction_counter[:emoji_size] %></span>
 </div>
+
+
+

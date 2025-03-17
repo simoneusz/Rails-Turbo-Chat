@@ -125,7 +125,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_092203) do
     t.bigint "message_id", null: false
     t.bigint "user_id", null: false
     t.string "emoji"
-    t.integer "count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["message_id"], name: "index_reactions_on_message_id"

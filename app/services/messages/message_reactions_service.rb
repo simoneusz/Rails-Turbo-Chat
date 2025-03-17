@@ -9,18 +9,15 @@ module Messages
       @emoji = emoji
     end
 
-    def call
-      if @message.any_reactions_from_user?(@current_user)
-        Rails.logger.info('MessageReactionsServiceMessageReactionsServiceMessageReactionsServiceMessageReactionsServiceMessageReactionsServiceMessageReactionsServiceMessageReactionsServiceMessageReactionsService')
-        Rails.logger.info(@message.any_reactions_from_user?(@current_user))
-      end
-      delete_user_current_reaction
+    def create
+      delete_user_current_reaction if @message.any_reactions_from_user?(@current_user)
 
       reaction = new_reaction
       return error(code: 'todo invalid params') unless reaction.valid?
 
       reaction.save!
-      success(reaction)
+
+      success({ emoji: reaction.emoji, emoji_size: @message.reaction_counter[reaction.emoji] })
     end
 
     private

@@ -28,6 +28,10 @@ class Message < ApplicationRecord
     reactions.exists?(user: user)
   end
 
+  def reaction_counter
+    reactions.group(:emoji).count
+  end
+
   private
 
   def confirm_participant

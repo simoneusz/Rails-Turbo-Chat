@@ -5,11 +5,11 @@ class ReactionsController < ApplicationController
   before_action :set_message, only: [:create]
 
   def create
-    result = Messages::MessageReactionsService.new(@message, current_user, params[:emoji]).call
+    result = Messages::MessageReactionsService.new(@message, current_user, params[:emoji]).create
     Rails.logger.debug 'EWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEWEW'
     Rails.logger.debug result.data.class
     if result.success?
-      broadcast_append_to_message(result.data)
+      broadcast_update_to_message(result.data)
     else
       redirect_to @message.room
     end
@@ -17,10 +17,10 @@ class ReactionsController < ApplicationController
 
   private
 
-  def broadcast_append_to_message(reaction)
-    @message.broadcast_append_to "message_#{@message.id}_reactions",
+  def broadcast_update_to_message(reaction)
+    @message.broadcast_update_to "message_#{@message.id}_reactions",
                                  target: "reactions_message_#{@message.id}",
-                                 partial: 'reactions/reaction',
+                                 partial: 'messages/message_reactions',
                                  locals: { reaction:, current_user: }
   end
 

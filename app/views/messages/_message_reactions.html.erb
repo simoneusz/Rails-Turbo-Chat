@@ -1,4 +1,3 @@
-<% message.reactions.each do |reaction| %>
-  <%= render reaction %>
+<% message.reaction_counter.each do |emoji, emoji_size| %>
+  <%= render partial: "reactions/reaction", locals: { reaction_counter: { emoji:, emoji_size: },  current_user: current_user } %>
 <% end %>
-
