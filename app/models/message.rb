@@ -32,6 +32,10 @@ class Message < ApplicationRecord
     reactions.group(:emoji).count
   end
 
+  def reaction_by_emoji(emoji)
+    reactions.find_by(emoji: emoji)
+  end
+
   private
 
   def confirm_participant

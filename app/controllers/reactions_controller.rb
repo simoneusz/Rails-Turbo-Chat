@@ -17,11 +17,12 @@ class ReactionsController < ApplicationController
 
   private
 
-  def broadcast_update_to_message(reaction)
+  def broadcast_update_to_message(_reaction)
     @message.broadcast_update_to "message_#{@message.id}_reactions",
                                  target: "reactions_message_#{@message.id}",
                                  partial: 'messages/message_reactions',
-                                 locals: { reaction:, current_user: }
+                                 locals: { reaction_counter: @message.reaction_counter, message: @message,
+                                           current_user: }
   end
 
   def set_message
