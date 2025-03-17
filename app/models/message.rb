@@ -24,6 +24,12 @@ class Message < ApplicationRecord
     room.messages.where(id: ...id).last
   end
 
+  def any_reactions_from_user?(user)
+    reactions.exists?(user: user)
+  end
+
+  private
+
   def confirm_participant
     return unless room.is_private
 

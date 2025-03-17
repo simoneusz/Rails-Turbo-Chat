@@ -40,9 +40,10 @@
              data-message-id="<%= message.id %>"
              data-room-id="<%= message.room.id %>">
           <%= message.content %>
-          <%= turbo_stream_from "message_#{message.id}_reactions" %>
-          <%= turbo_frame_tag dom_id(message, :reactions) do %>
-            <%= render partial: "messages/message_reactions", locals: { message: message} %>
+
+          <%= turbo_stream_from "message_#{message.id}_reactions"%>
+          <%= turbo_frame_tag dom_id(message, :reactions), class: 'reactions d-flex gap-1' do %>
+            <%= render partial: "reactions/reaction", collection: message.reactions, as: :reaction, locals: { current_user: current_user } %>
           <% end %>
         </div>
       </div>

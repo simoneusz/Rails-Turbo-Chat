@@ -1,0 +1,4 @@
+<div class="reaction <%= "reaction-current-user" if reaction.user == current_user %>">
+  <span class="reaction-emoji"><%= reaction.emoji %></span>
+  <span class="reaction-count"><%= reaction.count %></span>
+</div>
