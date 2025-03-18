@@ -15,7 +15,7 @@
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
       <div class="container">
-        <%= render partial: 'rooms/room_info/tabs/about', locals: { room: } %>
+        <%= render partial: 'rooms/room_info/tabs/about', locals: { room:, other_user:} %>
       </div>
     </div>
     <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="members-tab">

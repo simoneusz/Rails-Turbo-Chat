@@ -5,7 +5,6 @@
           <%#= render partial: 'rooms/room_info/contacts_modal/contacts_modal_button',locals: { button_type: "icon"  }%>
       <%# end %>
       <h3 class="fw-bold">#
-        <% other_user = room.participants.where.not(user_id: current_user.id).first&.user %>
         <% if room.peer_room? && other_user %>
           <%= other_user.username %>
         <% else %>

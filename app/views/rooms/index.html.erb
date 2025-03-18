@@ -13,7 +13,8 @@
     <% if @single_room %>
       <div class="single-room-top text-center d-flex flex-row justify-content-between">
         <% if @participant %>
-          <%= render partial: 'rooms/room_info/room_info_modal', locals: { room: @single_room, user: current_user } %>
+          <% other_user = @single_room.participants.where.not(user_id: current_user.id).first&.user %>
+          <%= render partial: 'rooms/room_info/room_info_modal', locals: { room: @single_room, user: current_user, other_user: } %>
           <%= render partial: 'rooms/notifications', locals: { room: @single_room } %>
           <%= render partial: 'rooms/room_info/room_settings_dropdown' %>
         <% end %>
