@@ -11,6 +11,11 @@
   padding-bottom: 50px;
   overflow-y: auto;
 }
+
+.btn-room-back{
+  display: none;
+}
+
 .message-content{
   &:hover{
     background-color: var(--shadow-light-bg-color);

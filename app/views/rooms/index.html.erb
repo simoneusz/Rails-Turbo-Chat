@@ -3,12 +3,12 @@
     <%= render partial: 'rooms/sidebar_dms' %>
   </div>
 <% else %>
-  <div class="sidebar col-auto  bg-secondary">
+  <div class="sidebar col-auto  bg-secondary w-100 <%= "md-hide-sidebar" if @single_room %>">
     <%= render partial: 'layouts/sidebar/sidebar' %>
   </div>
 <% end %>
 
-<div id="chatroom_container" class="d-flex flex-column vh-100">
+<div id="chatroom_container" class="d-flex flex-column <%= "d-none" unless @single_room %>">
   <div class="room-container h-100 w-100 justify-content-between d-flex flex-column">
     <% if @single_room %>
       <div class="single-room-top text-center d-flex flex-row justify-content-between">
