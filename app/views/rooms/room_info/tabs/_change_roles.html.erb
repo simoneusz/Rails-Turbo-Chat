@@ -10,32 +10,38 @@
           <p class="fw-bold m-0"><%= user.username %></p>
         <% end %>
         <div>
-          <% if policy(@participant).change_role? %>
-            <% if participant.member? %>
-              <div class="d-flex gap-1">
-                <%= form_with url: block_participant_room_path, method: :post, local: true do %>
-                  <%= hidden_field_tag :user_id, participant.user.id %>
-                  <%= hidden_field_tag :role, :blocked %>
-                  <%= hidden_field_tag :room_id, room.id %>
-                  <%= submit_tag 'block', class: 'btn main-btn-remove btn-modal py-1 w-100' %>
-                <% end %>
-                <%= form_with url: change_role_room_path, method: :post, local: true do %>
-                  <%= hidden_field_tag :user_id, participant.user.id %>
-                  <%= hidden_field_tag :role, :moderator %>
-                  <%= hidden_field_tag :room_id, room.id %>
-                  <%= submit_tag '+ Moderator', class: 'btn main-btn-add btn-modal py-1 w-100' %>
-                <% end %>
-              </div>
-            <% else %>
-              <div>
-                <%= form_with url: change_role_room_path, method: :post, local: true do %>
-                  <%= hidden_field_tag :user_id, participant.user.id %>
-                  <%= hidden_field_tag :role, :member %>
-                  <%= hidden_field_tag :room_id, room.id %>
-                  <%= submit_tag '- Moderator', class: 'btn main-btn-remove btn-modal py-1 w-100' %>
-                <% end %>
-              </div>
-            <% end %>
+          <% if participant.member? %>
+            <div class="d-flex gap-1">
+              <%= form_with url: block_participant_room_path, method: :post, local: true do %>
+                <%= hidden_field_tag :user_id, participant.user.id %>
+                <%= hidden_field_tag :role, :blocked %>
+                <%= hidden_field_tag :room_id, room.id %>
+                <%= submit_tag 'Block', class: 'btn main-btn-remove btn-modal py-1 w-100' %>
+              <% end %>
+
+              <%= form_with url: change_role_room_path, method: :post, local: true do %>
+                <%= hidden_field_tag :user_id, participant.user.id %>
+                <%= hidden_field_tag :role, :moderator %>
+                <%= hidden_field_tag :room_id, room.id %>
+                <%= submit_tag '+ Moderator', class: 'btn main-btn-add btn-modal py-1 w-100' %>
+              <% end %>
+            </div>
+          <% elsif participant.blocked?%>
+              <%= form_with url: unblock_participant_room_path, method: :post, local: true do %>
+                <%= hidden_field_tag :user_id, participant.user.id %>
+                <%= hidden_field_tag :role, :blocked %>
+                <%= hidden_field_tag :room_id, room.id %>
+                <%= submit_tag 'Unblock', class: 'btn main-btn-add btn-modal py-1 w-100' %>
+              <% end %>
+          <% else %>
+            <div>
+              <%= form_with url: change_role_room_path, method: :post, local: true do %>
+                <%= hidden_field_tag :user_id, participant.user.id %>
+                <%= hidden_field_tag :role, :member %>
+                <%= hidden_field_tag :room_id, room.id %>
+                <%= submit_tag '- Moderator', class: 'btn main-btn-remove btn-modal py-1 w-100' %>
+              <% end %>
+            </div>
           <% end %>
         </div>
       </li>
