@@ -28,6 +28,9 @@
 .message-avatar > div > img{
   border-radius: clamp(12px, min(22.222%, 12px), 12px);
 }
+.message-avatar > div{
+  border-radius: clamp(12px, min(22.222%, 12px), 12px);
+}
 .message-name{
   &:hover{
     text-decoration: underline;

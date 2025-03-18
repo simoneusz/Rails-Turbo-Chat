@@ -1,0 +1,11 @@
+.about-group-item{
+  padding: 16px 20px;
+}
+
+.room-info-tabs .room-info-link{
+  color: inherit;
+}
+
+.room-info-tabs .room-info-link.active{
+  border-bottom: 2px solid var(--secondary-light-bg-color);
+}

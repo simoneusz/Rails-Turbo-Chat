@@ -1,10 +1,26 @@
 <div class="modal-body">
-  <div class="room-info--participants-list">
-    <%= render partial: 'rooms/room_info/participants_list', locals: { room: room, user: user } %>
-  </div>
-  <% if policy(@participant).unblock_participant? %>
-    <div class="room-info--blocked-list">
-      <%= render partial: 'rooms/room_info/blocked_list', locals: { room: room, user: user } %>
+  <ul class="nav nav-tabs room-info-tabs" id="myTab" role="tablist">
+    <li class="nav-item room-info-item" role="presentation">
+      <button class="nav-link room-info-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="true">About</button>
+    </li>
+    <li class="nav-item room-info-item" role="presentation">
+      <button class="nav-link room-info-link" id="members-tab" data-bs-toggle="tab" data-bs-target="#members" type="button" role="tab" aria-controls="members" aria-selected="false">Members</button>
+    </li>
+<!--    <li class="nav-item room-info-item" role="presentation">-->
+<!--      <button class="nav-link room-info-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>-->
+<!--    </li>-->
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+      <div class="container">
+        <%= render partial: 'rooms/room_info/tabs/about', locals: { room: } %>
+      </div>
     </div>
-  <% end %>
+    <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="members-tab">
+      <%= render partial: 'rooms/room_info/tabs/members', locals: { room: } %>
+    </div>
+<!--    <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">-->
+<!--      ...-->
+<!--    </div>-->
+  </div>
 </div>

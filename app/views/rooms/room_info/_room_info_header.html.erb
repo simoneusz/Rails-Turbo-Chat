@@ -1,9 +1,22 @@
-<div class="modal-header">
-  <div class="modal-title room-info--contacts-list">
-    <% if policy(@participant).add_participant? %>
-      <%= render partial: 'rooms/room_info/contacts_modal/contacts_modal_button',
-                 locals: { button_type: "icon"  }%>
-    <% end %>
+<div class="modal-header d-flex flex-column">
+  <div class="modal-header-top w-100 d-flex justify-content-evenly align-items-center p-3 pb-0 ">
+    <div class="modal-title room-info--contacts-list d-flex">
+      <%# if policy(@participant).add_participant? %>
+          <%#= render partial: 'rooms/room_info/contacts_modal/contacts_modal_button',locals: { button_type: "icon"  }%>
+      <%# end %>
+      <h3 class="fw-bold">#
+        <% other_user = room.participants.where.not(user_id: current_user.id).first&.user %>
+        <% if room.peer_room? && other_user %>
+          <%= other_user.username %>
+        <% else %>
+          <%= room.name %>
+        <% end %>
+      </h3>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
-  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal-header-buttons align-self-baseline px-3">
+    <button class="btn border"><i class="bi bi-star"></i></button>
+    <button class="btn border"><i class="bi bi-bell"></i> Enable notifications</button>
+  </div>
 </div>

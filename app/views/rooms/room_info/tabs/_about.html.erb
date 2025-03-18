@@ -1,0 +1,47 @@
+<div class="room-info-about">
+  <ul class="list-group my-4 about-group">
+    <li class="list-group-item about-group-item list-group-item-action">
+      <div class="w-100 d-flex justify-content-between">
+        <div class="about-text text-start">
+          <b class="about-label m-0 p-0">Channel Name </b>
+          <p class="about-room-name = m-0 p-0"># <%= room.name %></p>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <ul class="list-group about-group">
+    <li class="list-group-item about-group-item list-group-item-action">
+      <div class="w-100 d-flex justify-content-between">
+        <div class="about-text text-start">
+          <b class="about-label m-0 p-0">Topic </b>
+          <p class="about-room-name = m-0 p-0">TODO TOPIC</p>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item about-group-item list-group-item-action">
+      <div class="w-100 d-flex justify-content-between">
+        <div class="about-text text-start">
+          <b class="about-label m-0 p-0">Description</b>
+          <p class="about-room-name = m-0 p-0">TODO Description</p>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item about-group-item list-group-item-action">
+      <div class="w-100 d-flex justify-content-between">
+        <div class="about-text text-start">
+  <!--        TODO created by instead of participant first-->
+          <b class="about-label m-0 p-0">Created by </b>
+          <p class="about-room-name = m-0 p-0"><%= room.participants.first.user.username %> on <%= room.created_at.to_formatted_s(:short)   %></p>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item about-group-item list-group-item-action">
+      <div class="w-100 d-flex justify-content-between">
+        <div class="about-text text-start">
+          <b class="about-label about-label-leave danger-action-color m-0 p-0">Leave room</b>
+        </div>
+      </div>
+    </li>
+    <p class="text-muted text-start pt-2">Room ID: <%= room.id %></p>
+  </ul>
+</div>
