@@ -29,7 +29,7 @@
     <li class="list-group-item about-group-item list-group-item-action">
       <div class="w-100 d-flex justify-content-between">
         <div class="about-text text-start">
-          <b class="about-label m-0 p-0">Created by </b>
+          <b class="about-label m-0 p-0"><%= room.peer_room? ? "Initiated" : "Created" %> by </b>
           <p class="about-room-name = m-0 p-0"><%= room.creator.username %> on <%= room.created_at.to_formatted_s(:short)   %></p>
         </div>
       </div>
