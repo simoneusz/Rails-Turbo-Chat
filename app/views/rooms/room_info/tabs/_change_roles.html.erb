@@ -12,7 +12,13 @@
         <div>
           <% if policy(@participant).change_role? %>
             <% if participant.member? %>
-              <div>
+              <div class="d-flex gap-1">
+                <%= form_with url: block_participant_room_path, method: :post, local: true do %>
+                  <%= hidden_field_tag :user_id, participant.user.id %>
+                  <%= hidden_field_tag :role, :blocked %>
+                  <%= hidden_field_tag :room_id, room.id %>
+                  <%= submit_tag 'block', class: 'btn main-btn-remove btn-modal py-1 w-100' %>
+                <% end %>
                 <%= form_with url: change_role_room_path, method: :post, local: true do %>
                   <%= hidden_field_tag :user_id, participant.user.id %>
                   <%= hidden_field_tag :role, :moderator %>
