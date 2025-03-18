@@ -34,10 +34,6 @@ body{
   color: var(--danger-action-color);
 }
 
-.trix-content .attachment--file{
-  color: inherit;
-}
-
 .main{
   border-radius: 12px;
 }
@@ -121,10 +117,7 @@ body{
   left: 0;
   z-index: 1;
 }
-.trix-form{
-  background: white;
-  padding: 5px;
-}
+
 .attachment__filetype-icon{
   background-color: var(--secondary-light-bg-color);
 }
@@ -267,6 +260,19 @@ body{
 .trix-button--icon-decrease-nesting-level,
 .trix-button--icon-increase-nesting-level{
   display: none;
+}
+
+trix-toolbar .trix-button-group{
+  border-bottom: none;
+}
+
+.trix-form{
+  background: white;
+  padding: 5px;
+}
+
+.trix-content .attachment--file{
+  color: inherit;
 }
 
 $color_1: #1f1f1f;
