@@ -18,3 +18,12 @@
     color: inherit;
   }
 }
+.nav .nav-link.active{
+  border-bottom: 2px solid var(--secondary-light-bg-color);
+}
+
+button.nav-link{
+  &:hover{
+    border:none;
+  }
+}

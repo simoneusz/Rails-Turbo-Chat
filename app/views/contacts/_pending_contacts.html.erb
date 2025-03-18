@@ -3,16 +3,26 @@
   <% unless pending_contacts.present? %>
     <h3>No contact request yet.</h3>
   <% end %>
-  <% pending_contacts.each do |contact| %>
-    <div class="request-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded">
-      <div class="d-flex align-items-center">
-        <%= render partial: 'shared/default_avatar', locals: { size: 25, user: contact.user, rounded: true } %>
-        <span><%= contact.user.full_name %></span>
-      </div>
-      <div class="d-flex gap-2">
-        <%= button_to 'Decline', contact_path(contact.user), method: :delete, class: 'btn  main-btn-secondary btn-sm' %>
-        <%= button_to 'Accept', contact_path(contact.user), method: :put, class: 'btn main-btn-danger btn-sm' %>
-      </div>
-    </div>
-  <% end %>
+  <ul class=" list-group w-100 d-flex flex-column">
+    <% pending_contacts.each do |contact| %>
+      <% user = contact.user  %>
+      <li class="members-list-item member-item list-group-item-action py-2 px-1 w-100 d-flex justify-content-between">
+        <%= link_to user_path(user), data: { turbo_frame: 'modal_frame' }, class: 'nav-link px-0 w-100 d-flex flex-row gap-3 align-items-center' do %>
+          <div class="message-avatar d-flex align-items-center">
+            <%= render partial: 'shared/default_avatar', locals: { size: 40, user: user, rounded: false } %>
+          </div>
+          <p class="fw-bold m-0"><%= user.username %></p>
+        <% end %>
+        <div>
+          <%= form_with url: contact_path(contact.user), method: :delete, local: true do %>
+            <%= submit_tag 'Decline', class: 'btn btn-modal py-1 w-100' %>
+          <% end %>
+
+          <%= form_with url: contact_path(contact.user), method: :put, local: true do %>
+            <%= submit_tag 'Accept', class: 'btn text-danger btn-modal py-1 w-100' %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
 </div>
