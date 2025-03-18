@@ -13,13 +13,13 @@
         </div>
       </div>
     </li>
-    <li class="list-group-item about-group-item list-group-item-action">
+    <%= button_to leave_room_path(room), method: :delete, class:"list-group-item about-group-item list-group-item-action" do %>
       <div class="w-100 d-flex justify-content-between">
         <div class="about-text text-start">
-          <b class="about-label about-label-leave danger-action-color m-0 p-0">Leave room</b>
+          <p class="about-label about-label-leave danger-action-color m-0 p-0">Leave</p>
         </div>
       </div>
-    </li>
+    <% end %>
     <p class="text-muted text-start pt-2">Room ID: <%= room.id %></p>
   </ul>
 </div>

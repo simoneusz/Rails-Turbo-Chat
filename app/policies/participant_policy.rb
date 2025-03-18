@@ -30,7 +30,7 @@ class ParticipantPolicy < ApplicationPolicy
   end
 
   def show?
-    !blocked?
+    !(non_participant? || blocked?)
   end
 
   def create?
@@ -75,7 +75,11 @@ class ParticipantPolicy < ApplicationPolicy
     user_role == 'blocked'
   end
 
+  def non_participant?
+    user_role == 'non_participant'
+  end
+
   def user_role
-    record&.role
+    record&.role || 'non_participant'
   end
 end

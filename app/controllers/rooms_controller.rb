@@ -71,7 +71,7 @@ class RoomsController < ApplicationController
   end
 
   def leave
-    handle_participant_action(:remove)
+    handle_participant_action(:leave)
   end
 
   def remove_participant
@@ -123,15 +123,22 @@ class RoomsController < ApplicationController
   end
 
   def handle_participant_action(action)
-    result = case action
-             when :add
-               Participants::AddParticipantService.new(@room, current_user, @user, :member).call
-             when :remove
-               Participants::RemoveParticipantService.new(@room, current_user, @user).call
-             end
+    result = handle_participant_result(action)
     return unless result
 
     handle_service_result(result, "#{@user.username} was #{action == :add ? 'added in' : 'removed from'}  the room")
+  end
+
+  def handle_participant_result(action)
+    case action
+    when :add
+      Participants::AddParticipantService.new(@room, current_user, @user, :member).call
+    when :remove
+      Participants::RemoveParticipantService.new(@room, current_user, @user).call
+    when :leave
+      @user = current_user
+      Rooms::LeaveRoomService.new(@room, @room.find_participant(@user)).call
+    end
   end
 
   def handle_role_change(new_role)

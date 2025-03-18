@@ -14,6 +14,8 @@ module Rooms
       return error_cant_find_participants(@participant) unless @participant
 
       @participant.destroy
+
+      notify_room
       success(@room)
     end
 
