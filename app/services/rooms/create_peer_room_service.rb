@@ -29,7 +29,7 @@ module Rooms
     private
 
     def create_room
-      Room.create(@room_params)
+      Room.create(@room_params.merge(creator: @other_user))
     end
 
     def add_peer(room, user)

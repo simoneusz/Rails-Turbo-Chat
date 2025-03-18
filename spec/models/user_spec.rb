@@ -33,6 +33,7 @@ RSpec.describe User do
     }
 
     it { is_expected.to have_many(:notifications).dependent(:destroy) }
+    it { is_expected.to have_many(:rooms).with_foreign_key('creator_id').dependent(:destroy).inverse_of(:creator) }
   end
 
   describe '#full_name' do

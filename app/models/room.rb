@@ -7,6 +7,7 @@ class Room < ApplicationRecord
   validates :name, presence: true
   scope :public_rooms, -> { where(is_private: false) }
   scope :private_rooms, -> { where(is_private: true) }
+  belongs_to :creator, class_name: 'User'
   has_many :messages, dependent: :destroy
   has_many :participants, dependent: :destroy
   has_many :notifications, class_name: 'RoomNotification', dependent: :destroy

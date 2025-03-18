@@ -15,6 +15,8 @@ RSpec.describe Room do
   end
 
   describe 'associations' do
+    it { is_expected.to belong_to(:creator) }
+
     it { is_expected.to have_many(:messages).dependent(:destroy) }
     it { is_expected.to have_many(:participants).dependent(:destroy) }
   end

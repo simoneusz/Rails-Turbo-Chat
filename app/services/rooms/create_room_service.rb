@@ -21,7 +21,7 @@ module Rooms
     private
 
     def create_room
-      Room.create(@room_params)
+      Room.create(@room_params.merge(creator: @current_user))
     end
 
     def add_owner(room)
