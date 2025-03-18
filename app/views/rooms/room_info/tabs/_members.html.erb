@@ -27,7 +27,7 @@
           <p class="fw-bold m-0"><%= user.username %></p>
         <% end %>
         <div>
-          <% if policy(room.find_participant(current_user)).remove_participant? %>
+          <% if policy(room.find_participant(current_user)).remove_participant? && !(participant.owner? || participant.moderator?) %>
             <%= form_with url: remove_participant_room_path(participant), method: :delete, local: true do %>
               <%= hidden_field_tag :user_id, participant.user.id %>
               <%= hidden_field_tag :room_id, room.id %>
