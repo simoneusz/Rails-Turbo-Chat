@@ -1,0 +1,24 @@
+<li class="list-group-item about-group-item list-group-item-action" data-controller="editable-field">
+  <div class="w-100 d-flex justify-content-between">
+    <div class="about-text text-start">
+      <b class="about-label m-0 p-0"><%= label_text %></b>
+
+      <p class="about-room-name m-0 p-0" data-editable-field-target="display">
+        <%= value %>
+      </p>
+
+
+      <%= form_with(model: room, url: room_path(room), method: :patch, html: { class: "d-none d-flex gap-3", data: { editable_field_target: "form" } }) do |f| %>
+        <%= f.hidden_field field, value: value, data: { editable_field_target: "input" } %>
+        <%= f.text_field field, class: "form-control d-inline w-auto", data: { editable_field_target: "input" } %>
+        <div class="form-buttons d-flex gap-1">
+          <%= f.submit "Save", class: "btn main-btn-add" %>
+          <button type="button" class="btn main-btn-remove" data-action="click->editable-field#cancel">Cancel</button>
+        </div>
+      <% end %>
+    </div>
+    <% if policy(room.find_participant(current_user)).update? %>
+      <button type="button" class="btn" data-action="click->editable-field#edit">Edit</button>
+    <% end %>
+  </div>
+</li>

@@ -1,31 +1,10 @@
 <div class="room-info-about">
   <ul class="list-group my-4 about-group">
-    <li class="list-group-item about-group-item list-group-item-action">
-      <div class="w-100 d-flex justify-content-between">
-        <div class="about-text text-start">
-          <b class="about-label m-0 p-0">Channel Name </b>
-          <p class="about-room-name = m-0 p-0"># <%= room.name %></p>
-        </div>
-      </div>
-    </li>
+    <%= render "rooms/editable_field", room:, field: "name", label_text: "Channel Name", value: room.name %>
   </ul>
   <ul class="list-group about-group">
-    <li class="list-group-item about-group-item list-group-item-action">
-      <div class="w-100 d-flex justify-content-between">
-        <div class="about-text text-start">
-          <b class="about-label m-0 p-0">Topic </b>
-          <p class="about-room-name = m-0 p-0"><%= room.topic %></p>
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item about-group-item list-group-item-action">
-      <div class="w-100 d-flex justify-content-between">
-        <div class="about-text text-start">
-          <b class="about-label m-0 p-0">Description</b>
-          <p class="about-room-name = m-0 p-0"><%= room.description %></p>
-        </div>
-      </div>
-    </li>
+    <%= render "rooms/editable_field", room:, field: "topic", label_text: "Topic", value: room.topic %>
+    <%= render "rooms/editable_field", room:, field: "description", label_text: "Description", value: room.description %>
     <li class="list-group-item about-group-item list-group-item-action">
       <div class="w-100 d-flex justify-content-between">
         <div class="about-text text-start">

@@ -4,10 +4,10 @@
 # adding/removing/changing role participants.
 class RoomsController < ApplicationController
   before_action :set_room_and_user, only: %i[
-    add_participant change_role join destroy leave remove_participant block_participant unblock_participant
+    add_participant update change_role join destroy leave remove_participant block_participant unblock_participant
   ]
   before_action :authorize_participant, only: %i[
-    add_participant destroy change_role remove_participant block_participant unblock_participant
+    add_participant update destroy change_role remove_participant block_participant unblock_participant
   ]
 
   before_action :set_participant, only: %i[show]
@@ -36,6 +36,14 @@ class RoomsController < ApplicationController
   def create
     result = Rooms::CreateRoomService.new(room_params, current_user).call
     handle_service_result(result, 'New room has been created')
+  end
+
+  def update
+    if @room.update(room_params)
+      set_flash_and_redirect(:notice, 'Room was successfully updated', room_path(@room))
+    else
+      set_flash_and_redirect(:alert, @room.errors.full_messages.join(', '), room_path(@room))
+    end
   end
 
   def destroy
@@ -147,10 +155,6 @@ class RoomsController < ApplicationController
     @room.participants.find_by(user_id: user_id)
   end
 
-  def authorized?(action)
-    Pundit.policy(current_user, @room).public_send("#{action}?")
-  end
-
   def not_authorized
     set_flash_and_redirect(:alert, 'You are not authorized to perform this action', rooms_path)
   end
@@ -172,6 +176,6 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:name, :is_private)
+    params.require(:room).permit(:name, :is_private, :description, :topic, :owner)
   end
 end
