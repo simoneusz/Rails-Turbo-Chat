@@ -142,6 +142,8 @@ class RoomsController < ApplicationController
   end
 
   def find_participant(user_id)
+    return nil unless @room
+
     @room.participants.find_by(user_id: user_id)
   end
 
