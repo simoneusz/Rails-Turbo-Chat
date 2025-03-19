@@ -10,6 +10,7 @@ class Room < ApplicationRecord
   belongs_to :creator, class_name: 'User'
   has_many :messages, dependent: :destroy
   has_many :participants, dependent: :destroy
+  has_many :user_notifications, class_name: 'Notification', as: :item, dependent: :destroy
   has_many :notifications, class_name: 'RoomNotification', dependent: :destroy
 
   scope :all_for_user, lambda { |user|
