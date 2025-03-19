@@ -9,7 +9,6 @@ export default class Autoclick extends Controller {
   static topMessage;
   static throttling = false;
   connect() {
-    console.log("Connected to Autoclick!");
     useIntersection(this, this.options);
   }
 
@@ -26,7 +25,6 @@ export default class Autoclick extends Controller {
           behavior: "auto",
           block: "start",
         });
-        console.log("Scrolling");
         Autoclick.throttling = false;
       }, 250);
     }

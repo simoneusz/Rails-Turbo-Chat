@@ -4,9 +4,7 @@ import { createPopup } from "@picmo/popup-picker";
 export default class extends Controller {
   static targets = ["pickerContainer"];
 
-  connect() {
-    console.log("Reactions controller connected");
-  }
+  connect() {}
 
   open(event) {
     const button = event.currentTarget;

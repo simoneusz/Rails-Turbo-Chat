@@ -4,7 +4,6 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   connect() {
     document.addEventListener("turbo:frame-load", () => {
-      console.log('frame loaded')
       let modal = document.getElementById("user-modal");
       if (modal) {
         modal.style.display = "block";
@@ -22,6 +21,5 @@ export default class extends Controller {
     turbo.innerHTML = ""
     turbo.removeAttribute("src")
     turbo.removeAttribute("complete")
-    console.log("closing modal")
   }
 }

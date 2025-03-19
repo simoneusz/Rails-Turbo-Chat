@@ -5,9 +5,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["replyBox", "replyText", "parentMessageId"]
 
-  connect(){
-    console.log("reply connected")
-  }
+  connect() {}
 
   setReply(event) {
     console.log("set reply")

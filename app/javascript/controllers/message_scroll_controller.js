@@ -6,7 +6,6 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log("message-scroll connected")
     this.room = document.getElementById("single_room")
   }
 
@@ -20,7 +19,6 @@ export default class extends Controller {
     if (parentMessage) {
       const rect = parentMessage.getBoundingClientRect()
       const offset = parentMessage.offsetHeight + 100
-      console.log(`Scrolling to message ID: ${this.parentMessageIdValue}`)
 
       this.room.scrollTo({
         top: this.room.scrollTop + rect.top - offset,
@@ -33,8 +31,6 @@ export default class extends Controller {
         setTimeout(() => messageContent.classList.remove("message_highlight"), 2000)
       }
     } else {
-      console.log("cant find message, scrolling..")
-
       this.room.scrollTo({ top: 0, behavior: "smooth" })
 
       setTimeout(() => this.scrollToMessage(retryCount - 1), 1000)

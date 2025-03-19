@@ -19,10 +19,7 @@ export default class TrixController extends Controller {
     this.editor.addEventListener("keydown", this.handleKeydown.bind(this.editor))
 
     addEventListener("trix-initialize", function (event) {
-      console.log("im inititalized!");
-
       TrixController.removeToolbarIcons()
-
     }, true);
   }
 
@@ -35,7 +32,6 @@ export default class TrixController extends Controller {
       event.preventDefault()
 
       const form = event.target.closest("form")
-      console.log(form)
       if (form) {
         form.submit();
         form.reset();
@@ -45,7 +41,7 @@ export default class TrixController extends Controller {
 
   static removeToolbarIcons() {
     TrixController.UNUSED_TOOLBAR_CLASSES.forEach((cls) => {
-      document.querySelector(cls).remove();
+      if(document.querySelector(cls)) document.querySelector(cls).remove();
     });
   }
 }

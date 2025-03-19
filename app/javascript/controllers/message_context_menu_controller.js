@@ -6,7 +6,6 @@ export default class extends Controller {
   static targets = ["menu", "deleteLink"];
 
   connect() {
-    console.log("connect to messages context")
     this.hideMenu = this.hideMenu.bind(this);
     document.addEventListener("click", this.hideMenu);
   }
@@ -16,7 +15,6 @@ export default class extends Controller {
   }
 
   open(event) {
-    console.log("open message context", event);
     event.preventDefault();
     event.stopPropagation();
 
