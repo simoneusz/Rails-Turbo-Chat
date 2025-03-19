@@ -1,26 +1,26 @@
 <div class="room-info-about">
   <% if room.peer_room? && other_user %>
-    <% room_name =  other_user.username %>
+    <% room_name = other_user.username %>
     <% label_text = 'Room with' %>
   <% else %>
     <% room_name = room.name %>
     <% label_text = 'Room name' %>
   <% end %>
   <ul class="list-group my-4 about-group">
-    <%= render "rooms/editable_field", room:, field: "name", label_text:, value: room_name %>
+    <%= render 'rooms/editable_field', room:, field: 'name', label_text:, value: room_name %>
   </ul>
   <ul class="list-group about-group">
-    <%= render "rooms/editable_field", room:, field: "topic", label_text: "Topic", value: room.topic %>
-    <%= render "rooms/editable_field", room:, field: "description", label_text: "Description", value: room.description %>
+    <%= render 'rooms/editable_field', room:, field: 'topic', label_text: 'Topic', value: room.topic %>
+    <%= render 'rooms/editable_field', room:, field: 'description', label_text: 'Description', value: room.description %>
     <li class="list-group-item about-group-item list-group-item-action">
       <div class="w-100 d-flex justify-content-between">
         <div class="about-text text-start">
-          <b class="about-label m-0 p-0"><%= room.peer_room? ? "Initiated" : "Created" %> by </b>
-          <p class="about-room-name = m-0 p-0"><%= room.creator.username %> on <%= room.created_at.to_formatted_s(:short)   %></p>
+          <b class="about-label m-0 p-0"><%= room.peer_room? ? 'Initiated' : 'Created' %> by </b>
+          <p class="about-room-name = m-0 p-0"><%= room.creator.username %> on <%= room.created_at.to_fs(:short)   %></p>
         </div>
       </div>
     </li>
-    <%= button_to leave_room_path(room), method: :delete, class:"list-group-item about-group-item list-group-item-action" do %>
+    <%= button_to leave_room_path(room), method: :delete, class: 'list-group-item about-group-item list-group-item-action' do %>
       <div class="w-100 d-flex justify-content-between">
         <div class="about-text text-start">
           <p class="about-label about-label-leave danger-action-color m-0 p-0">Leave</p>

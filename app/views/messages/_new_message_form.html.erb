@@ -1,9 +1,9 @@
-<%= render partial: "messages/reply_form_preview" %>
+<%= render partial: 'messages/reply_form_preview' %>
 
 <%= content_tag(:div, class: 'trix-form border rounded form-group msg-form', data: { controller: 'emoji-picker', }) do %>
   <%= form_with(model: [@single_room, @message], remote: true,
                 data: { controller: 'reset-form', action: 'turbo:submit-end->reset-form#reset turbo:submit-end->reply#clearReply' }) do |f| %>
-  <%= f.hidden_field :parent_message_id, value: "", data: { reply_target: "parentMessageId" } %>
+  <%= f.hidden_field :parent_message_id, value: '', data: { reply_target: 'parentMessageId' } %>
     <%= content_tag(:div, '', class: 'pickerContainer', data: {
       emoji_picker_target: 'pickerContainer',
     }) %>

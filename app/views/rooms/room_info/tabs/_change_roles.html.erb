@@ -1,6 +1,6 @@
 <div class="room-info-members">
   <ul class="members-list list-group mt-4 w-100 d-flex flex-column">
-    <% room.participants.where.not(role: :owner).each do |participant| %>
+    <% room.participants.where.not(role: :owner).find_each do |participant| %>
       <% user = participant.user  %>
       <li class="members-list-item member-item list-group-item-action py-2 px-1 w-100 d-flex justify-content-between">
         <%= link_to user_path(user), data: { turbo_frame: 'modal_frame' }, class: 'nav-link px-0 w-100 d-flex flex-row gap-3 align-items-center' do %>

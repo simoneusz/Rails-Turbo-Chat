@@ -1,5 +1,5 @@
 <button class="btn btn-room-back">
-  <%= link_to rooms_path, class:"nav-link" do %>
+  <%= link_to rooms_path, class: 'nav-link' do %>
     <i class="bi bi-arrow-left"></i>
   <% end %>
 </button>
@@ -24,7 +24,7 @@
      data-controller="open-child-modal">
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content m-auto">
-      <%= render partial: 'rooms/room_info/room_info_header', locals: { room: room, user: user, other_user:  } %>
+      <%= render partial: 'rooms/room_info/room_info_header', locals: { room: room, user: user, other_user: } %>
       <%= render partial: 'rooms/room_info/room_info_body', locals: { room: room, user: user, other_user: } %>
     </div>
   </div>
