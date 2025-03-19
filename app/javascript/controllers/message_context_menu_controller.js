@@ -15,6 +15,7 @@ export default class extends Controller {
   }
 
   open(event) {
+    console.log("open", event);
     event.preventDefault();
     event.stopPropagation();
 

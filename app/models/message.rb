@@ -7,12 +7,14 @@ class Message < ApplicationRecord
   belongs_to :room
   has_rich_text :content
   belongs_to :parent_message, class_name: 'Message', optional: true
-  has_many :replies, class_name: 'Message', foreign_key: :parent_message_id, dependent: :destroy,
+  has_many :replies, class_name: 'Message', foreign_key: :parent_message_id, dependent: :nullify,
                      inverse_of: :parent_message
   has_many :reactions, dependent: :destroy
 
   after_create_commit { broadcast_append_to room }
   before_create :confirm_participant
+
+  validates :content, presence: true, exclusion: [nil, '', ' ']
 
   def next
     room = Room.find(self.room.id)
