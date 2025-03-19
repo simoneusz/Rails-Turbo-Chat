@@ -16,7 +16,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 @import 'room_modal';
 
-
+ul {
+  list-style-type: none;
+}
 .bg-main{
   background-color: var(--main-bg-color) !important;
 }
