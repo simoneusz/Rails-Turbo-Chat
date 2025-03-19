@@ -20,6 +20,26 @@ RSpec.describe Rooms::LeaveRoomService do
       end
     end
 
+    context 'when participant are trying to leave peer room' do
+      subject(:service) { described_class.new(peer_room, participant).call }
+
+      let!(:peer_room) { create(:room) }
+
+      before do
+        participant.update(role: :peer)
+        peer_room.participants << participant
+        peer_room.participants << participant
+      end
+
+      it 'does not returns service success' do
+        expect(service.success?).to be(false)
+      end
+
+      it 'returns service error code' do
+        expect(service.error_code).to eq(:cant_leave_peer_room)
+      end
+    end
+
     context 'when participant does not exist' do
       subject(:service) { described_class.new(room, nil).call }
 

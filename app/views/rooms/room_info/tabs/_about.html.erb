@@ -1,11 +1,13 @@
 <div class="room-info-about">
   <% if room.peer_room? && other_user %>
     <% room_name =  other_user.username %>
+    <% label_text = 'Room with' %>
   <% else %>
     <% room_name = room.name %>
+    <% label_text = 'Room name' %>
   <% end %>
   <ul class="list-group my-4 about-group">
-    <%= render "rooms/editable_field", room:, field: "name", label_text: "Channel Name", value: room_name %>
+    <%= render "rooms/editable_field", room:, field: "name", label_text:, value: room_name %>
   </ul>
   <ul class="list-group about-group">
     <%= render "rooms/editable_field", room:, field: "topic", label_text: "Topic", value: room.topic %>

@@ -148,7 +148,7 @@ class RoomsController < ApplicationController
   end
 
   def handle_service_result(result, success_message)
-    current_room = @room || result.data
+    current_room = @room || result.data || rooms_path
     if result.success?
       set_flash_and_redirect(:notice, success_message, room_path(current_room))
     else
