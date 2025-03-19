@@ -9,10 +9,10 @@ class Notification < ApplicationRecord
   default_scope { latest }
 
   after_create_commit do
-    broadcast_prepend_to "broadcast_to_user_#{receiver_id}",
-                         target: 'notifications',
-                         partial: 'notifications/fixed_notification',
-                         locals: { notification: self }
+    broadcast_update_to "broadcast_to_user_#{receiver_id}",
+                        target: 'notifications',
+                        partial: 'notifications/fixed_notification',
+                        locals: { notification: self }
   end
 
   after_update_commit do
@@ -28,9 +28,9 @@ class Notification < ApplicationRecord
   end
 
   after_commit do
-    broadcast_replace_to "broadcast_to_user_#{receiver_id}",
-                         target: 'notifications_count',
-                         partial: 'notifications/count',
-                         locals: { count: receiver.notifications.unviewed.count }
+    broadcast_update_to "broadcast_to_user_#{receiver_id}",
+                        target: 'notifications_count',
+                        partial: 'notifications/count',
+                        locals: { count: receiver.notifications.unviewed.count }
   end
 end
