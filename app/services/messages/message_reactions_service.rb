@@ -2,6 +2,8 @@
 
 module Messages
   class MessageReactionsService < ApplicationService
+    CODE_REACTION_INVALID = :invalid_reaction
+
     def initialize(message, current_user, emoji)
       super()
       @message = message
@@ -13,7 +15,7 @@ module Messages
       delete_user_current_reaction if @message.any_reactions_from_user?(@current_user)
 
       reaction = new_reaction
-      return error(code: 'todo invalid params') unless reaction.valid?
+      return error_reaction_invalid unless reaction.valid?
 
       reaction.save!
 
@@ -28,6 +30,10 @@ module Messages
 
     def delete_user_current_reaction
       @message.reactions.where(user: @current_user).destroy_all
+    end
+
+    def error_reaction_invalid
+      error(code: CODE_REACTION_INVALID)
     end
   end
 end
