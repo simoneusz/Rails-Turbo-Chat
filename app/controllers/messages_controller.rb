@@ -22,6 +22,7 @@ class MessagesController < ApplicationController
 
   private
 
+  # TODO: make it to service
   def define_replied
     @message.update!(replied: true) if @message.parent_message_id
   end
