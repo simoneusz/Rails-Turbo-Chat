@@ -3,6 +3,12 @@
   .hero-image{
     transform: scale(0.5);
   }
+  .nav-container{
+    padding: 0 2px;
+  }
+  .nav.tabs{
+    gap: 0.5rem !important;
+  }
 }
 
 @media only screen and (max-width: 768px) {
