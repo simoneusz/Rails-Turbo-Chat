@@ -1,5 +1,5 @@
 <%= content_tag :div, id: "notification_#{notification.id}",
-                class: 'notification d-flex align-items-center alert alert-info fixed-alert' do %>
+                class: 'notification d-flex align-items-center alert alert-info' do %>
   <%= button_to mark_as_read_notification_path(notification),
                 method: :patch,
                 remote: true,

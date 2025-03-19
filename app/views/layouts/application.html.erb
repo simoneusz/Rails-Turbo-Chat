@@ -13,9 +13,9 @@
     <% if user_signed_in? %>
       <%= render partial: 'layouts/nav' %>
       <%= turbo_stream_from "broadcast_to_user_#{current_user.id}"%>
-      <div id="notifications">
-        <% current_user.notifications.where(viewed: false).find_each do |notification| %>
-          <%= render 'notifications/fixed_notification', notification: notification %>
+      <div id="notifications" class="p-2 z-1">
+        <% current_user.notifications.where(viewed: false).last do |notification| %>
+          <%= render 'notifications/fixed_notification', notification: %>
         <% end %>
       </div>
     <% end %>
