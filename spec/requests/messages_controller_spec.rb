@@ -24,7 +24,7 @@ RSpec.describe MessagesController, type: :controller do
       end
 
       it 'assigns message' do
-        expect(assigns(:message).content.body.to_plain_text).to eq('Hello')
+        expect(room.messages.last.content.body.to_plain_text).to eq('Hello')
       end
     end
 
