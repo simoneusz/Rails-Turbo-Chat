@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   resources :messages, only: [] do
     resources :reactions, only: %i[create destroy]
   end
+
+  resources :favorites, only: [] do
+    post :toggle, on: :collection
+  end
+
   resources :rooms do
     resources :messages, only: %i[create destroy]
     post 'add_participant', on: :member

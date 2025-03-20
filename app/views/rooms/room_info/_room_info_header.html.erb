@@ -14,8 +14,12 @@
     </div>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
-  <div class="modal-header-buttons align-self-baseline px-3">
-    <button class="btn border"><i class="bi bi-star"></i></button>
+  <div class="modal-header-buttons align-self-baseline px-3 d-flex gap-2" data-controller="favorite-animation">
+    <%= button_to toggle_favorites_path, params: { room_id: room.id }, class: 'btn border', method: :post, data: { turbo_frame: "favorite_button_#{room.id}" } do %>
+      <span class="star <%= 'starred' if @favorite %>" data-favorite-animation-target="favorite">
+        <i class="star-icon bi bi-star"></i>
+      </span>
+    <% end %>
     <button class="btn border"><i class="bi bi-bell"></i> Enable notifications</button>
   </div>
 </div>

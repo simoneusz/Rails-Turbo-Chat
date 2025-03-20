@@ -20,6 +20,7 @@ class User < ApplicationRecord
   after_create_commit { broadcast_append_to 'users' }
 
   has_many :rooms, foreign_key: :creator_id, dependent: :destroy, inverse_of: :creator
+  has_many :favorite_rooms, class_name: 'Favorite', dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :sent_contacts, class_name: 'Contact', dependent: :destroy
   has_many :received_contacts,
@@ -37,6 +38,11 @@ class User < ApplicationRecord
                                 inverse_of: :sender
 
   has_many :reactions, dependent: :destroy
+
+  def favorite_rooms_ids
+    favorite_rooms.pluck(:room_id)
+  end
+
   def unviewed_notifications_size
     notifications.unviewed.size
   end

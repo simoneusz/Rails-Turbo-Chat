@@ -13,6 +13,8 @@ class Room < ApplicationRecord
   has_many :user_notifications, class_name: 'Notification', as: :item, dependent: :destroy
   has_many :notifications, class_name: 'RoomNotification', dependent: :destroy
 
+  has_many :favorited, class_name: 'Favorite', dependent: :destroy
+
   scope :all_for_user, lambda { |user|
     left_outer_joins(:participants)
       .where(is_private: false)

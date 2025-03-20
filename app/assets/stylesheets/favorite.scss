@@ -1,0 +1,34 @@
+.star {
+  display: block;
+  text-align: center;
+  cursor: pointer;
+}
+
+.star-icon {
+  display: block;
+  transition: all .2s ease-in;
+}
+
+.starred .star-icon {
+  color: #f6c342;
+}
+
+.starred {
+  animation: spin .6s forwards;
+  transform-origin: 50% 50%;
+  transition-timing-function: ease-in-out;
+}
+
+.starred .star-icon {
+  animation: spin .6s forwards;
+  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+  transition-timing-function: ease-in-out;
+}
+
+.unstarred .star-icon {
+  animation: unspin .3s forwards;
+  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+  transition-timing-function: ease-in-out;
+}

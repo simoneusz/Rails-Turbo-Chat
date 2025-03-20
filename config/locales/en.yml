@@ -14,3 +14,5 @@ en:
     no_pending_contacts: "There's no pending contacts"
     cant_leave_peer_room: "You cant leave from personal room"
     invalid_reaction: "Can't use this reaction"
+    favorite_doesnt_exist: "Can't find favorite record"
+    not_a_participant: "You don't belong to this room"
