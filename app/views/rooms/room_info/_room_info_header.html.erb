@@ -11,7 +11,7 @@
           <%= room.name %>
         <% end %>
       </h3>
-    </div>
+  </div>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
   <div class="modal-header-buttons align-self-baseline px-3 d-flex gap-2" data-controller="favorite-animation">
@@ -20,6 +20,9 @@
         <i class="star-icon bi bi-star"></i>
       </span>
     <% end %>
-    <button class="btn border"><i class="bi bi-bell"></i> Enable notifications</button>
+    <div id="toggle_notifications_button">
+      <% logger.info(room) %>
+      <%= render partial: 'participants/toggle_notifications', locals: { room:  } %>
+    </div>
   </div>
 </div>

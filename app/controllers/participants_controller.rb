@@ -32,6 +32,19 @@ class ParticipantsController < ApplicationController
     handle_participant_action(:add)
   end
 
+  def toggle_notifications
+    participant = @room.find_participant(@user)
+
+    return unless participant
+
+    participant.update(mute_notifications: !participant.mute_notifications)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to @room }
+    end
+  end
+
   private
 
   def set_room_and_user

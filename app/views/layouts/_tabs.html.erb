@@ -12,8 +12,8 @@
   <a class="nav-link tabs__content btn-squeeze" aria-current="page" href="<%= rooms_path %>">
     <i class="bi bi-chat tabs__content_icon position-relative"  >
       <%= render 'notifications/count',
-                 count: Room.all_group_for_user(current_user).map { |room|
-                          room.messages.unread_by(current_user).size
+                 count: Room.all_not_muted_groups_for_user(current_user).map { |room|
+                        room.messages.unread_by(current_user).size
                  }.sum %>
     </i>
     <p class="tabs__content_label">Rooms</p>

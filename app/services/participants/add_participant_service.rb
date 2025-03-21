@@ -15,7 +15,9 @@ module Participants
     def call
       result = create_participant
       if result&.success?
-        notify_target_user unless @current_user == @target_user
+        unless @current_user == @target_user
+          notify_target_user(@target_user, 'room_invite_received', @room, @current_user)
+        end
         notify_room
         success(result.data)
       else
@@ -27,10 +29,6 @@ module Participants
 
     def create_participant
       Participants::CreateParticipantService.new(@room, @target_user, @role).call
-    end
-
-    def notify_target_user
-      @target_user.notifications.create(notification_type: 'room_invite_received', item: @room, sender: @current_user)
     end
 
     def notify_room

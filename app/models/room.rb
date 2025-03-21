@@ -29,6 +29,14 @@ class Room < ApplicationRecord
       .order(:created_at)
   }
 
+  scope :all_not_muted_groups_for_user, lambda { |user|
+    joins(:participants)
+      .where(participants: { user_id: user.id })
+      .where.not(participants: { role: :peer })
+      .where(participants: { mute_notifications: false })
+      .order(:created_at)
+  }
+
   scope :all_peer_rooms_for_user, lambda { |user|
     joins(:participants)
       .where(participants: { user_id: user.id, role: :peer })

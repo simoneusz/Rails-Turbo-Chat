@@ -36,6 +36,7 @@ Rails.application.routes.draw do
         post :unblock
         post :change_role
         post :join
+        patch :toggle_notifications
         delete :leave
       end
     end

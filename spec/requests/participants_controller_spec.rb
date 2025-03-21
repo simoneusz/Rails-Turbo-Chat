@@ -53,9 +53,9 @@ RSpec.describe ParticipantsController, type: :controller do
     end
   end
 
-  describe 'PATCH #change_role' do
+  describe 'POST #change_role' do
     subject(:change_role) do
-      patch :change_role, params: { room_id: room.id, id: user.id, user_id: another_user.id, role: :moderator }
+      post :change_role, params: { room_id: room.id, id: user.id, user_id: another_user.id, role: :moderator }
     end
 
     before { allow(controller).to receive(:authorize_participant) }
@@ -68,8 +68,8 @@ RSpec.describe ParticipantsController, type: :controller do
     end
   end
 
-  describe 'PATCH #block' do
-    subject(:block_participant) { patch :block, params: { room_id: room.id, id: user.id, user_id: another_user.id } }
+  describe 'POST #block' do
+    subject(:block_participant) { post :block, params: { room_id: room.id, id: user.id, user_id: another_user.id } }
 
     before { allow(controller).to receive(:authorize_participant) }
 
@@ -81,9 +81,9 @@ RSpec.describe ParticipantsController, type: :controller do
     end
   end
 
-  describe 'PATCH #unblock' do
+  describe 'POST #unblock' do
     subject(:unblock_participant) do
-      patch :unblock, params: { room_id: room.id, id: user.id, user_id: another_user.id }
+      post :unblock, params: { room_id: room.id, id: user.id, user_id: another_user.id }
     end
 
     before do
@@ -99,8 +99,8 @@ RSpec.describe ParticipantsController, type: :controller do
     end
   end
 
-  describe 'PATCH #leave' do
-    subject(:leave_room) { patch :leave, params: { room_id: room.id, id: user.id } }
+  describe 'DELETE #leave' do
+    subject(:leave_room) { delete :leave, params: { room_id: room.id, id: user.id } }
 
     before { allow(controller).to receive(:authorize_participant) }
 

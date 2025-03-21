@@ -11,4 +11,6 @@ class Participant < ApplicationRecord
     blocked: 4
   }
   validates :role, presence: true
+
+  scope :with_notifications_enabled, -> { where(mute_notifications: false) }
 end

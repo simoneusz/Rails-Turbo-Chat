@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class ApplicationService
+  # TODO: Exceptions here
+  def notify_target_user(target_user, notification_type, item, sender, mute_notifications: false)
+    return false if target_user == sender || mute_notifications
+
+    target_user.notifications.create(notification_type:, item:, sender:)
+  end
+
   protected
 
   def success(data = nil)
