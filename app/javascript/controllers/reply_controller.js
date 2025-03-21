@@ -8,17 +8,14 @@ export default class extends Controller {
   connect() {}
 
   setReply(event) {
-    console.log("set reply")
     const messageId = event.currentTarget.dataset.messageId
     const messageText = event.currentTarget.dataset.messageText
-    console.log(this)
     this.replyTextTarget.innerText = `${messageText}`
     this.parentMessageIdTarget.value = messageId
     this.replyBoxTarget.style.display = "flex"
   }
 
   clearReply() {
-    console.log("clear reply")
     this.replyBoxTarget.style = "display: none !important;"
     this.replyTextTarget.innerText = ""
     this.parentMessageIdTarget.value = ""

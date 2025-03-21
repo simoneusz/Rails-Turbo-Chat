@@ -28,8 +28,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { render partial: 'search/search_results', locals: { search_results: @search_results } }
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace('search_results', partial: 'search/search_results',
-                                                                    locals: { search_results: @search_results })
+        render turbo_stream: turbo_stream.replace('search_results',
+                                                  partial: 'search/search_results',
+                                                  locals: { search_results: @search_results })
       end
     end
   end
