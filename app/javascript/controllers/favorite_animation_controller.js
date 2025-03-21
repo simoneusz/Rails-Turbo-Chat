@@ -9,10 +9,8 @@ export default class extends Controller {
 
   handleAnimation(){
     let star = this.favoriteTarget;
-    console.log(star)
-    star.addEventListener("click", function(e) {
-      console.log("click")
-      console.log(star)
+    let button = star.closest(".btn")
+    button.addEventListener("click", function(e) {
       if (star.classList.contains("starred")) {
         star.classList.remove("starred");
         star.classList.add("unstarred");
