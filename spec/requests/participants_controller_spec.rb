@@ -6,10 +6,13 @@ RSpec.describe ParticipantsController, type: :controller do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
   let(:room) { create(:room) }
-  let!(:participant) { create(:participant, user:, room:, role: :owner) }
+  let(:participant) { create(:participant, user:, room:, role: :owner) }
   let!(:another_participant) { create(:participant, user: another_user, room:, role: :member) }
 
-  before { sign_in user }
+  before do
+    sign_in user
+    participant
+  end
 
   describe 'POST #create' do
     subject(:post_create) { post :create, params: { room_id: room.id, user_id: another_user.id } }
