@@ -6,7 +6,6 @@ class FavoritesController < ApplicationController
   before_action :set_user, only: [:toggle]
   before_action :set_favorite, only: [:toggle]
 
-  # TODO: move it to service + tests
   def toggle
     Favorites::FavoritesToggleService.new(@favorite, @room, @user).toggle_favorite
 
