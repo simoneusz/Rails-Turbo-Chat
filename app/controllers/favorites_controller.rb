@@ -11,7 +11,7 @@ class FavoritesController < ApplicationController
     Favorites::FavoritesToggleService.new(@favorite, @room, @user).toggle_favorite
 
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream {}
       format.html { redirect_to @room }
     end
   end
