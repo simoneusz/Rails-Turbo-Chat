@@ -62,7 +62,7 @@ class Room < ApplicationRecord
   end
 
   def find_participant(user)
-    return [] if user.nil?
+    return nil if user.nil?
 
     participants.find_by(user_id: user.id)
   end
