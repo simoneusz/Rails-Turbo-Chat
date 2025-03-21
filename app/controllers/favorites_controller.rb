@@ -9,6 +9,11 @@ class FavoritesController < ApplicationController
   # TODO: move it to service + tests
   def toggle
     Favorites::FavoritesToggleService.new(@favorite, @room, @user).toggle_favorite
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to @room }
+    end
   end
 
   private

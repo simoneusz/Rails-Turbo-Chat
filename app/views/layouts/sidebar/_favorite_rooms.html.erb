@@ -1,0 +1,33 @@
+<% if current_user.favorite_rooms.any? %>
+  <li class="sidebar-item w-100 px-1">
+    <div href="#favorite"
+         data-bs-toggle="collapse"
+         class="sidebar-collapse-btn btn-squeeze sidebar-hoverable p-1 align-middle"
+         aria-expanded="false">
+      <i class="bi bi-star-fill infinite-spin-icon"></i> <span class="ms-1 d-none d-sm-inline">Favorites</span>
+    </div>
+    <ul class="sidebar-favorite-group main-scroll-bar collapse nav show flex-column ms-1"
+        id="favorite"
+        data-bs-parent="#favorite">
+      <% current_user.favorite_rooms.each do |favorite| %>
+        <% room = favorite.room %>
+        <li class="w-100">
+          <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
+            <div class="sidebar__room_icon"><i class="bi bi-hash"></i></div>
+            <%= link_to room.name, room, class: 'd-block w-100 room-link nav-link px-0' %>
+            <% unread_messages_size = room.messages.unread_by(current_user).size %>
+            <div class="px-1">
+              <% if unread_messages_size > 99 %>
+                99+
+              <% else %>
+                <% unless unread_messages_size.zero? %>
+                  <%= unread_messages_size %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
