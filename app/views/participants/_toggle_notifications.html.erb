@@ -1,5 +1,5 @@
 <% participant = room.find_participant(current_user) %>
-<%= button_to toggle_notifications_room_participant_path(room), method: :patch, params: { user_id: current_user.id }, class: "btn border"  do %>
+<%= button_to toggle_notifications_room_participant_path(room), method: :patch, params: { user_id: current_user.id }, class: 'btn border'  do %>
   <% if participant.mute_notifications? %>
     <i class="bi bi-bell-slash-fill"></i>
   <% else %>
