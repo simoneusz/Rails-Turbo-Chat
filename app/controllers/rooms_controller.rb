@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
+require 'pagy/extras/array'
+
 # RoomsController handles all actions related to room management, including creating and viewing rooms,
 # adding/removing/changing role participants.
 class RoomsController < ApplicationController
   before_action :set_room_and_user, only: %i[
-    add_participant update change_role join destroy leave remove_participant block_participant unblock_participant
-  ]
-  before_action :authorize_participant, only: %i[
-    add_participant update destroy change_role remove_participant block_participant unblock_participant
+    update destroy
   ]
 
   before_action :set_participant, only: %i[show]
-
-  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   def index
     @room = Room.new
@@ -35,7 +32,7 @@ class RoomsController < ApplicationController
 
   def create
     result = Rooms::CreateRoomService.new(room_params, current_user).call
-    handle_service_result(result, 'New room has been created')
+    handle_service_result(@single_room, result, 'New room has been created')
   end
 
   def update
@@ -60,34 +57,6 @@ class RoomsController < ApplicationController
   def dms
     @dms = Room.all_peer_rooms_for_user(current_user)
     render 'index'
-  end
-
-  def add_participant
-    handle_participant_action(:add)
-  end
-
-  def join
-    handle_participant_action(:add)
-  end
-
-  def leave
-    handle_participant_action(:leave)
-  end
-
-  def remove_participant
-    handle_participant_action(:remove)
-  end
-
-  def block_participant
-    handle_role_change(:blocked)
-  end
-
-  def unblock_participant
-    handle_role_change(:member)
-  end
-
-  def change_role
-    handle_role_change(params[:role])
   end
 
   private
@@ -123,64 +92,10 @@ class RoomsController < ApplicationController
     @single_room.messages.each { |message| message.mark_as_read! for: current_user }
   end
 
-  def handle_participant_action(action)
-    result = handle_participant_result(action)
-    return unless result
-
-    handle_service_result(result, "#{@user.username} was #{action == :add ? 'added in' : 'removed from'}  the room")
-  end
-
-  def handle_participant_result(action)
-    case action
-    when :add
-      Participants::AddParticipantService.new(@room, current_user, @user, :member).call
-    when :remove
-      Participants::RemoveParticipantService.new(@room, current_user, @user).call
-    when :leave
-      @user = current_user
-      Rooms::LeaveRoomService.new(@room, @room.find_participant(@user)).call
-    end
-  end
-
-  def handle_role_change(new_role)
-    participant = find_participant(@user)
-    result = Participants::ChangeParticipantRoleService.new(participant, new_role).call
-    handle_service_result(result, "Role for #{@user.username} changed to #{new_role}")
-  end
-
-  def handle_service_result(result, success_message)
-    current_room = @room || result.data || rooms_path
-    if result.success?
-      set_flash_and_redirect(:notice, success_message, room_path(current_room))
-    else
-      render_service_error(result, rooms_path)
-    end
-  end
-
   def find_participant(user_id)
     return nil unless @room
 
     @room.participants.find_by(user_id: user_id)
-  end
-
-  def not_authorized
-    set_flash_and_redirect(:alert, 'You are not authorized to perform this action', rooms_path)
-  end
-
-  def render_service_error(result, redirect_path = root_path)
-    error_message = I18n.t("errors.#{result.error_code}")
-    error_message += " #{result.data.errors.full_messages.join(', ')}" if result.data&.errors&.any?
-    set_flash_and_redirect(:alert, error_message, redirect_path)
-  end
-
-  def set_flash_and_redirect(type, message, redirect_path = rooms_path)
-    flash[type] = message
-    redirect_to redirect_path
-  end
-
-  def authorize_participant
-    participant = find_participant(current_user)
-    authorize participant if participant
   end
 
   def room_params

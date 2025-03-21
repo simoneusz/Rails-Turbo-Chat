@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   before_action :set_query
   before_action :turbo_frame_request_variant
 
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
+
   def set_query
     @query = User.ransack(search_query)
     @users = []
@@ -38,5 +40,29 @@ class ApplicationController < ActionController::Base
 
   def turbo_frame_request_variant
     request.variant = :turbo_frame if turbo_frame_request?
+  end
+
+  def not_authorized
+    set_flash_and_redirect(:alert, 'You are not authorized to perform this action', rooms_path)
+  end
+
+  def render_service_error(result, redirect_path = root_path)
+    error_message = I18n.t("errors.#{result.error_code}")
+    error_message += " #{result.data.errors.full_messages.join(', ')}" if result.data&.errors&.any?
+    set_flash_and_redirect(:alert, error_message, redirect_path)
+  end
+
+  def set_flash_and_redirect(type, message, redirect_path = rooms_path)
+    flash[type] = message
+    redirect_to redirect_path
+  end
+
+  def handle_service_result(room, result, success_message)
+    current_room = room || result.data || rooms_path
+    if result.success?
+      set_flash_and_redirect(:notice, success_message, room_path(current_room))
+    else
+      render_service_error(result, rooms_path)
+    end
   end
 end

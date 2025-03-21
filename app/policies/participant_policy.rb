@@ -5,23 +5,19 @@ class ParticipantPolicy < ApplicationPolicy
     owner?
   end
 
-  def add_participant?
-    owner? || moderator? || member?
-  end
-
-  def remove_participant?
+  def block?
     owner? || moderator?
   end
 
-  def block_participant?
-    owner? || moderator?
-  end
-
-  def unblock_participant?
+  def unblock?
     owner? || moderator?
   end
 
   def chat?
+    !blocked?
+  end
+
+  def join?
     !blocked?
   end
 
@@ -34,7 +30,7 @@ class ParticipantPolicy < ApplicationPolicy
   end
 
   def create?
-    !blocked?
+    owner? || moderator? || member?
   end
 
   def new?
@@ -50,7 +46,7 @@ class ParticipantPolicy < ApplicationPolicy
   end
 
   def destroy?
-    owner?
+    owner? || moderator?
   end
 
   private

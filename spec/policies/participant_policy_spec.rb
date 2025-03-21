@@ -17,23 +17,23 @@ RSpec.describe ParticipantPolicy do
 
     context 'when user is the owner of the room' do
       include_examples 'a policy with permitted actions', :owner,
-                       %i[change_role destroy add_participant remove_participant block_participant
-                          unblock_participant chat show]
+                       %i[change_role destroy create destroy block
+                          unblock chat show]
     end
 
     context 'when user is a moderator of the room' do
       include_examples 'a policy with permitted actions', :moderator,
-                       %i[add_participant remove_participant block_participant unblock_participant chat show]
+                       %i[create destroy block unblock chat show]
     end
 
     context 'when user is a member of the room' do
       include_examples 'a policy with permitted actions', :member,
-                       %i[add_participant chat show]
+                       %i[create chat show]
     end
 
     context 'when user is a peer' do
       include_examples 'a policy with permitted actions', :peer,
-                       %i[chat index show create new]
+                       %i[chat index show new]
     end
 
     context 'when user is blocked' do

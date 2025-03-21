@@ -30,14 +30,15 @@ Rails.application.routes.draw do
 
   resources :rooms do
     resources :messages, only: %i[create destroy]
-    post 'add_participant', on: :member
-    delete 'remove_participant', on: :member
-    post 'block_participant', on: :member
-    post 'unblock_participant', on: :member
-    post 'accept_invitation', on: :member
-    post 'join', on: :member
-    delete 'leave', on: :member
-    post 'change_role', on: :member
+    resources :participants, only: %i[create destroy] do
+      member do
+        post :block
+        post :unblock
+        post :change_role
+        post :join
+        delete :leave
+      end
+    end
     get 'all', on: :collection
   end
   resources :contacts, only: %i[index create update destroy] do

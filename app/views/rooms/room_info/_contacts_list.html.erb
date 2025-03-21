@@ -2,7 +2,7 @@
 <% user.contacts.each do |user| %>
   <% next if room.participant?(user) %>
   <%= render layout: 'rooms/room_info/room_info_user_with_actions', locals: { user:, room: } do %>
-    <%=  form_with url: add_participant_room_path, method: :post, local: true do %>
+    <%=  form_with url: room_participants_path(room, user), method: :post, local: true do %>
       <%=  hidden_field_tag :user_id, user.id  %>
       <%=  hidden_field_tag :id, room.id  %>
       <%= submit_tag 'Add', class: 'btn main-btn-add btn-modal py-1 w-100' %>

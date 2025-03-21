@@ -5,14 +5,14 @@
       <%= render layout: 'rooms/room_info/room_info_user_with_actions', locals: { user:, room: } do %>
         <% if participant.member? %>
           <div class="d-flex gap-1">
-            <%= form_with url: block_participant_room_path, method: :post, local: true do %>
+            <%= form_with url: block_room_participant_path(room), method: :post, local: true do %>
               <%= hidden_field_tag :user_id, participant.user.id %>
               <%= hidden_field_tag :role, :blocked %>
               <%= hidden_field_tag :room_id, room.id %>
               <%= submit_tag 'Block', class: 'btn main-btn-remove btn-modal py-1 w-100' %>
             <% end %>
 
-            <%= form_with url: change_role_room_path, method: :post, local: true do %>
+            <%= form_with url: change_role_room_participant_path(room), method: :post, local: true do %>
               <%= hidden_field_tag :user_id, participant.user.id %>
               <%= hidden_field_tag :role, :moderator %>
               <%= hidden_field_tag :room_id, room.id %>
@@ -20,7 +20,7 @@
             <% end %>
           </div>
         <% elsif participant.blocked?%>
-            <%= form_with url: unblock_participant_room_path, method: :post, local: true do %>
+            <%= form_with url: unblock_room_participant_path(room), method: :post, local: true do %>
               <%= hidden_field_tag :user_id, participant.user.id %>
               <%= hidden_field_tag :role, :blocked %>
               <%= hidden_field_tag :room_id, room.id %>
@@ -28,7 +28,7 @@
             <% end %>
         <% else %>
           <div>
-            <%= form_with url: change_role_room_path, method: :post, local: true do %>
+            <%= form_with url: change_role_room_participant_path(room), method: :post, local: true do %>
               <%= hidden_field_tag :user_id, participant.user.id %>
               <%= hidden_field_tag :role, :member %>
               <%= hidden_field_tag :room_id, room.id %>

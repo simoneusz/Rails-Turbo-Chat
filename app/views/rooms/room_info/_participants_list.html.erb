@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between align-items-center rounded px-1 btn-modal">
       <%= render partial: 'rooms/room_info/room_info_user', locals: { user: participant.user } %>
       <div class="dropdown">
-        <% if policy(@participant).remove_participant? %>
+        <% if policy(@participant).destroy? %>
           <div class="btn d-flex" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-gear h3"></i>
           </div>

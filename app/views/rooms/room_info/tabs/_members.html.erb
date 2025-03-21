@@ -1,6 +1,6 @@
 <div class="room-info-members">
   <ul class="members-list list-group mt-4 w-100 d-flex flex-column">
-    <% if policy(room.find_participant(current_user)).add_participant? %>
+    <% if policy(room.find_participant(current_user)).create? %>
       <button type="button"
               class="btn p-0"
               data-controller="open-child-modal"
@@ -20,10 +20,9 @@
     <% room.participants.each do |participant| %>
       <% user = participant.user  %>
       <%= render layout: 'rooms/room_info/room_info_user_with_actions', locals: { user:, room: } do %>
-        <% if policy(room.find_participant(current_user)).remove_participant? && !(participant.owner? || participant.moderator?) %>
-          <%= form_with url: remove_participant_room_path(participant), method: :delete, local: true do %>
+        <% if policy(room.find_participant(current_user)).destroy? && !(participant.owner? || participant.moderator?) %>
+          <%= form_with url: room_participant_path(room), method: :delete, local: true do %>
             <%= hidden_field_tag :user_id, participant.user.id %>
-            <%= hidden_field_tag :room_id, room.id %>
             <%= submit_tag 'Remove', class: 'btn text-danger btn-modal py-1 w-100' %>
           <% end %>
         <% end %>
