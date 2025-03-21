@@ -62,10 +62,4 @@ class ParticipantsController < ApplicationController
     participant = @room.find_participant(current_user)
     authorize participant if participant
   end
-  #
-  # def handle_service_result(result, success_message)
-  #   flash[result.success? ? :notice : :alert] =
-  #     result.success? ? success_message : result.errors&.full_messages&.join(', ') || result.error.code
-  #   redirect_to room_path(@room)
-  # end
 end
