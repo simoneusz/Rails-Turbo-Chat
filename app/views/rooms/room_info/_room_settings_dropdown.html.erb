@@ -18,7 +18,7 @@
         <%  end  %>
       </div>
     </li>
-    <% if policy(@participant).destroy? %>
+    <% if policy(@current_participant).destroy? %>
       <li>
         <div class="dropdown-item">
           <%=  form_with model: @single_room, method: :delete, data: { turbo_confirm: 'Are you sure?' }, local: true do %>

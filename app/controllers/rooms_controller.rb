@@ -63,7 +63,7 @@ class RoomsController < ApplicationController
 
   def set_participant
     @room = Room.find_by(id: params[:room_id] || params[:id])
-    @participant = find_participant(current_user)
+    @current_participant = find_participant(current_user)
   end
 
   def set_room_and_user

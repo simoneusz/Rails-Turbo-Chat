@@ -6,7 +6,7 @@
   <div class="room-container h-100 w-100 justify-content-between d-flex flex-column">
     <% if @single_room %>
       <div class="single-room-top text-center d-flex flex-row justify-content-between">
-        <% if @participant %>
+        <% if @current_participant %>
           <% other_user = @single_room.participants.where.not(user_id: current_user.id).first&.user %>
           <%= render partial: 'rooms/room_info/room_info_modal', locals: { room: @single_room, user: current_user, other_user: } %>
           <% unless @single_room.peer_room? %>
