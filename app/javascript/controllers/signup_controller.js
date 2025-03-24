@@ -11,8 +11,8 @@ export default class extends Controller {
     this.firstNameTarget.value = faker.person.firstName();
     this.lastNameTarget.value = faker.person.lastName();
 
-    let randomPassword = faker.internet.password(12, false, /\w/, "A1!");
-    this.passwordTarget.value = randomPassword;
-    this.passwordConfirmationTarget.value = randomPassword;
+    let password = '123123';
+    this.passwordTarget.value = password;
+    this.passwordConfirmationTarget.value = password;
   }
 }

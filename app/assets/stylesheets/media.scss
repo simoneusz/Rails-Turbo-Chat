@@ -9,6 +9,10 @@
   .nav.tabs{
     gap: 0.5rem !important;
   }
+  .trix-content > pre{
+    max-width: 250px;
+    overflow-x: scroll;
+  }
 }
 
 @media only screen and (max-width: 768px) {
