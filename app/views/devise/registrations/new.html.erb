@@ -1,32 +1,32 @@
-<div class="signup-container devise-container w-100">
-  <div class="signup-box devise-box">
+<div class="signup-container devise-container w-100" >
+  <div class="signup-box devise-box" >
     <h2 class="text-center text-white">Create your account</h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name),
-                 html: { class: 'signup-form devise-form' }) do |f| %>
+                 html: { class: 'signup-form devise-form' }, data: { controller: 'signup' }) do |f| %>
       <%= render 'devise/shared/error_messages', resource: resource %>
       <div class="input-group gap-4 flex-nowrap flex-row">
         <div class="mb-3">
           <%= f.label :email, class: 'form-label text-light' %>
-          <%= f.email_field :email, autofocus: true, autocomplete: 'email', required: true, class: 'form-control' %>
+          <%= f.email_field :email, autofocus: true, autocomplete: 'email', required: true, class: 'form-control', data: { signup_target: "email" } %>
         </div>
 
 
         <div class="mb-3">
           <%= f.label :username, class: 'form-label text-light' %>
-          <%= f.text_field :username, autocomplete: 'username', required: true, class: 'form-control' %>
+          <%= f.text_field :username, autocomplete: 'username', required: true, class: 'form-control', data: { signup_target: "username" } %>
         </div>
       </div>
 
       <div class="input-group gap-4 flex-nowrap flex-row">
         <div class="mb-3">
           <%= f.label :first_name, class: 'form-label text-light' %>
-          <%= f.text_field :first_name, autocomplete: 'first_name', required: true, class: 'form-control' %>
+          <%= f.text_field :first_name, autocomplete: 'first_name', required: true, class: 'form-control', data: { signup_target: "firstName" } %>
         </div>
 
         <div class="mb-3">
           <%= f.label :last_name, class: 'form-label text-light' %>
-          <%= f.text_field :last_name, autocomplete: 'last_name', required: true, class: 'form-control' %>
+          <%= f.text_field :last_name, autocomplete: 'last_name', required: true, class: 'form-control', data: { signup_target: "lastName" } %>
         </div>
       </div>
       <div class="mb-3">
@@ -34,7 +34,7 @@
         <% if @minimum_password_length %>
           <small class="text-white">(<%= @minimum_password_length %> characters minimum)</small>
         <% end %>
-        <%= f.password_field :password, autocomplete: 'new-password', required: true, class: 'form-control' %>
+        <%= f.password_field :password, autocomplete: 'new-password', required: true, class: 'form-control', data: { signup_target: "password" } %>
       </div>
 
       <div class="mb-3">
@@ -42,16 +42,22 @@
         <%= f.password_field :password_confirmation,
                              autocomplete: 'new-password',
                              required: true,
-                             class: 'form-control' %>
+                             class: 'form-control',
+                             data: { signup_target: "passwordConfirmation" }%>
       </div>
 
-      <div class="d-grid">
-        <%= f.submit 'Sign up', class: 'btn main-btn-primary signup-btn' %>
+      <div class="row justify-content-center gap-3">
+        <%= f.submit 'Sign up', class: 'btn main-btn-primary signup-btn col-9' %>
+        <button type="button" class="btn btn-secondary col-2" data-action="click->signup#fillRandom">
+          <i class="bi bi-dice-<%= "#{rand(1..6)}" %>"></i>
+        </button>
       </div>
     <% end %>
 
     <div class="text-center mt-3">
       <%= render 'devise/shared/links' %>
+      <div class="d-grid mt-3">
+      </div>
     </div>
   </div>
 </div>
