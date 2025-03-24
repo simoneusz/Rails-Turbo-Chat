@@ -19,7 +19,7 @@ RSpec.describe RoomsController, type: :controller do
     end
 
     it 'assigns @users' do
-      expect(assigns(:users)).to eq(User.all_except(user))
+      expect(assigns(:users)).to eq(User.excluding(user))
     end
 
     it 'renders the index template' do

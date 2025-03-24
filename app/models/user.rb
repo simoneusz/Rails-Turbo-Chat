@@ -16,7 +16,6 @@ class User < ApplicationRecord
   validates :first_name, presence: true, length: { minimum: 2, maximum: 20 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 20 }
 
-  scope :all_except, ->(user) { where.not(id: user) }
   after_create_commit { broadcast_append_to 'users' }
 
   has_many :rooms, foreign_key: :creator_id, dependent: :destroy, inverse_of: :creator

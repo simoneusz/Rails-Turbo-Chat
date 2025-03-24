@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
   def index
     @room = Room.new
     @rooms = Room.public_rooms
-    @users = User.all_except(current_user)
+    @users = User.excluding(current_user)
   end
 
   def show
@@ -77,7 +77,7 @@ class RoomsController < ApplicationController
 
   def prepare_show_page
     @rooms = Room.public_rooms
-    @users = User.all_except(current_user)
+    @users = User.excluding(current_user)
     @favorite = current_user.favorite_rooms.find_by(room_id: @single_room.id)
     @message = Message.new
     pagy_messages = @single_room.messages.order(created_at: :desc)
