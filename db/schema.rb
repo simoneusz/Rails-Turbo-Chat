@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_21_123335) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_25_124844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -153,6 +153,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_21_123335) do
     t.index ["reader_type", "reader_id"], name: "index_read_marks_on_reader_type_and_reader_id"
   end
 
+  create_table "room_events", force: :cascade do |t|
+    t.bigint "room_id", null: false
+    t.string "eventable_type", null: false
+    t.bigint "eventable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["eventable_type", "eventable_id"], name: "index_room_events_on_eventable"
+    t.index ["room_id"], name: "index_room_events_on_room_id"
+  end
+
   create_table "room_notifications", force: :cascade do |t|
     t.bigint "room_id", null: false
     t.string "message"
@@ -211,6 +221,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_21_123335) do
   add_foreign_key "participants", "users"
   add_foreign_key "reactions", "messages"
   add_foreign_key "reactions", "users"
+  add_foreign_key "room_events", "rooms"
   add_foreign_key "room_notifications", "rooms"
   add_foreign_key "rooms", "users", column: "creator_id"
 end

@@ -80,9 +80,9 @@ class RoomsController < ApplicationController
     @users = User.excluding(current_user)
     @favorite = current_user.favorite_rooms.find_by(room_id: @single_room.id)
     @message = Message.new
-    pagy_messages = @single_room.messages.order(created_at: :desc)
-    @pagy, messages = pagy(pagy_messages)
-    @messages = messages.reverse
+    pagy_events = @single_room.events.order(created_at: :desc)
+    @pagy, events = pagy(pagy_events)
+    @events = events.reverse
     mark_messages_as_read
   end
 

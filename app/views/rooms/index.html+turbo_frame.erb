@@ -1,14 +1,14 @@
-<% if @messages %>
+<% if @events %>
   <%= turbo_frame_tag 'page_handler' do %>
     <%= turbo_stream_action_tag(
           'prepend',
           target: 'messages-container',
-          template: render(@messages).to_s
+          template: render(@events).to_s
         ) %>
     <%= turbo_stream_action_tag(
           'replace',
           target: 'pager',
-          template: render('messages/pager', pagy: @pagy).to_s
+          template: render('room_events/pager', pagy: @pagy).to_s
         ) %>
   <% end %>
 <% end %>

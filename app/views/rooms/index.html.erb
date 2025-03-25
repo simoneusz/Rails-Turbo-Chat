@@ -26,12 +26,12 @@
               <%= render partial: 'rooms/panes/new_room_foreword_pane', locals: { room: @single_room }  unless @single_room.self_room? %>
             <% end %>
             </div>
-          <%= render 'messages/pager', pagy: @pagy %>
+          <%= render 'room_events/pager', pagy: @pagy %>
           <div id="messages-container"
                data-action="contextmenu->message-context-menu#open"
                class="d-flex flex-column gap-1">
-              <%= turbo_frame_tag 'page_handler' %>
-              <%= render @messages %>
+            <%= turbo_frame_tag 'page_handler' %>
+            <%= render @events %>
           </div>
           <%= render partial: 'rooms/context_menu' %>
         </div>
