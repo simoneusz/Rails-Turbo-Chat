@@ -153,7 +153,10 @@ RSpec.describe Room do
     context 'when the users are peer in the private room' do
       subject(:private_room) { create(:room, is_private: true) }
 
-      before { private_room.participants.create(user:, role: :peer) }
+      before do
+        private_room.participants.create(user:, role: :peer)
+        private_room.participants.create(user:, role: :peer)
+      end
 
       it 'returns true' do
         expect(private_room).to be_peer_room
