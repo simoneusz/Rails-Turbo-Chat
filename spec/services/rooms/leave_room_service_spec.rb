@@ -27,8 +27,8 @@ RSpec.describe Rooms::LeaveRoomService do
 
       before do
         participant.update(role: :peer)
-        peer_room.participants << participant
-        peer_room.participants << participant
+        peer_room.participants.create!(user:, room:, role: :peer)
+        peer_room.participants.create!(user:, room:, role: :peer)
       end
 
       it 'does not returns service success' do
