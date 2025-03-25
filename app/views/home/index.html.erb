@@ -1,14 +1,5 @@
-<div class="hero overflow-hidden w-100 h-100 user-select-none animated-bg d-flex align-items-center justify-content-center">
-  <div class="hero-background rotating-bg"></div>
-  <div class="hero-container d-flex flex-column flex-xl-row justify-content-center gap-5 mb-5">
-    <div class="hero-main text-white fade-in d-flex flex-column justify-content-center">
-      <h1>Welcome to TurboChat</h1>
-      <p>Fast, secure, and modern chat for everyone.</p>
-      <%= link_to 'Get Started', user_signed_in? ? rooms_path : user_session_path, class: 'btn btn-hero'%>
-    </div>
-    <div class="hero-image fade-in">
-      <% images_paths = %w[/images/hero-main-img-closed.svg /images/hero-main-img.svg] %>
-      <%= image_tag(images_paths.sample, class: 'hero-image-img', draggable: false)  %>
-    </div>
-  </div>
-</div>
+<%= vite_client_tag %>
+<%= vite_javascript_tag "index.jsx" %>
+
+<div id="react-root" class="w-100" data-user-sign-in="<%= user_signed_in? %>"></div>
+
