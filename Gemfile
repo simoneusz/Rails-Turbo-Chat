@@ -67,3 +67,5 @@ gem 'sidekiq', '~> 8.0'
 gem 'sidekiq-scheduler'
 
 gem 'carrierwave', '~> 3.0'
+
+gem 'vite_rails'

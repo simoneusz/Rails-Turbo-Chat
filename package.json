@@ -2,14 +2,18 @@
   "name": "app",
   "private": "true",
   "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
     "@popperjs/core": "^2.11.8",
     "@rails/actiontext": "^8.0.100",
+    "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "nodemon": "^3.1.9",
     "postcss": "^8.5.1",
     "postcss-cli": "^11.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "sass": "^1.83.4",
     "trix": "^2.1.12"
   },
@@ -21,5 +25,9 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "vite-plugin-ruby": "^5.1.0"
+  }
 }
