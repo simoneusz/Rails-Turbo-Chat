@@ -29,7 +29,7 @@ class ParticipantsController < ApplicationController
   end
 
   def join
-    handle_participant_action(:add)
+    handle_participant_action(:join)
   end
 
   def toggle_notifications
@@ -59,8 +59,9 @@ class ParticipantsController < ApplicationController
              when :remove
                Participants::RemoveParticipantService.new(@room, current_user, @user).call
              when :leave
-               @user = current_user
-               Rooms::LeaveRoomService.new(@room, @room.find_participant(@user)).call
+               Rooms::LeaveRoomService.new(@room, @room.find_participant(current_user)).call
+             when :join
+               Rooms::JoinRoomService.new(@room, current_user).call
              end
     handle_service_result(@room, result, "Participant #{action}ed successfully")
   end

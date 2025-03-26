@@ -49,6 +49,10 @@ class ParticipantPolicy < ApplicationPolicy
     owner? || moderator?
   end
 
+  def leave?
+    !peer?
+  end
+
   private
 
   def owner?
