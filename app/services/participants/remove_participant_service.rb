@@ -29,7 +29,7 @@ module Participants
     end
 
     def notify_room
-      @room.notifications.create!(message: "#{@current_user.username} kicked #{@user.username}.")
+      @room.notifications.create!(message: "#{@current_user.username} kicked #{@user.username}")
     end
 
     def error_cant_find_participants

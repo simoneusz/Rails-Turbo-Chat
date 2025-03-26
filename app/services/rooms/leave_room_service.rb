@@ -25,7 +25,7 @@ module Rooms
     private
 
     def notify_room
-      @room.notifications.create!(message: "#{@participant.user.username} has left the room.")
+      @room.notifications.create!(message: "#{@participant.user.username} has left the room")
     end
 
     def error_cant_find_participant

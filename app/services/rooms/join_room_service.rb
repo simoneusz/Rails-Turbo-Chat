@@ -25,7 +25,7 @@ module Rooms
     end
 
     def notify_room
-      @room.notifications.create!(message: "#{@user.username} joined the room.")
+      @room.notifications.create!(message: "#{@user.username} joined the room")
     end
 
     def create_participant

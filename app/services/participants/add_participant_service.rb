@@ -32,7 +32,7 @@ module Participants
     end
 
     def notify_room
-      @room.notifications.create!(message: "#{@current_user.username} added #{@target_user.username}.")
+      @room.notifications.create!(message: "#{@current_user.username} added #{@target_user.username}")
     end
 
     def mark_every_message_as_read

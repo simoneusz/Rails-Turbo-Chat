@@ -31,10 +31,10 @@ module Participants
       case @new_role
       when :blocked
         @participant.room
-                    .notifications.create!(message: "#{@participant.user.username}' was blocked.")
+                    .notifications.create!(message: "#{@participant.user.username}' was blocked")
       else
         @participant.room
-                    .notifications.create!(message: "#{@participant.user.username}'s role was changed to #{@new_role}.")
+                    .notifications.create!(message: "#{@participant.user.username}'s role was changed to #{@new_role}")
       end
     end
 
