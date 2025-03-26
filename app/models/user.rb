@@ -1,42 +1,55 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  after_create :create_self_room
-
   acts_as_reader
 
   mount_uploader :avatar, UserAvatarUploader
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: [:google_oauth2]
+  has_many :rooms,
+           foreign_key: :creator_id,
+           dependent: :destroy,
+           inverse_of: :creator
+  has_many :favorite_rooms,
+           class_name: 'Favorite',
+           dependent: :destroy
+  has_many :messages,
+           dependent: :destroy
+  has_many :sent_contacts,
+           class_name: 'Contact',
+           dependent: :destroy
+  has_many :received_contacts,
+           class_name: 'Contact',
+           foreign_key: 'contact_id',
+           dependent: :destroy,
+           inverse_of: :contact
+  has_many :participants,
+           dependent: :destroy
+  has_many :contacts,
+           -> { where(contacts: { status: 1 }) },
+           through: :sent_contacts, source: :contact
+  has_many :notifications,
+           foreign_key: 'receiver_id',
+           dependent: :destroy,
+           inverse_of: :receiver
+  has_many :sent_notifications,
+           class_name: 'Notification',
+           foreign_key: 'sender_id',
+           dependent: :destroy,
+           inverse_of: :sender
+  has_many :reactions,
+           dependent: :destroy
 
   validates :username, presence: true, length: { minimum: 3, maximum: 20 }, uniqueness: true
   validates :email, presence: true, length: { minimum: 6, maximum: 255 }, uniqueness: true
   validates :first_name, presence: true, length: { minimum: 2, maximum: 20 }
   validates :last_name, presence: true, length: { minimum: 2, maximum: 20 }
 
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
+
+  after_create :create_self_room
   after_create_commit { broadcast_append_to 'users' }
-
-  has_many :rooms, foreign_key: :creator_id, dependent: :destroy, inverse_of: :creator
-  has_many :favorite_rooms, class_name: 'Favorite', dependent: :destroy
-  has_many :messages, dependent: :destroy
-  has_many :sent_contacts, class_name: 'Contact', dependent: :destroy
-  has_many :received_contacts,
-           class_name: 'Contact',
-           foreign_key: 'contact_id',
-           dependent: :destroy,
-           inverse_of: :contact
-  has_many :participants, dependent: :destroy
-  has_many :contacts, -> { where(contacts: { status: 1 }) }, through: :sent_contacts, source: :contact
-
-  has_many :notifications, foreign_key: 'receiver_id', dependent: :destroy, inverse_of: :receiver
-  has_many :sent_notifications, class_name: 'Notification',
-                                foreign_key: 'sender_id',
-                                dependent: :destroy,
-                                inverse_of: :sender
-
-  has_many :reactions, dependent: :destroy
 
   def favorite_rooms_ids
     favorite_rooms.pluck(:room_id)

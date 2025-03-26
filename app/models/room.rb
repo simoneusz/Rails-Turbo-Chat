@@ -5,16 +5,17 @@ class Room < ApplicationRecord
 
   validates :name, uniqueness: true
   validates :name, presence: true
-  scope :public_rooms, -> { where(is_private: false) }
-  scope :private_rooms, -> { where(is_private: true) }
+
   belongs_to :creator, class_name: 'User'
   has_many :events, class_name: 'RoomEvent', dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :participants, dependent: :destroy
   has_many :user_notifications, class_name: 'Notification', as: :item, dependent: :destroy
   has_many :notifications, class_name: 'RoomNotification', dependent: :destroy
-
   has_many :favorited, class_name: 'Favorite', dependent: :destroy
+
+  scope :public_rooms, -> { where(is_private: false) }
+  scope :private_rooms, -> { where(is_private: true) }
 
   scope :all_for_user, lambda { |user|
     left_outer_joins(:participants)
@@ -58,6 +59,7 @@ class Room < ApplicationRecord
       .group('rooms.id')
       .having('COUNT(participants.id) = 2')
   }
+
   def user_ids
     participants.map(&:user_id)
   end
