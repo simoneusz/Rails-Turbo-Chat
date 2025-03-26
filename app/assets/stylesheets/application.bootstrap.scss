@@ -147,6 +147,13 @@ body{
 .attachment__filetype-icon > i{
   font-size: 30px;
 }
+.attachment__filetype-icon-extension{
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  font-size: 12px;
+  -webkit-text-stroke: 1px #fff;
+}
 .attachment__filename{
   font-size: 16px;
 }

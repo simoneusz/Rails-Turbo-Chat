@@ -9,14 +9,17 @@
       <%= caption %>
     <% else %>
       <%= link_to rails_blob_path(blob) do %>
+        <% filename = blob.filename %>
         <div class="attachment__inner d-flex gap-2 align-items-center <%= 'justify-content-center' if blob.representable? %>">
           <div class=" <%= 'attachment__filetype-icon' unless blob.representable? %>  rounded p-3">
-            <i class="bi bi-file-earmark text-white"></i>
+            <i class="bi bi-file-earmark">
+              <span class="attachment__filetype-icon-extension">.<%= filename.extension.truncate(5) %></span>
+            </i>
           </div>
           <div class="attachment__text d-flex gap-3 justify-content-center <%= 'flex-column' unless blob.representable? %>">
-            <% filename = blob.filename %>
+
             <span class="attachment__filename">
-              <%= filename.to_s.split('.').first.truncate(50) %> <%= ".#{filename.extension}" if filename.extension.present? %>
+              <%= filename.to_s.split('.').first.truncate(50) %> <%= ".#{filename.extension}" %>
             </span>
             <span class="attachment__size align-self-baseline"><%= number_to_human_size blob.byte_size %></span>
           </div>
