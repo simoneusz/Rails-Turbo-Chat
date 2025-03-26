@@ -11,7 +11,11 @@ const Hero = ({ userSignedIn }) => {
         <div className="hero-main text-white fade-in d-flex flex-column justify-content-center">
           <h1>Welcome to TurboChat</h1>
           <p>Fast, secure, and modern chat for everyone.</p>
-          <a href="/rooms" className="btn btn-hero"> Get Started</a>
+          {
+            userSignedIn ?
+            <a href="/rooms" className="btn btn-hero"> Get Started</a> :
+            <a href="users/sign_in" className="btn btn-hero"> Get Started</a>
+          }
         </div>
         <div className="hero-image fade-in">
           <img
