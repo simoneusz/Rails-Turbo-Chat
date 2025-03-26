@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Rooms::CreateRoomService do
-  let(:user) { create(:user) }
+  let!(:user) { create(:user) }
   let(:valid_room_params) { { name: 'New Room', is_private: false } }
   let(:invalid_room_params) { { name: '', is_private: nil } }
 
@@ -16,11 +16,27 @@ RSpec.describe Rooms::CreateRoomService do
       end
 
       it 'creates a room' do
-        expect { service }.to change(Room, :count).by(2)
+        expect { service }.to change(Room, :count).by(1)
       end
 
       it 'assigns user as owner' do
         expect(service.data.participants&.first&.role).to eq('owner')
+      end
+    end
+
+    context 'when room is successfully created without description and topic' do
+      subject(:service) { described_class.new(valid_room_params, user).call }
+
+      it 'returns service success' do
+        expect(service).to be_success
+      end
+
+      it 'creates room with description' do
+        expect(service.data.description).not_to be_nil
+      end
+
+      it 'creates room with topic' do
+        expect(service.data.topic).not_to be_nil
       end
     end
 
