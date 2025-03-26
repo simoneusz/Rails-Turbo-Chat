@@ -67,22 +67,6 @@ class User < ApplicationRecord
     Contact.where(user_id: id, status: :pending)
   end
 
-  def request_contact(other_user)
-    Contacts::ContactService.new(self, other_user).request_contact
-  end
-
-  def accept_contact(other_user)
-    Contacts::ContactService.new(self, other_user).accept_contact
-  end
-
-  def delete_contact(other_user)
-    Contacts::ContactService.new(self, other_user).delete_contact
-  end
-
-  def reject_contact(other_user)
-    Contacts::ContactService.new(self, other_user).reject_contact
-  end
-
   def full_name
     "#{first_name} #{last_name}"
   end
