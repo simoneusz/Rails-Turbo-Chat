@@ -298,6 +298,11 @@ trix-toolbar .trix-button-group{
   color: inherit;
 }
 
+.trix-content > pre{
+  max-width: 400px;
+  overflow-x: scroll;
+}
+
 $color_1: #1f1f1f;
 $font-family_1: "Roboto", arial, sans-serif;
 $google-background-color_1: WHITE;
