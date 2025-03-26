@@ -11,6 +11,8 @@
                          class: 'form-control msg-content mb-3',
                          autocomplete: 'off',
                          data: { controller: 'trix', emoji_picker_target: 'trixEditor' } %>
-    <%= f.submit data: { disable_with: false }, class: 'btn main-btn-primary' %>
+    <%= button_tag(type: 'submit', data: { disable_with: false }, class: 'new-message-submit btn') do %>
+      <i class="bi bi-send"></i>
+    <% end %>
   <% end %>
 <% end %>

@@ -130,6 +130,10 @@
 
 .new-message-submit{
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+  bottom: 20px;
+  right: 20px;
+  .bi::before{
+    font-size: 20px;
+    transform: rotate(45deg);
+  }
 }
