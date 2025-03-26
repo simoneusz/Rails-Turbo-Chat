@@ -50,7 +50,7 @@ class ParticipantPolicy < ApplicationPolicy
   end
 
   def leave?
-    !peer?
+    !(peer? || blocked?)
   end
 
   private
