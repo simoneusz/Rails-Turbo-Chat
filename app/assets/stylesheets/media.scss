@@ -13,6 +13,11 @@
     max-width: 250px;
     overflow-x: scroll;
   }
+  .room-notification{
+    max-width: 250px;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media only screen and (max-width: 768px) {
