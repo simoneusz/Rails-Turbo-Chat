@@ -20,12 +20,10 @@ class Message < ApplicationRecord
   validates :content, presence: true, exclusion: [nil, '', ' ']
 
   def next
-    room = Room.find(self.room.id)
     room.messages.where('id > ?', id).first
   end
 
   def prev
-    room = Room.find(self.room.id)
     room.messages.where(id: ...id).last
   end
 
@@ -46,8 +44,7 @@ class Message < ApplicationRecord
   def confirm_participant
     return unless room.is_private
 
-    is_participant = Participant.where(user_id: user.id, room_id: room.id).first
-    throw :abort unless is_participant
+    throw :abort unless room.participant?(user)
   end
 
   def create_room_event
