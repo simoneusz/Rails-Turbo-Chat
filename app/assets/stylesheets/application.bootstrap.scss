@@ -53,6 +53,7 @@ body{
 .btn-active-no-borders{
   &:active{
     border: none!important;
+    outline: none!important;
   }
 }
 
