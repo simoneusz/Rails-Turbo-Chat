@@ -3,9 +3,6 @@
 class Room < ApplicationRecord
   include Notificable
 
-  validates :name, uniqueness: true
-  validates :name, presence: true
-
   belongs_to :creator, class_name: 'User'
   has_many :events, class_name: 'RoomEvent', dependent: :destroy
   has_many :messages, dependent: :destroy
@@ -13,6 +10,9 @@ class Room < ApplicationRecord
   has_many :user_notifications, class_name: 'Notification', as: :item, dependent: :destroy
   has_many :notifications, class_name: 'RoomNotification', dependent: :destroy
   has_many :favorited, class_name: 'Favorite', dependent: :destroy
+
+  validates :name, uniqueness: true
+  validates :name, presence: true
 
   scope :public_rooms, -> { where(is_private: false) }
   scope :private_rooms, -> { where(is_private: true) }
