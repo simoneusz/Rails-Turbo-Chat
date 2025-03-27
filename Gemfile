@@ -19,6 +19,8 @@ gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 gem 'bootsnap', require: false
+gem 'bootstrap'
+gem 'sassc-rails'
 
 gem 'image_processing', '~> 1.2'
 
