@@ -1,7 +1,14 @@
 <div class="sidebar-top user-select-none w-100 px-3">
-  <%= link_to user_path(current_user),
-              data: { turbo_frame: 'modal_frame', 'turbo-prefetch': false },
-              class: 'd-flex align-items-center pb-2 mb-md-0 me-md-auto text-white text-decoration-none' do %>
-    <span class="fs-5 d-none d-sm-inline fw-bold">Hey, <%= current_user.full_name.capitalize %>!</span>
-  <% end %>
+    <div class="row d-flex w-100 ">
+      <div class="d-flex pe-0 align-items-center justify-content-center text-dark">
+        <div type="button" class="btn p-1 search w-100 mb-2 d-flex" data-bs-toggle="modal" data-bs-target="#searchModal">
+          <div class="search-wrapper w-100 d-flex align-items-center justify-content-between text-white">
+            <span class="search-placeholder">#Username, @email, $name </span>
+            <i class="search-icon bi bi-search"></i>
+          </div>
+        </div>
+        <%= render partial: 'search/search_modal' %>
+      </div>
+    </div>
+
 </div>

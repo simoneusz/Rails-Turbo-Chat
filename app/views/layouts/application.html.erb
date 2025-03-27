@@ -23,9 +23,8 @@
     -->
 
   </head>
-  <body class="bg-main main-scroll-bar">
+  <body class="bg-main main-scroll-bar pt-3">
     <% if user_signed_in? %>
-      <%= render partial: 'layouts/nav' %>
       <%= turbo_stream_from "broadcast_to_user_#{current_user.id}"%>
       <div id="notifications" class="p-2 z-1">
         <% current_user.notifications.where(viewed: false).last do |notification| %>
