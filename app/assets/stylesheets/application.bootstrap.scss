@@ -24,6 +24,11 @@ ul {
 .bg-secondary{
   background-color: var(--secondary-bg-color) !important;
 }
+
+.main-hover:hover{
+  background-color: var(--main-bg-color) !important;
+}
+
 body{
   height: 100vh;
   overflow-x: hidden;

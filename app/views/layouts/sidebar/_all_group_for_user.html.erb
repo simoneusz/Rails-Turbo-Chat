@@ -1,0 +1,20 @@
+<% Room.all_group_for_user(current_user).each do |room| %>
+  <li class="w-100">
+    <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
+      <div class="sidebar__room_icon"><i class="bi bi-hash"></i></div>
+      <%= link_to room.name, room, class: 'd-block w-100 room-link nav-link px-0' %>
+      <% if Room.all_not_muted_groups_for_user(current_user).include?(room) %>
+        <% unread_messages_size = room.messages.unread_by(current_user).size %>
+        <div class="px-1">
+          <% if unread_messages_size > 99 %>
+            99+
+          <% else %>
+            <% unless unread_messages_size.zero? %>
+              <%= unread_messages_size %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </li>
+<% end %>

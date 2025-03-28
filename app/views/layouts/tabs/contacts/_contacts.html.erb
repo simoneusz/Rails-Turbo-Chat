@@ -1,0 +1,10 @@
+<div class="tabs-item w-100 position-relative">
+  <%= link_to contacts_path, class: 'tabs-content link tabs__content btn-squeeze' do %>
+    <i class="bi bi-people tabs__content_icon"></i>
+    <p class="tabs__content_label">Contacts</p>
+  <% end %>
+
+  <div class="tabs-popover rounded d-none">
+    <%= render partial: 'layouts/tabs/contacts/popover_content' %>
+  </div>
+</div>

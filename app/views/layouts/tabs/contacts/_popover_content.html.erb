@@ -1,0 +1,17 @@
+<div class='tabs-popover-content'>
+  <%= render partial: "layouts/tabs/popover_header", locals: { title: 'Contacts' } %>
+  <div class="tabs-popover-body border-0 py-2 px-0 mx-0 d-flex flex-column gap-2">
+    <% current_user.contacts.each do |user| %>
+      <%= link_to user_path(user),
+                  data: { turbo_frame: 'modal_frame', 'turbo-prefetch': false },
+                  class: 'nav-link main-hover' do %>
+        <div class="d-flex px-3 gap-3 align-items-center">
+          <div class="message-avatar d-flex align-items-center">
+            <%= render partial: 'shared/default_avatar', locals: { size: 50, user:, rounded: false } %>
+          </div>
+          <span class="text-white"><%= user.username %></span>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

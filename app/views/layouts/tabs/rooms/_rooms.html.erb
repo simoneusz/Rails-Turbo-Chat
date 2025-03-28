@@ -1,0 +1,15 @@
+<div class="tabs-item w-100 position-relative">
+  <a class="tabs-content nav-link  tabs__content btn-squeeze" aria-current="page" href="<%= rooms_path %>">
+    <i class="bi bi-chat tabs__content_icon position-relative"  >
+      <%= render 'notifications/count',
+                 count: Room.all_not_muted_groups_for_user(current_user).map { |room|
+                   room.messages.unread_by(current_user).size
+                 }.sum %>
+    </i>
+    <p class="tabs__content_label">Rooms</p>
+  </a>
+
+  <div class="tabs-popover rounded d-none">
+    <%= render partial: 'layouts/tabs/rooms/popover_content' %>
+  </div>
+</div>

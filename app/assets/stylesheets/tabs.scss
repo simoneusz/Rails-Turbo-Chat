@@ -57,3 +57,31 @@
     color: black;
   }
 }
+.tabs-popover{
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background-color: var(--main-bg-color);
+  border: 1px solid var(--main-bg-color);
+  z-index: 3;
+}
+.tabs-popover-header{
+
+}
+.tabs-popover-content{
+
+}
+.tabs-popover-body{
+  padding: 0 15px;
+  background-color: var(--secondary-bg-color);
+}
+.tabs-content:hover +.tabs-popover{
+  display: block!important;
+}
+.tabs-popover:hover{
+  display: block!important;
+}
+.popover-scroll{
+  max-height: 400px;
+  overflow-y: scroll;
+}

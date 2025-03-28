@@ -1,0 +1,32 @@
+<ul class='nav flex-column'>
+  <% rooms.each do |room| %>
+    <% other_user = peer_room_other_user_or_self(room) %>
+    <li class='w-100 p-0 px-4 main-hover'>
+      <%= button_to room_path(room),
+                    method: :get,
+                    class: 'text-decoration-none  w-100 p-1 m-0 btn btn-active-no-borders' do %>
+        <div class='user-info'>
+          <div class='user-info--container w-100 d-flex align-items-center gap-2'>
+            <div class="message-avatar d-flex align-items-center">
+              <%= render partial: 'shared/default_avatar', locals: { size: 50, user: other_user, rounded: false } %>
+            </div>
+            <div class='user-body w-100 text-white'>
+              <p class='user-info--username mb-1 text-start p-0 m-0'><%= other_user.username %></p>
+              <p class='user-info--message mb-1 text-start p-0 m-0'>
+                <% last_message = room.messages.last %>
+                <% if last_message %>
+                  <% if last_message.user.eql?(current_user) %>
+                    You:
+                  <% else %>
+                    <%= last_message.user.username %>:
+                  <% end %>
+                  <%= last_message.content.body.to_plain_text.truncate(25) %>
+                <% end %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
