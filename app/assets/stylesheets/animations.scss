@@ -5,6 +5,13 @@
   -o-animation: fade 1s;
 }
 
+.fade-in-fast {
+  -webkit-animation: fade .3s;
+  animation: fade .3s;
+  -moz-animation: fade .3s;
+  -o-animation: fade .3s;
+}
+
 @-webkit-keyframes fade {
   0% { opacity: 0.1 }
   50% { opacity: 0.5 }
