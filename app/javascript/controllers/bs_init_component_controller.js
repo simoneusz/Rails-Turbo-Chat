@@ -3,10 +3,15 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="bs-init-component"
 export default class extends Controller {
   connect() {
-    // TODO: logic for different tooltips, not only popovers
-    let targets = document.querySelectorAll('[data-bs-toggle="popover"]')
-    targets.forEach(target => {
-      new bootstrap.Popover(target)
-    })
+    let toggle_type = this.element.attributes['data-bs-toggle'].value;
+    console.log(toggle_type);
+    switch (toggle_type) {
+      case 'tooltip':
+        new bootstrap.Tooltip(this.element, {});
+        break;
+      case 'popover':
+        new bootstrap.Popover(this.element, {});
+        break;
+    }
   }
 }
