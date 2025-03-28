@@ -1,12 +1,22 @@
 <%= content_tag :div, id: "notification_#{notification.id}",
-                class: 'notification d-flex align-items-center alert alert-info' do %>
-  <%= button_to mark_as_read_notification_path(notification),
-                method: :patch,
-                remote: true,
-                class: 'btn close',
-                data: { turbo_stream: true } do %>
-    <span aria-hidden="true">&times;</span>
-  <% end %>
-
-  <%= render "notifications/variants/#{notification.notification_type.downcase}", notification: notification %>
+                class: 'notification d-flex align-items-center' do %>
+  <div class="toast-container position-fixed top-0 end-0 p-3" >
+    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto"><%= notification.notification_type.humanize %></strong>
+        <small><%= time_ago_in_words(notification.created_at) %></small>
+        <%= button_to mark_as_read_notification_path(notification),
+                      method: :patch,
+                      remote: true,
+                      class: 'btn close',
+                      data: { turbo_stream: true } do %>
+          <span aria-hidden="true">&times;</span>
+        <% end %>
+      </div>
+      <div class="toast-body">
+        <%= render "notifications/variants/#{notification.notification_type.downcase}", notification: notification %>
+      </div>
+    </div>
+  </div>
 <% end %>
+
