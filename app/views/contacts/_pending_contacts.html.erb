@@ -13,13 +13,13 @@
           </div>
           <p class="fw-bold m-0"><%= user.username %></p>
         <% end %>
-        <div>
-          <%= form_with url: contact_path(contact.user), method: :delete, local: true do %>
-            <%= submit_tag 'Decline', class: 'btn btn-modal py-1 w-100' %>
+        <div class="d-flex gap-1">
+          <%= form_with url: contact_path(contact.user), method: :put, local: true do %>
+            <%= submit_tag 'Accept', class: 'btn btn-modal main-btn-add py-1 w-100' %>
           <% end %>
 
-          <%= form_with url: contact_path(contact.user), method: :put, local: true do %>
-            <%= submit_tag 'Accept', class: 'btn text-danger btn-modal py-1 w-100' %>
+          <%= form_with url: contact_path(contact.user), method: :delete, local: true do %>
+            <%= submit_tag 'Decline', class: 'btn  btn-modal main-btn-remove py-1 w-100' %>
           <% end %>
         </div>
       </li>
