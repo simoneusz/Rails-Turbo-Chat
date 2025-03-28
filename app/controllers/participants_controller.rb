@@ -52,7 +52,7 @@ class ParticipantsController < ApplicationController
     @user = User.find_by(id: params[:user_id])
   end
 
-  def handle_participant_action(action)
+  def handle_participant_action(action) # rubocop:disable Metrics/MethodLength
     result = case action
              when :add
                Participants::AddParticipantService.new(@room, current_user, @user, :member).call

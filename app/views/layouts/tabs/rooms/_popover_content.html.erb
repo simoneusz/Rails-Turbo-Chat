@@ -1,5 +1,5 @@
 <div class='tabs-popover-content'>
-  <%= render partial: "layouts/tabs/popover_header", locals: { title: 'Your rooms' } %>
+  <%= render partial: 'layouts/tabs/popover_header', locals: { title: 'Your rooms' } %>
   <div class="tabs-popover-body mx-0 px-0 py-2 popover-scroll main-scroll-bar">
     <% Room.all_group_for_user(current_user).each do |room| %>
       <li class="w-100 main-hover pe-5 ps-2 text-nowrap">

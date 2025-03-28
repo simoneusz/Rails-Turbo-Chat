@@ -1,5 +1,5 @@
 <div class='tabs-popover-content'>
-  <%= render partial: "layouts/tabs/popover_header", locals: { title: 'Direct Messages' } %>
+  <%= render partial: 'layouts/tabs/popover_header', locals: { title: 'Direct Messages' } %>
   <div class="tabs-popover-body p-0 py-2 mx-0">
     <%= render partial: 'rooms/all_peer_rooms_for_user', locals: { rooms: Room.all_peer_rooms_for_user(current_user).limit(4) } %>
   </div>
