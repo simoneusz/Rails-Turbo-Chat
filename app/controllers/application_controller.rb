@@ -18,15 +18,12 @@ class ApplicationController < ActionController::Base
   end
 
   def search_query
-    return {} unless params[:q]
+    return {} unless params[:q] && params[:q][:search]
 
-    return {} unless params[:q][:search]
-
-    logger.info(params[:q][:search])
     query = params[:q][:search]&.strip
     return {} if query.blank?
 
-    { username_or_email_or_first_name_or_last_name_cont_any: query.split }
+    search_query_for_field(query)
   end
 
   protected
@@ -37,6 +34,19 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def search_query_for_field(query)
+    case query[0]
+    when '#'
+      { username_cont: query[1..] }
+    when '@'
+      { email_cont: query[1..] }
+    when '$'
+      { first_name_or_last_name_cont: query[1..] }
+    else
+      { username_or_email_or_first_name_or_last_name_cont_any: query.split }
+    end
+  end
 
   def turbo_frame_request_variant
     request.variant = :turbo_frame if turbo_frame_request?
