@@ -2,7 +2,7 @@
   <%= render partial: 'rooms/sidebar' %>
 </div>
 
-<div id="chatroom_container" class="d-flex flex-column <%= 'd-none' unless @single_room %>">
+<div id="chatroom_container" class="d-flex flex-column">
   <div class="room-container h-100 w-100 justify-content-between d-flex flex-column">
     <% if @single_room %>
       <div class="single-room-top text-center d-flex flex-row justify-content-between">
@@ -45,6 +45,8 @@
       </div>
       <%= render partial: 'rooms/room_info/contacts_modal/contacts_modal',
                  locals: { room: @single_room, user: current_user } %>
+    <% else %>
+     <%= render partial: 'rooms/welcome' %>
     <% end %>
   </div>
 </div>

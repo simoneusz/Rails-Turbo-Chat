@@ -36,8 +36,11 @@
   .md-hide-sidebar{
     display: none
   }
+  #chatroom_container{
+    display: none !important;
+  }
   .sidebar{
-    max-width: 100%;
+    max-width: 100% !important;
   }
   .popover-scroll{
     max-width: 250px;
