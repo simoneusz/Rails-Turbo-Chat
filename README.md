@@ -1,3 +1,5 @@
+![work_preview](https://i.imgur.com/fnKlt3R.gif)
+
 ##  THIS PROJECT IS CURRENTLY UNDER CONSTRUCTION
 
 # Project Chat
