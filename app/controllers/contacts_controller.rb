@@ -36,6 +36,18 @@ class ContactsController < ApplicationController
     redirect_to contacts_path, notice: 'Contact deleted'
   end
 
+  def accept_all
+    pending_contacts = current_user.pending_contacts
+    if pending_contacts.any?
+      pending_contacts.each do |contact|
+        Contacts::ContactService.new(current_user, contact.user).accept_contact
+      end
+      set_flash_and_redirect(:notice, 'All contacts has been accepted', contacts_path)
+    else
+      set_flash_and_redirect(:notice, 'There is no contacts to accept.', contacts_path)
+    end
+  end
+
   private
 
   def set_user

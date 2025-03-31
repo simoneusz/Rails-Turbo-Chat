@@ -1,6 +1,8 @@
 <% pending_contacts = current_user.pending_contacts %>
 <div class="request-list">
-  <% unless pending_contacts.present? %>
+  <% if pending_contacts.present? %>
+    <%= button_to 'Accept all', accept_all_contacts_path, class: 'btn me-auto' %>
+  <% else %>
     <h3>No contact request yet.</h3>
   <% end %>
   <ul class=" list-group w-100 d-flex flex-column">

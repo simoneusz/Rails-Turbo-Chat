@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-
+# TODO: all_contacts
 RSpec.describe ContactsController, type: :controller do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
