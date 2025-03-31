@@ -2,51 +2,52 @@
   <%= render partial: 'rooms/sidebar' %>
 </div>
 
-<div id="chatroom_container" class="d-flex flex-column">
-  <div class="room-container h-100 w-100 justify-content-between d-flex flex-column">
-    <% if @single_room %>
-      <div class="single-room-top text-center d-flex flex-row justify-content-between">
-        <% if @current_participant %>
-          <% other_user = @single_room.participants.where.not(user_id: current_user.id).first&.user %>
-          <%= render partial: 'rooms/room_info/room_info_modal', locals: { room: @single_room, user: current_user, other_user: } %>
-          <% unless @single_room.peer_room? %>
-            <%= render partial: 'rooms/notifications', locals: { room: @single_room } %>
-            <%= render partial: 'rooms/room_info/room_settings_dropdown' %>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div id="single_room" data-controller="scroll reply" class="d-flex px-1 flex-column main-scroll-bar">
-        <%= turbo_stream_from @single_room %>
-        <div id="messages" data-controller="message-context-menu" class="ps-0 ps-sm-4">
-          <div class="room-panes">
-            <% if @single_room.peer_room? %>
-              <%= render partial: 'rooms/panes/peer_room_pane', locals: { room: @single_room } %>
-            <% elsif  @single_room.messages.size < Pagy::DEFAULT[:limit]%>
-              <%= render partial: 'rooms/panes/new_room_foreword_pane', locals: { room: @single_room } unless @single_room.self_room? %>
+<% if @single_room %>
+  <div id="chatroom_container" class="d-flex flex-column">
+    <div class="room-container h-100 w-100 justify-content-between d-flex flex-column">
+        <div class="single-room-top text-center d-flex flex-row justify-content-between">
+          <% if @current_participant %>
+            <% other_user = @single_room.participants.where.not(user_id: current_user.id).first&.user %>
+            <%= render partial: 'rooms/room_info/room_info_modal', locals: { room: @single_room, user: current_user, other_user: } %>
+            <% unless @single_room.peer_room? %>
+              <%= render partial: 'rooms/notifications', locals: { room: @single_room } %>
+              <%= render partial: 'rooms/room_info/room_settings_dropdown' %>
             <% end %>
-            </div>
-          <%= render 'room_events/pager', pagy: @pagy %>
-          <div id="messages-container"
-               data-action="contextmenu->message-context-menu#open"
-               class="d-flex flex-column gap-1">
-            <%= turbo_frame_tag 'page_handler' %>
-            <%= render @events %>
-          </div>
-          <%= render partial: 'rooms/context_menu' %>
-        </div>
-        <div class="form_fixed">
-          <% if @single_room.participant?(current_user) %>
-            <%= render partial: 'messages/new_message_form' %>
-          <% else %>
-           <%= render partial: 'rooms/join_room_button' %>
           <% end %>
         </div>
-      </div>
-      <%= render partial: 'rooms/room_info/contacts_modal/contacts_modal',
-                 locals: { room: @single_room, user: current_user } %>
-    <% else %>
-     <%= render partial: 'rooms/welcome' %>
-    <% end %>
+
+        <div id="single_room" data-controller="scroll reply" class="d-flex px-1 flex-column main-scroll-bar">
+          <%= turbo_stream_from @single_room %>
+          <div id="messages" data-controller="message-context-menu" class="ps-0 ps-sm-4">
+            <div class="room-panes">
+              <% if @single_room.peer_room? %>
+                <%= render partial: 'rooms/panes/peer_room_pane', locals: { room: @single_room } %>
+              <% elsif  @single_room.messages.size < Pagy::DEFAULT[:limit]%>
+                <%= render partial: 'rooms/panes/new_room_foreword_pane', locals: { room: @single_room } unless @single_room.self_room? %>
+              <% end %>
+              </div>
+            <%= render 'room_events/pager', pagy: @pagy %>
+            <div id="messages-container"
+                 data-action="contextmenu->message-context-menu#open"
+                 class="d-flex flex-column gap-1">
+              <%= turbo_frame_tag 'page_handler' %>
+              <%= render @events %>
+            </div>
+            <%= render partial: 'rooms/context_menu' %>
+          </div>
+          <div class="form_fixed">
+            <% if @single_room.participant?(current_user) %>
+              <%= render partial: 'messages/new_message_form' %>
+            <% else %>
+             <%= render partial: 'rooms/join_room_button' %>
+            <% end %>
+          </div>
+        </div>
+        <%= render partial: 'rooms/room_info/contacts_modal/contacts_modal',
+                   locals: { room: @single_room, user: current_user } %>
+
+    </div>
   </div>
-</div>
+<% else %>
+  <%= render partial: 'rooms/welcome' %>
+<% end %>
