@@ -10,7 +10,6 @@
     gap: 0.5rem !important;
   }
   .trix-content > pre{
-    max-width: 250px;
     overflow-x: scroll;
   }
   .room-notification{
@@ -18,17 +17,11 @@
     flex-direction: column;
     align-items: center;
   }
-  .pre{
-    max-width: 250px;
-  }
 }
 
 @media only screen and (max-width: 768px) {
   .hero-image{
     transform: scale(0.8);
-  }
-  #trix-toolbar-1, {
-    display: none;
   }
   .btn-room-back{
     display: block;
@@ -50,6 +43,12 @@
 @media only screen and (max-width: 992px) {
   .sidebar{
     max-width: 300px;
+  }
+  .trix-content > pre{
+    max-width: 250px !important;
+  }
+  #trix-toolbar-1{
+    display: none;
   }
 }
 

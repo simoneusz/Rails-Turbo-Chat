@@ -3,6 +3,9 @@
   color: var(--sidebar-text-color);
   max-width: 400px;
 }
+.sidebar-main{
+  max-height: calc(100vh - 100px);
+}
 .sidebar-text-color{
   color: var(--sidebar-text-color);
 }
