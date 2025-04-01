@@ -2,6 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core"
+import * as bootstrap from "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 import "./channels"
 import * as trix from "trix"
 import "@rails/actiontext"
