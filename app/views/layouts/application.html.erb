@@ -44,7 +44,7 @@
         </div>
         <div class="col ps-0">
           <%= render partial: 'layouts/flash' %>
-          <main class="main d-flex bg-white w-100 h-100 <%= 'grid_background' unless @single_room %>">
+          <main class="main d-flex bg-white w-100 h-100 vh-100 <%= 'grid_background' unless @single_room %>">
             <%= yield %>
           </main>
 
