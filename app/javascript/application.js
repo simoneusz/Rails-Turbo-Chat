@@ -9,15 +9,15 @@ import "@rails/actiontext"
 import "trix"
 import "@rails/actiontext"
 
-function doc_keyUp(e) {
+function searchHotkey(e) {
     e.preventDefault()
     if (e.ctrlKey && e.code === 'KeyM') {
-        let modal = document.querySelector("#searchModal");
-        if (!modal.classList.contains("show")) {
-            let b_modal = new bootstrap.Modal(modal)
-            b_modal.show()
-        }
+      let modal = document.querySelector("#searchModal");
+      if (!modal.classList.contains("show")) {
+        let b_modal = new bootstrap.Modal(modal)
+        b_modal.show()
+      }
     }
 }
-// register the handler
-document.addEventListener('keyup', doc_keyUp, false);
+
+document.addEventListener('keyup', searchHotkey, false);
