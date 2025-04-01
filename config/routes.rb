@@ -51,7 +51,7 @@ Rails.application.routes.draw do
       get 'requests'
     end
     delete 'delete', on: :member
-
+    post 'accept_all', on: :collection
   end
   resources :notifications, only: %i[index] do
     patch 'mark_as_read', on: :member

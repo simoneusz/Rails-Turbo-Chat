@@ -49,10 +49,22 @@ RSpec.describe ContactsController, type: :controller do
   describe 'DELETE #destroy' do
     subject(:delete_contact) { delete :destroy, params: { id: other_user.id } }
 
-    before { delete_contact }
+    context 'when contact request is present' do
+      before { Contacts::ContactService.new(other_user, user).request_contact }
 
-    it 'rejects a contact request and redirects to contacts_path with a success notice' do
-      expect(response).to redirect_to(contacts_path)
+      it 'deletes contact request' do
+        expect { delete_contact }.to change(user.pending_contacts, :count).by(-1)
+      end
+    end
+  end
+
+  describe 'POST #accept_all' do
+    subject(:post_accept_all) { post :accept_all, params: { contact_id: other_user.id } }
+
+    before { Contacts::ContactService.new(other_user, user).request_contact }
+
+    it 'accepts all the requested contacts' do
+      expect { post_accept_all }.to change(user.contacts, :count).by(1)
     end
   end
 end
