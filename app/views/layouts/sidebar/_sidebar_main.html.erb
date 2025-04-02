@@ -21,7 +21,9 @@
           <span> New Room</span>
         </div>
         <%= render partial: 'rooms/new_room_modal' %>
-        <%= render partial: 'layouts/sidebar/all_group_for_user' %>
+        <%= turbo_frame_tag 'user_rooms' do %>
+          <%= render partial: 'layouts/sidebar/all_group_for_user', locals: { user: current_user } %>
+        <% end %>
       </ul>
     </li>
     <div class="sidebar-spacer p-2"></div>
