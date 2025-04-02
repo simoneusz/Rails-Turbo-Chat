@@ -136,8 +136,6 @@ GEM
     drb (2.2.1)
     dry-cli (1.2.0)
     erubi (1.13.1)
-    et-orbi (1.2.11)
-      tzinfo
     execjs (2.10.0)
     factory_bot (6.5.1)
       activesupport (>= 6.1.0)
@@ -160,9 +158,6 @@ GEM
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
     ffi (1.17.1-x86_64-linux-musl)
-    fugit (1.11.1)
-      et-orbi (~> 1, >= 1.2.11)
-      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -282,7 +277,6 @@ GEM
       rspec-expectations (~> 3.12)
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
-    raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.12)
     rack-protection (4.1.1)
@@ -404,8 +398,6 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (2.4.1)
-    rufus-scheduler (3.9.2)
-      fugit (~> 1.1, >= 1.11.1)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -429,11 +421,6 @@ GEM
       logger (>= 1.6.2)
       rack (>= 3.1.0)
       redis-client (>= 0.23.2)
-    sidekiq-scheduler (4.0.2)
-      redis (>= 4.2.0)
-      rufus-scheduler (~> 3.2)
-      sidekiq (>= 4)
-      tilt (>= 1.4.0)
     smart_properties (1.17.0)
     snaky_hash (2.0.1)
       hashie
@@ -538,7 +525,6 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers (~> 6.0)
   sidekiq (~> 8.0)
-  sidekiq-scheduler
   sprockets-rails
   stimulus-rails
   turbo-rails
