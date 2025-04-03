@@ -1,8 +1,12 @@
+<%= turbo_frame_tag "appearances_channel" %>
+<div id="appearances_channel"></div>
+
 <div class="sidebar col-4 bg-secondary w-100 <%= 'md-hide-sidebar' if @single_room && !@dms %>">
   <%= render partial: 'rooms/sidebar' %>
 </div>
 
 <% if @single_room %>
+
   <div id="chatroom_container" class="d-flex flex-column vh-100">
     <div class="room-container h-100 w-100 justify-content-between d-flex flex-column">
         <div class="single-room-top text-center d-flex flex-row justify-content-between">

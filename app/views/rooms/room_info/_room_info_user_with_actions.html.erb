@@ -1,7 +1,8 @@
 <li class="members-list-item member-item list-group-item-action py-2 px-1 w-100 d-flex justify-content-between">
   <%= link_to user_path(user), data: { turbo_frame: 'modal_frame' }, class: 'nav-link px-0 w-100 d-flex flex-row gap-3 align-items-center' do %>
-    <div class="message-avatar d-flex align-items-center">
+    <div class="message-avatar d-flex align-items-center position-relative">
       <%= render partial: 'shared/default_avatar', locals: { size: 40, user: user, rounded: false } %>
+      <%= render partial: 'users/status', locals: { user: } %>
     </div>
     <p class="fw-bold m-0"><%= user.username %></p>
   <% end %>

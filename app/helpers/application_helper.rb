@@ -6,4 +6,15 @@ module ApplicationHelper
   def date_to_west_hours(time)
     time.strftime('%H:%M %p')
   end
+
+  def user_css_status(status)
+    case status
+    when 'online'
+      'bg-success'
+    when 'away'
+      'bg-warning'
+    else
+      'bg-dark'
+    end
+  end
 end

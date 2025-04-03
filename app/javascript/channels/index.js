@@ -1,1 +1,1 @@
-//import "./channels/appearances_channel"
+import "./channels/appearances_channel"

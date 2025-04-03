@@ -2,16 +2,36 @@
 
 class AppearancesChannel < ApplicationCable::Channel
   def subscribed
-    current_user.appear
+    stream_from 'appearances_channel'
   end
 
   def unsubscribed
-    current_user.disappear
+    stop_stream_from 'appearances_channel'
+    offline
   end
 
-  def appear(data)
-    current_user.appear(on: data['appearing_on'])
+  def online
+    status = User.statuses[:online]
+    broadcast_new_status(status)
   end
 
-  delegate :away, to: :current_user
+  def away
+    status = User.statuses[:away]
+    broadcast_new_status(status)
+  end
+
+  def offline
+    status = User.statuses[:offline]
+    broadcast_new_status(status)
+  end
+
+  def receive(data)
+    ActionCable.server.broadcast('appearances_channel', data)
+  end
+
+  private
+
+  def broadcast_new_status(status)
+    current_user.update!(status: status)
+  end
 end

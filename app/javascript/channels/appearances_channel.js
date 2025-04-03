@@ -1,56 +1,75 @@
-import consumer from "./consumer"
+import consumer from "channels/consumer";
+
+let resetFunc;
+let timer = 0;
 
 consumer.subscriptions.create("AppearancesChannel", {
-  initialized() {
-    this.update = this.update.bind(this)
-  },
-
+  initialized() {},
   connected() {
-    this.install()
-    this.update()
+    // Called when the subscription is ready for use on the server
+    console.log("Connected");
+    resetFunc = () => this.resetTimer(this.uninstall);
+    this.install();
+    window.addEventListener("turbo:load", () => this.resetTimer());
   },
 
   disconnected() {
-    this.uninstall()
+    // Called when the subscription has been terminated by the server
+    console.log("Connected");
+    this.uninstall();
   },
-
   rejected() {
-    this.uninstall()
+    console.log("Rejected");
+    this.uninstall();
   },
-
-  update() {
-    this.documentIsActive ? this.appear() : this.away()
+  received(data) {
+    // Called when there's incoming data on the websocket for this channel
   },
-
-  appear() {
-    this.perform("appear", { appearing_on: this.appearingOn })
+  online() {
+    console.log("online");
+    this.perform("online");
   },
-
   away() {
-    this.perform("away")
+    console.log("away");
+    this.perform("away");
   },
-
-  install() {
-    window.addEventListener("focus", this.update)
-    window.addEventListener("blur", this.update)
-    document.addEventListener("turbo:load", this.update)
-    document.addEventListener("visibilitychange", this.update)
+  offline() {
+    console.log("offline");
+    this.perform("offline");
   },
-
   uninstall() {
-    window.removeEventListener("focus", this.update)
-    window.removeEventListener("blur", this.update)
-    document.removeEventListener("turbo:load", this.update)
-    document.removeEventListener("visibilitychange", this.update)
+    const shouldRun = document.getElementById("appearances_channel");
+    console.log(shouldRun)
+    if (!shouldRun) {
+      clearTimeout(timer);
+      this.perform("offline");
+    }
   },
+  install() {
+    console.log("Install");
+    window.removeEventListener("load", resetFunc);
+    window.removeEventListener("DOMContentLoaded", resetFunc);
+    window.removeEventListener("click", resetFunc);
+    window.removeEventListener("keydown", resetFunc);
 
-  get documentIsActive() {
-    return document.visibilityState === "visible" && document.hasFocus()
+    window.addEventListener("load", resetFunc);
+    window.addEventListener("DOMContentLoaded", resetFunc);
+    window.addEventListener("click", resetFunc);
+    window.addEventListener("keydown", resetFunc);
+    this.resetTimer();
   },
+  resetTimer() {
+    this.uninstall();
+    const shouldRun = document.getElementById("appearances_channel");
 
-  get appearingOn() {
-    const element = document.querySelector("[data-appearing-on]")
-    return element ? element.getAttribute("data-appearing-on") : null
-  }
+    if (!!shouldRun) {
+      this.online();
+      clearTimeout(timer);
+      const timeInSeconds = 5;
+      const milliseconds = 1000;
+      const timeInMilliseconds = timeInSeconds * milliseconds;
 
+      timer = setTimeout(this.away.bind(this), timeInMilliseconds);
+    }
+  },
 });
