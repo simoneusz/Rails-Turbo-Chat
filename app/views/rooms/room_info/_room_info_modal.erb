@@ -14,7 +14,7 @@
   <% else %>
     <%= room.name %>
   <% end %>
-  <p class="room-info-description fw-normal text-muted p-0 m-0"><%= room.try(:description) %></p>
+  <p class="room-info-description fw-normal text-muted p-0 m-0"><%= room.try(:description)&.truncate(50) %></p>
 </button>
 
 
