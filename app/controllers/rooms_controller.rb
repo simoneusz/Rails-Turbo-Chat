@@ -13,7 +13,6 @@ class RoomsController < ApplicationController
     @room = Room.new
     @rooms = Room.public_rooms
     @users = User.excluding(current_user)
-    console
   end
 
   def show

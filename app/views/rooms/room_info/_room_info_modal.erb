@@ -5,14 +5,16 @@
 </button>
 
 <button type="button"
-        class="btn btn-active-no-borders flex-grow-1 text-start"
+        class="room-info-name btn btn-active-no-borders w-100 align-self-baseline text-start fw-bold d-flex align-items-center gap-3"
         data-bs-toggle="modal"
         data-bs-target="#roomInfo">
+  #
   <% if room.peer_room? && other_user %>
     <%= other_user.username %>
   <% else %>
     <%= room.name %>
   <% end %>
+  <p class="room-info-description fw-normal text-muted p-0 m-0"><%= room.try(:description) %></p>
 </button>
 
 
