@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'pagy/extras/array'
-
-# RoomsController handles all actions related to room management, including creating and viewing rooms,
-# adding/removing/changing role participants.
 class RoomsController < ApplicationController
+  include RoomHelper
+
   before_action :set_room_and_user, only: %i[
     update destroy
   ]
@@ -15,6 +13,7 @@ class RoomsController < ApplicationController
     @room = Room.new
     @rooms = Room.public_rooms
     @users = User.excluding(current_user)
+    console
   end
 
   def show

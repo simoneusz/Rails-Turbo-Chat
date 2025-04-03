@@ -11,6 +11,18 @@ module ApplicationHelper
     time.strftime('%b %eth at %-I:%M:%S %p')
   end
 
+  def day_and_month(time)
+    day = time.day
+    suffix = case day % 10
+             when 1 then (day == 11 ? 'th' : 'st')
+             when 2 then (day == 12 ? 'th' : 'nd')
+             when 3 then (day == 13 ? 'th' : 'rd')
+             else 'th'
+             end
+
+    time.strftime("%A, %B #{day}#{suffix}")
+  end
+
   def user_css_status(status)
     case status
     when 'online'
