@@ -7,6 +7,10 @@ module ApplicationHelper
     time.strftime('%H:%M %p')
   end
 
+  def extended_date(time)
+    time.strftime('%b %eth at %-I:%M:%S %p')
+  end
+
   def user_css_status(status)
     case status
     when 'online'

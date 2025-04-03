@@ -1,4 +1,10 @@
 <div class="room-notification d-flex align-self-center rounded-pill p-1 px-2 justify-content-center gap-1">
   <span class="text-center"> <%= room_notification.message %> </span>
-  <span class="room-notification-time text-muted align-self-center"><%= date_to_west_hours(room_notification.created_at) %></span>
+  <span class="room-notification-time text-muted align-self-center"
+        data-controller="bs-init-component"
+        data-bs-toggle="popover"
+        data-bs-trigger="hover focus"
+        data-bs-content="<%= extended_date(room_notification.created_at) %>">
+    <%= date_to_west_hours(room_notification.created_at) %>
+  </span>
 </div>
