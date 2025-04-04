@@ -438,6 +438,9 @@ $google-border-color_1: #1f1f1f1f;
   background-color: var(--reply-bg-color);
   margin: 5px;
 }
+.divider-unread::before, .divider-unread::after {
+  background-color: var(--danger-action-color);
+}
 .divider-text{
   border-radius: 24px;
   z-index: 2;

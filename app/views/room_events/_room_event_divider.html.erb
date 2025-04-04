@@ -1,7 +1,8 @@
 <% prev_event = room_event.prev %>
 
 <% if prev_event.nil? || prev_event.created_at.to_date != room_event.created_at.to_date %>
-  <div class="divider d-flex align-items-center justify-content-center w-100">
+  <% have_unread = !@first_unread_date.nil? && @first_unread_date == room_event.next.created_at.to_date %>
+  <div class="divider <%= "divider-unread" if have_unread %> d-flex align-items-center justify-content-center w-100">
     <div class="divider-text fw-bold bg-white border-1"><%= day_and_month(room_event.created_at) %></div>
   </div>
 <% end %>

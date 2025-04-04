@@ -73,7 +73,7 @@ class RoomsController < ApplicationController
     room.is_private ? room.participants.exists?(user_id: current_user.id) : true
   end
 
-  def prepare_show_page
+  def prepare_show_page # rubocop:disable Metrics/AbcSize
     @rooms = Room.public_rooms
     @users = User.excluding(current_user)
     @favorite = current_user.favorite_rooms.find_by(room_id: @single_room.id)
@@ -81,6 +81,7 @@ class RoomsController < ApplicationController
     pagy_events = @single_room.events.order(created_at: :desc)
     @pagy, events = pagy(pagy_events)
     @events = events.reverse
+    @first_unread_date = @single_room.messages.unread_by(current_user).first&.created_at&.to_date
     mark_messages_as_read
   end
 
