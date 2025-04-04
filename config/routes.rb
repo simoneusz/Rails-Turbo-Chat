@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :chat
+      patch :change_status
     end
   end
 

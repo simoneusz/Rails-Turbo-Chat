@@ -1,64 +1,87 @@
 import consumer from "channels/consumer";
 
 let resetFunc;
-let timer = 0;
 
 consumer.subscriptions.create("AppearancesChannel", {
-  initialized() {},
+  initialized() {
+    this.timer = null;
+  },
+
   connected() {
-    resetFunc = () => this.resetTimer(this.uninstall);
+    resetFunc = () => this.resetTimer();
     this.install();
-    window.addEventListener("turbo:load", () => this.resetTimer());
+    window.addEventListener("turbo:load", resetFunc);
   },
 
   disconnected() {
     this.uninstall();
   },
+
   rejected() {
     this.uninstall();
   },
-  received(data) {
-  },
+
+  received(data) {},
+
   online() {
+    console.log("online");
     this.perform("online");
   },
+
   away() {
+    console.log("away");
     this.perform("away");
   },
+
   offline() {
+    console.log("offline");
     this.perform("offline");
   },
+
   uninstall() {
+    console.log("uninstall");
     const shouldRun = document.getElementById("appearances_channel");
     if (!shouldRun) {
-      clearTimeout(timer);
+      clearTimeout(this.timer);
       this.perform("offline");
     }
   },
-  install() {
-    window.removeEventListener("load", resetFunc);
-    window.removeEventListener("DOMContentLoaded", resetFunc);
-    window.removeEventListener("click", resetFunc);
-    window.removeEventListener("keydown", resetFunc);
 
-    window.addEventListener("load", resetFunc);
-    window.addEventListener("DOMContentLoaded", resetFunc);
-    window.addEventListener("click", resetFunc);
-    window.addEventListener("keydown", resetFunc);
+  install() {
+    console.log("install");
+    ["turbo:load"].forEach(event =>
+      window.addEventListener(event, resetFunc)
+    );
     this.resetTimer();
   },
+
   resetTimer() {
-    this.uninstall();
     const shouldRun = document.getElementById("appearances_channel");
+    if (!shouldRun) return;
 
-    if (!!shouldRun) {
+    const changedByUser = shouldRun.dataset.statusChanged === "true";
+    const userStatus = shouldRun.dataset.status;
+    if (!changedByUser) {
+      console.log("here");
       this.online();
-      clearTimeout(timer);
-      const timeInSeconds = 60;
-      const milliseconds = 1000;
-      const timeInMilliseconds = timeInSeconds * milliseconds;
+      clearTimeout(this.timer);
 
-      timer = setTimeout(this.away.bind(this), timeInMilliseconds);
+      this.timer = setTimeout(() => this.away(), 6000);
+    }else{
+      this.changeStatus(userStatus);
+    }
+  },
+  changeStatus(status) {
+    console.log("changeStatus", status);
+    switch (status) {
+      case 'away':
+        this.perform("away");
+        break;
+      case 'brb':
+        this.perform("brb");
+        break;
+      default:
+        this.perform("offline");
     }
   },
 });

@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, UserAvatarUploader
 
-  enum :status, { offline: 0, away: 1, online: 2 }
+  enum :status, { offline: 0, away: 1, online: 2, brb: 3 }
 
   has_many :rooms,
            foreign_key: :creator_id,

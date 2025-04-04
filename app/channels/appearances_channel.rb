@@ -25,6 +25,11 @@ class AppearancesChannel < ApplicationCable::Channel
     broadcast_new_status(status)
   end
 
+  def brb
+    status = User.statuses[:brb]
+    broadcast_new_status(status)
+  end
+
   def receive(data)
     ActionCable.server.broadcast('appearances_channel', data)
   end

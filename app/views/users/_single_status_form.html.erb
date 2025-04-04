@@ -1,0 +1,8 @@
+<%= form_with model: current_user, url: change_status_user_path(current_user), method: :patch do |f| %>
+  <div class="d-flex align-items-center gap-2 bg-transparent">
+    <% User.statuses.keys.each do |s| %>
+      <%= f.submit s.humanize, name: "status", value: s,
+                   class: "btn text-white d-flex align-items-center gap-2 #{'active' if current_user.status == s}" %>
+    <% end %>
+  </div>
+<% end %>

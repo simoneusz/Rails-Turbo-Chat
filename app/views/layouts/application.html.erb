@@ -28,6 +28,11 @@
   <body class="bg-main main-scroll-bar pt-3">
 
     <% if user_signed_in? %>
+      <%= turbo_frame_tag "appearances_channel",
+                          data: {
+                            status_changed: current_user.status_changed,
+                            status: current_user.status
+                          } %>
       <%= turbo_stream_from "broadcast_to_user_#{current_user.id}"%>
       <div id="notifications" class="p-2 z-1">
         <% current_user.notifications.where(viewed: false).find_each do |notification| %>

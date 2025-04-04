@@ -29,6 +29,8 @@ module ApplicationHelper
       'bg-success'
     when 'away'
       'bg-warning'
+    when 'brb'
+      'bg-danger'
     else
       'bg-dark'
     end

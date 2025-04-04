@@ -1,0 +1,12 @@
+<div class="tabs-item position-relative">
+  <a class="tabs__logo tabs-content btn position-relative" href="<%= root_path %>">
+    <i class="tabs__logo_icon"><%= current_user.username.first.upcase %></i>
+    <%= turbo_frame_tag "user_status_#{current_user.id}"  do %>
+      <%= render partial: 'users/status', locals: { user: current_user } %>
+    <% end %>
+  </a>
+
+  <div class="tabs-popover rounded d-none">
+    <%= render partial: 'layouts/tabs/logo/popover_content' %>
+  </div>
+</div>

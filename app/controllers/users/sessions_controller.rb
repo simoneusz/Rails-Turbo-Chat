@@ -2,10 +2,10 @@
 
 module Users
   class SessionsController < Devise::SessionsController
-    # def create
-    #   super
-    #   UserMailer.with(user: current_user).new_session_email.deliver_later
-    # end
+    def create
+      super
+      current_user.update(status: :online, status_changed: false)
+    end
 
     def after_sign_out_path_for(_resource_or_scope)
       rooms_path

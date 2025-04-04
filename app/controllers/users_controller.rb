@@ -35,6 +35,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def change_status
+    @user = User.find(params[:id])
+    @status = params[:status]
+    return unless @user.update(status: @status)
+
+    @user.update(status_changed: @status != 'online')
+
+    logger.info("aboba #{@user.status_changed} #{@user.status} #{@status}")
+
+    respond_to do |format|
+      format.html { redirect_to rooms_path, notice: 'Status updated' }
+    end
+  end
+
   private
 
   def private_room_name(user1, user2)
