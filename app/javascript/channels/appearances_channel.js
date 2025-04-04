@@ -66,7 +66,7 @@ consumer.subscriptions.create("AppearancesChannel", {
       this.online();
       clearTimeout(this.timer);
 
-      this.timer = setTimeout(() => this.away(), 6000);
+      this.timer = setTimeout(() => this.away(), 120_000);
     }else{
       this.changeStatus(userStatus);
     }

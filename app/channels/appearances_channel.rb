@@ -37,6 +37,6 @@ class AppearancesChannel < ApplicationCable::Channel
   private
 
   def broadcast_new_status(status)
-    current_user.update!(status: status)
+    current_user.update!(status: status) unless current_user.status_changed?
   end
 end
