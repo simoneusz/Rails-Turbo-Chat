@@ -54,10 +54,10 @@ export default class TrixController extends Controller {
 
       let trixEditor = document.querySelector("trix-editor")
       trixEditor.addEventListener("focus", function(e) {
-        trixButtonRow.classList.add("opacity-75");
+        trixButtonRow.classList.toggle("opacity-75");
       })
       trixEditor.addEventListener("focusout", function(e) {
-        trixButtonRow.classList.remove("opacity-75");
+        trixButtonRow.classList.toggle("opacity-75");
       })
     }
   }
