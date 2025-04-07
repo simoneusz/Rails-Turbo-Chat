@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationService
+  include Constants::ErrorCodes
+
   def notify_target_user(target_user, notification_type, item, sender, mute_notifications: false)
     return false if target_user == sender || mute_notifications
 

@@ -16,9 +16,7 @@ module Participants
       return error_cant_find_participants unless participant
 
       remove_participant(participant)
-
       notify_room
-
       success(participant)
     end
 

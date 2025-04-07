@@ -40,11 +40,8 @@ consumer.subscriptions.create("AppearancesChannel", {
 
   uninstall() {
     console.log("uninstall");
-    const shouldRun = document.getElementById("appearances_channel");
-    if (!shouldRun) {
-      clearTimeout(this.timer);
-      this.perform("offline");
-    }
+    clearTimeout(this.timer);
+    this.perform("offline");
   },
 
   install() {

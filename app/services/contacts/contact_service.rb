@@ -2,12 +2,6 @@
 
 module Contacts
   class ContactService < ApplicationService
-    CODE_ADD_SELF_TO_CONTACTS = :contact_add_self
-    CODE_CONTACT_INVALID = :contact_invalid
-    CODE_NO_PENDING_CONTACTS = :no_pending_contacts
-    CODE_CONTACT_ALREADY_EXISTS = :contact_already_exists
-    CODE_CONTACT_DOESNT_EXISTS = :contact_doesnt_exists
-
     def initialize(user, other_user)
       super()
       @user = user
@@ -17,14 +11,14 @@ module Contacts
     def request_contact
       return error_add_self_to_contacts if @user == @other_user
 
-      existing_request = Contact.find_by(user: @other_user, contact: @user, status: :pending)
-      return accept_contact if existing_request
+      result_existing_request = existing_request
+      return result_existing_request if result_existing_request
 
       contact = Contact.find_by(user: @user, contact: @other_user)
       return error_contact_already_exists if contact&.accepted?
 
       update_or_create_request_contact(contact)
-      notify_target_user(@other_user, 'contact_invite_requested', @user, @user)
+      notify_target_user(@other_user, :contact_invite_requested, @user, @user)
       success(@other_user)
     end
 
@@ -47,7 +41,7 @@ module Contacts
           Contact.create!(user: @user, contact: @other_user, status: :accepted)
         end
       end
-      notify_target_user(@other_user, 'contact_invite_accepted', @user, @user)
+      notify_target_user(@other_user, :contact_invite_accepted, @user, @user)
       success(@other_user)
     end
 
@@ -70,11 +64,22 @@ module Contacts
       return error_contact_doesnt_exist unless contact_request
 
       contact_request.update!(status: :rejected)
-      notify_target_user(@other_user, 'contact_invite_rejected', @user, @user)
+      notify_target_user(@other_user, :contact_invite_rejected, @user, @user)
       success(@other_user)
     end
 
     private
+
+    def existing_request
+      existing_request = Contact.find_by(user: @other_user, contact: @user, status: :pending)
+
+      if existing_request
+        accept_contact
+        return success(@other_user)
+      end
+
+      false
+    end
 
     def delete_peer_room
       Room.peer_room_for_users(@user, @other_user).destroy_all

@@ -5,12 +5,12 @@ RSpec.describe UnreadNotificationsSummaryJob, type: :job do
   let(:user) { create(:user) }
 
   describe '#perform' do
-    subject(:job) { described_class.new.perform }
+    subject(:job) { described_class.new }
 
     context 'with users unread notifications' do
       before do
         user.notifications.create(notification_type: 'contact_invite_rejected', item: user, sender: user)
-        job
+        job.perform
       end
 
       it 'sends notification' do
@@ -26,7 +26,7 @@ RSpec.describe UnreadNotificationsSummaryJob, type: :job do
       before do
         user.notifications.create(notification_type: 'contact_invite_rejected', item: user, sender: user)
         user.notifications.last.update!(viewed: true)
-        job
+        job.perform
       end
 
       it 'does not sends a notification' do
@@ -43,9 +43,9 @@ RSpec.describe UnreadNotificationsSummaryJob, type: :job do
     context 'when job performs more when one time' do
       before do
         user.notifications.create(notification_type: 'contact_invite_rejected', item: user, sender: user)
-        job
-        job
-        job
+        job.perform
+        job.perform
+        job.perform
       end
 
       it 'does not creates unread_notifications duplicate' do

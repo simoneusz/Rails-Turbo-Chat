@@ -2,8 +2,6 @@
 
 module Participants
   class AddParticipantService < ApplicationService
-    CODE_PARTICIPANT_INVALID = :new_participant_invalid
-
     def initialize(room, current_user, target_user, role)
       super()
       @room = room
@@ -16,7 +14,7 @@ module Participants
       result = create_participant
       if result&.success?
         unless @current_user == @target_user
-          notify_target_user(@target_user, 'room_invite_received', @room, @current_user)
+          notify_target_user(@target_user, :room_invite_received, @room, @current_user)
         end
         notify_room
         success(result.data)

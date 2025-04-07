@@ -2,8 +2,6 @@
 
 module Messages
   class MessageReactionsService < ApplicationService
-    CODE_REACTION_INVALID = :invalid_reaction
-
     def initialize(message, current_user, emoji)
       super()
       @message = message

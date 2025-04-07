@@ -42,8 +42,6 @@ class UsersController < ApplicationController
 
     @user.update(status_changed: @status != 'online')
 
-    logger.info("aboba #{@user.status_changed} #{@user.status} #{@status}")
-
     respond_to do |format|
       format.html { redirect_to rooms_path, notice: 'Status updated' }
     end

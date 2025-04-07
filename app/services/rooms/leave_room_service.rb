@@ -2,9 +2,6 @@
 
 module Rooms
   class LeaveRoomService < ApplicationService
-    CODE_PARTICIPANT_DOESNT_EXIST = :participant_doesnt_exist
-    CODE_CANT_LEAVE_PEER_ROOM = :cant_leave_peer_room
-
     def initialize(room, participant)
       super()
       @room = room

@@ -2,8 +2,6 @@
 
 module Messages
   class MessageCreationService < ApplicationService
-    CODE_PARTICIPANT_DOESNT_EXIST = :participant_doesnt_exist
-
     def initialize(message_params, room, user)
       super()
       @message_params = message_params

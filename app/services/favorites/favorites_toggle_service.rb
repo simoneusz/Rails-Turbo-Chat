@@ -2,9 +2,6 @@
 
 module Favorites
   class FavoritesToggleService < ApplicationService
-    CODE_FAVORITE_DOES_NOT_EXIST = :favorite_doesnt_exist
-    CODE_NOT_A_PARTICIPANT = :not_a_participant
-
     def initialize(favorite, room, user)
       super()
       @favorite = favorite

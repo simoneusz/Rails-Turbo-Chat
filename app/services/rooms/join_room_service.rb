@@ -2,9 +2,6 @@
 
 module Rooms
   class JoinRoomService < ApplicationService
-    CODE_CANT_JOIN_PRIVATE_ROOM = :cant_join_private_room
-    CODE_PARTICIPANT_INVALID = :new_participant_invalid
-
     def initialize(room, user)
       super()
       @room = room

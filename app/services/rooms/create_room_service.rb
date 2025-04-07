@@ -2,8 +2,6 @@
 
 module Rooms
   class CreateRoomService < ApplicationService
-    CODE_ROOM_NOT_VALID = :new_room_invalid
-
     def initialize(room_params, current_user)
       super()
       @room_params = room_params

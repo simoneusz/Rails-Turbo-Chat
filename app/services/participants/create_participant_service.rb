@@ -2,9 +2,6 @@
 
 module Participants
   class CreateParticipantService < ApplicationService
-    CODE_PARTICIPANT_INVALID = :participant_creation_failed
-    CODE_PARTICIPANT_ALREADY_EXISTS = :participant_already_exists
-
     def initialize(room, user, role)
       super()
       @room = room

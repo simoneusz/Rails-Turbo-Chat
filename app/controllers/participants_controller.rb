@@ -34,7 +34,6 @@ class ParticipantsController < ApplicationController
 
   def toggle_notifications
     participant = @room.find_participant(@user)
-
     return unless participant
 
     participant.update(mute_notifications: !participant.mute_notifications)
