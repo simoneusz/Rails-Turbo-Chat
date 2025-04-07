@@ -41,7 +41,7 @@ RSpec.describe Participants::CreateParticipantService do
       end
 
       it 'returns service error code' do
-        expect(service.error_code).to eq(:participant_creation_failed)
+        expect(service.error_code).to eq(:new_participant_invalid)
       end
     end
   end
