@@ -2,10 +2,11 @@
 
 module Rooms
   class CreateRoomService < ApplicationService
-    def initialize(room_params, current_user)
+    def initialize(room_params, current_user, role = :owner)
       super()
       @room_params = room_params
       @current_user = current_user
+      @role = role
     end
 
     def call
@@ -28,7 +29,7 @@ module Rooms
     end
 
     def add_owner(room)
-      room.participants.create(user: @current_user, role: :owner)
+      room.participants.create(user: @current_user, role: @role)
     end
 
     def room_not_valid_error(room)

@@ -11,7 +11,7 @@ module Rooms
     def call
       return error_cant_find_participant unless @participant
 
-      return error_cant_leave_peer_room if @room.peer_room?
+      return error_cant_leave_peer_room if @room.peer_room? || @room.self_room?
 
       @participant.destroy
 
