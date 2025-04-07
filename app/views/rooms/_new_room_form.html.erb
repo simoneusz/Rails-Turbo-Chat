@@ -1,6 +1,16 @@
-<%= form_with(model: Room.new, remote: true, class: 'form d-flex flex-column') do |f| %>
-  <%= f.label :name, 'New room @', class: 'form-label' %>
-  <%= f.text_field :name, class: 'form-control', autocomplete: 'off' %>
+<%= form_with(model: Room.new,
+              remote: true,
+              data: { controller: 'new_room_form_validations', action: 'submit->new_room_form_validations#submit' },
+              class: 'new-room-form form d-flex flex-column') do |f| %>
+  <%= f.label :name, 'Name', class: 'form-label' %>
+  <%= f.text_field :name,
+                   class: 'form-control px-5',
+                   autocomplete: 'off',
+                   require: true, data: { new_room_form_validations_target: "name" }%>
+  <%= f.label :description %>
+  <%= f.text_field :description, class: 'form-control', autocomplete: 'off' %>
+  <%= f.label :topic %>
+  <%= f.text_field :topic, class: 'form-control', autocomplete: 'off' %>
   <div class="form-check form-switch">
     <%= f.check_box :is_private, class: 'form-check-input', role: 'switch' %>
     <%= f.label :is_private, 'Create private room', class: 'form-check-label' %>

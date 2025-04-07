@@ -1,12 +1,55 @@
-<div class="modal fade" id="newRoomModal" tabindex="-1" aria-labelledby="newRoomModalLabel" aria-hidden="true">
+<div class="modal new-room-modal fade" id="newRoomModal" tabindex="-1" aria-labelledby="newRoomModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-dark" id="newRoomModalLabel">Create a New Room</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body text-dark">
-        <%= render partial: 'rooms/new_room_form' %>
+    <div class="modal-content w-100">
+      <div class="modal-body p-0 text-dark d-flex gap-3 position-relative">
+        <button type="button" class="new-room-close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        <div class="new-room-form w-100 ps-5 pt-5 mb-5">
+          <%= render partial: 'rooms/new_room_form' %>
+        </div>
+        <div class="form-preview p-5 w-100">
+          <div class="form-preview-container rounded">
+            <div class="form-preview-header px-5 w-100">
+              <div class="room-info-name text-muted py-2 w-100 align-self-baseline text-start fw-bold d-flex align-items-center gap-3" data-bs-toggle="modal" data-bs-target="#roomInfo">
+                # room name
+                <p class="room-info-description fw-normal text-muted p-0 m-0">description</p>
+              </div>
+            </div>
+            <hr class="m-0 p-0">
+            <div class="form-preview-body p-5 d-flex flex-column gap-5">
+              <div class="d-flex gap-2 w-100">
+                <div class="missing-message-avatar"></div>
+                <div class="missing-message-container w-100 d-flex flex-column gap-3">
+                  <span class="missing-message-text" style="width: 30%"></span>
+                  <span class="missing-message-text w-100" style="width: 60%"></span>
+                  <span class="missing-message-text w-100" style="width: 80%"></span>
+                </div>
+              </div>
+              <div class="d-flex gap-2 w-100">
+                <div class="missing-message-avatar"></div>
+                <div class="missing-message-container w-100 d-flex flex-column gap-3">
+                  <span class="missing-message-text" style="width: 30%"></span>
+                  <span class="missing-message-text w-100" style="width: 60%"></span>
+                  <span class="missing-message-text w-100" style="width: 80%"></span>
+                </div>
+              </div>
+              <div class="d-flex gap-2 w-100">
+                <div class="missing-message-avatar"></div>
+                <div class="missing-message-container w-100 d-flex flex-column gap-3">
+                  <span class="missing-message-text" style="width: 30%"></span>
+                  <span class="missing-message-text w-100" style="width: 60%"></span>
+                  <span class="missing-message-text w-100" style="width: 80%"></span>
+                </div>
+              </div>
+              <div class="input-group mb-3 opacity-50">
+                <input type="text" class="form-control" placeholder="Message #room name" disabled aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div  style="transform: rotate(45deg)">
+                  <i class="bi bi-send"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

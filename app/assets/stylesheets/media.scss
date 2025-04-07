@@ -50,6 +50,15 @@
   #trix-toolbar-1{
     display: none;
   }
+  .form-preview{
+    display: none;
+  }
+  .new-room-modal{
+    --bs-modal-width: 500px !important;
+  }
+  .new-room-form{
+    padding: 1rem;
+  }
 }
 
 @media only screen and (max-width: 1200px) {}

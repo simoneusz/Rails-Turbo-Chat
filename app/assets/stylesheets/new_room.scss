@@ -1,0 +1,33 @@
+.new-room-modal{
+  --bs-modal-width: 1000px;
+}
+.new-room-close{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 6;
+}
+
+.form-preview{
+  background-color: var(--bg-magnolia);
+  -webkit-mask-image: -webkit-gradient(linear, left top, left bottom,
+          from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+}
+.form-preview-container{
+  background-color: #fff;
+}
+.missing-message-avatar{
+  height: 36px;
+  width: 36px;
+  background-color: #eaeaea;
+  border-radius: 7px;
+}
+.missing-message-container{
+
+}
+.missing-message-text{
+  display: block;
+  background-color: #eaeaea;
+  height: 7px;
+  border-radius: 1000px;
+}
