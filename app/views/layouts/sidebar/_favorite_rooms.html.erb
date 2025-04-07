@@ -14,7 +14,7 @@
         <li class="w-100">
           <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">
             <div class="sidebar__room_icon"><i class="bi bi-hash"></i></div>
-            <%= link_to room.name, room, class: 'd-block w-100 room-link nav-link px-0' %>
+            <%= link_to define_room_name(room), room, class: 'd-block w-100 room-link nav-link px-0' %>
             <% if Room.all_not_muted_groups_for_user(current_user).include?(room) %>
               <% unread_messages_size = room.messages.unread_by(current_user).size %>
               <div class="px-1">

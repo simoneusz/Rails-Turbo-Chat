@@ -8,4 +8,10 @@ module RoomHelper
       current_user
     end
   end
+
+  def define_room_name(room)
+    return peer_room_other_user_or_self(room).username if room.peer_room? || room.self_room?
+
+    room.name
+  end
 end
