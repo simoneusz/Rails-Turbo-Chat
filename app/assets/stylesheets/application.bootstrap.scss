@@ -283,32 +283,6 @@ body{
   font-size: 20px;
 }
 
-// trix
-.trix-button--icon-bullet-list,
-.trix-button--icon-number-list,
-.trix-button--icon-decrease-nesting-level,
-.trix-button--icon-increase-nesting-level{
-  display: none;
-}
-
-trix-toolbar .trix-button-group{
-  border-bottom: none;
-}
-
-.trix-form{
-  background: white;
-  padding: 5px;
-}
-
-.trix-content .attachment--file{
-  color: inherit;
-}
-
-.trix-content > pre{
-  max-width: 400px;
-  overflow-x: scroll;
-}
-
 $color_1: #1f1f1f;
 $font-family_1: "Roboto", arial, sans-serif;
 $google-background-color_1: WHITE;
@@ -451,4 +425,8 @@ $google-border-color_1: #1f1f1f1f;
   padding: 0 16px;
   font-size: 13px;
   line-height: 27px;
+}
+
+.picmo__popupContainer{
+  z-index: 6;
 }

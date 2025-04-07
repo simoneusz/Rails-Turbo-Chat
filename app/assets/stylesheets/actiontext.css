@@ -29,3 +29,46 @@
   padding: 0 !important;
   max-width: 100% !important;
 }
+
+trix-toolbar{
+  background-color: #eee;
+}
+.trix-button-group{
+  padding-top: 5px;
+}
+.trix-button, .trix-button-group{
+  border: none !important;
+}
+.trix-button--icon-bullet-list,
+.trix-button--icon-number-list,
+.trix-button--icon-decrease-nesting-level,
+.trix-button--icon-increase-nesting-level{
+  display: none;
+}
+trix-editor:focus{
+  box-shadow: none !important;
+}
+trix-toolbar .trix-button-group{
+  border-bottom: none;
+}
+
+.trix-form{
+  background: white;
+  padding: 5px;
+  border: 1px solid black;
+  &:focus{
+    border: 5px solid black !important;
+  }
+}
+
+.trix-content .attachment--file{
+  color: inherit;
+}
+
+.trix-content > pre{
+  max-width: 400px;
+  overflow-x: scroll;
+}
+trix-toolbar .trix-button-group:not(:first-child) {
+  margin-left: 10px;
+}
