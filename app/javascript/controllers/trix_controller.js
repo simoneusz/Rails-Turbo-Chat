@@ -18,6 +18,8 @@ export default class TrixController extends Controller {
     this.editor = this.data.element
     this.editor.addEventListener("keydown", this.handleKeydown.bind(this.editor))
 
+    TrixController.toggleToolbarOpacity()
+
     addEventListener("trix-initialize", function (event) {
       TrixController.removeToolbarIcons()
     }, true);
@@ -43,5 +45,20 @@ export default class TrixController extends Controller {
     TrixController.UNUSED_TOOLBAR_CLASSES.forEach((cls) => {
       if(document.querySelector(cls)) document.querySelector(cls).remove();
     });
+  }
+
+  static toggleToolbarOpacity() {
+    let trixButtonRow = document.querySelector(".trix-button-row");
+    if (trixButtonRow){
+      trixButtonRow.classList.add("opacity-75")
+
+      let trixEditor = document.querySelector("trix-editor")
+      trixEditor.addEventListener("focus", function(e) {
+        trixButtonRow.classList.add("opacity-75");
+      })
+      trixEditor.addEventListener("focusout", function(e) {
+        trixButtonRow.classList.remove("opacity-75");
+      })
+    }
   }
 }
