@@ -14,7 +14,8 @@
         <% end %>
       </div>
       <div class="toast-body">
-        <%= render "notifications/variants/#{notification.notification_type.downcase}", notification: notification %>
+        <%= render "notifications/variants/#{notification.type.underscore}/#{notification.notification_type.underscore}",
+                   notification: notification %>
       </div>
     </div>
   </div>

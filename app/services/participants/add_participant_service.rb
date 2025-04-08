@@ -14,9 +14,9 @@ module Participants
       result = create_participant
       if result&.success?
         unless @current_user == @target_user
-          notify_target_user(@target_user, :room_invite_received, @room, @current_user)
+          notify_target_user(@room, @current_user, @target_user, :room_invite_received)
         end
-        notify_room
+        notify_room(@room, @current_user, @target_user, :add_participant)
         success(result.data)
       else
         error(code: result.error_code || CODE_PARTICIPANT_INVALID)
@@ -27,10 +27,6 @@ module Participants
 
     def create_participant
       Participants::CreateParticipantService.new(@room, @target_user, @role).call
-    end
-
-    def notify_room
-      @room.notifications.create!(message: "#{@current_user.username} added #{@target_user.username}")
     end
 
     def mark_every_message_as_read

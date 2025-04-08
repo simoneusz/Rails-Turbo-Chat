@@ -8,26 +8,22 @@ module Participants
       super()
       @room = room
       @current_user = current_user
-      @user = user
+      @target_user = user
     end
 
     def call
-      participant = @room.find_participant(@user)
+      participant = @room.find_participant(@target_user)
       return error_cant_find_participants unless participant
 
       remove_participant(participant)
-      notify_room
+      notify_room(@room, @current_user, @target_user, 'remove_participant')
       success(participant)
     end
 
     private
 
     def remove_participant(participant)
-      @room.participants.delete(participant)
-    end
-
-    def notify_room
-      @room.notifications.create!(message: "#{@current_user.username} kicked #{@user.username}")
+      participant.destroy!
     end
 
     def error_cant_find_participants

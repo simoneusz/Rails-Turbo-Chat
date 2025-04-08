@@ -6,6 +6,7 @@ module Rooms
       super()
       @room = room
       @participant = participant
+      @user = @participant.user
     end
 
     def call
@@ -15,15 +16,11 @@ module Rooms
 
       @participant.destroy
 
-      notify_room
+      notify_room(@room, @user, @user, 'left_room')
       success(@room)
     end
 
     private
-
-    def notify_room
-      @room.notifications.create!(message: "#{@participant.user.username} has left the room")
-    end
 
     def error_cant_find_participant
       error(code: CODE_PARTICIPANT_DOESNT_EXIST)

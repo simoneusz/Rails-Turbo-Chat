@@ -1,5 +1,7 @@
 <div class="room-notification d-flex align-self-center rounded-pill p-1 px-2 justify-content-center gap-1">
-  <span class="text-center"> <%= room_notification.message %> </span>
+  <span class="text-center"> <%= render "notifications/variants/#{room_notification.type.underscore}/#{room_notification.notification_type.underscore}", notification: room_notification %>
+
+ </span>
   <span class="room-notification-time text-muted align-self-center"
         data-controller="bs-init-component"
         data-bs-toggle="popover"

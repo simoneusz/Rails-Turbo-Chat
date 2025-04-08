@@ -29,10 +29,11 @@ class User < ApplicationRecord
   has_many :contacts,
            -> { where(contacts: { status: 1 }) },
            through: :sent_contacts, source: :contact
-  has_many :notifications,
-           foreign_key: 'receiver_id',
-           dependent: :destroy,
-           inverse_of: :receiver
+
+  has_many :notifications, lambda { |user|
+    where(type: 'UserNotification', receiver_id: user.id)
+  }, class_name: 'UserNotification', dependent: :destroy, inverse_of: :receiver
+
   has_many :sent_notifications,
            class_name: 'Notification',
            foreign_key: 'sender_id',

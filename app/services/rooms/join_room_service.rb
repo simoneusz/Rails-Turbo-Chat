@@ -14,15 +14,11 @@ module Rooms
 
       result = create_participant
       if result&.success?
-        notify_room
+        notify_room(@room, @user, @user, 'join_room')
         success(result.data)
       else
         error(code: CODE_PARTICIPANT_INVALID)
       end
-    end
-
-    def notify_room
-      @room.notifications.create!(message: "#{@user.username} joined the room")
     end
 
     def create_participant

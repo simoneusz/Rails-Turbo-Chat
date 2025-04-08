@@ -7,8 +7,9 @@ class Room < ApplicationRecord
   has_many :events, class_name: 'RoomEvent', dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :participants, dependent: :destroy
-  has_many :user_notifications, class_name: 'Notification', as: :item, dependent: :destroy
-  has_many :notifications, class_name: 'RoomNotification', dependent: :destroy
+  has_many :notifications, lambda {
+    where(type: 'RoomNotification')
+  }, class_name: 'RoomNotification', as: :item, dependent: :destroy, inverse_of: :item
   has_many :favorited, class_name: 'Favorite', dependent: :destroy
 
   validates :name, uniqueness: true

@@ -3,10 +3,14 @@
 class ApplicationService
   include Constants::ErrorCodes
 
-  def notify_target_user(target_user, notification_type, item, sender, mute_notifications: false)
-    return false if target_user == sender || mute_notifications
+  def notify_target_user(item, sender, receiver, notification_type, mute_notifications: false)
+    return false if receiver == sender || mute_notifications
 
-    target_user.notifications.create(notification_type:, item:, sender:)
+    UserNotification.create!(item:, sender:, receiver:, notification_type:)
+  end
+
+  def notify_room(room, sender, receiver, notification_type)
+    RoomNotification.create!(item: room, sender:, receiver:, notification_type:)
   end
 
   protected

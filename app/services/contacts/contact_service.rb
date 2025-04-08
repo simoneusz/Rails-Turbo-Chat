@@ -18,7 +18,7 @@ module Contacts
       return error_contact_already_exists if contact&.accepted?
 
       update_or_create_request_contact(contact)
-      notify_target_user(@other_user, :contact_invite_requested, @user, @user)
+      notify_target_user(@other_user, @user, @other_user, :contact_invite_requested)
       success(@other_user)
     end
 
@@ -41,7 +41,7 @@ module Contacts
           Contact.create!(user: @user, contact: @other_user, status: :accepted)
         end
       end
-      notify_target_user(@other_user, :contact_invite_accepted, @user, @user)
+      notify_target_user(@other_user, @user, @other_user, :contact_invite_accepted)
       success(@other_user)
     end
 
@@ -64,7 +64,7 @@ module Contacts
       return error_contact_doesnt_exist unless contact_request
 
       contact_request.update!(status: :rejected)
-      notify_target_user(@other_user, :contact_invite_rejected, @user, @user)
+      notify_target_user(@other_user, @user, @other_user, :contact_invite_rejected)
       success(@other_user)
     end
 
