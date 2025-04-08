@@ -28,7 +28,7 @@
   <body class="bg-main main-scroll-bar pt-3">
 
     <% if user_signed_in? %>
-      <%= turbo_frame_tag "appearances_channel",
+      <%= turbo_frame_tag 'appearances_channel',
                           data: {
                             status_changed: current_user.status_changed,
                             status: current_user.status

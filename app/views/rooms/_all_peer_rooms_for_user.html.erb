@@ -9,7 +9,7 @@
           <div class='user-info--container w-100 d-flex align-items-center gap-2'>
             <div class="message-avatar d-flex align-items-center position-relative">
               <%= render partial: 'shared/default_avatar', locals: { size: 50, user: other_user, rounded: false } %>
-              <%= render partial: 'users/status', locals: { user: other_user} %>
+              <%= render partial: 'users/status', locals: { user: other_user } %>
             </div>
             <div class='user-body w-100 text-white'>
               <p class='user-info--username mb-1 text-start p-0 m-0'><%= other_user.username %></p>
