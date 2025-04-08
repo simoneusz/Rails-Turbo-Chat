@@ -1,7 +1,7 @@
 <div class="modal new-room-modal fade" id="newRoomModal" tabindex="-1" aria-labelledby="newRoomModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content w-100">
-      <div class="modal-body p-0 text-dark d-flex gap-3 position-relative">
+      <div class="modal-body p-0 text-dark d-flex gap-3 position-relative" data-controller="input-repeater">
         <button type="button" class="new-room-close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
         <div class="new-room-form w-100 ps-5 pt-5 mb-5">
@@ -11,7 +11,7 @@
           <div class="form-preview-container rounded">
             <div class="form-preview-header px-5 w-100">
               <div class="room-info-name text-muted py-2 w-100 align-self-baseline text-start fw-bold d-flex align-items-center gap-3" data-bs-toggle="modal" data-bs-target="#roomInfo">
-                # room name
+                # <span data-input-repeater-target="outputRepeater">room name</span>
                 <p class="room-info-description fw-normal text-muted p-0 m-0">description</p>
               </div>
             </div>
