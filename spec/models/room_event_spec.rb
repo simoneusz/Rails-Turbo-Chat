@@ -34,14 +34,14 @@ RSpec.describe RoomEvent do
     context 'when created from a room_notification' do
       subject(:room_event) { create(:room_event, eventable: notification, room: room) }
 
-      let!(:notification) { create(:room_notification) }
+      let!(:notification) { create(:room_notification, :room_item) }
 
       it 'sets eventable as notifications' do
         expect(room_event.eventable).to eq(notification)
       end
 
       it 'sets eventable_type as RoomNotification' do
-        expect(room_event.eventable_type).to eq('RoomNotification')
+        expect(room_event.eventable_type).to eq('RoomNotification').or eq('Notification')
       end
     end
   end

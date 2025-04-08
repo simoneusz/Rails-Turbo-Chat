@@ -18,7 +18,7 @@ RSpec.describe UnreadNotificationsSummaryJob, type: :job do
       end
 
       it 'sends notification with correct type' do
-        expect(user.notifications.first.notification_type).to eq('unread_notifications')
+        expect(user.notifications.last.notification_type).to eq('unread_notifications')
       end
     end
 

@@ -6,7 +6,7 @@ module Rooms
       super()
       @room = room
       @participant = participant
-      @user = @participant.user
+      @user = @participant.try(:user)
     end
 
     def call
