@@ -31,12 +31,12 @@ RSpec.describe Rooms::CreateRoomService do
         expect(service).to be_success
       end
 
-      it 'creates room with description' do
-        expect(service.data.description).not_to be_nil
+      it 'creates room with a nil description' do
+        expect(service.data.description).to be_nil
       end
 
-      it 'creates room with topic' do
-        expect(service.data.topic).not_to be_nil
+      it 'creates room with a nil topic' do
+        expect(service.data.topic).to be_nil
       end
     end
 

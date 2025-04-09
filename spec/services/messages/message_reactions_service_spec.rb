@@ -20,7 +20,7 @@ RSpec.describe Messages::MessageReactionsService do
       end
 
       it 'returns correct emoji in data' do
-        expect(service.data[:emoji]).to eq(emoji)
+        expect(service.data.reactions.first.emoji).to eq(emoji)
       end
     end
 
