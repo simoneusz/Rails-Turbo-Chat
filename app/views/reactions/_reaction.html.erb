@@ -1,7 +1,12 @@
-<div class="reaction reaction-current-user">
-  <span class="reaction-emoji"><%= reaction_counter[:emoji] %></span>
-  <span class="reaction-count"><%= reaction_counter[:emoji_size] %></span>
-</div>
+<% user_names = users.map(&:username).join(', ') %>
+<% current_user_reacted = users.include?(current_user) %>
+<% method = current_user_reacted ? :delete : :post %>
 
+<%= form_with url: message_reactions_path(message), method:, data: { turbo_stream: true }, class: 'reaction-form' do %>
+  <%= hidden_field_tag :emoji, emoji %>
 
-
+  <%= button_tag type: 'submit', class: "reaction-button reaction #{'reaction-current-user' if current_user_reacted}", title: user_names do %>
+    <span class="reaction-emoji"><%= emoji %></span>
+    <span class="reaction-count"><%= users.size %></span>
+  <% end %>
+<% end %>

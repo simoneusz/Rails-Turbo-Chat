@@ -19,6 +19,7 @@ module Constants
     CODE_UNKNOWN_ROLE = :unknown_role
 
     CODE_REACTION_INVALID = :invalid_reaction
+    CODE_NO_REACTION_BY_USER = :no_reaction_by_user
     CODE_FAVORITE_DOES_NOT_EXIST = :favorite_doesnt_exist
   end
 end

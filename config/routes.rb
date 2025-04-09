@@ -25,7 +25,8 @@ Rails.application.routes.draw do
   get 'dms', to: 'rooms#dms'
 
   resources :messages, only: [] do
-    resources :reactions, only: %i[create destroy]
+    resources :reactions, only: %i[create]
+    delete 'reactions', to: 'reactions#destroy'
   end
 
   resources :favorites, only: [] do

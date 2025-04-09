@@ -30,12 +30,20 @@ class Message < ApplicationRecord
     reactions.exists?(user: user)
   end
 
-  def reaction_counter
-    reactions.group(:emoji).count
+  def grouped_reactions
+    reactions.includes(:user).group_by(&:emoji)
+  end
+
+  def sorted_grouped_reactions
+    grouped_reactions.sort_by { |_, reactions| -reactions.size }.to_h
   end
 
   def reaction_by_emoji(emoji)
     reactions.find_by(emoji: emoji)
+  end
+
+  def reaction_by_user(user)
+    reactions.find_by(user: user)
   end
 
   private

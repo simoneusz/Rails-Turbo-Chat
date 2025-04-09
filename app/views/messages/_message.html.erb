@@ -50,9 +50,6 @@
 
           <%= turbo_stream_from "message_#{message.id}_reactions"%>
           <%= turbo_frame_tag dom_id(message, :reactions), class: 'reactions d-flex gap-1' do %>
-            <%# message.reaction_counter.each do |emoji, emoji_size| %>
-              <%#= render partial: "reactions/reaction", locals: { reaction: { emoji:, emoji_size: },  current_user: current_user } %>
-            <%# end %>
             <%= render partial: 'messages/message_reactions', locals: { message: } %>
           <% end %>
         </div>

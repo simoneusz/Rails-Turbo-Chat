@@ -1,3 +1,9 @@
-<% message.reaction_counter.each do |emoji, emoji_size| %>
-  <%= render partial: 'reactions/reaction', locals: { reaction_counter: { emoji:, emoji_size: }, message: } %>
+<% message.sorted_grouped_reactions.each do |emoji, reactions| %>
+  <%= render partial: 'reactions/reaction',
+             locals: {
+               emoji: emoji,
+               users: reactions.map(&:user),
+               current_user: current_user,
+               message:
+             } %>
 <% end %>

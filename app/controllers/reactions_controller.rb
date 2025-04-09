@@ -2,12 +2,27 @@
 
 class ReactionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_message, only: [:create]
+  before_action :set_message, only: %i[create destroy]
 
   def create
     result = Messages::MessageReactionsService.new(@message, current_user, params[:emoji]).create
+
+    respond_to do |format|
+      if result.success?
+        broadcast_update_to_message
+
+        format.turbo_stream do
+          head :no_content
+        end
+      end
+      format.html { redirect_to @message.room }
+    end
+  end
+
+  def destroy
+    result = Messages::MessageReactionsService.new(@message, current_user, params[:emoji]).destroy
     if result.success?
-      broadcast_update_to_message(result.data)
+      broadcast_update_to_message
     else
       redirect_to @message.room
     end
@@ -15,11 +30,11 @@ class ReactionsController < ApplicationController
 
   private
 
-  def broadcast_update_to_message(_reaction)
+  def broadcast_update_to_message
     @message.broadcast_update_to "message_#{@message.id}_reactions",
                                  target: "reactions_message_#{@message.id}",
                                  partial: 'messages/message_reactions',
-                                 locals: { reaction_counter: @message.reaction_counter, message: @message }
+                                 locals: { message: @message, current_user: }
   end
 
   def set_message
