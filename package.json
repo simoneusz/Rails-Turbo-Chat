@@ -7,6 +7,7 @@
     "@rails/actiontext": "^8.0.100",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
+    "bootstrap": "^5.3.5",
     "bootstrap-icons": "^1.11.3",
     "nodemon": "^3.1.9",
     "postcss": "^8.5.1",

@@ -15,3 +15,4 @@ pin '@picmo/popup-picker', to: '@picmo--popup-picker.js' # @5.8.5
 pin 'picmo' # @5.8.5
 pin 'stimulus-use' # @0.52.3
 pin "@popperjs/core", to: "popper.js" # @2.11.8
+pin "bootstrap", to: "bootstrap.js"
