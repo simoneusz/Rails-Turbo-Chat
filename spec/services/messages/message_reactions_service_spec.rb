@@ -55,4 +55,40 @@ RSpec.describe Messages::MessageReactionsService do
       end
     end
   end
+
+  describe '#destroy' do
+    subject(:service) { described_class.new(message, user).destroy }
+
+    context 'when message has reaction by user' do
+      before { create(:reaction, message: message, user: user, emoji: '😢') }
+
+      it 'returns success' do
+        expect(service).to be_success
+      end
+
+      it 'deletes the reaction' do
+        expect { service }.to change(message.reactions, :count).by(-1)
+      end
+    end
+
+    context 'when message has no reaction by user' do
+      let!(:another_user) { create(:user) }
+
+      before do
+        create(:reaction, message: message, user: another_user)
+      end
+
+      it 'does not touches reactions by another users' do
+        expect { service }.not_to change(message.reactions, :count)
+      end
+
+      it 'does not returns service success' do
+        expect(service).not_to be_success
+      end
+
+      it 'returns service error' do
+        expect(service.error_code).to eq(:no_reaction_by_user)
+      end
+    end
+  end
 end
