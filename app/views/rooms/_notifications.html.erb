@@ -14,8 +14,8 @@
     <ul class="list-group">
       <% room.notifications.order(created_at: :desc).each do |notification| %>
         <li class="list-group-item">
-          <%= render notification %>
-          <p class="text-muted p-0 m-0"><%= time_ago_in_words notification.created_at %></p>
+          <%= render partial: 'notifications/notification', locals: { notification: } %>
+          <p class="text-muted p-0 m-0"><%= time_ago_in_words notification.created_at %> ago</p>
         </li>
       <% end %>
     </ul>
