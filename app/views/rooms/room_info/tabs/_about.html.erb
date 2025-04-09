@@ -8,8 +8,16 @@
     <%= render 'rooms/editable_field', room:, field: 'name', label_text:, value: define_room_name(room) %>
   </ul>
   <ul class="list-group about-group">
-    <%= render 'rooms/editable_field', room:, field: 'topic', label_text: 'Topic', value: room.topic %>
-    <%= render 'rooms/editable_field', room:, field: 'description', label_text: 'Description', value: room.description %>
+    <%= render 'rooms/editable_field',
+               room:,
+               field: 'topic',
+               label_text: 'Topic',
+               value: room.topic.empty? ? "Click edit to change topic" : room.topic %>
+    <%= render 'rooms/editable_field',
+               room:,
+               field: 'description',
+               label_text: 'Description',
+               value: room.description.empty? ? "Click edit to change description" : room.description %>
     <li class="list-group-item about-group-item list-group-item-action">
       <div class="w-100 d-flex justify-content-between">
         <div class="about-text text-start">

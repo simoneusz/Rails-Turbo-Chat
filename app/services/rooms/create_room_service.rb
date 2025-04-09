@@ -20,12 +20,7 @@ module Rooms
     private
 
     def create_room
-      room = Room.create(@room_params.merge(creator: @current_user))
-
-      room.update(topic: 'Default topic') unless room.topic
-      room.update(description: 'Default description') unless room.description
-
-      room
+      Room.create(@room_params.merge(creator: @current_user))
     end
 
     def add_owner(room)
