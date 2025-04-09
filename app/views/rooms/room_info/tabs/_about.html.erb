@@ -8,30 +8,32 @@
     <%= render 'rooms/editable_field', room:, field: 'name', label_text:, value: define_room_name(room) %>
   </ul>
   <ul class="list-group about-group">
-    <%= render 'rooms/editable_field',
-               room:,
-               field: 'topic',
-               label_text: 'Topic',
-               value: room.topic.empty? ? "Click edit to change topic" : room.topic %>
-    <%= render 'rooms/editable_field',
-               room:,
-               field: 'description',
-               label_text: 'Description',
-               value: room.description.empty? ? "Click edit to change description" : room.description %>
-    <li class="list-group-item about-group-item list-group-item-action">
-      <div class="w-100 d-flex justify-content-between">
-        <div class="about-text text-start">
-          <b class="about-label m-0 p-0"><%= room.peer_room? ? 'Initiated' : 'Created' %> by </b>
-          <p class="about-room-name text-break m-0 p-0"><%= room.creator.username %> on <%= room.created_at.to_fs(:short)   %></p>
+    <% unless room.self_room? %>
+      <%= render 'rooms/editable_field',
+                 room:,
+                 field: 'topic',
+                 label_text: 'Topic',
+                 value: room.topic&.empty? ? "Click edit to change topic" : room.topic %>
+      <%= render 'rooms/editable_field',
+                 room:,
+                 field: 'description',
+                 label_text: 'Description',
+                 value: room.description&.empty? ? "Click edit to change description" : room.description %>
+      <li class="list-group-item about-group-item list-group-item-action">
+        <div class="w-100 d-flex justify-content-between">
+          <div class="about-text text-start">
+            <b class="about-label m-0 p-0"><%= room.peer_room? ? 'Initiated' : 'Created' %> by </b>
+            <p class="about-room-name text-break m-0 p-0"><%= room.creator.username %> on <%= room.created_at.to_fs(:short)   %></p>
+          </div>
         </div>
-      </div>
-    </li>
-    <%= button_to leave_room_participant_path(room), method: :delete, class: 'list-group-item about-group-item list-group-item-action' do %>
-      <div class="w-100 d-flex justify-content-between">
-        <div class="about-text text-start">
-          <p class="about-label about-label-leave danger-action-color m-0 p-0">Leave</p>
+      </li>
+      <%= button_to leave_room_participant_path(room), method: :delete, class: 'list-group-item about-group-item list-group-item-action' do %>
+        <div class="w-100 d-flex justify-content-between">
+          <div class="about-text text-start">
+            <p class="about-label about-label-leave danger-action-color m-0 p-0">Leave</p>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
     <p class="text-muted text-start pt-2">Room ID: <%= room.id %></p>
   </ul>
