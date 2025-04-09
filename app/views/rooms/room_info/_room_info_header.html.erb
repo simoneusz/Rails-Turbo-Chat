@@ -4,13 +4,7 @@
       <%# if policy(@participant).add_participant? %>
           <%#= render partial: 'rooms/room_info/contacts_modal/contacts_modal_button',locals: { button_type: "icon"  }%>
       <%# end %>
-      <h3 class="fw-bold">#
-        <% if room.peer_room? && other_user %>
-          <%= other_user.username %>
-        <% else %>
-          <%= room.name %>
-        <% end %>
-      </h3>
+      <h3 class="fw-bold"># <%= define_room_name(room) %></h3>
   </div>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
