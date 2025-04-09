@@ -36,18 +36,15 @@
             </div>
             <%= render partial: 'rooms/context_menu' %>
           </div>
-          <div class="form_fixed">
-            <% if @single_room.participant?(current_user) %>
-              <%= render partial: 'messages/new_message_form' %>
-            <% else %>
-             <%= render partial: 'rooms/join_room_button' %>
-            <% end %>
-          </div>
         </div>
         <%= render partial: 'rooms/room_info/contacts_modal/contacts_modal',
                    locals: { room: @single_room, user: current_user } %>
-
     </div>
+    <% if @single_room.participant?(current_user) %>
+      <%= render partial: 'messages/new_message_form' %>
+    <% else %>
+      <%= render partial: 'rooms/join_room_button' %>
+    <% end %>
   </div>
 <% else %>
   <%= render partial: 'rooms/welcome' %>
