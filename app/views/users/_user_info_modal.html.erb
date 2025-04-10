@@ -1,51 +1,49 @@
-<turbo-frame id="modal_frame">
-  <div class="user-info-modal modal fade show" id="user-modal" data-controller="user-modal">
-    <div class="user-info-modal-content modal-content">
-      <div class="modal-header justify-content-between">
-        <h5 class="modal-title" id="exampleModalLabel">User info</h5>
-        <button type="button" class="user-info-close close" data-action="click->user-modal#closeModal" >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="d-flex gap-3 btn btn-modal" data-controller="clipboard" data-action="click->clipboard#copy">
-        <div class="icon">
-          <span class="display-6"><i class="bi bi-at"></i></span>
-        </div>
-        <div class="row-content d-flex flex-column">
-          <div class="row-title copyable fw-bold"><%= @user.username %></div>
-          <div class="row-subtitle text-muted align-self-baseline">Username</div>
-        </div>
-      </div>
-      <div class="d-flex gap-3 btn btn-modal" data-controller="clipboard" data-action="click->clipboard#copy">
-        <div class="icon">
-          <span class="display-6"><i class="bi bi-envelope"></i></span>
-        </div>
-        <div class="row-content d-flex flex-column">
-          <div class="row-title copyable fw-bold"><%= @user.email%></div>
-          <div class="row-subtitle text-muted align-self-baseline">Email</div>
-        </div>
-      </div>
-      <div class="d-flex gap-3 btn btn-modal">
-        <div class="icon">
-          <span class="display-6"><i class="bi bi-info-circle"></i></span>
-        </div>
-        <div class="row-content d-flex flex-column">
-<!--          TODO-->
-          <div class="row-title fw-bold">TODO INFO</div>
-          <div class="row-subtitle text-muted align-self-baseline">Bio</div>
-        </div>
-      </div>
-      <% if current_user.contacts.include?(@user) %>
-        <%=  link_to 'Send message',
-                     chat_user_path(@user),
-                     data: { turbo: false },
-                     class: 'btn btn-modal text-blue text-primary'  %>
-      <%  elsif @user.pending_contacts.exists?(user_id: current_user.id) %>
-        <div class="d-flex gap-3 btn btn-modal">Waiting for user to accept your request!</div>
-      <% else %>
-        <%=  button_to 'Add to contacts', contacts_path(contact_id: @user.id), data: { 'turbo-method': :post },
-                       class: 'btn btn-modal text-blue text-primary w-100', disabled:  @user == current_user %>
-      <%  end %>
+<div class="user-info-modal modal fade show" id="user-modal" data-controller="user-modal">
+  <div class="user-info-modal-content modal-content">
+    <div class="modal-header justify-content-between">
+      <h5 class="modal-title" id="exampleModalLabel">User info</h5>
+      <button type="button" class="user-info-close close" data-action="click->user-modal#closeModal" >
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+    <div class="d-flex gap-3 btn btn-modal" data-controller="clipboard" data-action="click->clipboard#copy">
+      <div class="icon">
+        <span class="display-6"><i class="bi bi-at"></i></span>
+      </div>
+      <div class="row-content d-flex flex-column">
+        <div class="row-title copyable fw-bold"><%= @user.username %></div>
+        <div class="row-subtitle text-muted align-self-baseline">Username</div>
+      </div>
+    </div>
+    <div class="d-flex gap-3 btn btn-modal" data-controller="clipboard" data-action="click->clipboard#copy">
+      <div class="icon">
+        <span class="display-6"><i class="bi bi-envelope"></i></span>
+      </div>
+      <div class="row-content d-flex flex-column">
+        <div class="row-title copyable fw-bold"><%= @user.email%></div>
+        <div class="row-subtitle text-muted align-self-baseline">Email</div>
+      </div>
+    </div>
+    <div class="d-flex gap-3 btn btn-modal">
+      <div class="icon">
+        <span class="display-6"><i class="bi bi-info-circle"></i></span>
+      </div>
+      <div class="row-content d-flex flex-column">
+<!--          TODO-->
+        <div class="row-title fw-bold">TODO INFO</div>
+        <div class="row-subtitle text-muted align-self-baseline">Bio</div>
+      </div>
+    </div>
+    <% if current_user.contacts.include?(@user) %>
+      <%=  link_to 'Send message',
+                   chat_user_path(@user),
+                   data: { turbo: false },
+                   class: 'btn btn-modal text-blue text-primary'  %>
+    <%  elsif @user.pending_contacts.exists?(user_id: current_user.id) %>
+      <div class="d-flex gap-3 btn btn-modal">Waiting for user to accept your request!</div>
+    <% else %>
+      <%=  button_to 'Add to contacts', contacts_path(contact_id: @user.id), data: { 'turbo-method': :post },
+                     class: 'btn btn-modal text-blue text-primary w-100', disabled:  @user == current_user %>
+    <%  end %>
   </div>
-</turbo-frame>
+</div>

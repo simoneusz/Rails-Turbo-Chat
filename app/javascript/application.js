@@ -9,5 +9,3 @@ import "@rails/actiontext"
 import "trix"
 import "@rails/actiontext"
 import Split from 'split.js'
-
-
