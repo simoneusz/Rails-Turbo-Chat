@@ -15,7 +15,7 @@
           <p class="fw-bold m-0"><%= user.username %></p>
         <% end %>
         <div>
-          <%= button_to 'Cancel', contact_path(user), method: :delete, class: 'btn main-btn-remove btn-modal py-1 w-100' %>
+          <%= button_to 'Cancel', delete_contact_path(user), method: :delete, class: 'btn main-btn-remove btn-modal py-1 w-100' %>
         </div>
       </li>
     <% end %>
