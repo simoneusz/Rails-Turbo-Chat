@@ -1,27 +1,28 @@
-<div class="container d-flex justify-content-center mt-5">
-  <ul class="h-75 w-100 overflow-y-scroll main-scroll-bar m-3 d-flex flex-column gap-3">
-    <% @notifications.order(created_at: :desc).each do |notification| %>
-      <li class="bullet">
+<div class="container mt-5">
+  <h4 class="mb-4 text-center">Your Notifications</h4>
+
+  <% if @notifications.any? %>
+    <ul class="list-unstyled d-flex flex-column gap-3 overflow-y-auto main-scroll-bar" style="max-height: 70vh;">
+      <% @notifications.order(created_at: :desc).each do |notification| %>
         <% data_attrs = { turbo_frame: 'modal_frame', 'turbo-prefetch': false } if notification.item.instance_of?(User) %>
         <% notification_link = notification.item_type == 'User' ? notification.sender : notification.item %>
-        <%= link_to notification_link, data: data_attrs, class: 'text-black text-decoration-none' do %>
-          <div class="d-flex gap-3">
-            <% if notification.sender && notification.sender != notification.receiver %>
-              <%= render partial: 'shared/default_avatar', locals: { user: notification.sender, size: 50, rounded: false } %>
-            <% end %>
-            <div class="">
-              <p class="text-muted p-0 m-0"><%= notification.notification_type.titleize %></p>
-              <%= render notification, locals: { notification: notification } %>
-              <p class="text-muted p-0 m-0"><%= time_ago_in_words(notification.created_at)%> ago</p>
-            </div>
+
+        <%= link_to notification_link, data: data_attrs, class: 'notification-item d-flex gap-3 p-3 rounded shadow-sm align-items-start text-decoration-none text-dark bg-light position-relative hover-shadow' do %>
+          <% if notification.sender && notification.sender != notification.receiver %>
+            <%= render partial: 'shared/default_avatar', locals: { user: notification.sender, size: 50, rounded: true } %>
+          <% end %>
+          <div class="flex-grow-1">
+            <p class="fw-semibold mb-1 text-muted"><%= notification.notification_type.titleize %></p>
+            <%= render notification, locals: { notification: notification } %>
+            <small class="text-muted"><%= time_ago_in_words(notification.created_at) %> ago</small>
           </div>
+          <span class="position-absolute top-0 end-0 mt-2 me-3 badge bg-secondary opacity-75"><%= notification.created_at.strftime("%b %-d") %></span>
         <% end %>
-      </li>
-    <% end %>
-    <% unless @notifications.first %>
-      <li class="">
-        Notifications are clear
-      </li>
-    <% end %>
-  </ul>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="alert alert-info text-center mt-5" role="alert">
+      You have no notifications at the moment.
+    </div>
+  <% end %>
 </div>
