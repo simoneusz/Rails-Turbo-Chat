@@ -1,5 +1,5 @@
 
-<div class="message-content cont-<%= message.user.id %> <%= 'message-content-replied' if message.parent_message %>">
+<div class="message-content ps-sm-4 cont-<%= message.user.id %> <%= 'message-content-replied' if message.parent_message %>">
   <% if message.parent_message %>
     <%= render partial: 'messages/reply_message', locals: { message: message.parent_message } %>
   <% elsif message.replied? %>
