@@ -1,27 +1,39 @@
 <% contacts = current_user.contacts %>
-<div class="contacts-all-actions mb-3">
-  <span class="px-2">All contacts: </span><%= current_user.contacts.size %>
+
+<div class="mb-4">
+  <h4 class="mb-3">Your Contacts</h4>
+  <div class="alert alert-primary d-flex justify-content-between align-items-center" role="alert">
+    <span><strong>Total Contacts:</strong> <%= contacts.size %></span>
+  </div>
 </div>
-<div class="contact-list">
-  <% unless contacts.present? %>
-    <h3>You dont have any contacts yet.</h3>
-  <% end %>
-  <ul class=" list-group mt-4 w-100 d-flex flex-column">
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  <% if contacts.blank? %>
+    <div class="col">
+      <div class="card shadow-sm text-center p-4">
+        <h5 class="text-muted">You don't have any contacts yet.</h5>
+      </div>
+    </div>
+  <% else %>
     <% contacts.each do |contact| %>
-      <% user = contact  %>
-      <li class="members-list-item member-item list-group-item-action py-2 px-1 w-100 d-flex justify-content-between">
-        <%= link_to user_path(user), data: { turbo_frame: 'modal_frame' }, class: 'nav-link px-0 w-100 d-flex flex-row gap-3 align-items-center' do %>
-          <div class="message-avatar d-flex align-items-center">
-            <%= render partial: 'shared/default_avatar', locals: { size: 40, user: user, rounded: false } %>
+      <% user = contact %>
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <%= link_to user_path(user), data: { turbo_frame: 'modal_frame' }, class: 'd-flex align-items-center text-decoration-none text-dark' do %>
+                <%= render partial: 'shared/default_avatar', locals: { size: 50, user: user, rounded: true } %>
+                <h5 class="mb-0 ms-2"><%= user.username %></h5>
+              <% end %>
+            </div>
+            <div class="mt-auto">
+              <%= form_with url: delete_contact_path(user), method: :delete, local: true do %>
+                <%= submit_tag 'Delete', class: 'btn btn-outline-danger w-100' %>
+              <% end %>
+            </div>
           </div>
-          <p class="fw-bold m-0"><%= user.username %></p>
-        <% end %>
-        <div>
-          <%= form_with url: delete_contact_path(user), method: :delete, local: true do %>
-            <%= submit_tag 'Delete', class: 'btn main-btn-remove btn-modal py-1 w-100' %>
-          <% end %>
         </div>
-      </li>
+      </div>
     <% end %>
-  </ul>
+  <% end %>
 </div>
