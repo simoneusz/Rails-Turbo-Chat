@@ -10,7 +10,13 @@
   </div>
   <div class="modal-header-buttons align-self-baseline px-3 d-flex gap-2" data-controller="favorite-animation">
     <%= button_to toggle_favorites_path, params: { room_id: room.id }, class: 'btn border', method: :post, data: { turbo_frame: "favorite_button_#{room.id}" } do %>
-      <span class="star <%= 'starred' if @favorite %>" data-favorite-animation-target="favorite">
+      <span class="star <%= 'starred' if @favorite %>" data-favorite-animation-target="favorite"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="<%= @favorite.nil? ? "!Favorited" : "Favorited" %>"
+            data-controller="bs-init-component" data-action="bs-init-component#bs_init"
+      >
         <i class="star-icon bi bi-star"></i>
       </span>
     <% end %>
