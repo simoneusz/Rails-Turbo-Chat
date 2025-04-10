@@ -24,7 +24,7 @@
     -->
 
   </head>
-  <body class="bg-main main-scroll-bar pt-3">
+  <body class="bg-main main-scroll-bar pt-3" data-controller="on-content-loaded">
 
     <% if user_signed_in? %>
       <%= turbo_frame_tag 'appearances_channel',

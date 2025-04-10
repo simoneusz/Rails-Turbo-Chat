@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import * as bootstrap from "bootstrap";
+import "bootstrap";
 
 // Connects to data-controller="on-content-loaded"
 export default class extends Controller {
