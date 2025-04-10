@@ -4,7 +4,6 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   connect() {
     let toggle_type = this.element.attributes['data-bs-toggle'].value;
-    console.log(toggle_type);
     switch (toggle_type) {
       case 'tooltip':
         new bootstrap.Tooltip(this.element, {});

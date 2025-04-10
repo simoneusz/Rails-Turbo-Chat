@@ -24,28 +24,23 @@ consumer.subscriptions.create("AppearancesChannel", {
   received(data) {},
 
   online() {
-    console.log("online");
     this.perform("online");
   },
 
   away() {
-    console.log("away");
     this.perform("away");
   },
 
   offline() {
-    console.log("offline");
     this.perform("offline");
   },
 
   uninstall() {
-    console.log("uninstall");
     clearTimeout(this.timer);
     this.perform("offline");
   },
 
   install() {
-    console.log("install");
     ["turbo:load"].forEach(event =>
       window.addEventListener(event, resetFunc)
     );
@@ -59,7 +54,6 @@ consumer.subscriptions.create("AppearancesChannel", {
     const changedByUser = shouldRun.dataset.statusChanged === "true";
     const userStatus = shouldRun.dataset.status;
     if (!changedByUser) {
-      console.log("here");
       this.online();
       clearTimeout(this.timer);
 
@@ -69,7 +63,6 @@ consumer.subscriptions.create("AppearancesChannel", {
     }
   },
   changeStatus(status) {
-    console.log("changeStatus", status);
     switch (status) {
       case 'away':
         this.perform("away");

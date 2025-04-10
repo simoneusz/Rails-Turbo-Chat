@@ -4,7 +4,6 @@ import Hero from "./Hero";
 
 const App = () => {
   const userSignedIn = JSON.parse(document.getElementById("react-root").getAttribute("data-user-sign-in"))
-  console.log(userSignedIn)
   return (
     <Hero
     userSignedIn={userSignedIn}/>

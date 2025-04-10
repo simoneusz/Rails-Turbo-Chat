@@ -15,7 +15,6 @@ export default class extends Controller {
   }
 
   open(event) {
-    console.log("open", event);
     event.preventDefault();
     event.stopPropagation();
 
@@ -46,8 +45,7 @@ export default class extends Controller {
   }
 
   updateLinkTargets(messageId, roomId) {
-    // TODO: Maybe consider refactoring to use a stimulus value instead,
-    // then feed the stimulus value the todos_path?
+  // then feed the stimulus value the todos_path?
     const messagePath = `/rooms/${roomId}/messages/${messageId}`;
     // this.showLinkTarget.href = todoPath;
     // this.editLinkTarget.href = `${todoPath}/edit`;
