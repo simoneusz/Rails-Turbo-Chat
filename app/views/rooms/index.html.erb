@@ -1,4 +1,4 @@
-<div class="sidebar col-4 bg-secondary w-100 <%= 'md-hide-sidebar' if @single_room && !@dms %>">
+<div id="sidebar" data-controller="room-resizer" class="sidebar resizer-left col-4 bg-secondary position-relative <%= 'md-hide-sidebar' if @single_room && !@dms %>">
   <%= render partial: 'rooms/sidebar' %>
 </div>
 

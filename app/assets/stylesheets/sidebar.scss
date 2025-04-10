@@ -1,7 +1,6 @@
 .sidebar{
   border-radius: 10px 0 0 10px;
   color: var(--sidebar-text-color);
-  max-width: 400px;
 }
 .sidebar-main{
   max-height: calc(100vh - 100px);
@@ -41,4 +40,21 @@
   max-height: 300px;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.split {
+  display: flex;
+  flex-direction: row;
+}
+
+.gutter {
+  background-color: #eee;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  touch-action: none;
+}
+
+.gutter.gutter-horizontal {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  cursor: col-resize;
 }
