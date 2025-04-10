@@ -1,21 +1,26 @@
 import { Controller } from "@hotwired/stimulus"
-import Split from "split.js";
+import Split from "split.js"
 
-// Connects to data-controller="room-resizer"
 export default class extends Controller {
   connect() {
+    const main = document.querySelector("main")
+    const elements = [...main.children]
 
-    let main = document.querySelector("main")
-    let elements = main.childNodes;
-    Split([...main.children], {
-      sizes: [25, 75],
+    const savedSizes = localStorage.getItem("split-sizes")
+    const sizes = savedSizes ? JSON.parse(savedSizes) : [33, 66]
+
+    this.split = Split(elements, {
+      sizes: sizes,
       minSize: [250, 500],
+      onDragEnd: (newSizes) => {
+        localStorage.setItem("split-sizes", JSON.stringify(newSizes))
+      },
     })
   }
 
   disconnect() {
     // Removing previous gutter until it's not initialized by Split
-    let gutter = document.querySelector(".gutter")
-    if (gutter) gutter.remove();
+    const gutter = document.querySelector(".gutter")
+    if (gutter) gutter.remove()
   }
 }
