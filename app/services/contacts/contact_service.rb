@@ -15,7 +15,7 @@ module Contacts
       return result_existing_request if result_existing_request
 
       contact = Contact.find_by(user: @user, contact: @other_user)
-      return error_contact_already_exists if contact&.accepted?
+      return error_contact_already_exists if contact&.status_accepted?
 
       update_or_create_request_contact(contact)
       notify_target_user(@other_user, @user, @other_user, :contact_invite_requested)
@@ -24,7 +24,7 @@ module Contacts
 
     def update_or_create_request_contact(contact)
       if contact
-        contact.update!(status: :pending) if contact.rejected?
+        contact.update!(status: :pending) if contact.status_rejected?
       else
         Contact.create!(user: @user, contact: @other_user, status: :pending)
       end
