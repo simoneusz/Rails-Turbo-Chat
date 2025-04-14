@@ -46,7 +46,6 @@
         <div class="message-body-<%= message.user.id %>"
              data-message-id="<%= message.id %>"
              data-room-id="<%= message.room.id %>">
-          <%= message.id %>
           <%= message.content %>
 
           <%= turbo_stream_from "message_#{message.id}_reactions"%>
