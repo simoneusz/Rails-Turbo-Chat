@@ -22,14 +22,6 @@ module Contacts
       success(@other_user)
     end
 
-    def update_or_create_request_contact(contact)
-      if contact
-        contact.update!(status: :pending) if contact.status_rejected?
-      else
-        Contact.create!(user: @user, contact: @other_user, status: :pending)
-      end
-    end
-
     def accept_contact
       contact_request = @user.received_contacts.find_by(user: @other_user, status: :pending)
       return error_contact_doesnt_exist unless contact_request
@@ -79,6 +71,14 @@ module Contacts
       end
 
       false
+    end
+
+    def update_or_create_request_contact(contact)
+      if contact
+        contact.update!(status: :pending) if contact.status_rejected?
+      else
+        Contact.create!(user: @user, contact: @other_user, status: :pending)
+      end
     end
 
     def delete_peer_room
