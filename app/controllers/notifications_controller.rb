@@ -8,12 +8,19 @@ class NotificationsController < ApplicationController
     @notifications.update(viewed: true)
   end
 
-  def mark_as_read
+  def mark_as_read # rubocop:disable Metrics/MethodLength
     @notification = current_user.notifications.find(params[:id])
-    @notification.update(viewed: true)
+    result = Notifications::MarkAsReadService.new(@notification, current_user).call
+
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to notifications_path }
+      format.html do
+        if result.success?
+          redirect_to notifications_path
+        else
+          redirect_to notifications_path, alert: 'Could not mark notification as read'
+        end
+      end
     end
   end
 end
