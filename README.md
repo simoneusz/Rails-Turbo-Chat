@@ -6,6 +6,7 @@
 [![Turbo](https://img.shields.io/badge/Turbo-green.svg)](https://turbo.hotwired.dev/)
 
 Modern, real-time chat application inspired by Slack, Skype and Discord — offering private and public conversations, peer-to-peer messaging, roles & permissions, and a clean, responsive UI. Built with Ruby on Rails 7, ActionCable, Hotwire Turbo, Stimulus, Bootstrap and React, it’s a feature-rich foundation for scalable and extensible communication tools.
+![work_preview](https://i.imgur.com/fnKlt3R.gif)
 
 ##  ⭐ Features
 
