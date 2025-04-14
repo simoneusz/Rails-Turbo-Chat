@@ -86,9 +86,8 @@ class RoomsController < ApplicationController
   end
 
   def mark_messages_as_read
-    return unless @single_room.messages.unread_by(current_user).exists?
-
-    @single_room.messages.each { |message| message.mark_as_read! for: current_user }
+    unread = @single_room.messages.unread_by(current_user)
+    unread.each { |m| m.mark_as_read!(for: current_user) } if unread.exists?
   end
 
   def find_participant(user_id)
