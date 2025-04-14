@@ -21,5 +21,9 @@ module Constants
     CODE_REACTION_INVALID = :invalid_reaction
     CODE_NO_REACTION_BY_USER = :no_reaction_by_user
     CODE_FAVORITE_DOES_NOT_EXIST = :favorite_doesnt_exist
+
+    CODE_USER_UPDATE_FAILED = :user_update_failed
+    CODE_USER_NOT_FOUND = :user_not_found
+    CODE_STATUS_INVALID = :user_status_invalid
   end
 end

@@ -17,3 +17,6 @@ en:
     not_a_participant: "You don't belong to this room"
     invalid_reaction: "Can't use this reaction"
     no_reaction_by_user: "You dont have reactions on this message"
+    user_update_failed: "Can't update user data"
+    user_not_found: "Can't found this user"
+    user_status_invalid: "This status is not valid"
