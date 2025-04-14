@@ -21,6 +21,5 @@ export default class extends Controller {
         star.classList.add("starred");
       }
     });
-
   }
 }

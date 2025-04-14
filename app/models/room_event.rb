@@ -6,6 +6,8 @@ class RoomEvent < ApplicationRecord
 
   validates :eventable_type, presence: true
 
+  after_create_commit { broadcast_append_to room }
+
   def next
     room.events.where('id > ?', id).first
   end
