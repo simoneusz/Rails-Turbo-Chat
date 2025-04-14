@@ -50,7 +50,7 @@ export default class extends Controller {
   }
 
   getMessageId(clickedElement) {
-    const container = clickedElement.closest(".message-box");
+    const container = clickedElement.closest(".message-content");
     if (!container) return null;
 
     const messageElement = container.querySelector("[data-message-id]");
@@ -58,7 +58,7 @@ export default class extends Controller {
   }
 
   getRoomId(clickedElement) {
-    const container = clickedElement.closest(".message-box");
+    const container = clickedElement.closest(".message-content");
     if (!container) return null;
 
     const messageElement = container.querySelector("[data-room-id]");
