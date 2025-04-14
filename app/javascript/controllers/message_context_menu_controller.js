@@ -45,18 +45,24 @@ export default class extends Controller {
   }
 
   updateLinkTargets(messageId, roomId) {
-  // then feed the stimulus value the todos_path?
     const messagePath = `/rooms/${roomId}/messages/${messageId}`;
-    // this.showLinkTarget.href = todoPath;
-    // this.editLinkTarget.href = `${todoPath}/edit`;
     this.deleteLinkTarget.href = messagePath;
   }
 
   getMessageId(clickedElement) {
-    return clickedElement.closest("[data-message-id]").dataset.messageId;
+    const container = clickedElement.closest(".message-box");
+    if (!container) return null;
+
+    const messageElement = container.querySelector("[data-message-id]");
+    return messageElement ? messageElement.dataset.messageId : null;
   }
+
   getRoomId(clickedElement) {
-    return clickedElement.closest("[data-room-id]").dataset.roomId;
+    const container = clickedElement.closest(".message-box");
+    if (!container) return null;
+
+    const messageElement = container.querySelector("[data-room-id]");
+    return messageElement ? messageElement.dataset.roomId : null;
   }
 
   toggleMenuOptions(hide) {
