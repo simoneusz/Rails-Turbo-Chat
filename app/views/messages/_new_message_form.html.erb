@@ -1,6 +1,6 @@
 <%= render partial: 'messages/reply_form_preview' %>
 
-<%= content_tag(:div, class: 'trix-form border rounded form-group msg-form p-0', data: { controller: 'emoji-picker', }) do %>
+<%= content_tag(:div, class: 'trix-form border rounded form-group msg-form p-0 mx-4 bg-transparent', data: { controller: 'emoji-picker', }) do %>
   <%= form_with(model: [@single_room, @message], remote: true,
                 data: { controller: 'reset-form', action: 'turbo:submit-end->reset-form#reset turbo:submit-end->reply#clearReply' }) do |f| %>
   <%= f.hidden_field :parent_message_id, value: '', data: { reply_target: 'parentMessageId' } %>
@@ -12,7 +12,7 @@
                          autocomplete: 'off',
                          placeholder: "Message in ##{@single_room.name}",
                          data: { controller: 'trix', emoji_picker_target: 'trixEditor' } %>
-    <%= button_tag(type: 'submit', data: { disable_with: false }, class: 'new-message-submit btn') do %>
+    <%= button_tag(type: 'submit', data: { disable_with: false }, class: 'new-message-submit p-3 btn') do %>
       <i class="bi bi-send"></i>
     <% end %>
   <% end %>
