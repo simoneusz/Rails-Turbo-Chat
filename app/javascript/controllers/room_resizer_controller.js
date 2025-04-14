@@ -3,6 +3,9 @@ import Split from "split.js"
 
 export default class extends Controller {
   connect() {
+    const gutter = document.querySelector(".gutter")
+    if (gutter) gutter.remove()
+
     const main = document.querySelector("main")
     const elements = [...main.children]
 
@@ -16,11 +19,5 @@ export default class extends Controller {
         localStorage.setItem("split-sizes", JSON.stringify(newSizes))
       },
     })
-  }
-
-  disconnect() {
-    // Removing previous gutter until it's not initialized by Split
-    const gutter = document.querySelector(".gutter")
-    if (gutter) gutter.remove()
   }
 }
