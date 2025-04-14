@@ -25,5 +25,6 @@ module Constants
     CODE_USER_UPDATE_FAILED = :user_update_failed
     CODE_USER_NOT_FOUND = :user_not_found
     CODE_STATUS_INVALID = :user_status_invalid
+    CODE_USER_CANT_DESTROY_MESSAGE = :user_cant_destroy_message
   end
 end

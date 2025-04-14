@@ -11,8 +11,13 @@ class MessagesController < ApplicationController
 
   def destroy
     @message = current_user.messages.find(params[:id])
-    @message.destroy
-    redirect_to room_path(@room)
+    result = Messages::MessageDestroyService.new(@message, @room, current_user).call
+
+    if result.success?
+      redirect_to room_path(@room)
+    else
+      redirect_to room_path(@room), alert: 'You cant send messages here'
+    end
   end
 
   private
