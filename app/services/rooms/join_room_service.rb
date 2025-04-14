@@ -3,7 +3,6 @@
 module Rooms
   class JoinRoomService < ApplicationService
     def initialize(room, user)
-      super()
       @room = room
       @user = user
       @joined_user_role = :member

@@ -3,7 +3,6 @@
 module Contacts
   class ContactService < ApplicationService
     def initialize(user, other_user)
-      super()
       @user = user
       @other_user = other_user
     end

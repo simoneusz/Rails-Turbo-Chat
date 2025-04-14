@@ -3,7 +3,6 @@
 module Participants
   class ChangeParticipantRoleService < ApplicationService
     def initialize(participant, new_role)
-      super()
       @participant = participant
       @new_role = new_role
     end

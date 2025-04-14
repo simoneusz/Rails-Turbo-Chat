@@ -3,7 +3,6 @@
 module Rooms
   class CreatePeerRoomService < ApplicationService
     def initialize(room_params, current_user, other_user)
-      super()
       @room_params = room_params
       @current_user = current_user
       @other_user = other_user

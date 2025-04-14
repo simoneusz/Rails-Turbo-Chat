@@ -3,7 +3,6 @@
 module Participants
   class AddParticipantService < ApplicationService
     def initialize(room, current_user, target_user, role)
-      super()
       @room = room
       @current_user = current_user
       @target_user = target_user

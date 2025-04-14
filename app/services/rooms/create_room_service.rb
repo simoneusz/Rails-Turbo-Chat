@@ -3,7 +3,6 @@
 module Rooms
   class CreateRoomService < ApplicationService
     def initialize(room_params, current_user, role = :owner)
-      super()
       @room_params = room_params
       @current_user = current_user
       @role = role

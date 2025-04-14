@@ -3,7 +3,6 @@
 module Rooms
   class LeaveRoomService < ApplicationService
     def initialize(room, participant)
-      super()
       @room = room
       @participant = participant
       @user = @participant.try(:user)

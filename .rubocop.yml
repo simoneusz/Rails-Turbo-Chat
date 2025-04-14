@@ -19,3 +19,7 @@ Metrics/ClassLength:
   Enabled: false
 Rails/I18nLocaleTexts:
   Enabled: false
+Lint/MissingSuper:
+  Enabled: true
+  Exclude:
+    - app/services/**/*

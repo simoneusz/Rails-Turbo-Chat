@@ -3,7 +3,6 @@
 module Messages
   class MessageReactionsService < ApplicationService
     def initialize(message, current_user, emoji = nil)
-      super()
       @message = message
       @current_user = current_user
       @emoji = emoji

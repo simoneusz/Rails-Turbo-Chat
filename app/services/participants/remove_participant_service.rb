@@ -2,10 +2,7 @@
 
 module Participants
   class RemoveParticipantService < ApplicationService
-    CODE_PARTICIPANT_DOESNT_EXIST = :participant_doesnt_exist
-
     def initialize(room, current_user, user)
-      super()
       @room = room
       @current_user = current_user
       @target_user = user

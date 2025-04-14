@@ -3,7 +3,6 @@
 module Favorites
   class FavoritesToggleService < ApplicationService
     def initialize(favorite, room, user)
-      super()
       @favorite = favorite
       @room = room
       @user = user

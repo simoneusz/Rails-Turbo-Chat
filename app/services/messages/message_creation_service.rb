@@ -3,7 +3,6 @@
 module Messages
   class MessageCreationService < ApplicationService
     def initialize(message_params, room, user)
-      super()
       @message_params = message_params
       @room = room
       @user = user
