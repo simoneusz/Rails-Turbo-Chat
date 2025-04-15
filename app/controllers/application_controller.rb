@@ -69,7 +69,9 @@ class ApplicationController < ActionController::Base
 
   def handle_service_result(room, result, success_message)
     current_room = room || result.data
-    if result.success?
+    if !success_message
+      redirect_to room_path(current_room) || rooms_path
+    elsif result.success?
       set_flash_and_redirect(:notice, success_message, room_path(current_room) || rooms_path)
     else
       render_service_error(result, rooms_path)

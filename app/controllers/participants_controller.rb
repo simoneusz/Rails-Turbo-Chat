@@ -33,15 +33,9 @@ class ParticipantsController < ApplicationController
   end
 
   def toggle_notifications
-    participant = @room.find_participant(@user)
-    return unless participant
+    result = Participants::ToggleNotificationsService.new(@room, @user).call
 
-    participant.update(mute_notifications: !participant.mute_notifications)
-
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to @room }
-    end
+    handle_service_result(@room, result, nil)
   end
 
   private
@@ -61,6 +55,8 @@ class ParticipantsController < ApplicationController
                Rooms::LeaveRoomService.new(@room, @room.find_participant(current_user)).call
              when :join
                Rooms::JoinRoomService.new(@room, current_user).call
+             when :toggle_notifications
+               Participants::ToggleNotificationsService.new(@room, @user).call
              end
     handle_service_result(@room, result, "Participant #{action}ed successfully")
   end
