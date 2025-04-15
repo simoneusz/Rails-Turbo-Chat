@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   before_action :set_query
   before_action :turbo_frame_request_variant
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   def set_query
@@ -76,5 +78,15 @@ class ApplicationController < ActionController::Base
     else
       render_service_error(result, rooms_path)
     end
+  end
+
+  def record_not_found
+    raise ActionController::RoutingError, 'Not Found'
+  rescue StandardError
+    render404
+  end
+
+  def render404
+    render file: Rails.public_path.join('404.html').to_s, status: :not_found
   end
 end
