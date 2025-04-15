@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @room_name = private_room_name(@user, current_user)
 
-    redirect_to Room.where(name: @room_name).first ||
+    redirect_to Room.find_by(name: @room_name) ||
                 Rooms::CreatePeerRoomService.new(
                   { name: @room_name, is_private: true },
                   current_user,
