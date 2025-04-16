@@ -8,7 +8,6 @@ class ContactsController < ApplicationController
 
   def create
     @user = User.find(params[:contact_id])
-    @users = User.excluding(current_user)
 
     result = Contacts::ContactService.new(current_user, @user).request_contact
 

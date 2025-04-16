@@ -75,7 +75,6 @@ class RoomsController < ApplicationController
 
   def prepare_show_page # rubocop:disable Metrics/AbcSize
     @rooms = Room.public_rooms
-    @users = User.excluding(current_user)
     @favorite = current_user.favorite_rooms.find_by(room_id: @single_room.id)
     @message = Message.new
     pagy_events = @single_room.events.order(created_at: :desc)
