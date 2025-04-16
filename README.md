@@ -11,14 +11,14 @@ Modern, real-time chat application inspired by Slack, Skype and Discord — offe
 ##  ⭐ Features
 
 - Realtime chat without reloading
-- Service Objects arhitecture with minimal controllers/models code
+- Service Objects architecture with minimal controllers/models code
 - Per-to-per conversations
 - Group conversations(public and private)
 - Attachments
-- Emojies
-- Image, PDF and other files previews
-- Threads with messages replies
-- Message reactions with emojies
+- Emojis
+- Image, PDF and other file previews
+- Threads with message replies
+- Message reactions with emojis
 - Smart chat roles
 - User authentication with OmniAuth (social login)
 - User statuses(online, offline, brb, etc)
