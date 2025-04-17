@@ -16,7 +16,7 @@
       <div class="modal-body mb-2">
         <%= render partial: 'search/form' %>
         <turbo-frame id="search_results">
-          <%= render 'search/search_results', search_results: @search_results %>
+          <%= render 'search/search_results', search_results: defined?(@search_results) ? @search_results : {} %>
         </turbo-frame>
       </div>
     </div>

@@ -5,28 +5,11 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_query
   before_action :turbo_frame_request_variant
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
-
-  def set_query
-    @query = User.ransack(search_query)
-    @users = []
-
-    @search_results = search_query.empty? ? {} : @query.result
-  end
-
-  def search_query
-    return {} unless params[:q] && params[:q][:search]
-
-    query = params[:q][:search]&.strip
-    return {} if query.blank?
-
-    search_query_for_field(query)
-  end
 
   protected
 
@@ -36,19 +19,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def search_query_for_field(query)
-    case query[0]
-    when '#'
-      { username_cont: query[1..] }
-    when '@'
-      { email_cont: query[1..] }
-    when '$'
-      { first_name_or_last_name_cont: query[1..] }
-    else
-      { username_or_email_or_first_name_or_last_name_cont_any: query.split }
-    end
-  end
 
   def turbo_frame_request_variant
     request.variant = :turbo_frame if turbo_frame_request?

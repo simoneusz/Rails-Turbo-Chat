@@ -1,14 +1,5 @@
-<%= search_form_for @query,
-                    url: search_users_path,
-                    method: :get,
-                    data: { turbo_frame: 'search_results' },
-                    html: { class: 'd-flex gap-2 mb-3', role: 'search' } do |f|
-%>
-  <%= f.label :search, 'Search Users' %>
-  <%= f.search_field :search,
-                     value: params.dig(:q, :search),
-                     class: 'form-control me-2',
-                     placeholder: 'Enter name, email, or username'
-  %>
-  <%= f.submit 'Search' %>
+<%= form_with url: search_users_path, method: :get, data: { turbo_frame: 'search_results' }, class: 'd-flex gap-2 mb-3', role: 'search' do %>
+  <%= label_tag 'q[search]', 'Search Users' %>
+  <%= search_field_tag 'q[search]', params.dig(:q, :search), class: 'form-control me-2', placeholder: 'Enter name, email, or username' %>
+  <%= submit_tag 'Search' %>
 <% end %>
