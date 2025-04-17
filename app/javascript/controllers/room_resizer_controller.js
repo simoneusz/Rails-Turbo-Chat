@@ -14,7 +14,7 @@ export default class extends Controller {
 
     this.split = Split(elements, {
       sizes: sizes,
-      minSize: [250, 500],
+      minSize: [250, 700],
       onDragEnd: (newSizes) => {
         localStorage.setItem("split-sizes", JSON.stringify(newSizes))
       },
