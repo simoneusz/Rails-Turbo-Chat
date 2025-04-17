@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def search
+  def search # rubocop:disable Metrics/MethodLength
     result = Users::SearchQueryService.new(params).call.data
 
     @query = result[:query]

@@ -1,4 +1,5 @@
-# app/services/users/search_query_service.rb
+# frozen_string_literal: true
+
 module Users
   class SearchQueryService < ApplicationService
     def initialize(params)

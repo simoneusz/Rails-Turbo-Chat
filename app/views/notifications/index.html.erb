@@ -16,7 +16,7 @@
             <%= render notification, locals: { notification: notification } %>
             <small class="text-muted"><%= time_ago_in_words(notification.created_at) %> ago</small>
           </div>
-          <span class="position-absolute top-0 end-0 mt-2 me-3 badge bg-secondary opacity-75"><%= notification.created_at.strftime("%b %-d") %></span>
+          <span class="position-absolute top-0 end-0 mt-2 me-3 badge bg-secondary opacity-75"><%= notification.created_at.strftime('%b %-d') %></span>
         <% end %>
       <% end %>
     </ul>
