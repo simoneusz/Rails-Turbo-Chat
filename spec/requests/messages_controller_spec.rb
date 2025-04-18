@@ -98,8 +98,8 @@ RSpec.describe MessagesController, type: :controller do
 
       let!(:message) { create(:message, user: another_user, room: room) }
 
-      it 'raises an error' do
-        expect { delete_message }.to raise_error(ActiveRecord::RecordNotFound)
+      it 'does not deletes any message' do
+        expect { delete_message }.not_to change(Message, :count)
       end
     end
   end

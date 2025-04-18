@@ -12,7 +12,7 @@ class Message < ApplicationRecord
   has_many :reactions, dependent: :destroy
   has_one :room_event, as: :eventable, dependent: :destroy
 
-  validates :content, presence: true, exclusion: [nil, '', ' '], length: { minimum: 1, maximum: 4000 }
+  validates :content, presence: true, exclusion: [nil, '', ' ']
 
   after_create_commit { broadcast_append_to room }
   after_create_commit :create_room_event
