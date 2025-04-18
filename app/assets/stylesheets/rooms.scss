@@ -1,13 +1,8 @@
-#single_room{
-  //background-image: url("/images/abstract.png");
-  //background-repeat: no-repeat;
-  //background-size: cover;
-}
-
 #chatroom_container{
   flex: 1 1 auto;
   max-height: calc(100vh - 15px);
 }
+
 .room-container{
   overflow-y: auto;
 }
@@ -21,6 +16,7 @@
     background-color: var(--shadow-light-bg-color);
   }
 }
+
 .message-box {
   width: fit-content;
   border-radius: 10px;
@@ -30,12 +26,15 @@
 .message-time{
   font-size: 12px;
 }
+
 .message-avatar > div > img{
   border-radius: clamp(12px, min(22.222%, 12px), 12px);
 }
+
 .message-avatar > div{
   border-radius: clamp(12px, min(22.222%, 12px), 12px);
 }
+
 .message-name{
   &:hover{
     text-decoration: underline;
@@ -48,15 +47,7 @@
   border-left: 5px solid var(--reply-border-color);
   border-radius: 5px 0 0 5px;
 }
-.message-content-replied{
 
-}
-.message-reply-box{
-
-}
-.message-reply-username{
-
-}
 .message-reply-parent-content{
   color: var(--reply-text-color);
   & i{
@@ -78,9 +69,7 @@
     background-color: white;
   }
 }
-.reactions{
 
-}
 .reaction{
   background-color: var(--shadow-bg-color);
   padding: 3px;
@@ -125,6 +114,7 @@
   background-color: var(--reply-bg-color);
 
 }
+
 .room-notification-time{
   font-size: 12px;
 }

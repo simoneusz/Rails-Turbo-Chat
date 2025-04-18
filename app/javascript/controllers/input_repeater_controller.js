@@ -3,7 +3,6 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="input-repeater"
 export default class extends Controller {
   static targets = ["inputRepeater", "outputRepeater"]
-  connect() {}
 
   repeat(){
     let value = this.inputRepeaterTarget.value;
