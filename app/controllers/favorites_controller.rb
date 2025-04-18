@@ -7,7 +7,7 @@ class FavoritesController < ApplicationController
   before_action :set_favorite, only: [:toggle]
 
   def toggle
-    Favorites::FavoritesToggleService.new(@favorite, @room, @user).toggle_favorite
+    Favorites::ToggleService.new(@favorite, @room, @user).toggle_favorite
 
     respond_to do |format|
       format.turbo_stream

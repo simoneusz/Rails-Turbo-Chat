@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Favorites::FavoritesToggleService do
+RSpec.describe Favorites::ToggleService do
   let(:user) { create(:user) }
   let(:room) { create(:room) }
   let!(:favorite) { create(:favorite, user:, room:) }

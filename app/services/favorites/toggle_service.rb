@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Favorites
-  class FavoritesToggleService < ApplicationService
+  class ToggleService < ApplicationService
     def initialize(favorite, room, user)
       @favorite = favorite
       @room = room

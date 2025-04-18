@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Messages::MessageReactionsService do
+RSpec.describe Messages::ReactionsService do
   let(:user) { create(:user) }
   let(:message) { create(:message) }
   let(:emoji) { '😊' }

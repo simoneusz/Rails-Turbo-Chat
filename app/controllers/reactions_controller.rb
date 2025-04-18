@@ -5,7 +5,7 @@ class ReactionsController < ApplicationController
   before_action :set_message, only: %i[create destroy]
 
   def create
-    result = Messages::MessageReactionsService.new(@message, current_user, params[:emoji]).create
+    result = Messages::ReactionsService.new(@message, current_user, params[:emoji]).create
 
     respond_to do |format|
       if result.success?
@@ -20,7 +20,7 @@ class ReactionsController < ApplicationController
   end
 
   def destroy
-    result = Messages::MessageReactionsService.new(@message, current_user, params[:emoji]).destroy
+    result = Messages::ReactionsService.new(@message, current_user, params[:emoji]).destroy
     if result.success?
       broadcast_update_to_message
     else

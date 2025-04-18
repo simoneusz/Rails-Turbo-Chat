@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Messages
-  class MessageCreationService < ApplicationService
+  class CreationService < ApplicationService
     def initialize(message_params, room, user)
       @message_params = message_params
       @room = room

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Messages::MessageCreationService do
+RSpec.describe Messages::CreationService do
   let(:user) { create(:user) }
   let(:room) { create(:room) }
   let(:participant) { create(:participant, room:, user:, role: :member) }

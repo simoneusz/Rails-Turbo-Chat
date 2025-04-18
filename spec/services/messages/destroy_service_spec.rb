@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Messages::MessageDestroyService do
+RSpec.describe Messages::DestroyService do
   let(:room) { create(:room) }
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Messages
-  class MessageDestroyService < ApplicationService
+  class DestroyService < ApplicationService
     def initialize(message, room, user)
       @message = message
       @room = room

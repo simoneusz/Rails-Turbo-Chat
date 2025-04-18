@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Messages
-  class MessageReactionsService < ApplicationService
+  class ReactionsService < ApplicationService
     def initialize(message, current_user, emoji = nil)
       @message = message
       @current_user = current_user
