@@ -1,52 +1,65 @@
-<div class="user-info-modal modal fade show" id="user-modal" data-controller="user-modal">
-  <div class="user-info-modal-content modal-content">
-    <div class="modal-header justify-content-between">
-      <h5 class="modal-title" id="exampleModalLabel">User info</h5>
-      <button type="button" class="user-info-close close" data-action="click->user-modal#closeModal" >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="d-flex gap-3 btn btn-modal" data-controller="clipboard" data-action="click->clipboard#copy">
-      <div class="icon">
-        <span class="display-6"><i class="bi bi-at"></i></span>
+<div class="user-info-modal modal fade show" id="user-modal" data-controller="user-modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="user-info-modal-content modal-content">
+      <div class="modal-header justify-content-between">
+        <h5 class="modal-title" id="exampleModalLabel">User info</h5>
+        <button type="button" class="user-info-close close" data-action="click->user-modal#closeModal" >
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="row-content d-flex flex-column">
-        <div class="row-title copyable fw-bold"><%= @user.username %></div>
-        <div class="row-subtitle text-muted align-self-baseline">Username</div>
+      <div class="d-flex gap-3 btn btn-modal" data-controller="clipboard" data-action="click->clipboard#copy">
+        <div class="icon">
+          <span class="display-6"><i class="bi bi-at"></i></span>
+        </div>
+        <div class="row-content d-flex flex-column">
+          <div class="row-title copyable fw-bold"><%= @user.username %></div>
+          <div class="row-subtitle text-muted align-self-baseline">Username</div>
+        </div>
       </div>
-    </div>
-    <div class="d-flex gap-3 btn btn-modal" data-controller="clipboard" data-action="click->clipboard#copy">
-      <div class="icon">
-        <span class="display-6"><i class="bi bi-envelope"></i></span>
+      <div class="d-flex gap-3 btn btn-modal" data-controller="clipboard" data-action="click->clipboard#copy">
+        <div class="icon">
+          <span class="display-6"><i class="bi bi-envelope"></i></span>
+        </div>
+        <div class="row-content d-flex flex-column">
+          <div class="row-title copyable fw-bold"><%= @user.email%></div>
+          <div class="row-subtitle text-muted align-self-baseline">Email</div>
+        </div>
       </div>
-      <div class="row-content d-flex flex-column">
-        <div class="row-title copyable fw-bold"><%= @user.email%></div>
-        <div class="row-subtitle text-muted align-self-baseline">Email</div>
+      <div class="d-flex gap-3 btn btn-modal" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <div class="icon">
+          <span class="display-6"><i class="bi bi-info-circle"></i></span>
+        </div>
+        <div class="row-content d-flex flex-column">
+          <div class="row-title fw-bold">General information</div>
+          <div class="collapse text-start" id="collapseExample">
+            <p class="p-0">
+              <span class="position-relative px-2">
+                <%= @user.status.capitalize %>
+                <%= render partial: 'users/status', locals: { user: @user } %>
+              </span>
+            </p>
+            <p class="p-0">
+              <span class="px-2">Member for: <%= time_ago_in_words(@user.created_at) %></span>
+            </p>
+          </div>
+        </div>
+
+
       </div>
-    </div>
-    <div class="d-flex gap-3 btn btn-modal">
-      <div class="icon">
-        <span class="display-6"><i class="bi bi-info-circle"></i></span>
-      </div>
-      <div class="row-content d-flex flex-column">
-<!--          TODO-->
-        <div class="row-title fw-bold">TODO INFO</div>
-        <div class="row-subtitle text-muted align-self-baseline">Bio</div>
-      </div>
-    </div>
-    <% unless current_user == @user %>
-      <% if current_user.contacts.include?(@user) %>
-        <%= link_to 'Send message',
-                    chat_user_path(@user),
-                    data: { turbo: false },
-                    class: 'btn btn-modal text-blue text-primary' %>
-      <% elsif @user.pending_contacts.exists?(user_id: current_user.id) %>
-        <div class="d-flex gap-3 btn btn-modal">Waiting for user to accept your request!</div>
-      <% else %>
-        <%= button_to 'Add to contacts', contacts_path(contact_id: @user.id),
-                      data: { 'turbo-method': :post },
-                      class: 'btn btn-modal text-blue text-primary w-100' %>
+      <% unless current_user == @user %>
+        <% if current_user.contacts.include?(@user) %>
+          <%= link_to 'Send message',
+                      chat_user_path(@user),
+                      data: { turbo: false },
+                      class: 'btn btn-modal text-blue text-primary' %>
+        <% elsif @user.pending_contacts.exists?(user_id: current_user.id) %>
+          <div class="d-flex gap-3 btn btn-modal">Waiting for user to accept your request!</div>
+        <% else %>
+          <%= button_to 'Add to contacts', contacts_path(contact_id: @user.id),
+                        data: { 'turbo-method': :post },
+                        class: 'btn btn-modal text-blue text-primary w-100' %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>
