@@ -1,0 +1,31 @@
+.user-info-modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: black;
+}
+.user-info-modal-content {
+  background: white;
+  margin: 15% auto;
+}
+.user-info-close{
+  border: none;
+  background: transparent;
+  font-size: 20px;
+}
+
+.btn-modal{
+  background-color: transparent;
+  transition: all 0s;
+  &:hover{
+    background-color: var(--shadow-bg-color)
+  }
+  &:disabled,
+  &[disabled]{
+    color: #2E2F30!important;
+  }
+}
