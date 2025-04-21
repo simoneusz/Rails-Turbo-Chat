@@ -18,40 +18,46 @@ class Room < ApplicationRecord
   scope :public_rooms, -> { where(is_private: false) }
   scope :private_rooms, -> { where(is_private: true) }
 
+  scope :with_participant, lambda { |user|
+    joins(:participants).where(participants: { user_id: user.id })
+  }
+
+  scope :with_role, lambda { |role|
+    where(participants: { role: role })
+  }
+
+  scope :without_role, lambda { |role|
+    where.not(participants: { role: role })
+  }
+
+  scope :ordered, -> { order(:created_at) }
+
   scope :all_for_user, lambda { |user|
-    left_outer_joins(:participants)
-      .where(is_private: false)
-      .or(where(participants: { user_id: user.id }))
+    public_rooms
+      .or(with_participant(user))
       .distinct
   }
 
   scope :all_group_for_user, lambda { |user|
-    joins(:participants)
-      .where(participants: { user_id: user.id })
-      .where.not(participants: { role: :peer })
-      .order(:created_at)
+    with_participant(user).without_role(:peer).ordered
   }
 
   scope :all_not_muted_groups_for_user, lambda { |user|
-    joins(:participants)
-      .where(participants: { user_id: user.id })
-      .where.not(participants: { role: :peer })
+    with_participant(user)
+      .without_role(:peer)
       .where(participants: { mute_notifications: false })
-      .order(:created_at)
+      .ordered
   }
 
   scope :all_peer_rooms_for_user, lambda { |user|
-    joins(:participants)
-      .where(participants: { user_id: user.id, role: :peer })
-      .order(:created_at)
+    with_participant(user).with_role(:peer).ordered
   }
 
   scope :all_private_rooms_for_user, lambda { |user|
     private_rooms
-      .joins(:participants)
-      .where(participants: { user_id: user.id })
-      .where.not(participants: { role: :peer })
-      .order(:created_at)
+      .with_participant(user)
+      .without_role(:peer)
+      .ordered
   }
 
   scope :peer_room_for_users, lambda { |user, other_user|
