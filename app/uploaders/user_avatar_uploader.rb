@@ -24,9 +24,24 @@ class UserAvatarUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [50, 50]
   end
 
+  version :halved do
+    process :resize_to_half
+  end
+
   protected
 
   def secure_token
     @secure_token ||= SecureRandom.uuid
+  end
+
+  private
+
+  def resize_to_half
+    manipulate! do |img|
+      new_width = img[:width] / 2
+      new_height = img[:height] / 2
+      img.resize "#{new_width}x#{new_height}"
+      img
+    end
   end
 end

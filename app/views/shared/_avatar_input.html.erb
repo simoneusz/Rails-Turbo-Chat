@@ -1,0 +1,26 @@
+<div class="personal-image" data-controller="avatar-preview">
+  <label class="label">
+    <%= f.file_field :avatar,
+                     data: {
+                       avatar_preview_target: "input",
+                       action: "avatar-preview#preview"
+                     },
+                     class: "d-none" %>
+
+    <figure class="personal-figure">
+      <img src="<%= avatar_url %>"
+           class="personal-avatar"
+           alt="avatar"
+           data-avatar-preview-target="preview">
+      <figcaption class="personal-figcaption text-white d-flex align-items-center justify-content-center">
+        <i class="bi bi-camera display-6"></i>
+      </figcaption>
+    </figure>
+  </label>
+
+  <p class="text-success mt-2"
+     data-avatar-preview-target="message"
+     style="display: none;">
+    New image selected!
+  </p>
+</div>

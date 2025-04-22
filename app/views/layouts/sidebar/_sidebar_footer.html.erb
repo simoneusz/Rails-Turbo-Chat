@@ -18,6 +18,12 @@
         </li>
         <li>
           <%= link_to 'Edit profile',
+                      edit_user_path(current_user),
+                      data: { turbo_frame: 'modal_frame', 'turbo-prefetch': false },
+                      class: 'dropdown-item'%>
+        </li>
+        <li>
+          <%= link_to 'Edit account',
                       edit_user_registration_path,
                       class: 'dropdown-item'%>
         </li>

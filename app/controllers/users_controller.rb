@@ -8,10 +8,21 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.turbo_stream { render partial: 'users/user_info_modal', locals: { user: @user } }
-    end
+
+    respond_with_user_modal(:user_info_modal)
+  end
+
+  def edit
+    @user = User.find(params[:id])
+
+    respond_with_user_modal(:edit_user_modal)
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update(user_params)
+
+    set_flash_and_redirect(:notice, 'Edited successfully', request.referer)
   end
 
   def search # rubocop:disable Metrics/MethodLength
@@ -40,8 +51,19 @@ class UsersController < ApplicationController
 
   private
 
+  def respond_with_user_modal(modal_name)
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render partial: "users/#{modal_name}", locals: { user: @user } }
+    end
+  end
+
   def private_room_name(user1, user2)
     users = [user1, user2].sort
     "private_#{users[0].id}_#{users[1].id}"
+  end
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :avatar, :display_name)
   end
 end
