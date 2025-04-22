@@ -1,5 +1,5 @@
 <%= form_with url: join_room_participant_path(@single_room), method: :post, local: true do %>
-  <%=  hidden_field_tag :user_id, current_user.id  %>
-  <%=  hidden_field_tag :id, @single_room.id  %>
-  <%=  submit_tag 'Join Room', class: 'btn w-100 border'  %>
+  <%= hidden_field_tag :user_id, current_user.id %>
+  <%= hidden_field_tag :id, @single_room.id %>
+  <%= submit_tag 'Join Room', class: 'btn w-100 border' %>
 <% end %>

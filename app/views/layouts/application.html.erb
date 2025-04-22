@@ -32,7 +32,7 @@
                             status_changed: current_user.status_changed,
                             status: current_user.status
                           } %>
-      <%= turbo_stream_from "broadcast_to_user_#{current_user.id}"%>
+      <%= turbo_stream_from "broadcast_to_user_#{current_user.id}" %>
       <div id="notifications" class="p-2 z-1">
         <% current_user.notifications.where(viewed: false).find_each do |notification| %>
           <%= render 'notifications/fixed_notification', notification: %>

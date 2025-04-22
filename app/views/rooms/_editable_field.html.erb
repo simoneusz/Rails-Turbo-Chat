@@ -7,7 +7,6 @@
         <%= value %>
       </p>
 
-
       <%= form_with(model: room, url: room_path(room), method: :patch, html: { class: 'd-none d-flex gap-3', data: { editable_field_target: 'form' } }) do |f| %>
         <%= f.hidden_field field, value: value, data: { editable_field_target: 'input' } %>
         <%= f.text_field field, class: 'form-control d-inline w-auto', data: { editable_field_target: 'input' } %>

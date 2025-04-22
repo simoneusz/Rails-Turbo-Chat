@@ -1,7 +1,7 @@
 <div class="room-info-members">
   <ul class="members-list list-group mt-4 w-100 d-flex flex-column">
     <% room.participants.where.not(role: :owner).find_each do |participant| %>
-      <% user = participant.user  %>
+      <% user = participant.user %>
       <%= render layout: 'rooms/room_info/room_info_user_with_actions', locals: { user:, room: } do %>
         <% if participant.member? %>
           <div class="d-flex gap-1">
@@ -19,7 +19,7 @@
               <%= submit_tag '+ Moderator', class: 'btn main-btn-add btn-modal py-1 w-100' %>
             <% end %>
           </div>
-        <% elsif participant.blocked?%>
+        <% elsif participant.blocked? %>
             <%= form_with url: unblock_room_participant_path(room), method: :post, local: true do %>
               <%= hidden_field_tag :user_id, participant.user.id %>
               <%= hidden_field_tag :role, :blocked %>

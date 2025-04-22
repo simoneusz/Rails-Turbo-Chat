@@ -23,7 +23,7 @@
             <div class="room-panes">
               <% if @single_room.peer_room? %>
                 <%= render partial: 'rooms/panes/peer_room_pane', locals: { room: @single_room } %>
-              <% elsif  @single_room.messages.size < Pagy::DEFAULT[:limit]%>
+              <% elsif  @single_room.messages.size < Pagy::DEFAULT[:limit] %>
                 <%= render partial: 'rooms/panes/new_room_foreword_pane', locals: { room: @single_room } unless @single_room.self_room? %>
               <% end %>
               </div>

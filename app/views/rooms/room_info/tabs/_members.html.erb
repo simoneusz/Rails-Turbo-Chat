@@ -18,7 +18,7 @@
       </button>
     <% end %>
     <% room.participants.each do |participant| %>
-      <% user = participant.user  %>
+      <% user = participant.user %>
       <%= render layout: 'rooms/room_info/room_info_user_with_actions', locals: { user:, room: } do %>
         <% if policy(room.find_participant(current_user)).destroy? && !(participant.owner? || participant.moderator?) %>
           <%= form_with url: room_participant_path(room), method: :delete, local: true do %>
