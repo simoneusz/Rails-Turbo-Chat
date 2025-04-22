@@ -4,7 +4,7 @@
       <%= render partial: 'shared/default_avatar', locals: { size: 40, user: user, rounded: false } %>
       <%= render partial: 'users/status', locals: { user: } %>
     </div>
-    <p class="fw-bold m-0"><%= user.username %></p>
+    <p class="fw-bold m-0"><%= user.display_name || user.username %></p>
   <% end %>
   <div>
     <%= yield %>

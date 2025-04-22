@@ -21,7 +21,7 @@
           <%= link_to user_path(message.user),
                       data: { turbo_frame: 'modal_frame', 'turbo-prefetch': false },
                       class: 'nav-link px-0' do %>
-            <h6 class="message-name fw-bold m-0"> <%= message.user.username %> </h6>
+            <h6 class="message-name fw-bold m-0"> <%= message.user.display_name || message.user.username %> </h6>
           <% end %>
           <p class="text-nowrap mb-0 message-time"
              data-controller="bs-init-component"
