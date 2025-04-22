@@ -11,28 +11,28 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Edit your profile</b></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <%= form_with model: current_user, method: :patch, local: true, html: { multipart: true } do |f| %>
+      <%= form_with model: current_user, method: :patch, local: true, html: { multipart: true }, data: { turbo: false } do |f| %>
         <div class="modal-body">
             <div class="edit-profile-section row justify-content-around">
               <fieldset class="col-8">
                 <div class="input-group flex-column mb-3">
                   <%= f.label :first_name, class: 'form-label fw-bold' %>
-                  <%= f.text_field :first_name, autofocus: true, autocomplete: 'first_name', required: true, class: 'form-control w-100' %>
+                  <%= f.text_field :first_name, autofocus: true, autocomplete: 'first_name', required: true, class: 'form-control w-100', maxlength: 20 %>
                 </div>
                 <div class="input-group flex-column mb-3">
                   <%= f.label :last_name, class: 'form-label fw-bold' %>
-                  <%= f.text_field :last_name, autofocus: true, autocomplete: 'last_name', required: true, class: 'form-control w-100' %>
+                  <%= f.text_field :last_name, autofocus: true, autocomplete: 'last_name', required: true, class: 'form-control w-100', maxlength: 20 %>
                 </div>
 
                 <div class="input-group flex-column mb-3">
                   <%= f.label :display_name, class: 'form-label fw-bold' %>
-                  <%= f.text_field :display_name, autofocus: true, autocomplete: 'display_name', placeholder: "Like: #{current_user.username.downcase}", class: 'form-control w-100' %>
+                  <%= f.text_field :display_name, autofocus: true, autocomplete: 'display_name', placeholder: "Like: #{current_user.username.downcase}", maxlength: 20, class: 'form-control w-100' %>
                   <%= f.label :display_name, 'This could be your first name, or a nickname — however you’d like people to refer to you.', class: 'form-label fs-6 text-muted' %>
                 </div>
               </fieldset>
               <fieldset class="col-3">
                 <p class="fw-bold text-center">Profile photo</p>
-                <%= render partial: "shared/avatar_input", locals: { f:, avatar_url: current_user.avatar.halved.url || current_user.avatar.url} %>
+                <%= render partial: 'shared/avatar_input', locals: { f:, avatar_url: current_user.avatar.halved.url || current_user.avatar.url } %>
               </fieldset>
             </div>
         </div>
