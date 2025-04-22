@@ -31,10 +31,15 @@ class ReactionsController < ApplicationController
   private
 
   def broadcast_update_to_message
-    @message.broadcast_update_to "message_#{@message.id}_reactions",
-                                 target: "reactions_message_#{@message.id}",
-                                 partial: 'messages/message_reactions',
-                                 locals: { message: @message, current_user: }
+    turbo_stream = render_to_string partial: 'messages/message_reactions',
+                                    locals: { message: @message, current_user: },
+                                    formats: [:html]
+
+    Turbo::StreamsChannel.broadcast_update_to(
+      "room_#{@message.room.id}_reactions",
+      target: "reactions_message_#{@message.id}",
+      html: turbo_stream
+    )
   end
 
   def set_message

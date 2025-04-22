@@ -32,6 +32,7 @@
                  data-action="contextmenu->message-context-menu#open"
                  class="d-flex flex-column gap-1">
               <%= turbo_frame_tag 'page_handler' %>
+              <%= turbo_stream_from "room_#{@single_room.id}_reactions" %>
               <%= render @events %>
             </div>
             <%= render partial: 'rooms/context_menu' %>
