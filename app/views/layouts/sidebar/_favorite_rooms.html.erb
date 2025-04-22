@@ -9,7 +9,7 @@
     <ul class="sidebar-favorite-group main-scroll-bar collapse nav show flex-column ms-1"
         id="favorite"
         data-bs-parent="#favorite">
-      <% current_user.favorite_rooms.each do |favorite| %>
+      <% current_user.favorite_rooms.order(updated_at: :desc).each do |favorite| %>
         <% room = favorite.room %>
         <li class="w-100">
           <div class="sidebar__room sidebar-hoverable btn-squeeze d-flex align-items-center">

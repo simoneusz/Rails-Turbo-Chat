@@ -16,11 +16,16 @@ module Messages
 
       define_replied
       read_for_user
+      touch_every_favorite
 
       success(@message)
     end
 
     private
+
+    def touch_every_favorite
+      Room.where(room: @room).find_each(&:touch)
+    end
 
     def create_message
       @message = @user.messages.create(@message_params.merge(room: @room))

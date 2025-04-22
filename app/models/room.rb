@@ -30,7 +30,7 @@ class Room < ApplicationRecord
     where.not(participants: { role: role })
   }
 
-  scope :ordered, -> { order(:created_at) }
+  scope :ordered, -> { order(updated_at: :desc) }
 
   scope :all_for_user, lambda { |user|
     public_rooms
