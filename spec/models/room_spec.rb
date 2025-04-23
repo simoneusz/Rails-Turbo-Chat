@@ -46,14 +46,6 @@ RSpec.describe Room do
       end
     end
 
-    describe '.all_for_user' do
-      subject(:all_for_user) { described_class.all_for_user(user) }
-
-      it 'returns all rooms a user participates in' do
-        expect(all_for_user).to include(room)
-      end
-    end
-
     describe '.all_group_for_user' do
       subject(:all_group_for_user) { described_class.all_group_for_user(user) }
 

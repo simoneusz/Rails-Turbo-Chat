@@ -32,12 +32,6 @@ class Room < ApplicationRecord
 
   scope :ordered, -> { order(updated_at: :desc) }
 
-  scope :all_for_user, lambda { |user|
-    public_rooms
-      .or(with_participant(user))
-      .distinct
-  }
-
   scope :all_group_for_user, lambda { |user|
     with_participant(user).without_role(:peer).ordered
   }
