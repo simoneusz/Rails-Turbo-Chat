@@ -9,12 +9,14 @@ module Messages
     end
 
     def create
-      delete_user_current_reaction if @message.any_reactions_from_user?(@current_user)
+      if @message.any_reactions_from_user?(@current_user)
+        update_user_current_reaction
+      else
+        reaction = new_reaction
+        return error_reaction_invalid unless reaction.valid?
 
-      reaction = new_reaction
-      return error_reaction_invalid unless reaction.valid?
-
-      reaction.save!
+        reaction.save!
+      end
 
       success(@message)
     end
@@ -35,6 +37,10 @@ module Messages
 
     def delete_user_current_reaction
       @message.reactions.where(user: @current_user).destroy_all
+    end
+
+    def update_user_current_reaction
+      @message.reactions.where(user: @current_user).update!(emoji: @emoji)
     end
 
     def error_reaction_invalid
