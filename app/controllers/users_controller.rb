@@ -19,10 +19,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    @user.update(user_params)
+    result = Users::UpdateService.call(params[:id], user_params)
 
-    set_flash_and_redirect(:notice, 'Edited successfully', request.referer)
+    if result.success?
+      set_flash_and_redirect(:notice, 'Edited successfully', request.referer)
+    else
+      redirect_back fallback_location: root_path, alert: result.error_message
+    end
   end
 
   def search # rubocop:disable Metrics/MethodLength
