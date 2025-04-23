@@ -13,7 +13,7 @@ class UserAvatarUploader < CarrierWave::Uploader::Base
   end
 
   def size_range
-    (1.byte)..(50.megabytes)
+    (1.byte)..(5.megabytes)
   end
 
   def filename
