@@ -24,7 +24,7 @@ module Messages
     private
 
     def touch_every_favorite
-      Room.where(room: @room).find_each(&:touch)
+      Favorite.where(room_id: @room.id).find_each(&:touch)
     end
 
     def create_message
