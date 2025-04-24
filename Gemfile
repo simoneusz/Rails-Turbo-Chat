@@ -24,6 +24,13 @@ gem 'sassc-rails'
 
 gem 'image_processing', '~> 1.2'
 
+# API gems
+gem 'rack-cors'
+
+gem 'devise'
+gem 'devise-jwt'
+gem 'jsonapi-serializer'
+
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
   gem 'factory_bot_rails'
@@ -49,8 +56,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 6.0'
 end
-
-gem 'devise'
 
 gem 'noticed', '~> 2.6'
 gem 'ransack'

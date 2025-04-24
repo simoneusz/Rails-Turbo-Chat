@@ -132,9 +132,22 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-jwt (0.12.1)
+      devise (~> 4.0)
+      warden-jwt_auth (~> 0.10)
     diff-lcs (1.5.1)
     drb (2.2.1)
+    dry-auto_inject (1.1.0)
+      dry-core (~> 1.1)
+      zeitwerk (~> 2.6)
     dry-cli (1.2.0)
+    dry-configurable (1.3.0)
+      dry-core (~> 1.1)
+      zeitwerk (~> 2.6)
+    dry-core (1.1.0)
+      concurrent-ruby (~> 1.0)
+      logger
+      zeitwerk (~> 2.6)
     erb_lint (0.9.0)
       activesupport
       better_html (>= 2.0.1)
@@ -186,6 +199,8 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.9.1)
+    jsonapi-serializer (2.2.0)
+      activesupport (>= 4.2)
     jwt (2.10.1)
       base64
     language_server-protocol (3.17.0.4)
@@ -286,6 +301,8 @@ GEM
       rspec-support (~> 3.12)
     racc (1.8.1)
     rack (3.1.12)
+    rack-cors (2.0.2)
+      rack (>= 2.0.0)
     rack-protection (4.1.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
@@ -469,6 +486,11 @@ GEM
       zeitwerk (~> 2.2)
     warden (1.2.9)
       rack (>= 2.0.9)
+    warden-jwt_auth (0.11.0)
+      dry-auto_inject (>= 0.8, < 2)
+      dry-configurable (>= 0.13, < 2)
+      jwt (~> 2.1)
+      warden (~> 1.2)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -502,12 +524,14 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise
+  devise-jwt
   erb_lint
   factory_bot_rails
   faker
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  jsonapi-serializer
   noticed (~> 2.6)
   omniauth
   omniauth-google-oauth2
@@ -517,6 +541,7 @@ DEPENDENCIES
   puma (>= 5.0)
   pundit (~> 2.4)
   pundit-matchers (~> 4.0)
+  rack-cors
   rails (~> 7.1.5, >= 7.1.5.1)
   rails-controller-testing
   ransack
