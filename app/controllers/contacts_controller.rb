@@ -20,6 +20,7 @@ class ContactsController < ApplicationController
 
   def update
     Contacts::ContactService.new(current_user, @user).accept_contact
+
     redirect_to contact_path(@user), notice: 'Request accepted'
   end
 
