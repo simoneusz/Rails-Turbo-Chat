@@ -44,7 +44,10 @@ Modern, real-time chat application inspired by Slack, Skype and Discord — offe
 ## ✅ Testing
 
 RSpec for unit and functional tests
-Capybara + Selenium for integration tests
+
+## 🎯 TODO
+
+- External API with authorizations, validations and serializations
 
 ## 🚀 Installation & Setup
 Check ruby and rails versions before initializing the project
