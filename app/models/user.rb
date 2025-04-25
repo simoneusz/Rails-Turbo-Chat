@@ -52,6 +52,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
+  devise :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
+
   after_create :create_self_room
   after_create_commit { broadcast_append_to 'users' }
 

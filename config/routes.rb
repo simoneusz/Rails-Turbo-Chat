@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq'
 
+  draw(:api)
+
   devise_for :users, controllers: {
     sessions:           'users/sessions',
     registrations:      'users/registrations',
