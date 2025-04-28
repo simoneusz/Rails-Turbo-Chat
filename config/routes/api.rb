@@ -16,7 +16,7 @@ namespace :api do
     end
 
     namespace :users do
-      resources :users, only: [:index, :create, :update, :destroy] do
+      resources :users, only: [:index, :show, :create, :update, :destroy] do
         patch :change_status
       end
     end
