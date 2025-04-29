@@ -3,9 +3,11 @@
 module Api
   module V1
     module Contacts
-      module RequestContact
-        class Serializer
-          def call(request); end
+      module Add
+        class Authorizer
+          def call(_params)
+            true
+          end
         end
       end
     end

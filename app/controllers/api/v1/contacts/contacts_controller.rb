@@ -12,14 +12,7 @@ module Api
         end
 
         def create
-          user = User.find(params[:contact_id])
-          result = Contacts::ContactService.new(current_user, user).request_contact
-
-          if result.success?
-            render json: { message: 'Requested contact successfully.' }, status: :created
-          else
-            render json: { error: 'Requested contact could not be created.' }, status: :unprocessable_entity
-          end
+          render json: Api::V1::Contacts::Add::Transaction.new.call(User.find(params[:contact_id]), current_user)
         end
 
         def update
