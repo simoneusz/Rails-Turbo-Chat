@@ -4,28 +4,24 @@ module Api
   module V1
     module Users
       class SessionsController < Devise::SessionsController
-        # before_action :configure_sign_in_params, only: [:create]
-        protect_from_forgery with: :null_session
         respond_to :json
+        skip_before_action :verify_authenticity_token
+
+        skip_before_action :require_no_authentication, only: [:create]
 
         private
 
-        def respond_with(current_user, _opts = {})
+        def respond_with(_resource, _opts = {})
           render json: {
-            status: {
-              code: 200, message: 'Logged in successfully.',
-              data: { user: Api::V1::Serializers::UserSerializer.new(current_user).serializable_hash[:data][:attributes] }
-            }
+            status: { code: 200, message: 'Logged in successfully.' },
+            data: current_user
           }, status: :ok
         end
 
         def respond_to_on_destroy
-          if request.headers['Authorization'].present?
-            jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last,
-                                     Rails.application.credentials.devise_jwt_secret_key!).first
-            current_user = User.find(jwt_payload['sub'])
-          end
-
+          jwt_payload = JWT.decode(request.headers['Authorization'].split.last,
+                                   Rails.application.credentials.devise_jwt_secret_key!).first
+          current_user = User.find(jwt_payload['sub'])
           if current_user
             render json: {
               status: 200,
@@ -34,7 +30,7 @@ module Api
           else
             render json: {
               status: 401,
-              message: "Couldn't find an active session."
+              message: 'JWT invalid'
             }, status: :unauthorized
           end
         end

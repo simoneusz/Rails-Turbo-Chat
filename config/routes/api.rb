@@ -18,6 +18,7 @@ namespace :api do
     namespace :users do
       resources :users, only: [:index, :show, :create, :update, :destroy] do
         patch :change_status
+        get :current, on: :collection
       end
     end
   end

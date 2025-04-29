@@ -23,6 +23,10 @@ module Api
 
         def destroy; end
 
+        def current
+          render json: Api::V1::Serializers::UserSerializer.new(current_user).serializable_hash
+        end
+
         private
 
         def set_user

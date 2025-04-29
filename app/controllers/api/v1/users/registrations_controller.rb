@@ -3,23 +3,25 @@
 module Api
   module V1
     module Users
-      module Users
-        class RegistrationsController < Devise::RegistrationsController
-          respond_to :json
+      class RegistrationsController < Devise::RegistrationsController
+        respond_to :json
+        skip_before_action :verify_authenticity_token
 
-          private
+        skip_before_action :require_no_authentication, only: [:create]
 
-          def respond_with(current_user, _opts = {})
-            if resource.persisted?
-              render json: {
-                status: { code: 200, message: 'Signed up successfully.' },
-                data: UserSerializer.new(current_user).serializable_hash[:data][:attributes]
-              }
-            else
-              render json: {
-                status: { message: "User couldn't be created successfully. #{current_user.errors.full_messages.to_sentence}" }
-              }, status: :unprocessable_entity
-            end
+        private
+
+        def respond_with(resource, _opts = {})
+          if resource.persisted?
+            render json: {
+              status: { code: 200, message: 'Signed up successfully.' },
+              data: resource
+            }, status: :ok
+          else
+            render json: {
+              status: 422,
+              errors: resource.errors.full_messages
+            }, status: :unprocessable_entity
           end
         end
       end
