@@ -4,6 +4,8 @@ module Api
   module V1
     module Users
       class UsersController < ApiController
+        respond_to :json
+
         before_action :set_user, only: %i[show update destroy]
 
         def index
