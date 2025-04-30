@@ -21,5 +21,11 @@ namespace :api do
         get :current, on: :collection
       end
     end
+
+    namespace :rooms do
+      resources :rooms, only: [:index, :show, :create, :update, :destroy] do
+
+      end
+    end
   end
 end
