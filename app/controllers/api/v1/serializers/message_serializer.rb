@@ -3,19 +3,18 @@
 module Api
   module V1
     module Serializers
-      class RoomSerializer
+      class MessageSerializer
         include JSONAPI::Serializer
 
         attributes :id,
-                   :name,
-                   :is_private,
+                   :user_id,
+                   :room_id,
                    :created_at,
                    :updated_at,
-                   :description,
-                   :topic,
-                   :creator_id
+                   :parent_message_id,
+                   :replied
 
-        has_many :messages
+        belongs_to :room
       end
     end
   end
