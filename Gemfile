@@ -30,6 +30,7 @@ gem 'rack-cors'
 gem 'active_model_serializers'
 gem 'devise'
 gem 'devise-jwt'
+gem 'dry-validation'
 gem 'jsonapi-serializer'
 
 group :development, :test do
