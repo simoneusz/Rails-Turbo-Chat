@@ -23,3 +23,5 @@ Lint/MissingSuper:
   Enabled: true
   Exclude:
     - app/services/**/*
+RSpec/NestedGroups:
+  Enabled: false
