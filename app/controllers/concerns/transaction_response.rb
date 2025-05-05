@@ -3,22 +3,18 @@
 module TransactionResponse
   extend ActiveSupport::Concern
 
-  def success_response(status, data, serializer, message = nil)
-    {
-      status:,
-      message:,
-      data: serializer.new(data).serializable_hash[:data]
-    }
-  end
+  def response(status:, data: nil, message: nil, errors: nil)
+    body = { status: }
+    body[:message] = message if message
 
-  def error_response(status, data, message = nil)
-    {
-      errors: {
-        status:,
-        title: 'Error',
-        message:,
-        data:
-      }
-    }
+    if errors
+      body[:success] = false
+      body[:errors] = { title: 'Error', data: errors }
+    elsif data
+      body[:success] = true
+      body[:data] = data[:data]
+    end
+
+    body
   end
 end
