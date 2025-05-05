@@ -5,8 +5,6 @@ module Api
     module Rooms
       module Create
         class Validator
-          include ::ValidationResponse
-
           def call(room_params)
             contract = schema.call(room_params.to_h)
             raise Errors::ValidationError, contract.errors.to_h if contract.failure?

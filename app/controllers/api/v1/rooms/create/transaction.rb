@@ -8,15 +8,16 @@ module Api
           include ::TransactionResponse
 
           def call(room_params, current_user)
-            authorize = Api::V1::Rooms::Create::Authorizer.new.call(room_params, current_user)
-            validator = Api::V1::Rooms::Create::Validator.new.call(room_params, current_user)
-            return unless authorize && validator
+            authorize = Authorizer.new.call(room_params, current_user)
+            return unless authorize
+
+            Validator.new.call(room_params)
 
             result = ::Rooms::CreateRoomService.new(room_params, current_user).call
 
-            return error_response(:forbidden, [result.data, result.error_code], 'Forbidden') unless result.success?
+            raise Errors::ServiceError, [result.data, result.error_code] unless result.success?
 
-            success_response(:ok, result.data, Api::V1::Serializers::RoomSerializer, 'Success')
+            response(status: :created, data: Serializer.new.call(result.data), message: 'Created')
           end
         end
       end

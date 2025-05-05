@@ -15,7 +15,7 @@ module Api
                    :topic,
                    :creator_id
 
-        has_many :messages
+        has_many :messages, serializer: MessageSerializer
       end
     end
   end

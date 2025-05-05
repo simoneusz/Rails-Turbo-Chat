@@ -15,7 +15,7 @@ module Api
         end
 
         def create
-          render json: Api::V1::Rooms::Create::Transaction.new.call(room_params, current_user)
+          render_response(Api::V1::Rooms::Create::Transaction.new.call(room_params, current_user))
         end
 
         def update
@@ -27,6 +27,10 @@ module Api
         end
 
         private
+
+        def render_response(response, status = :ok)
+          render json: response.except(:status), status: response[:status] || status
+        end
 
         def room_params
           params.require(:room).permit(:name, :is_private, :description, :topic, :owner)
