@@ -6,19 +6,9 @@ module Api
       module Create
         class Validator
           def call(room_params)
-            contract = schema.call(room_params.to_h)
-            raise Errors::ValidationError, contract.errors.to_h if contract.failure?
-          end
+            schema = Api::V1::RequestSchemas::RoomSchema.new.call(room_params.to_h)
 
-          private
-
-          def schema
-            Dry::Schema.Params do
-              required(:name).filled(:string, min_size?: 3)
-              optional(:is_private).filled(:bool)
-              optional(:topic).filled(:string)
-              optional(:description).filled(:string)
-            end
+            raise Errors::ValidationError, schema.errors.to_h if schema.failure?
           end
         end
       end

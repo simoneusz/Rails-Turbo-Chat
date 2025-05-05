@@ -38,9 +38,5 @@ module Api
         errors: { status: 422, title: 'Unprocessable entity', message: exception.message }
       }, status: :unprocessable_entity
     end
-
-    def current_user
-      current_user
-    end
   end
 end
