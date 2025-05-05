@@ -27,7 +27,7 @@ module Rooms
     end
 
     def room_not_valid_error(room)
-      error(room, code: CODE_ROOM_NOT_VALID)
+      error(room.errors.full_messages, code: CODE_ROOM_NOT_VALID)
     end
   end
 end
