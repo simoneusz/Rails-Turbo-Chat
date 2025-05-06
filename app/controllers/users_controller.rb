@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    result = Users::UpdateService.call(params[:id], user_params)
+    result = Users::UpdateService.new(params[:id], user_params).call
 
     if result.success?
       set_flash_and_redirect(:notice, 'Edited successfully', request.referer)
