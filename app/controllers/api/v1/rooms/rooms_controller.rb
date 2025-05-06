@@ -36,10 +36,6 @@ module Api
 
         private
 
-        def render_response(response, status = :ok)
-          render json: response.except(:status), status: response[:status] || status
-        end
-
         def room_params
           params.require(:room).permit(:name, :is_private, :description, :topic, :owner)
         end

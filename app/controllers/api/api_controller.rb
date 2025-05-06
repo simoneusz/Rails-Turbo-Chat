@@ -31,6 +31,10 @@ module Api
 
     private
 
+    def render_response(response, status = :ok)
+      render json: response.except(:status), status: response[:status] || status
+    end
+
     def render_unauthorized
       render json: { errors: { status: 401, title: 'Unauthorized' } }, status: :unauthorized
     end
