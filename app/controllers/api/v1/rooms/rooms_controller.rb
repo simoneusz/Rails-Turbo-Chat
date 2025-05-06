@@ -19,7 +19,6 @@ module Api
         end
 
         def update
-          Rails.logger.info(room_params.class)
           render_response(Api::V1::Rooms::Update::Transaction.new.call(@room, room_update_params, current_user))
         end
 
