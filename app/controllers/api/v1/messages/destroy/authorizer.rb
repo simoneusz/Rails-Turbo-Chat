@@ -2,14 +2,14 @@
 
 module Api
   module V1
-    module Rooms
+    module Messages
       module Destroy
         class Authorizer
-          def call(room, current_user)
-            participant = room.find_participant(current_user)
+          def call(message, current_user)
+            participant = message.room.find_participant(current_user)
             raise Pundit::NotAuthorizedError, 'You don\'t belong in this room' if participant.nil?
 
-            Pundit.authorize current_user, participant, :destroy?
+            raise Pundit::NotAuthorizedError, 'This message does not belong to you' unless message.user == current_user
           end
         end
       end
