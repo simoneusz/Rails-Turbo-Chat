@@ -31,6 +31,12 @@ module Api
 
     private
 
+    # Renders a response from controller action with status inside response [Hash],
+    # if there is no status - renders with status :ok
+    #
+    # @param response [Hash] response from controller
+    # @param status [Symbol] status from controller response, default is :ok
+    # @return json [JSON] renders response from controller
     def render_response(response, status = :ok)
       render json: response.except(:status), status: response[:status] || status
     end
