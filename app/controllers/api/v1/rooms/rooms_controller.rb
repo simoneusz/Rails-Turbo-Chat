@@ -27,6 +27,14 @@ module Api
           render_response(Api::V1::Rooms::Destroy::Transaction.new.call(@room, current_user))
         end
 
+        def all
+          render_response(Api::V1::Rooms::All::Transaction.new.call(current_user))
+        end
+
+        def dms
+          render_response(Api::V1::Rooms::Dms::Transaction.new.call(current_user))
+        end
+
         private
 
         def render_response(response, status = :ok)

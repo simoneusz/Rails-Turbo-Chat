@@ -24,7 +24,10 @@ namespace :api do
 
     namespace :rooms do
       resources :rooms, only: [:index, :show, :create, :update, :destroy] do
-
+        collection do
+          get :all
+          get :dms
+        end
       end
     end
   end
