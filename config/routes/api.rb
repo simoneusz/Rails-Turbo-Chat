@@ -22,13 +22,13 @@ namespace :api do
       end
     end
 
-    namespace :rooms do
-      resources :rooms, only: [:index, :show, :create, :update, :destroy] do
-        collection do
-          get :all
-          get :dms
-        end
+    resources :rooms, only: [:index, :show, :create, :update, :destroy] do
+      collection do
+        get :all
+        get :dms
       end
+
+      resources :messages, controller: 'messages', only: %i[create destroy]
     end
   end
 end
