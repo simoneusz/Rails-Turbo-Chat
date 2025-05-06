@@ -5,14 +5,22 @@ module Api
     module Rooms
       module Update
         class Transaction
+          include ::TransactionResponse
+          # Orchestrates room#update action
+          #
+          # @param room [Room] room instance
+          # @param room_params [ActionController::Parameters] params for update room
+          # @param current_user [User] current logged user
+          # @return [Hash] transaction response with status, data, message
           def call(room, room_params, current_user)
-            authorize = Api::V1::Rooms::Update::Authorizer.new.call(room_params, current_user)
-            validator = Api::V1::Rooms::Update::Validator.new.call(room_params, current_user)
-            return unless authorize && validator
+            Authorizer.new.call(room, current_user)
+            Validator.new.call(room_params)
 
-            room.update(room_params)
+            # TODO: move update to service
+            room.update!(room_params)
+            raise Errors::ServiceError, [room, room.error_code] unless room.valid?
 
-            { status: 'success', message: 'Room successfully updated' }
+            response(status: :ok, data: Serializer.new.call(room), message: 'Updated')
           end
         end
       end

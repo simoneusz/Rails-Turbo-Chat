@@ -4,7 +4,7 @@ module Api
   module V1
     module Rooms
       class RoomsController < ApiController
-        before_action :set_room, only: %i[show destroy]
+        before_action :set_room, only: %i[show destroy update]
 
         def index
           render json: Api::V1::Serializers::RoomSerializer.new(Room.order(:id)).serializable_hash
@@ -19,7 +19,8 @@ module Api
         end
 
         def update
-          render json: Api::V1::Rooms::Update::Transaction.new.call(@room, room_params, current_user)
+          Rails.logger.info(room_params.class)
+          render_response(Api::V1::Rooms::Update::Transaction.new.call(@room, room_update_params, current_user))
         end
 
         def destroy
@@ -34,6 +35,10 @@ module Api
 
         def room_params
           params.require(:room).permit(:name, :is_private, :description, :topic, :owner)
+        end
+
+        def room_update_params
+          params.require(:room).permit(:description, :topic)
         end
 
         def set_room

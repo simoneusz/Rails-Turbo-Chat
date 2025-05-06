@@ -5,8 +5,9 @@ module Api
     module Rooms
       module Update
         class Authorizer
-          def call(_room_params, _current_user)
-            true
+          def call(room, current_user)
+            participant = room.find_participant(current_user)
+            Pundit.authorize current_user, participant, :update?
           end
         end
       end

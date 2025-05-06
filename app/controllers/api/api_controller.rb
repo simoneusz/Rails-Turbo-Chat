@@ -8,8 +8,10 @@ module Api
     before_action :configure_permitted_parameters, if: :devise_controller?
 
     # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-    rescue_from Errors::ValidationError, with: :handle_custom_error
-    rescue_from Errors::ServiceError, with: :handle_custom_error
+    rescue_from Errors::ValidationError, with: :handle_unprocessable_entity
+    rescue_from Errors::ServiceError, with: :handle_unprocessable_entity
+    rescue_from ActiveRecord::RecordInvalid, with: :handle_unprocessable_entity
+    rescue_from Pundit::NotAuthorizedError, with: :handle_pundit_unauthorized
 
     protected
 
@@ -33,10 +35,16 @@ module Api
       render json: { errors: { status: 401, title: 'Unauthorized' } }, status: :unauthorized
     end
 
-    def handle_custom_error(exception)
+    def handle_unprocessable_entity(exception)
       render json: {
         errors: { status: 422, title: 'Unprocessable entity', message: exception.message }
       }, status: :unprocessable_entity
+    end
+
+    def handle_pundit_unauthorized(exception)
+      render json: {
+        errors: { status: 401, title: 'Unauthorized', message: exception.message }
+      }, status: :unauthorized
     end
   end
 end

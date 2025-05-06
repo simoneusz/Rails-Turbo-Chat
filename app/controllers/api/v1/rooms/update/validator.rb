@@ -5,8 +5,10 @@ module Api
     module Rooms
       module Update
         class Validator
-          def call(_room_params, _current_user)
-            true
+          def call(room_params)
+            schema = Api::V1::RequestSchemas::RoomUpdateSchema.new.call(room_params.to_h)
+
+            raise Errors::ValidationError, schema.errors.to_h if schema.failure?
           end
         end
       end
