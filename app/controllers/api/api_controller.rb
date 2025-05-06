@@ -7,7 +7,7 @@ module Api
     before_action :authenticate_user!
     before_action :configure_permitted_parameters, if: :devise_controller?
 
-    # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from Errors::ValidationError, with: :handle_unprocessable_entity
     rescue_from Errors::ServiceError, with: :handle_unprocessable_entity
     rescue_from ActiveRecord::RecordInvalid, with: :handle_unprocessable_entity
@@ -45,6 +45,12 @@ module Api
       render json: {
         errors: { status: 401, title: 'Unauthorized', message: exception.message }
       }, status: :unauthorized
+    end
+
+    def record_not_found(exception)
+      render json: {
+        errors: { status: 404, title: 'Record not found', message: exception.message }
+      }, status: :not_found
     end
   end
 end

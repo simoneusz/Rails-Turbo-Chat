@@ -5,14 +5,19 @@ module Api
     module Rooms
       module Destroy
         class Transaction
+          include ::TransactionResponse
+          # Orchestrates room#update action
+          #
+          # @param room [Room] room instance
+          # @param current_user [User] current logged user
+          # @return [Hash] transaction response with status, data, message
           def call(room, current_user)
-            authorize = Api::V1::Rooms::Destroy::Authorizer.new.call(room, current_user)
-            validator = Api::V1::Rooms::Destroy::Validator.new.call(room, current_user)
-            return unless authorize && validator
+            Authorizer.new.call(room, current_user)
+            Validator.new.call(room, current_user)
 
             room.destroy
 
-            { status: 'success', message: 'Room successfully destroyed' }
+            response(status: :no_content, data: room, message: 'Destroyed')
           end
         end
       end

@@ -5,8 +5,8 @@ module Api
     module Rooms
       module Destroy
         class Validator
-          def call(room, current_user)
-            room.creator_id = current_user.id
+          def call(_room, _current_user)
+            true
           end
         end
       end

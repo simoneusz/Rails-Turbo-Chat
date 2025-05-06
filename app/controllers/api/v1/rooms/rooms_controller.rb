@@ -24,7 +24,7 @@ module Api
         end
 
         def destroy
-          render json: Api::V1::Rooms::Destroy::Transaction.new.call(@room, current_user)
+          render_response(Api::V1::Rooms::Destroy::Transaction.new.call(@room, current_user))
         end
 
         private
