@@ -79,7 +79,7 @@ class User < ApplicationRecord
 
   def create_self_room
     room_params = { name: "#{username}_self_room", is_private: true }
-    Rooms::CreateRoomService.new(room_params, self, :peer).call
+    Rooms::CreateRoomService.new(room_params, self, :peer, :self_room).call
   end
 
   class << self
