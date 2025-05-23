@@ -19,5 +19,6 @@ RSpec.describe Api::V1::Serializers::RoomSerializer, type: :serializer do
     it { is_expected.to serialize_attribute(:description) }
     it { is_expected.to serialize_attribute(:topic) }
     it { is_expected.to serialize_attribute(:creator_id) }
+    it { is_expected.to serialize_attribute(:room_type) }
   end
 end

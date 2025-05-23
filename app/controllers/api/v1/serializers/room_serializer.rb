@@ -13,7 +13,8 @@ module Api
                    :updated_at,
                    :description,
                    :topic,
-                   :creator_id
+                   :creator_id,
+                   :room_type
 
         has_many :messages, serializer: MessageSerializer
       end

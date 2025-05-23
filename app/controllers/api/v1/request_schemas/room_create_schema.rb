@@ -9,6 +9,7 @@ module Api
           optional(:is_private).filled(:bool)
           optional(:topic).filled(:string, max_size?: 500)
           optional(:description).filled(:string, max_size?: 500)
+          optional(:room_type).filled(:integer)
         end
       end
     end
