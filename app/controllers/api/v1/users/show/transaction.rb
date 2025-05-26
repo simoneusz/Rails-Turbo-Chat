@@ -5,12 +5,15 @@ module Api
     module Users
       module Show
         class Transaction
-          def call(params)
-            authorize = Api::V1::Users::Show::Authorizer.new.call(params)
-            validator = Api::V1::Users::Show::Validator.new.call(params)
-            return unless authorize && validator
+          include ::TransactionResponse
 
-            Api::V1::Serializers::UserSerializer.new(params[:data])
+          def call(params, user, current_user)
+            Api::V1::Users::Show::Authorizer.new.call(params, user, current_user)
+
+            validator = Api::V1::Users::Show::Validator.new.call(params)
+            return unless validator
+
+            response(status: :ok, data: Serializer.new.call(user), message: 'Ok')
           end
         end
       end

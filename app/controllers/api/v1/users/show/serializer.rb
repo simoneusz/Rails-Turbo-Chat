@@ -5,7 +5,9 @@ module Api
     module Users
       module Show
         class Serializer
-          def call(request); end
+          def call(request)
+            Api::V1::Serializers::UserSerializer.new(request).serializable_hash
+          end
         end
       end
     end
