@@ -6,7 +6,7 @@ module Api
       before_action :set_room, only: %i[show destroy update]
 
       def index
-        render json: Api::V1::Serializers::RoomSerializer.new(Room.order(:id)).serializable_hash
+        render json: Api::V1::Serializers::RoomsSerializer.new(Room.order(:id)).serializable_hash
       end
 
       def show
