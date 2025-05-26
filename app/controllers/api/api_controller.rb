@@ -6,12 +6,15 @@ module Api
 
     before_action :authenticate_user!
     before_action :configure_permitted_parameters, if: :devise_controller?
+    before_action :set_default_format
 
+    rescue_from StandardError, with: :handle_internal_error
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from Errors::ValidationError, with: :handle_unprocessable_entity
     rescue_from Errors::ServiceError, with: :handle_unprocessable_entity
     rescue_from ActiveRecord::RecordInvalid, with: :handle_unprocessable_entity
     rescue_from Pundit::NotAuthorizedError, with: :handle_pundit_unauthorized
+    rescue_from ActionController::UnknownFormat, with: :handle_unknown_format
 
     protected
 
@@ -41,8 +44,27 @@ module Api
       render json: response.except(:status), status: response[:status] || status
     end
 
+    def set_default_format
+      request.format = :json
+    end
+
     def render_unauthorized
       render json: { errors: { status: 401, title: 'Unauthorized' } }, status: :unauthorized
+    end
+
+    def handle_unknown_format
+      render json: { errors: { status: 406, title: 'Not Acceptable', message: 'Requested format is not supported' } },
+             status: :not_acceptable
+    end
+
+    def handle_internal_error(exception)
+      # TODO: log exception instead of rendering it
+      render json: {
+        errors: { status: 500,
+                  title: 'Internal Server Error',
+                  message: exception.message,
+                  backtrace: exception.backtrace }
+      }, status: :internal_server_error
     end
 
     def handle_unprocessable_entity(exception)

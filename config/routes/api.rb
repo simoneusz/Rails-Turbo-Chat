@@ -29,4 +29,6 @@ namespace :api do
       resources :messages, controller: 'messages', only: %i[create destroy]
     end
   end
+
+  match '*unmatched', to: 'errors#not_found', via: :all
 end
