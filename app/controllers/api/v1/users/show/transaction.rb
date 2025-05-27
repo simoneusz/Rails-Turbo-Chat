@@ -8,9 +8,9 @@ module Api
           include ::TransactionResponse
 
           def call(params, user, current_user)
-            Api::V1::Users::Show::Authorizer.new.call(params, user, current_user)
+            Authorizer.new.call(user, current_user)
 
-            validator = Api::V1::Users::Show::Validator.new.call(params)
+            validator = Validator.new.call(params)
             return unless validator
 
             response(status: :ok, data: Serializer.new.call(user), message: 'Ok')

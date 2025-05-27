@@ -15,7 +15,8 @@ module Api
                    :updated_at,
                    :avatar,
                    :avatar_url,
-                   :display_name
+                   :display_name,
+                   :status
       end
     end
   end

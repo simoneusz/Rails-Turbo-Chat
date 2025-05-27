@@ -5,7 +5,9 @@ module Api
     module Users
       module Update
         class Serializer
-          def call(request); end
+          def call(record)
+            Serializers::UserSerializer.new(record).serializable_hash
+          end
         end
       end
     end

@@ -17,7 +17,6 @@ namespace :api do
 
     resources :users, only: [:show, :create, :update, :destroy] do
       patch :change_status
-      get :current, on: :collection
     end
 
     resources :rooms, only: [:index, :show, :create, :update, :destroy] do

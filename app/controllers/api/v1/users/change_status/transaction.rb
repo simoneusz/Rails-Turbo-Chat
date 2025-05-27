@@ -3,7 +3,7 @@
 module Api
   module V1
     module Users
-      module Update
+      module ChangeStatus
         class Transaction
           include ::TransactionResponse
 
@@ -11,7 +11,7 @@ module Api
             Authorizer.new.call(user, current_user)
             Validator.new.call(params)
 
-            result = ::Users::UpdateService.new(user.id, params).call
+            result = ::Users::ChangeStatusService.new(user.id, params[:status]).call
             # TODO: move raises from all transactions to services
             raise Errors::ServiceError, [result.data, result.error_code] unless result.success?
 

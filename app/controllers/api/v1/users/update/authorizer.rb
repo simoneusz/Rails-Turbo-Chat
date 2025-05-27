@@ -5,8 +5,8 @@ module Api
     module Users
       module Update
         class Authorizer
-          def call(_params)
-            true
+          def call(user, current_user)
+            Pundit.authorize current_user, user, :update?
           end
         end
       end

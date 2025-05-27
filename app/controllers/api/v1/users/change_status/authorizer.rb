@@ -3,10 +3,10 @@
 module Api
   module V1
     module Users
-      module Show
+      module ChangeStatus
         class Authorizer
           def call(user, current_user)
-            Pundit.authorize current_user, user, :show?
+            Pundit.authorize current_user, user, :update?
           end
         end
       end

@@ -3,7 +3,7 @@
 module Api
   module V1
     module Users
-      module Show
+      module ChangeStatus
         class Serializer
           def call(record)
             Serializers::UserSerializer.new(record).serializable_hash
