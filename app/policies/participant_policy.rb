@@ -2,15 +2,15 @@
 
 class ParticipantPolicy < ApplicationPolicy
   def change_role?
-    owner?
+    owner? || moderator?
   end
 
   def block?
-    owner? || moderator?
+    change_role?
   end
 
   def unblock?
-    owner? || moderator?
+    change_role?
   end
 
   def chat?
