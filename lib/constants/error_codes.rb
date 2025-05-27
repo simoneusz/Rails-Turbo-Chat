@@ -19,6 +19,7 @@ module Constants
     CODE_UNKNOWN_ROLE = :unknown_role
     CODE_CANT_KICK_SELF = :cant_kick_self_from_room
     CODE_CANT_KICK_OWNER = :cant_kick_owner
+    CODE_CANT_CHANGE_ROLE = :cant_change_role
 
     CODE_REACTION_INVALID = :invalid_reaction
     CODE_NO_REACTION_BY_USER = :no_reaction_by_user
