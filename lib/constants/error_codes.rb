@@ -17,6 +17,8 @@ module Constants
     CODE_PARTICIPANT_INVALID = :new_participant_invalid
     CODE_PARTICIPANT_ALREADY_EXISTS = :participant_already_exists
     CODE_UNKNOWN_ROLE = :unknown_role
+    CODE_CANT_KICK_SELF = :cant_kick_self_from_room
+    CODE_CANT_KICK_OWNER = :cant_kick_owner
 
     CODE_REACTION_INVALID = :invalid_reaction
     CODE_NO_REACTION_BY_USER = :no_reaction_by_user

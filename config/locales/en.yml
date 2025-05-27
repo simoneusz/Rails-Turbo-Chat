@@ -22,3 +22,5 @@ en:
     user_status_invalid: "This status is not valid"
     user_cant_destroy_message: "You cant delete this message"
     unauthorized_notify: "Can't authorize you for this notifications"
+    cant_kick_self_from_room: "Can't kick yourself from room"
+    cant_kick_owner_from_room: "Can't kick owner from room"
