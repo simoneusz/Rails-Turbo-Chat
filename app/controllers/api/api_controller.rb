@@ -49,11 +49,13 @@ module Api
     end
 
     def render_unauthorized
-      render json: { errors: { status: 401, title: 'Unauthorized' } }, status: :unauthorized
+      render json: { errors: { status: 401, title: 'Unauthorized', backtrace: exception.backtrace } },
+             status: :unauthorized
     end
 
     def handle_unknown_format
-      render json: { errors: { status: 406, title: 'Not Acceptable', message: 'Requested format is not supported' } },
+      render json: { errors: { status: 406, title: 'Not Acceptable', message: 'Requested format is not supported',
+                               backtrace: exception.backtrace } },
              status: :not_acceptable
     end
 
@@ -69,19 +71,20 @@ module Api
 
     def handle_unprocessable_entity(exception)
       render json: {
-        errors: { status: 422, title: 'Unprocessable entity', message: exception.message }
+        errors: { status: 422, title: 'Unprocessable entity', message: exception.message,
+                  backtrace: exception.backtrace }
       }, status: :unprocessable_entity
     end
 
     def handle_pundit_unauthorized(exception)
       render json: {
-        errors: { status: 401, title: 'Unauthorized', message: exception.message }
+        errors: { status: 401, title: 'Unauthorized', message: exception.message, backtrace: exception.backtrace }
       }, status: :unauthorized
     end
 
     def record_not_found(exception)
       render json: {
-        errors: { status: 404, title: 'Record not found', message: exception.message }
+        errors: { status: 404, title: 'Record not found', message: exception.message, backtrace: exception.backtrace }
       }, status: :not_found
     end
   end
