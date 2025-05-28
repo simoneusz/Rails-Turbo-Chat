@@ -3,12 +3,12 @@
 module Api
   module V1
     module Contacts
-      module Create
-        # Validates params for creating a contact
+      module Accept
+        # Validates params for accepting a contact
         class Validator
-          # Validates params for creating a contact
+          # Validates params for accepting a contact
           #
-          # @param params [ActionController::Parameters] params for creating a contact
+          # @param params [ActionController::Parameters] params for accepting a contact
           # @return [nil] nil if valid, raises Errors::ValidationError otherwise
           def call(params)
             schema = Api::V1::RequestSchemas::ContactSchema.new.call(params.to_h)

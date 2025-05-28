@@ -3,10 +3,10 @@
 module Api
   module V1
     module Contacts
-      module Create
-        # Authorizes a contact to be created
+      module Accept
+        # Authorizes a contact to be accepted
         class Authorizer
-          # Authorizes a contact to be created
+          # Authorizes a contact to be accepted
           #
           # @return [Boolean] true, always
           def call

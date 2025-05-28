@@ -3,7 +3,7 @@
 module Api
   module V1
     module Contacts
-      module Create
+      module Delete
         # Serializes a Contact instance into a hash
         class Serializer
           # Serialize a contact record

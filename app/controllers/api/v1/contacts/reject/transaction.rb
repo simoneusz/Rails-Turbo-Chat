@@ -3,12 +3,14 @@
 module Api
   module V1
     module Contacts
-      module Create
-        # Orchestrates contact#create action
+      module Reject
+        # Orchestrates contact#reject action
         class Transaction
           include ::TransactionResponse
 
-          # @param params [ActionController::Parameters] params for create contact
+          # Orchestrates contact#reject action
+          #
+          # @param params [ActionController::Parameters] params for reject contact
           # @param user [User] user instance
           # @param other_user [User] other user instance
           # @return [Hash] transaction response with status, data, message
@@ -16,11 +18,11 @@ module Api
             Authorizer.new.call
             Validator.new.call(params)
 
-            result = ::Contacts::ContactService.new(user, other_user).request_contact
+            result = ::Contacts::ContactService.new(user, other_user).reject_contact
 
             raise Errors::ServiceError, [result.data, result.error_code] unless result.success?
 
-            response(status: :ok, data: Serializer.new.call(contact_record(user, other_user)), message: 'Created')
+            response(status: :ok, data: Serializer.new.call(contact_record(user, other_user)), message: 'Rejected')
           end
 
           private

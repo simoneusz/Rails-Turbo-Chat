@@ -8,10 +8,12 @@ namespace :api do
       post    'signup', to: 'users/registrations#create'
     end
 
-    namespace :contacts do
-      resources :contacts, only: [:index, :create, :update, :destroy] do
-        post    :accept_all,  on: :collection
-        delete  :delete,      on: :member
+    resources :contacts, only: %i[index create] do
+      collection do
+        patch :accept
+        post :accept_all
+        delete :delete
+        post  :reject
       end
     end
 
