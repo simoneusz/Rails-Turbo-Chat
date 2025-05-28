@@ -21,7 +21,7 @@ module Api
 
             raise Errors::ServiceError, [result.data, result.error_code] unless result.success?
 
-            response(status: :ok, data: Serializer.new.call(result.data), message: 'Role changed')
+            response(status: :ok, data: Serializer.new.call(result.data), message: 'Notifications toggled')
           end
         end
       end

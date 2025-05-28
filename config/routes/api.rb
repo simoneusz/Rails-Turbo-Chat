@@ -36,6 +36,10 @@ namespace :api do
         patch   :toggle_notifications
       end
     end
+
+    resources :favorites, only: [] do
+      post :toggle, on: :collection
+    end
   end
 
   match '*unmatched', to: 'errors#not_found', via: :all

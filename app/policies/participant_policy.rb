@@ -53,6 +53,10 @@ class ParticipantPolicy < ApplicationPolicy
     !(peer? || blocked?)
   end
 
+  def toggle_notifications?
+    !blocked?
+  end
+
   private
 
   def owner?
