@@ -15,6 +15,7 @@ module Api
                    :replied
 
         belongs_to :room
+        has_many :reactions
       end
     end
   end

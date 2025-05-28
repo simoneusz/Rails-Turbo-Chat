@@ -32,7 +32,10 @@ namespace :api do
         delete :leave
       end
 
-      resources :messages, controller: 'messages', only: %i[create destroy]
+      resources :messages, controller: 'messages', only: %i[create destroy] do
+        resources :reactions, only: %i[create]
+        delete 'reactions', to: 'reactions#destroy'
+      end
       resources :participants, controller: 'participants' do
         post    :change_role
         patch   :toggle_notifications
