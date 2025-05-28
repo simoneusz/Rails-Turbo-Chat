@@ -5,7 +5,7 @@ module Api
     module Contacts
       module Add
         class Authorizer
-          def call(_params)
+          def call
             true
           end
         end
