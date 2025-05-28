@@ -27,7 +27,7 @@ namespace :api do
 
       member do
         post :join
-        post :leave
+        delete :leave
       end
 
       resources :messages, controller: 'messages', only: %i[create destroy]
