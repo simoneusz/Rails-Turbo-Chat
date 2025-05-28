@@ -17,6 +17,7 @@ module Api
                    :room_type
 
         has_many :messages, serializer: MessageSerializer
+        has_many :participants, serializer: ParticipantSerializer
       end
     end
   end
