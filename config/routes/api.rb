@@ -42,6 +42,10 @@ namespace :api do
     resources :favorites, only: [] do
       post :toggle, on: :collection
     end
+
+    resources :notifications, only: [:index] do
+      patch :mark_as_read, on: :member
+    end
   end
 
   match '*unmatched', to: 'errors#not_found', via: :all
