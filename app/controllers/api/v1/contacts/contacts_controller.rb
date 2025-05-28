@@ -3,7 +3,7 @@
 module Api
   module V1
     module Contacts
-      class ContactsController < ApiController
+      class ContactsController < BaseController
         before_action :authenticate_user!
         before_action :set_user, only: %i[update destroy delete]
 

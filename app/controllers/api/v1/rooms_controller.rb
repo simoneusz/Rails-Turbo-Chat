@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class RoomsController < ApiController
+    class RoomsController < BaseController
       before_action :set_room, only: %i[show destroy update]
 
       def index

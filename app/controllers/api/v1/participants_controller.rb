@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class ParticipantsController < ApiController
+    class ParticipantsController < BaseController
       before_action :set_participant, only: %i[destroy change_role]
       before_action :set_room
       before_action :set_user, only: %i[create]

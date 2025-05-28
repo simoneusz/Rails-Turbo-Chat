@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class MessagesController < ApiController
+    class MessagesController < BaseController
       before_action :set_room, only: %i[create destroy]
 
       def create
