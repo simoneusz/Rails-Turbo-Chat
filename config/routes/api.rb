@@ -25,6 +25,11 @@ namespace :api do
         get :dms
       end
 
+      member do
+        post :join
+        post :leave
+      end
+
       resources :messages, controller: 'messages', only: %i[create destroy]
       resources :participants, controller: 'participants' do
         post    :change_role
