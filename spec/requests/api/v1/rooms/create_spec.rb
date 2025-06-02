@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::Rooms::RoomsController do
+RSpec.describe 'POST /api/v1/rooms' do
   let(:user) { create(:user) }
   let(:auth_token) { Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).first }
 
@@ -14,13 +14,13 @@ RSpec.describe Api::V1::Rooms::RoomsController do
     }
   end
 
-  describe 'POST /api/v1/rooms/rooms' do
+  describe 'POST /api/v1/rooms' do
     context 'when authenticated' do
       let(:room_params) { { name: 'Test Room', is_private: false } }
       let(:invalid_params) { { name: nil, is_private: nil } }
 
       context 'with valid params' do
-        subject(:request) { post '/api/v1/rooms/rooms', params: { room: room_params }.to_json, headers: headers }
+        subject(:request) { post '/api/v1/rooms', params: { room: room_params }.to_json, headers: headers }
 
         before { request }
 
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::Rooms::RoomsController do
       end
 
       context 'with invalid params' do
-        subject(:request) { post '/api/v1/rooms/rooms', params: { room: invalid_params }.to_json, headers: headers }
+        subject(:request) { post '/api/v1/rooms', params: { room: invalid_params }.to_json, headers: headers }
 
         before { request }
 
@@ -53,7 +53,7 @@ RSpec.describe Api::V1::Rooms::RoomsController do
     end
 
     context 'when not authenticated' do
-      subject(:request) { post '/api/v1/rooms/rooms', params: { room: {} }.to_json }
+      subject(:request) { post '/api/v1/rooms', params: { room: {} }.to_json }
 
       before { request }
 
