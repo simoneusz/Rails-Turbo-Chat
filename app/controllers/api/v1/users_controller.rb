@@ -17,6 +17,11 @@ module Api
         render_response(Api::V1::Users::ChangeStatus::Transaction.new.call(user_params, @user, current_user))
       end
 
+      def search
+        render json: Serializers::UserSerializer.new(::Users::SearchQueryService.new(params).call.data[:results])
+                                                .serializable_hash
+      end
+
       private
 
       def set_user

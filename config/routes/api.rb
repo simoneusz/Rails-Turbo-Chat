@@ -49,6 +49,8 @@ namespace :api do
     resources :notifications, only: [:index] do
       patch :mark_as_read, on: :member
     end
+
+    get 'search_users', to: 'users#search'
   end
 
   match '*unmatched', to: 'errors#not_found', via: :all
