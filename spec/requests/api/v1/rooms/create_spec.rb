@@ -3,16 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'POST /api/v1/rooms' do
-  let(:user) { create(:user) }
-  let(:auth_token) { Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).first }
-
-  def headers
-    {
-      'Authorization' => "Bearer #{auth_token}",
-      'Content-Type' => 'application/json',
-      'Accept' => 'application/json'
-    }
-  end
+  include_context 'when request requires authentication'
 
   describe 'POST /api/v1/rooms' do
     context 'when authenticated' do
