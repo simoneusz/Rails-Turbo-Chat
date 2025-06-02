@@ -48,7 +48,7 @@ module Api
       end
 
       def room_update_params
-        params.require(:room).permit(:description, :topic)
+        params.require(:room).permit(:name, :description, :topic)
       end
 
       def set_room
