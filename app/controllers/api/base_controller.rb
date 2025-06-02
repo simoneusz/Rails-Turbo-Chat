@@ -49,7 +49,7 @@ module Api
     end
 
     def render_unauthorized
-      render json: { errors: { status: 401, title: 'Unauthorized', backtrace: exception.backtrace } },
+      render json: { errors: { status: 401, title: 'Unauthorized' } },
              status: :unauthorized
     end
 
