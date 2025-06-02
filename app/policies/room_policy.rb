@@ -6,7 +6,7 @@ class RoomPolicy < ApplicationPolicy
   end
 
   def show?
-    !record.user_blocked?(user)
+    !record.user_blocked?(user) && (record.is_private ? record.participant?(user) : true)
   end
 
   def create?
