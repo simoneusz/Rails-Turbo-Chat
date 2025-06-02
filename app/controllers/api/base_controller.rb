@@ -78,8 +78,8 @@ module Api
 
     def handle_pundit_unauthorized(exception)
       render json: {
-        errors: { status: 401, title: 'Unauthorized', message: exception.message, backtrace: exception.backtrace }
-      }, status: :unauthorized
+        errors: { status: 403, title: 'Forbidden', message: exception.message, backtrace: exception.backtrace }
+      }, status: :forbidden
     end
 
     def record_not_found(exception)
