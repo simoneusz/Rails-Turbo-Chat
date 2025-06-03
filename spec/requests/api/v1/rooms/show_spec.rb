@@ -38,8 +38,8 @@ RSpec.describe 'GET /api/v1/rooms/:id' do
         let(:room_params) { { name: 'Test Room', is_private: true } }
         let!(:room) { create(:room, room_params) }
 
-        it 'returns 401 Unauthorized' do
-          expect(response).to have_http_status(:unauthorized)
+        it 'returns 403 Forbidden' do
+          expect(response).to have_http_status(:forbidden)
         end
       end
     end

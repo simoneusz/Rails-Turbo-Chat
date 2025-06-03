@@ -39,7 +39,7 @@ module Api
       end
 
       def set_user
-        @user = User.find(params[:user_id])
+        @user = User.find(participant_params[:user_id])
       end
 
       def participant_params

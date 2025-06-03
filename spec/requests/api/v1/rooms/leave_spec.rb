@@ -41,8 +41,8 @@ RSpec.describe 'DELETE /api/v1/rooms/:id/leave' do
 
         let!(:peer_room) { create(:room) }
 
-        it 'returns 422 unprocessable entity' do
-          expect(response).to have_http_status(:unprocessable_entity)
+        it 'returns 403 forbidden' do
+          expect(response).to have_http_status(:forbidden)
         end
       end
     end
