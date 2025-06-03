@@ -9,7 +9,7 @@ module Api
             participant = room.find_participant(current_user)
             raise Pundit::NotAuthorizedError, 'You don\'t belong in this room' if participant.nil?
 
-            Pundit.authorize current_user, participant, :destroy?
+            Pundit.authorize current_user, room, :destroy?
           end
         end
       end

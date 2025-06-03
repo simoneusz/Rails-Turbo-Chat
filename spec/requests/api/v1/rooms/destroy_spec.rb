@@ -38,6 +38,16 @@ RSpec.describe 'DELETE /api/v1/rooms/:id' do
           expect(response).to have_http_status(:forbidden)
         end
       end
+
+      context 'when user is not in room' do
+        subject(:request) { delete "/api/v1/rooms/#{room.id}", headers: headers }
+
+        before { request }
+
+        it 'returns status 403 forbidden' do
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
     end
 
     context 'when unauthorized' do

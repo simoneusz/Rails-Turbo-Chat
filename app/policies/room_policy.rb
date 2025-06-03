@@ -40,4 +40,10 @@ class RoomPolicy < ApplicationPolicy
   def dms?
     index?
   end
+
+  private
+
+  def participant?
+    record.find_participant(user).present?
+  end
 end

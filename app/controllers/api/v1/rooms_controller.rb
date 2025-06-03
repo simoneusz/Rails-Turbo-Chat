@@ -10,7 +10,7 @@ module Api
       end
 
       def show
-        render json: Api::V1::Serializers::RoomSerializer.new(@room).serializable_hash
+        render_response(Api::V1::Rooms::Show::Transaction.new.call(@room, current_user))
       end
 
       def create
