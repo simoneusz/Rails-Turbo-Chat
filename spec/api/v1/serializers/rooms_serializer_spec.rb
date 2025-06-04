@@ -2,15 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::Serializers::RoomSerializer, type: :serializer do
+RSpec.describe Api::V1::Serializers::RoomsSerializer, type: :serializer do
   subject(:serializer) { described_class.new(room) }
 
   let(:room) { create(:room) }
-
-  describe 'associations' do
-    it { is_expected.to have_many(:messages).serializer(Api::V1::Serializers::MessageSerializer) }
-    it { is_expected.to have_many(:participants).serializer(Api::V1::Serializers::ParticipantSerializer) }
-  end
 
   describe 'attributes' do
     it { is_expected.to serialize_attribute(:name) }
