@@ -22,7 +22,7 @@ class ParticipantPolicy < ApplicationPolicy
   end
 
   def index?
-    !blocked?
+    participant? && !blocked?
   end
 
   def show?
@@ -81,6 +81,10 @@ class ParticipantPolicy < ApplicationPolicy
 
   def non_participant?
     user_role == 'non_participant'
+  end
+
+  def participant?
+    !non_participant?
   end
 
   def user_role

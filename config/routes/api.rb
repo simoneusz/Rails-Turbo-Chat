@@ -36,7 +36,8 @@ namespace :api do
         resources :reactions, only: %i[create]
         delete 'reactions', to: 'reactions#destroy'
       end
-      resources :participants, controller: 'participants' do
+
+      resources :participants, only: %i[index create destroy] , controller: 'participants' do
         post    :change_role
         patch   :toggle_notifications
       end
