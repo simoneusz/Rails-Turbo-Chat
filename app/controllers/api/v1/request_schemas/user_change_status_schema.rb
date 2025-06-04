@@ -5,7 +5,7 @@ module Api
     module RequestSchemas
       class UserChangeStatusSchema < ApplicationRequestSchema
         params do
-          required(:status).filled(:string, inclusion?: User.statuses.keys)
+          required(:status).filled(:string, included_in?: User.statuses.keys)
         end
       end
     end

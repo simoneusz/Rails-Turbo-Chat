@@ -3,13 +3,10 @@
 module Api
   module V1
     module RequestSchemas
-      # Validates params for creating a participant
-      # @!attribute [r] user_id
-      #   @return [Integer] user id
-      # @return [Dry::Validation::Result]
+      # Validates params for changing participant role
       class ParticipantChangeRoleSchema < ApplicationRequestSchema
         params do
-          required(:role).filled(:string)
+          required(:role).filled(:string, included_in?: Participant.roles.keys.excluding('owner', 'peer'))
         end
       end
     end
