@@ -34,7 +34,7 @@ module Api
       end
 
       def all
-        render_response(Api::V1::Rooms::All::Transaction.new.call(current_user))
+        render_response(Api::V1::Rooms::All::Transaction.new.call)
       end
 
       def dms

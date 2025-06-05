@@ -5,7 +5,7 @@ module Api
     module Rooms
       module All
         class Authorizer
-          def call(_current_user)
+          def call
             true
           end
         end

@@ -7,10 +7,8 @@ module Api
         class Transaction
           include ::TransactionResponse
 
-          def call(current_user)
-            authorize = Authorizer.new.call(current_user)
-            return unless authorize
-
+          def call
+            Authorizer.new.call
             Validator.new.call
 
             rooms = Room.public_rooms
