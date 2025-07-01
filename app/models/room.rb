@@ -12,6 +12,13 @@ class Room < ApplicationRecord
   }, class_name: 'RoomNotification', as: :item, dependent: :destroy, inverse_of: :item
   has_many :favorited, class_name: 'Favorite', dependent: :destroy
 
+  enum :room_type, {
+    public_room: 0,
+    private_room: 1,
+    peer_room: 2,
+    self_room: 3
+  }
+
   validates :name, uniqueness: true
   validates :name, presence: true
 

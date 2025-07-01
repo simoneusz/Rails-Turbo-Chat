@@ -10,6 +10,7 @@ module Participants
     def call
       return error_invalid_participant unless @participant
       return error_unknown_role unless Participant.roles.include?(@new_role)
+      return error_cant_change_role if @participant.owner?
 
       update_participant_role
       notify_participant_room
@@ -34,6 +35,10 @@ module Participants
 
     def error_invalid_participant
       error(code: CODE_PARTICIPANT_DOESNT_EXIST)
+    end
+
+    def error_cant_change_role
+      error(code: CODE_CANT_CHANGE_ROLE)
     end
 
     def error_unknown_role

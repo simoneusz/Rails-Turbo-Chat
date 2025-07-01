@@ -7,5 +7,6 @@ FactoryBot.define do
     description { Faker::Lorem.sentence }
     topic { Faker::Lorem.sentence }
     is_private { false }
+    room_type { :public_room }
   end
 end

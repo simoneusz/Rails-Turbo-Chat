@@ -2,15 +2,15 @@
 
 class ParticipantPolicy < ApplicationPolicy
   def change_role?
-    owner?
+    owner? || moderator?
   end
 
   def block?
-    owner? || moderator?
+    change_role?
   end
 
   def unblock?
-    owner? || moderator?
+    change_role?
   end
 
   def chat?
@@ -22,7 +22,7 @@ class ParticipantPolicy < ApplicationPolicy
   end
 
   def index?
-    !blocked?
+    participant? && !blocked?
   end
 
   def show?
@@ -53,6 +53,10 @@ class ParticipantPolicy < ApplicationPolicy
     !(peer? || blocked?)
   end
 
+  def toggle_notifications?
+    !blocked?
+  end
+
   private
 
   def owner?
@@ -77,6 +81,10 @@ class ParticipantPolicy < ApplicationPolicy
 
   def non_participant?
     user_role == 'non_participant'
+  end
+
+  def participant?
+    !non_participant?
   end
 
   def user_role

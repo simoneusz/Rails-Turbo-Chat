@@ -23,3 +23,8 @@ Lint/MissingSuper:
   Enabled: true
   Exclude:
     - app/services/**/*
+RSpec/NestedGroups:
+  Enabled: false
+Rails/DeprecatedActiveModelErrorsMethods:
+  Exclude:
+    - 'app/**/*/api/v1/**/*'

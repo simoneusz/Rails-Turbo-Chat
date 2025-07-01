@@ -13,7 +13,7 @@ module Contacts
       result_existing_request = existing_request
       return result_existing_request if result_existing_request
 
-      contact = Contact.find_by(user: @user, contact: @other_user)
+      contact = Contact.find_by(user: @user, contact: @other_user) || Contact.find_by(user: @other_user, contact: @user)
       return error_contact_already_exists if contact&.status_accepted?
 
       update_or_create_request_contact(contact)

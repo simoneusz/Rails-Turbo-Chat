@@ -9,6 +9,8 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'rspec/rails'
 
+Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
@@ -18,6 +20,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Warden::Test::Helpers, type: :request
+  config.include(RSpecJSONAPISerializer::Matchers, type: :serializer)
 
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
@@ -26,6 +29,10 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
+  config.before(:all) do
+    Faker::UniqueGenerator.clear
+  end
 end
 
 Shoulda::Matchers.configure do |config|

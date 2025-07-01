@@ -52,6 +52,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
+  devise :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
+
   after_create :create_self_room
   after_create_commit { broadcast_append_to 'users' }
 
@@ -77,7 +79,7 @@ class User < ApplicationRecord
 
   def create_self_room
     room_params = { name: "#{username}_self_room", is_private: true }
-    Rooms::CreateRoomService.new(room_params, self, :peer).call
+    Rooms::CreateRoomService.new(room_params, self, :peer, :self_room).call
   end
 
   class << self

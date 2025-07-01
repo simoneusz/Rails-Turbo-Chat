@@ -43,4 +43,36 @@ RSpec.describe User do
       expect(user.full_name).to eq('John Doe')
     end
   end
+
+  describe '#create_self_room' do
+    subject(:user) { create(:user) }
+
+    context 'when creation succeeds' do
+      it 'creates a self room for the user' do
+        expect(user.rooms.size).to eq(1)
+      end
+
+      it 'sets the room type to self_room' do
+        expect(user.rooms.first.room_type).to eq('self_room')
+      end
+
+      it 'sets the room name to username_self_room' do
+        expect(user.rooms.first.name).to eq("#{user.username}_self_room")
+      end
+    end
+
+    context 'when creating for the second time' do
+      subject(:user) { create(:user) }
+
+      before { user.create_self_room }
+
+      it 'does not create a new self room' do
+        expect { user.create_self_room }.not_to change(Room, :count)
+      end
+
+      it 'does not create a new participant' do
+        expect { user.create_self_room }.not_to change(Participant, :count)
+      end
+    end
+  end
 end

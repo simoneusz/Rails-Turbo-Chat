@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_22_071157) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_23_075825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,6 +70,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_22_071157) do
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_favorites_on_room_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "jwt_denylist", force: :cascade do |t|
+    t.string "jti", null: false
+    t.datetime "exp", null: false
+    t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -180,6 +186,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_22_071157) do
     t.string "description"
     t.string "topic"
     t.bigint "creator_id"
+    t.integer "room_type", default: 0
     t.index ["creator_id"], name: "index_rooms_on_creator_id"
     t.index ["name"], name: "index_rooms_on_name", unique: true
   end

@@ -24,10 +24,20 @@ gem 'sassc-rails'
 
 gem 'image_processing', '~> 1.2'
 
+# API gems
+gem 'rack-cors'
+
+gem 'active_model_serializers'
+gem 'devise'
+gem 'devise-jwt'
+gem 'dry-validation'
+gem 'jsonapi-serializer'
+
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'rspec_jsonapi_serializer'
   gem 'rspec-rails', '~> 7.0.0'
   gem 'rubocop', require: false
   gem 'rubocop-capybara', '~> 2.21'
@@ -49,8 +59,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 6.0'
 end
-
-gem 'devise'
 
 gem 'noticed', '~> 2.6'
 gem 'ransack'
