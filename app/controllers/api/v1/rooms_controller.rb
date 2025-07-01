@@ -6,7 +6,13 @@ module Api
       before_action :set_room, only: %i[show destroy update join leave]
 
       def index
-        render json: Api::V1::Serializers::RoomsSerializer.new(Room.order(:id)).serializable_hash
+        query = Api::V1::Queries::RoomsQuery.new(Room.all, params)
+        pagy, rooms = query.call
+        render json: Api::V1::Serializers::RoomsSerializer.new(rooms)
+                                                          .serializable_hash
+                                                          .merge(pagy: pagy,
+                                                                 total_count: rooms.count,
+                                                                 total_pages: pagy.pages)
       end
 
       def show
