@@ -6,7 +6,7 @@ module Api
       before_action :set_user, only: %i[show update change_status]
 
       def show
-        render_response(Api::V1::Users::Show::Transaction.new.call(params, @user, current_user))
+        render_response(Api::V1::Users::Show::Transaction.new.call(@user, current_user))
       end
 
       def update

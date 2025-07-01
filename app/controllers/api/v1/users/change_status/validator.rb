@@ -4,12 +4,16 @@ module Api
   module V1
     module Users
       module ChangeStatus
+        # Validates params for user#change_status action
         class Validator
+          # Validates params for user#change_status action
+          #
+          # @param params [ActionController::Parameters] params for changing user status
+          # @return [nil] nil if valid, raises Errors::ValidationError otherwise
           def call(params)
             schema = Api::V1::RequestSchemas::UserChangeStatusSchema.new.call(params.to_h)
-            # TODO: move hash to string transformation to Validator base class or override dry message to_s
-            errors = schema.errors.to_h.map { |field, messages| "#{field}: #{messages.join(', ')}" }.join('; ')
-            raise Errors::ValidationError, errors unless errors.empty?
+
+            raise Errors::ValidationError, schema.to_s if schema.failure?
           end
         end
       end

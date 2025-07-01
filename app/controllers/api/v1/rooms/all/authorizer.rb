@@ -5,6 +5,9 @@ module Api
     module Rooms
       module All
         class Authorizer
+          # Authorizes a room to be shown
+          #
+          # @return [Boolean] true, always
           def call
             true
           end

@@ -4,14 +4,17 @@ module Api
   module V1
     module Users
       module Show
+        # Orchestrates user#show action
         class Transaction
           include ::TransactionResponse
-
-          def call(params, user, current_user)
+          # Orchestrates user#show action
+          #
+          # @param user [User] user instance
+          # @param current_user [User] current logged user
+          # @return [Hash] transaction response with status, data, message
+          def call(user, current_user)
             Authorizer.new.call(user, current_user)
-
-            validator = Validator.new.call(params)
-            return unless validator
+            Validator.new.call
 
             response(status: :ok, data: Serializer.new.call(user), message: 'Ok')
           end

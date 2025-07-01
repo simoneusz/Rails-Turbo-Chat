@@ -4,9 +4,12 @@ module Api
   module V1
     module Rooms
       module All
+        # Orchestrates room#all action
         class Transaction
           include ::TransactionResponse
-
+          # Orchestrates room#all action
+          #
+          # @return [Hash] transaction response with status, data, message
           def call
             Authorizer.new.call
             Validator.new.call

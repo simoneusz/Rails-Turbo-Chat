@@ -4,9 +4,15 @@ module Api
   module V1
     module Favorites
       module Toggle
+        # Orchestrates favorite#toggle action
         class Transaction
           include ::TransactionResponse
-
+          # Orchestrates favorite#toggle action
+          #
+          # @param params [ActionController::Parameters] params for toggle favorite
+          # @param room [Room] room instance
+          # @param current_user [User] current logged user
+          # @return [Hash] transaction response with status, data, message
           def call(params, room, current_user)
             Authorizer.new.call(room, current_user)
             Validator.new.call(params)

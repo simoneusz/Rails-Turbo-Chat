@@ -4,9 +4,16 @@ module Api
   module V1
     module Reactions
       module Create
+        # Orchestrates reaction#create action
         class Transaction
           include ::TransactionResponse
-
+          # Orchestrates reaction#create action
+          #
+          # @param params [ActionController::Parameters] params for create reaction
+          # @param room [Room] room instance
+          # @param message [Message] message instance
+          # @param current_user [User] current logged user
+          # @return [Hash] transaction response with status, data, message
           def call(params, room, message, current_user)
             Authorizer.new.call(room, current_user)
             Validator.new.call(params)

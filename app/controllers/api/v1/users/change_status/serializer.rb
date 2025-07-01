@@ -4,7 +4,12 @@ module Api
   module V1
     module Users
       module ChangeStatus
+        # Serializes a User instance into a hash
         class Serializer
+          # Serialize a user record
+          #
+          # @param record [User] user instance to be serialized
+          # @return [Hash] serialized user attributes
           def call(record)
             Serializers::UserSerializer.new(record).serializable_hash
           end

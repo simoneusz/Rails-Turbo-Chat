@@ -5,7 +5,7 @@ module Api
     module Users
       module Show
         class Validator
-          def call(_params)
+          def call
             true
           end
         end

@@ -4,9 +4,14 @@ module Api
   module V1
     module Rooms
       module Leave
+        # Orchestrates room#leave action
         class Transaction
           include ::TransactionResponse
-
+          # Orchestrates room#leave action
+          #
+          # @param room [Room] room instance
+          # @param current_user [User] current logged user
+          # @return [Hash] transaction response with status, data, message
           def call(room, current_user)
             Authorizer.new.call(room, current_user)
             Validator.new.call
