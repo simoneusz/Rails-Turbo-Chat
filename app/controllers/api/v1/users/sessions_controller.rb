@@ -6,8 +6,7 @@ module Api
       class SessionsController < Devise::SessionsController
         respond_to :json
         skip_before_action :verify_authenticity_token
-
-        skip_before_action :require_no_authentication, only: [:create]
+        skip_before_action :require_no_authentication, only: [:create] # rubocop:disable Rails/LexicallyScopedActionFilter
 
         private
 
@@ -22,17 +21,23 @@ module Api
           jwt_payload = JWT.decode(request.headers['Authorization'].split.last,
                                    Rails.application.credentials.devise_jwt_secret_key!).first
           current_user = User.find(jwt_payload['sub'])
-          if current_user
-            render json: {
-              status: 200,
-              message: 'Logged out successfully.'
-            }, status: :ok
-          else
-            render json: {
-              status: 401,
-              message: 'JWT invalid'
-            }, status: :unauthorized
-          end
+
+          failure unless current_user
+          success
+        end
+
+        def success
+          render json: {
+            status: { code: 200, message: 'Signed up successfully.' },
+            data: resource
+          }, status: :ok
+        end
+
+        def failure
+          render json: {
+            status: 422,
+            errors: resource.errors.full_messages
+          }, status: :unprocessable_entity
         end
       end
     end
