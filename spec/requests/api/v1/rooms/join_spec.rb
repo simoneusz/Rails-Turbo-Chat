@@ -11,7 +11,7 @@ RSpec.describe 'POST /api/v1/rooms/:id/join' do
 
     context 'when authenticated' do
       context 'with valid params' do
-        subject(:request) { post "/api/v1/rooms/#{room.id}/join", headers: headers }
+        subject(:request) { post "/api/v1/rooms/#{room.id}/join", headers: }
 
         before { request }
 
@@ -27,7 +27,7 @@ RSpec.describe 'POST /api/v1/rooms/:id/join' do
       end
 
       context 'when trying to join private room' do
-        subject(:request) { post "/api/v1/rooms/#{private_room.id}/join", headers: headers }
+        subject(:request) { post "/api/v1/rooms/#{private_room.id}/join", headers: }
 
         before { request }
 
@@ -39,15 +39,15 @@ RSpec.describe 'POST /api/v1/rooms/:id/join' do
       end
 
       context 'when user already in room' do
-        subject(:request) { post "/api/v1/rooms/#{room.id}/join", headers: headers }
+        subject(:request) { post "/api/v1/rooms/#{room.id}/join", headers: }
 
         before do
           create(:participant, user:, room:)
           request
         end
 
-        it 'returns 422 unprocessable entity' do
-          expect(response).to have_http_status(:unprocessable_entity)
+        it 'returns 403 forbidden' do
+          expect(response).to have_http_status(:forbidden)
         end
       end
     end

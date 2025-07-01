@@ -8,7 +8,7 @@ module Api
         class Serializer
           # Serialize a room record
           #
-          # @param records [Room::ActiveRecord_Relation] room instances to be serialized
+          # @param records [Room::ActiveRecord_Relation] participant instances to be serialized
           # @return [Hash] serialized room attributes
           def call(records)
             Api::V1::Serializers::ParticipantSerializer.new(records).serializable_hash

@@ -2,7 +2,7 @@
 
 class ReactionsPolicy < ApplicationPolicy
   def create?
-    user.present? && record.participant?(user)
+    record.participant?(user)
   end
 
   def destroy?

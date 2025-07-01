@@ -17,8 +17,7 @@ module Api
       end
 
       def destroy
-        render_response(Api::V1::Participants::Destroy::Transaction.new.call(params, @room, @participant,
-                                                                             current_user))
+        render_response(Api::V1::Participants::Destroy::Transaction.new.call(@room, @participant, current_user))
       end
 
       def change_role
@@ -26,7 +25,6 @@ module Api
                                                                                 @participant))
       end
 
-      # TODO: get participant id, not users
       def toggle_notifications
         render_response(Api::V1::Participants::ToggleNotifications::Transaction.new.call(@room,
                                                                                          current_user))

@@ -15,7 +15,7 @@ RSpec.describe 'DELETE /api/v1/rooms/:id/leave' do
 
     context 'when authenticated' do
       context 'with valid params' do
-        subject(:request) { delete "/api/v1/rooms/#{room.id}/leave", headers: headers }
+        subject(:request) { delete "/api/v1/rooms/#{room.id}/leave", headers: }
 
         before { request }
 
@@ -31,7 +31,7 @@ RSpec.describe 'DELETE /api/v1/rooms/:id/leave' do
       end
 
       context 'when trying to leave peer room' do
-        subject(:request) { delete "/api/v1/rooms/#{peer_room.id}/leave", headers: headers }
+        subject(:request) { delete "/api/v1/rooms/#{peer_room.id}/leave", headers: }
 
         before do
           create(:participant, user:, room: peer_room, role: :peer)

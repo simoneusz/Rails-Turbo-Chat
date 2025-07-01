@@ -11,11 +11,11 @@ module Api
             message = current_user.messages.find(message_id)
 
             Authorizer.new.call(message, current_user)
-            Validator.new.call(message, current_user)
+            Validator.new.call
 
             message.destroy
 
-            response(status: :no_content, data: message, message: 'Destroyed')
+            response(status: :no_content)
           end
         end
       end

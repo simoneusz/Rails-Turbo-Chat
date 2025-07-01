@@ -10,7 +10,7 @@ RSpec.describe 'GET /api/v1/rooms' do
 
     context 'when authenticated' do
       context 'with valid params' do
-        subject(:request) { get '/api/v1/rooms', headers: headers }
+        subject(:request) { get '/api/v1/rooms', headers: }
 
         before do
           create(:room, room_params)

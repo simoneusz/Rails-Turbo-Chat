@@ -5,7 +5,7 @@ module Api
     module Messages
       module Destroy
         class Validator
-          def call(_room, _current_user)
+          def call
             true
           end
         end

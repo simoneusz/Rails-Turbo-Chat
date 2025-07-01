@@ -4,8 +4,12 @@ module Api
   module V1
     module Rooms
       module Destroy
+        # Serializes a Room instance into a hash
         class Serializer
-          def call(request); end
+          # Serialize a room record
+          #
+          # @return [NilClass] nil
+          def call; end
         end
       end
     end

@@ -12,7 +12,6 @@ module Api
             Validator.new.call(params)
 
             result = ::Users::ChangeStatusService.new(user.id, params[:status]).call
-            # TODO: move raises from all transactions to services
             raise Errors::ServiceError, [result.data, result.error_code] unless result.success?
 
             response(status: :ok, data: Serializer.new.call(result.data), message: 'Updated')

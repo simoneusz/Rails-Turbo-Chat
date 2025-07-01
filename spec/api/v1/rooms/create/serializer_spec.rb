@@ -3,8 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Rooms::Create::Serializer do
-  let(:room_params) { { name: 'Test Room', is_private: false } }
-  let(:room) { create(:room, room_params) }
+  let(:room) { create(:room) }
   let(:serialized_room) { Api::V1::Serializers::RoomSerializer.new(room).serializable_hash }
 
   describe '#call' do

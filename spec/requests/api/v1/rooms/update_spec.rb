@@ -11,7 +11,7 @@ RSpec.describe 'PATCH /api/v1/rooms/:id' do
   describe 'PATCH /api/v1/rooms' do
     context 'when authenticated' do
       context 'with valid params' do
-        subject(:request) { patch "/api/v1/rooms/#{room.id}", params: body, headers: headers }
+        subject(:request) { patch "/api/v1/rooms/#{room.id}", params: body, headers: }
 
         before do
           create(:participant, user:, room:, role: :owner)
@@ -31,7 +31,7 @@ RSpec.describe 'PATCH /api/v1/rooms/:id' do
       end
 
       context 'with invalid params' do
-        subject(:request) { patch "/api/v1/rooms/#{room.id}", params: body, headers: headers }
+        subject(:request) { patch "/api/v1/rooms/#{room.id}", params: body, headers: }
 
         before do
           create(:participant, user:, room:, role: :owner)
@@ -51,7 +51,7 @@ RSpec.describe 'PATCH /api/v1/rooms/:id' do
       end
 
       context 'with inappropriate role' do
-        subject(:request) { patch "/api/v1/rooms/#{room.id}", params: body, headers: headers }
+        subject(:request) { patch "/api/v1/rooms/#{room.id}", params: body, headers: }
 
         before do
           create(:participant, user:, room:, role: :peer)

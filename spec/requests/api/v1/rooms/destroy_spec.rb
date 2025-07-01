@@ -11,7 +11,7 @@ RSpec.describe 'DELETE /api/v1/rooms/:id' do
   describe 'PATCH /api/v1/rooms' do
     context 'when authenticated' do
       context 'with valid params' do
-        subject(:request) { delete "/api/v1/rooms/#{room.id}", headers: headers }
+        subject(:request) { delete "/api/v1/rooms/#{room.id}", headers: }
 
         before do
           create(:participant, user:, room:, role: :owner)
@@ -26,7 +26,7 @@ RSpec.describe 'DELETE /api/v1/rooms/:id' do
       end
 
       context 'with inappropriate role' do
-        subject(:request) { delete "/api/v1/rooms/#{room.id}", headers: headers }
+        subject(:request) { delete "/api/v1/rooms/#{room.id}", headers: }
 
         before do
           create(:participant, user:, room:, role: :peer)
@@ -34,13 +34,12 @@ RSpec.describe 'DELETE /api/v1/rooms/:id' do
         end
 
         it 'returns status 403 forbidden' do
-          p response.parsed_body
           expect(response).to have_http_status(:forbidden)
         end
       end
 
       context 'when user is not in room' do
-        subject(:request) { delete "/api/v1/rooms/#{room.id}", headers: headers }
+        subject(:request) { delete "/api/v1/rooms/#{room.id}", headers: }
 
         before { request }
 

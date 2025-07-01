@@ -2,6 +2,8 @@
 
 class MessagesController < ApplicationController
   before_action :set_room, only: %i[create destroy]
+  before_action :set_message, only: %i[destroy]
+  before_action :authorize_message, only: %i[destroy]
 
   def create
     result = Messages::CreationService.new(message_params, @room, current_user).call
@@ -10,7 +12,6 @@ class MessagesController < ApplicationController
   end
 
   def destroy
-    @message = current_user.messages.find(params[:id])
     result = Messages::DestroyService.new(@message, @room, current_user).call
 
     if result.success?
@@ -22,8 +23,17 @@ class MessagesController < ApplicationController
 
   private
 
+  def authorize_message
+    Rails.logger.info(@message)
+    authorize @message, :destroy?
+  end
+
   def set_room
     @room = Room.find(params[:room_id])
+  end
+
+  def set_message
+    @message = current_user.messages.find(params[:id])
   end
 
   def message_params

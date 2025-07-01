@@ -9,7 +9,7 @@ module Api
             participant = message.room.find_participant(current_user)
             raise Pundit::NotAuthorizedError, 'You don\'t belong in this room' if participant.nil?
 
-            raise Pundit::NotAuthorizedError, 'This message does not belong to you' unless message.user == current_user
+            Pundit.authorize current_user, message, :destroy?
           end
         end
       end

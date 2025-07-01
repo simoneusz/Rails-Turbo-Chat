@@ -3,7 +3,11 @@
 module Api
   module V1
     class MessagesController < BaseController
-      before_action :set_room, only: %i[create destroy]
+      before_action :set_room, only: %i[index create destroy]
+
+      def index
+        render json: Api::V1::Serializers::MessageSerializer.new(@room.messages).serializable_hash
+      end
 
       def create
         render_response(Api::V1::Messages::Create::Transaction.new.call(message_params, @room, current_user))

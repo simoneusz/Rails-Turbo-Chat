@@ -8,7 +8,7 @@ module Api
         class Validator
           # Validates participant#destroy action, currently does nothing
           #
-          # @return [Boolean] true if validation passes
+          # @return [Boolean] true, always
           def call
             true
           end

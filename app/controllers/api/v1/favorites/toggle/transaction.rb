@@ -8,7 +8,7 @@ module Api
           include ::TransactionResponse
 
           def call(params, room, current_user)
-            Authorizer.new.call
+            Authorizer.new.call(room, current_user)
             Validator.new.call(params)
 
             result = toggle_favorite_service(room, current_user)

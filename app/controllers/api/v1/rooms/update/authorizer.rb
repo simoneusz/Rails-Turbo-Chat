@@ -10,7 +10,7 @@ module Api
 
             raise Pundit::NotAuthorizedError, 'You don\'t belong in this room' if participant.nil?
 
-            Pundit.authorize current_user, participant, :update?
+            Pundit.authorize current_user, room, :update?
           end
         end
       end

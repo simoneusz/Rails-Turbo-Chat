@@ -4,7 +4,13 @@ module Api
   module V1
     module Participants
       module Index
+        # Authorizes a participant to list participants
         class Authorizer
+          # Authorizes a participant to list participants
+          #
+          # @param room [Room] room instance
+          # @param current_user [User] current logged user
+          # @return [Participant] participant record if authorized, raises Pundit::NotAuthorizedError otherwise
           def call(room, current_user)
             participant = room.find_participant(current_user)
             raise Pundit::NotAuthorizedError, 'You don\'t belong in this room' if participant.nil?

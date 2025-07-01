@@ -12,9 +12,7 @@ module Api
           # @param current_user [User] current logged user
           # @return [Hash] transaction response with status, data, message
           def call(room, current_user)
-            authorize = Authorizer.new.call(room, current_user)
-            return unless authorize
-
+            Authorizer.new.call(room, current_user)
             Validator.new.call
 
             result = ::Participants::ToggleNotificationsService.new(room, current_user).call

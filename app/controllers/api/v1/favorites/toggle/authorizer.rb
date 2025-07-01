@@ -5,8 +5,9 @@ module Api
     module Favorites
       module Toggle
         class Authorizer
-          def call
-            true
+          def call(room, current_user)
+            participant = room.find_participant(current_user)
+            raise Pundit::NotAuthorizedError, 'You don\'t belong in this room' if participant.nil?
           end
         end
       end

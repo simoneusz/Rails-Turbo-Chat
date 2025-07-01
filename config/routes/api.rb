@@ -32,7 +32,7 @@ namespace :api do
         delete :leave
       end
 
-      resources :messages, controller: 'messages', only: %i[create destroy] do
+      resources :messages, controller: 'messages', only: %i[index create destroy] do
         resources :reactions, only: %i[create]
         delete 'reactions', to: 'reactions#destroy'
       end

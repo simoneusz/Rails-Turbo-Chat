@@ -8,11 +8,8 @@ module Api
         class Serializer
           # Serialize a participant record
           #
-          # @param record [participant] participant instance to be serialized
-          # @return [Hash] serialized participant attributes
-          def call(record)
-            Api::V1::Serializers::ParticipantSerializer.new(record).serializable_hash
-          end
+          # @return [NilClass] nil
+          def call; end
         end
       end
     end

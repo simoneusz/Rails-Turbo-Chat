@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Rooms::LeaveRoomService do
   let(:room) { create(:room) }
   let(:user) { create(:user) }
-  let!(:participant) { create(:participant, room: room, user: user, role: :member) }
+  let!(:participant) { create(:participant, room:, user:, role: :member) }
 
   describe '#call' do
     context 'when participant exists' do

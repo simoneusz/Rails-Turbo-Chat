@@ -10,9 +10,9 @@ module Api
           #
           # @param current_user [User] current logged user
           # @param notification [Notification] notification instance
-          # @return [Boolean] true if authorized, raises Pundit::NotAuthorizedError otherwise
+          # @return [Notification] notification record if authorized, raises Pundit::NotAuthorizedError otherwise
           def call(current_user, notification)
-            Pundit.authorize current_user, notification, :mark_as_read?
+            Pundit.authorize current_user, notification, :mark_as_read?, policy_class: UserNotificationPolicy
           end
         end
       end

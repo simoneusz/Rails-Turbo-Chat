@@ -5,6 +5,9 @@ module Api
     module Rooms
       module Dms
         class Validator
+          # Validates params for room#dms action, currently does nothing
+          #
+          # @return [Boolean] true, always
           def call
             true
           end

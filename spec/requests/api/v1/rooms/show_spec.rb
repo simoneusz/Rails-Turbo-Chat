@@ -5,12 +5,12 @@ require 'rails_helper'
 RSpec.describe 'GET /api/v1/rooms/:id' do
   include_context 'when request requires authentication'
 
-  describe 'GET /api/v1/rooms' do
+  describe 'GET /api/v1/rooms/:id' do
     let(:room_params) { { name: 'Test Room', is_private: false } }
 
     context 'when authenticated' do
       context 'with valid params' do
-        subject(:request) { get "/api/v1/rooms/#{room.id}", headers: headers }
+        subject(:request) { get "/api/v1/rooms/#{room.id}", headers: }
 
         before do
           request
@@ -29,7 +29,7 @@ RSpec.describe 'GET /api/v1/rooms/:id' do
       end
 
       context 'with inappropriate role' do
-        subject(:request) { get "/api/v1/rooms/#{room.id}", headers: headers }
+        subject(:request) { get "/api/v1/rooms/#{room.id}", headers: }
 
         before do
           request

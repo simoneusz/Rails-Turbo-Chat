@@ -11,7 +11,7 @@ RSpec.describe 'POST /api/v1/rooms' do
       let(:invalid_params) { { name: nil, is_private: nil } }
 
       context 'with valid params' do
-        subject(:request) { post '/api/v1/rooms', params: { room: room_params }.to_json, headers: headers }
+        subject(:request) { post '/api/v1/rooms', params: { room: room_params }.to_json, headers: }
 
         before { request }
 
@@ -27,7 +27,7 @@ RSpec.describe 'POST /api/v1/rooms' do
       end
 
       context 'with invalid params' do
-        subject(:request) { post '/api/v1/rooms', params: { room: invalid_params }.to_json, headers: headers }
+        subject(:request) { post '/api/v1/rooms', params: { room: invalid_params }.to_json, headers: }
 
         before { request }
 

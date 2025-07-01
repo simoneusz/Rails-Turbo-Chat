@@ -10,12 +10,11 @@ module Api
           include ::TransactionResponse
           # Orchestrates participant#destroy action
           #
-          # @param _params [ActionController::Parameters] params for destroy participant
           # @param room [Room] room instance
           # @param participant [Participant] participant instance
           # @param current_user [User] current logged user
           # @return [Hash] transaction response with status, data, message
-          def call(_params, room, participant, current_user)
+          def call(room, participant, current_user)
             Authorizer.new.call(room, current_user)
             Validator.new.call
 

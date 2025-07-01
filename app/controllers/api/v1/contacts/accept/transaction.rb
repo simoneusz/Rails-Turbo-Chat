@@ -28,8 +28,7 @@ module Api
           private
 
           def contact_record(user, other_user)
-            Contact.find_by(user: other_user, contact: user, status: :pending) ||
-              Contact.find_by(user: user, contact: other_user, status: :pending)
+            Contact.find_by(user: other_user, contact: user, status: :pending)
           end
         end
       end

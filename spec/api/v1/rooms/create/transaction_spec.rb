@@ -20,9 +20,7 @@ RSpec.describe Api::V1::Rooms::Create::Transaction do
       let(:room_params) { { is_private: false } }
 
       it 'raises validation error' do
-        expect do
-          transaction.call(room_params, current_user)
-        end.to raise_error(Errors::ValidationError)
+        expect { transaction }.to raise_error(Errors::ValidationError)
       end
     end
 

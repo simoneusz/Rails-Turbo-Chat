@@ -12,6 +12,7 @@ module Api
                    :created_at,
                    :updated_at,
                    :parent_message_id,
+                   :content,
                    :replied
 
         belongs_to :room

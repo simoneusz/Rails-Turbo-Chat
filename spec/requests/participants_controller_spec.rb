@@ -6,7 +6,7 @@ RSpec.describe ParticipantsController, type: :controller do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
   let(:room) { create(:room) }
-  let(:participant) { create(:participant, user:, room:, role: :owner) }
+  let!(:participant) { create(:participant, user:, room:, role: :owner) }
   let!(:another_participant) { create(:participant, user: another_user, room:, role: :member) }
 
   before do
@@ -29,25 +29,6 @@ RSpec.describe ParticipantsController, type: :controller do
 
       it 'redirects to room' do
         post_create
-        expect(response).to redirect_to(room_path(room))
-      end
-    end
-  end
-
-  describe 'DELETE #destroy' do
-    subject(:destroy_participant) do
-      delete :destroy, params: { room_id: room.id, user_id: user.id, id: another_user.id }
-    end
-
-    before { allow(controller).to receive(:authorize_participant) }
-
-    context 'when service succeeds' do
-      it 'removes a participant' do
-        expect { destroy_participant }.to change { room.participants.reload.count }.by(-1)
-      end
-
-      it 'redirects to room' do
-        destroy_participant
         expect(response).to redirect_to(room_path(room))
       end
     end

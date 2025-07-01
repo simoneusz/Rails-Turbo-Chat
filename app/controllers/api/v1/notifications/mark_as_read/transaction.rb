@@ -7,7 +7,11 @@ module Api
         # Orchestrates notification#mark_as_read action
         class Transaction
           include ::TransactionResponse
-
+          # Orchestrates notification#mark_as_read action
+          #
+          # @param current_user [User] current logged user
+          # @param notification [Notification] notification instance
+          # @return [Hash] transaction response with status, data, message
           def call(current_user, notification)
             Authorizer.new.call(current_user, notification)
             Validator.new.call

@@ -6,7 +6,7 @@ class RoomPolicy < ApplicationPolicy
   end
 
   def show?
-    !record.user_blocked?(user) && (record.is_private ? record.participant?(user) : true)
+    (record.is_private ? record.participant?(user) : true) && !participant&.blocked?
   end
 
   def create?
@@ -14,7 +14,7 @@ class RoomPolicy < ApplicationPolicy
   end
 
   def update?
-    user.present? && record.find_participant(user)&.owner?
+    user.present? && participant&.owner?
   end
 
   def destroy?
@@ -22,11 +22,11 @@ class RoomPolicy < ApplicationPolicy
   end
 
   def join?
-    !record.user_blocked?(user)
+    !participant&.blocked? && !participant?
   end
 
   def leave?
-    index?
+    participant? && !(participant&.peer? || participant&.blocked?)
   end
 
   def chat?
@@ -42,6 +42,10 @@ class RoomPolicy < ApplicationPolicy
   end
 
   private
+
+  def participant
+    record.find_participant(user)
+  end
 
   def participant?
     record.find_participant(user).present?
