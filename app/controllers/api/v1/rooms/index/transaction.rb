@@ -9,22 +9,20 @@ module Api
           include ::TransactionResponse
           # Orchestrates room#all action
           #
+          # @param rooms [Room::ActiveRecord_Relation] rooms to be filtered
+          # @param params [ActionController::Parameters] params for filter rooms
           # @return [Hash] transaction response with status, data, message
           def call(rooms, params)
             Authorizer.new.call
             Validator.new.call
 
             query = Api::V1::Queries::RoomsQuery.new(rooms, params)
-            _pagy, rooms = query.call
-            Rails.logger.info(rooms)
-            Rails.logger.info(rooms.count)
+            pagy, rooms = query.call
 
-            # TODO: add pagy meta information
-            # pagy: pagy,
-            # total_count: rooms.count,
-            # total_pages: pagy.pages
-
-            response(status: :ok, data: Serializer.new.call(rooms), message: 'Ok')
+            response(status: :ok,
+                     data: Serializer.new.call(rooms),
+                     message: 'Ok',
+                     meta: { pagy: pagy, total_count: pagy.count, total_pages: pagy.pages })
           end
         end
       end
