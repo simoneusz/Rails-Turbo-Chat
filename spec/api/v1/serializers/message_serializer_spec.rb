@@ -15,5 +15,6 @@ RSpec.describe Api::V1::Serializers::MessageSerializer, type: :serializer do
     it { is_expected.to serialize_attribute(:updated_at) }
     it { is_expected.to serialize_attribute(:parent_message_id) }
     it { is_expected.to serialize_attribute(:replied) }
+    it { is_expected.to serialize_attribute(:content) }
   end
 end

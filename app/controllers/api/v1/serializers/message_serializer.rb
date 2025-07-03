@@ -12,8 +12,11 @@ module Api
                    :created_at,
                    :updated_at,
                    :parent_message_id,
-                   :content,
                    :replied
+
+        attribute :content do |object|
+          object.content.to_plain_text
+        end
 
         belongs_to :room
         has_many :reactions
