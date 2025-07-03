@@ -6,22 +6,39 @@ module Api
       class BaseQuery
         include Pagy::Backend
 
+        class_attribute :filters_definition, instance_predicate: false, default: {}
+        class_attribute :sorts_definition, instance_predicate: false, default: {}
+
         DEFAULT_PER_PAGE = 20
         MAX_PER_PAGE = 100
 
         class << self
-          def filters_definition
-            @filters_definition ||= {}
+          # Define filters for the query
+          #
+          # @param field [Symbol] field name
+          # @param only [Array<Symbol>] allowed filter actions
+          # @return [Hash] filters definition
+          def filter_by(field, only: %i[eq neq gt lt gte lte])
+            self.filters_definition = filters_definition.merge(field.to_s => Array(only).map(&:to_s))
           end
 
-          def filter_by(field, only:)
-            filters_definition[field.to_s] = Array(only).map(&:to_s)
+          # Define sorts for the query
+          #
+          # @param field [Symbol] field name
+          # @param only [Array<Symbol>] allowed sort actions
+          # @return [Hash] sorts definition
+          def sort_by(field, only: %i[asc desc])
+            self.sorts_definition = sorts_definition.merge(field.to_s => Array(only).map(&:to_s))
           end
         end
 
         def initialize(scope, params = {})
           @scope = scope
           @params = params
+          Rails.logger.info("params: #{@params}, class: #{@params.class}")
+          return if @params.is_a?(ActionController::Parameters) || @params.is_a?(Hash)
+
+          raise ArgumentError, 'Params must be ActionController::Parameters'
         end
 
         def call
@@ -32,14 +49,6 @@ module Api
         end
 
         private
-
-        def allowed_sorts
-          []
-        end
-
-        def allowed_sort_actions
-          %w[asc desc]
-        end
 
         def filter
           return if @params[:filter].blank?
@@ -86,14 +95,16 @@ module Api
         end
 
         def sort
-          sort_param = @params[:sort]
-          direction = allowed_sort_actions.include?(@params[:direction]) ? @params[:direction] : 'asc'
+          sort_field = @params[:sort]
+          direction  = @params[:direction].to_s.downcase.presence || 'asc'
 
-          unless sort_param.present? && allowed_sorts.include?(sort_param)
+          allowed = self.class.sorts_definition
+
+          unless sort_field.present? && allowed.key?(sort_field) && allowed[sort_field].include?(direction)
             return @scope = @scope.order(created_at: :asc)
           end
 
-          @scope = @scope.order("#{sort_param} #{direction}")
+          @scope = @scope.order("#{sort_field} #{direction}")
         end
 
         def paginate
