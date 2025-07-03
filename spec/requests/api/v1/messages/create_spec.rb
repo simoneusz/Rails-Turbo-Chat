@@ -29,7 +29,7 @@ RSpec.describe 'POST /api/v1/rooms/:room_id/messages' do
         end
 
         it 'returns serialized message with content' do
-          expect(json['data']['attributes']['content']['body']).to eq('Test message content')
+          expect(json['data']['attributes']['content']).to eq('Test message content')
         end
       end
 

@@ -4,10 +4,11 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Participants::Index::Transaction do
   describe '#call' do
-    subject(:transaction) { described_class.new.call(room, user) }
+    subject(:transaction) { described_class.new.call(params, room, user) }
 
     let(:room) { create(:room) }
     let(:user) { create(:user) }
+    let(:params) { ActionController::Parameters.new(filter: { role: 'member' }) }
     let!(:participant) { create(:participant, user:, room:) }
 
     context 'with valid params and valid user role' do

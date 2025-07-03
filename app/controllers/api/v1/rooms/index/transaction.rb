@@ -16,7 +16,7 @@ module Api
             Authorizer.new.call
             Validator.new.call
 
-            query = Api::V1::Queries::RoomsQuery.new(rooms, params)
+            query = Queries::RoomsQuery.new(rooms, params)
             pagy, rooms = query.call
 
             response(status: :ok,
