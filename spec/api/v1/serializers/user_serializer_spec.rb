@@ -20,4 +20,30 @@ RSpec.describe Api::V1::Serializers::UserSerializer, type: :serializer do
     it { is_expected.to serialize_attribute(:display_name) }
     it { is_expected.to serialize_attribute(:status) }
   end
+
+  describe '.to_hash' do
+    let(:serialized_attributes) do
+      {
+        data: {
+          attributes: {
+            id: user.id,
+            email: user.email,
+            username: user.username,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            created_at: user.created_at,
+            updated_at: user.updated_at,
+            avatar: user.avatar,
+            avatar_url: user.avatar_url,
+            display_name: user.display_name,
+            status: user.status
+          },
+          id: user.id.to_s,
+          type: :user
+        }
+      }
+    end
+
+    it { expect(serializer.to_hash).to eq(serialized_attributes) }
+  end
 end
