@@ -337,6 +337,8 @@ GEM
       rspec-support (~> 3.12)
     racc (1.8.1)
     rack (3.1.12)
+    rack-attack (6.7.0)
+      rack (>= 1.0, < 4)
     rack-cors (2.0.2)
       rack (>= 2.0.0)
     rack-protection (4.1.1)
@@ -581,6 +583,7 @@ DEPENDENCIES
   puma (>= 5.0)
   pundit (~> 2.4)
   pundit-matchers (~> 4.0)
+  rack-attack
   rack-cors
   rails (~> 7.1.5, >= 7.1.5.1)
   rails-controller-testing

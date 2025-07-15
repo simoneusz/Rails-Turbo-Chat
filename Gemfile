@@ -80,3 +80,5 @@ gem 'carrierwave', '~> 3.0'
 gem 'vite_rails'
 
 gem 'erb_lint', require: false
+
+gem 'rack-attack'

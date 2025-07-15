@@ -32,7 +32,7 @@ module Api
           end
         end
 
-        def initialize(scope, _params = {})
+        def initialize(scope, params = {})
           @scope = scope
           @params = params
           return if @params.is_a?(ActionController::Parameters) || @params.is_a?(Hash)
