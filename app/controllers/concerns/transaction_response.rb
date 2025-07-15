@@ -2,28 +2,48 @@
 
 module TransactionResponse
   extend ActiveSupport::Concern
-
-  # Builds a response hash for a transaction, depending on the status, data, message and errors provided.
-  # if errors are provided, the response will have a success: false and the errors will be returned in the response
-  # otherwise, if data is provided, the response will have a success: true and the data will be returned in the response
+  # Builds transaction response
   #
-  # @param status [Symbol] status of the transaction
-  # @param data [Hash] data to be returned in the response
-  # @param message [String] message to be returned in the response
-  # @param errors [Hash] errors to be returned in the response
-  # @return [Hash] response hash
-  def response(status:, data: nil, message: nil, errors: nil)
-    body = { status: }
-    body[:message] = message if message
-
+  # @param status [Symbol] HTTP status code
+  # @param data [Hash] data to be returned
+  # @param message [String] message to be returned
+  # @param errors [Hash] errors to be returned
+  # @param meta [Hash] metadata including pagination to be returned
+  # @return [Hash] transaction response with status, data, message
+  def response(status:, data: nil, message: nil, errors: nil, meta: nil)
+    base_response = build_base_response(status, message, meta)
     if errors
-      body[:success] = false
-      body[:errors] = { title: 'Error', data: errors }
+      error_response(base_response, errors)
     elsif data
-      body[:success] = true
-      body[:data] = data[:data]
+      success_response(base_response, data)
+    else
+      base_response
     end
+  end
 
-    body
+  private
+
+  def build_base_response(status, message, meta)
+    response = { status: }
+    response[:message] = message if message
+    response[:meta] = meta unless meta.nil?
+    response
+  end
+
+  def error_response(base, errors)
+    base.merge(
+      success: false,
+      errors: {
+        title: 'Error',
+        data: errors
+      }
+    )
+  end
+
+  def success_response(base, data)
+    base.merge(
+      success: true,
+      data: data[:data]
+    )
   end
 end

@@ -2,11 +2,11 @@
 
 module Api
   module V1
-    module Rooms
-      module All
-        # Validates params for room#all action
+    module Messages
+      module Index
+        # Validates params for creating a message
         class Validator
-          # Validates params for room#all action, currently does nothing
+          # Validates params for creating a message
           #
           # @return [Boolean] true, always
           def call

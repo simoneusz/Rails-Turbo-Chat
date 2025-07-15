@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::Rooms::All::Authorizer do
+RSpec.describe Api::V1::Rooms::Index::Authorizer do
   subject(:authorizer) { described_class.new.call }
 
   describe '#call' do

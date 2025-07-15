@@ -8,7 +8,7 @@ module Api
       before_action :set_user, only: %i[create]
 
       def index
-        render json: Api::V1::Serializers::ParticipantSerializer.new(@room.participants).serializable_hash
+        render_response(Api::V1::Participants::Index::Transaction.new.call(params, @room, current_user))
       end
 
       def create

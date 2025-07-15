@@ -3,7 +3,7 @@
 module Api
   module V1
     module Rooms
-      module All
+      module Index
         class Authorizer
           # Authorizes a room to be shown
           #

@@ -5,7 +5,6 @@ module Notifications
     def initialize(notification, user)
       @notification = notification
       @user = user
-      Rails.logger.info("notification, user: #{@notification}, #{@user}")
     end
 
     def call

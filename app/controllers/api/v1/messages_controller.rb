@@ -6,7 +6,7 @@ module Api
       before_action :set_room, only: %i[index create destroy]
 
       def index
-        render json: Api::V1::Serializers::MessageSerializer.new(@room.messages).serializable_hash
+        render_response(Api::V1::Messages::Index::Transaction.new.call(params, @room, current_user))
       end
 
       def create
@@ -14,8 +14,7 @@ module Api
       end
 
       def destroy
-        render_response(Api::V1::Messages::Destroy::Transaction.new.call(params[:id],
-                                                                         current_user))
+        render_response(Api::V1::Messages::Destroy::Transaction.new.call(params[:id], current_user))
       end
 
       private

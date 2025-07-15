@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::Rooms::All::Serializer do
+RSpec.describe Api::V1::Rooms::Index::Serializer do
   let(:room) { create(:room) }
   let(:serialized_room) { Api::V1::Serializers::RoomsSerializer.new(room).serializable_hash }
 

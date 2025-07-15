@@ -3,7 +3,7 @@
 module Api
   module V1
     module Rooms
-      module All
+      module Index
         # Serializes a Room instance into a hash
         class Serializer
           # Serialize a room record

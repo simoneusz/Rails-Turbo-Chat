@@ -2,14 +2,14 @@
 
 module Api
   module V1
-    module Participants
+    module Messages
       module Index
-        # Orchestrates participant#index action
+        # Orchestrates message#create action
         class Transaction
           include ::TransactionResponse
-          # Orchestrates participant#index action
+          # Orchestrates message#create action
           #
-          # @param params [ActionController::Parameters] params for filter participants
+          # @param params [ActionController::Parameters] params for messages query
           # @param room [Room] room instance
           # @param current_user [User] current logged user
           # @return [Hash] transaction response with status, data, message
@@ -17,11 +17,11 @@ module Api
             Authorizer.new.call(room, current_user)
             Validator.new.call
 
-            query = Queries::ParticipantsQuery.new(room.participants, params)
-            pagy, participants = query.call
+            query = Queries::MessagesQuery.new(room.messages, params)
+            pagy, messages = query.call
 
             response(status: :ok,
-                     data: Serializer.new.call(participants),
+                     data: Serializer.new.call(messages),
                      message: 'Ok',
                      meta: { pagy: pagy, total_count: pagy.count, total_pages: pagy.pages })
           end

@@ -10,9 +10,8 @@ module Api
 
     rescue_from StandardError, with: :handle_internal_error
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-    rescue_from Errors::ValidationError, with: :handle_unprocessable_entity
-    rescue_from Errors::ServiceError, with: :handle_unprocessable_entity
-    rescue_from ActiveRecord::RecordInvalid, with: :handle_unprocessable_entity
+    rescue_from Errors::ValidationError, Errors::ServiceError, ActiveRecord::RecordInvalid,
+                with: :handle_unprocessable_entity
     rescue_from Pundit::NotAuthorizedError, with: :handle_pundit_unauthorized
     rescue_from ActionController::UnknownFormat, with: :handle_unknown_format
 

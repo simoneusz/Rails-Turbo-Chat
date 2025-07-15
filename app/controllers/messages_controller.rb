@@ -24,7 +24,6 @@ class MessagesController < ApplicationController
   private
 
   def authorize_message
-    Rails.logger.info(@message)
     authorize @message, :destroy?
   end
 

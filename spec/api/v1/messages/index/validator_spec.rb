@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::Rooms::All::Validator do
+RSpec.describe Api::V1::Messages::Index::Validator do
   describe '#call' do
     subject(:validator) { described_class.new.call }
 

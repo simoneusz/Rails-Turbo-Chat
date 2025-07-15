@@ -23,4 +23,35 @@ RSpec.describe Api::V1::Serializers::RoomSerializer, type: :serializer do
 
     it { is_expected.not_to serialize_attribute(:room_type) }
   end
+
+  describe '.to_hash' do
+    let(:serialized_attributes) do
+      {
+        data: {
+          attributes: {
+            id: room.id,
+            name: room.name,
+            is_private: room.is_private,
+            created_at: room.created_at,
+            updated_at: room.updated_at,
+            description: room.description,
+            topic: room.topic,
+            creator_id: room.creator_id
+          },
+          relationships: {
+            messages: {
+              data: []
+            },
+            participants: {
+              data: []
+            }
+          },
+          id: room.id.to_s,
+          type: :room
+        }
+      }
+    end
+
+    it { expect(serializer.to_hash).to eq(serialized_attributes) }
+  end
 end
