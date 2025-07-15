@@ -34,7 +34,7 @@ module Api
 
         def initialize(scope, _params = {})
           @scope = scope
-          @params = paramsp
+          @params = params
           return if @params.is_a?(ActionController::Parameters) || @params.is_a?(Hash)
 
           raise ArgumentError, 'Params must be ActionController::Parameters'
