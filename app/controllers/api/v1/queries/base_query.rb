@@ -32,10 +32,9 @@ module Api
           end
         end
 
-        def initialize(scope, params = {})
+        def initialize(scope, _params = {})
           @scope = scope
-          @params = params
-          Rails.logger.info("params: #{@params}, class: #{@params.class}")
+          @params = paramsp
           return if @params.is_a?(ActionController::Parameters) || @params.is_a?(Hash)
 
           raise ArgumentError, 'Params must be ActionController::Parameters'
