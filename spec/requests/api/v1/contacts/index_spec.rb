@@ -13,8 +13,8 @@ RSpec.describe 'GET /api/v1/contacts' do
         subject(:request) { get '/api/v1/contacts', headers: }
 
         before do
-          create(:contact, user:, contact: other_user, status: 'accepted')
-          create(:contact, user: other_user, contact: user, status: 'accepted')
+          create(:contact_ship, user:, contact: other_user, status: 'accepted')
+          create(:contact_ship, user: other_user, contact: user, status: 'accepted')
           request
         end
 

@@ -16,20 +16,21 @@ class User < ApplicationRecord
            dependent: :destroy
   has_many :messages,
            dependent: :destroy
-  has_many :sent_contacts,
-           class_name: 'Contact',
-           dependent: :destroy
-  has_many :received_contacts,
-           class_name: 'Contact',
-           foreign_key: 'contact_id',
-           dependent: :destroy,
-           inverse_of: :contact
-  has_many :participants,
+  has_many :contact_ships,
            dependent: :destroy
   has_many :contacts,
-           -> { where(contacts: { status: 1 }) },
-           through: :sent_contacts, source: :contact
-
+           through: :contact_ships,
+           source: :contact
+  has_many :inverse_contact_ships,
+           class_name: 'ContactShip',
+           foreign_key: :contact_id,
+           dependent: :destroy,
+           inverse_of: :contact
+  has_many :inverse_contacts,
+           through: :inverse_contact_ships,
+           source: :user
+  has_many :participants,
+           dependent: :destroy
   has_many :notifications, lambda { |user|
     where(type: 'UserNotification', receiver_id: user.id)
   }, class_name: 'UserNotification', dependent: :destroy, inverse_of: :receiver
@@ -66,11 +67,15 @@ class User < ApplicationRecord
   end
 
   def pending_contacts
-    received_contacts.where(status: :pending)
+    inverse_contact_ships.where(status: :pending)
   end
 
   def outgoing_contacts
-    Contact.where(user_id: id, status: :pending)
+    contact_ships.where(status: :pending)
+  end
+
+  def contact_with?(other_user)
+    contact_ships.exists?(contact: other_user, status: :accepted)
   end
 
   def full_name

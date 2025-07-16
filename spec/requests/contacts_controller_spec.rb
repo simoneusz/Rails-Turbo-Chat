@@ -14,8 +14,8 @@ RSpec.describe ContactsController, type: :controller do
     subject(:get_index) { get :index }
 
     before do
-      create(:contact, user: user, contact: other_user, status: 'accepted')
-      create(:contact, user: other_user, contact: user, status: 'accepted')
+      create(:contact_ship, user: user, contact: other_user, status: 'accepted')
+      create(:contact_ship, user: other_user, contact: user, status: 'accepted')
       get_index
     end
 
@@ -50,7 +50,7 @@ RSpec.describe ContactsController, type: :controller do
     subject(:delete_contact) { delete :destroy, params: { id: other_user.id } }
 
     context 'when contact request is present' do
-      before { Contacts::ContactService.new(other_user, user).request_contact }
+      before { Contacts::ContactShipService.new(other_user, user).request_contact }
 
       it 'deletes contact request' do
         expect { delete_contact }.to change(user.pending_contacts, :count).by(-1)
@@ -61,7 +61,7 @@ RSpec.describe ContactsController, type: :controller do
   describe 'POST #accept_all' do
     subject(:post_accept_all) { post :accept_all, params: { contact_id: other_user.id } }
 
-    before { Contacts::ContactService.new(other_user, user).request_contact }
+    before { Contacts::ContactShipService.new(other_user, user).request_contact }
 
     it 'accepts all the requested contacts' do
       expect { post_accept_all }.to change(user.contacts, :count).by(1)

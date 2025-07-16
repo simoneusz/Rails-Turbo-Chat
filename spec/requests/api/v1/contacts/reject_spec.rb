@@ -14,7 +14,7 @@ RSpec.describe 'POST /api/v1/contacts/reject' do
         subject(:request) { post '/api/v1/contacts/reject', params: contact_params.to_json, headers: }
 
         before do
-          Contacts::ContactService.new(other_user, user).request_contact
+          Contacts::ContactShipService.new(other_user, user).request_contact
           request
         end
 

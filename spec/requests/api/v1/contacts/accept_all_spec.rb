@@ -14,8 +14,8 @@ RSpec.describe 'POST /api/v1/contacts/accept_all' do
         subject(:request) { post '/api/v1/contacts/accept_all', headers: }
 
         before do
-          Contacts::ContactService.new(other_user, user).request_contact
-          Contacts::ContactService.new(third_user, user).request_contact
+          Contacts::ContactShipService.new(other_user, user).request_contact
+          Contacts::ContactShipService.new(third_user, user).request_contact
           request
         end
 

@@ -12,8 +12,8 @@ RSpec.describe Api::V1::Contacts::AcceptAll::Transaction do
     let(:params) { { contact_id: other_user.id } }
 
     before do
-      Contacts::ContactService.new(other_user, user).request_contact
-      Contacts::ContactService.new(third_user, user).request_contact
+      Contacts::ContactShipService.new(other_user, user).request_contact
+      Contacts::ContactShipService.new(third_user, user).request_contact
     end
 
     context 'with valid params' do
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::Contacts::AcceptAll::Transaction do
     end
 
     context 'when pending contacts is empty' do
-      before { Contact.destroy_all }
+      before { ContactShip.destroy_all }
 
       it 'does not raises service error' do
         expect { transaction }.not_to raise_error

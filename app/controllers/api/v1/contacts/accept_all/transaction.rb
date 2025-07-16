@@ -38,7 +38,7 @@ module Api
             return unless pending_contacts.any?
 
             pending_contacts.each do |contact|
-              ::Contacts::ContactService.new(user, contact.user).accept_contact
+              ::Contacts::ContactShipService.new(user, contact.user).accept_contact
             end
           end
         end

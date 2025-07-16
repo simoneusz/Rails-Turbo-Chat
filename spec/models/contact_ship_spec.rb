@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe Contact do
+RSpec.describe ContactShip do
   describe 'validations' do
-    subject { create(:contact) }
+    subject { create(:contact_ship) }
 
     it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:contact_id) }
   end

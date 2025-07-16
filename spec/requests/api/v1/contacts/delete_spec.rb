@@ -14,7 +14,7 @@ RSpec.describe 'DELETE /api/v1/contacts/delete' do
         subject(:request) { delete '/api/v1/contacts/delete', params: contact_params.to_json, headers: }
 
         before do
-          Contacts::ContactService.new(other_user, user).request_contact
+          Contacts::ContactShipService.new(other_user, user).request_contact
           request
         end
 

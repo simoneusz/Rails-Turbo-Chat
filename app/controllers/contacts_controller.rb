@@ -9,7 +9,7 @@ class ContactsController < ApplicationController
   def create
     @user = User.find(params[:contact_id])
 
-    result = Contacts::ContactService.new(current_user, @user).request_contact
+    result = Contacts::ContactShipService.new(current_user, @user).request_contact
 
     if result.success?
       redirect_to rooms_path, notice: 'Requested contact successfully.'
@@ -19,19 +19,19 @@ class ContactsController < ApplicationController
   end
 
   def update
-    Contacts::ContactService.new(current_user, @user).accept_contact
+    Contacts::ContactShipService.new(current_user, @user).accept_contact
 
     redirect_to contact_path(@user), notice: 'Request accepted'
   end
 
   def destroy
-    Contacts::ContactService.new(current_user, @user).reject_contact
+    Contacts::ContactShipService.new(current_user, @user).reject_contact
 
     redirect_to contacts_path, notice: 'Request destroyed'
   end
 
   def delete
-    Contacts::ContactService.new(current_user, @user).delete_contact
+    Contacts::ContactShipService.new(current_user, @user).delete_contact
 
     redirect_to contacts_path, notice: 'Contact deleted'
   end
@@ -40,7 +40,7 @@ class ContactsController < ApplicationController
     pending_contacts = current_user.pending_contacts
     if pending_contacts.any?
       pending_contacts.each do |contact|
-        Contacts::ContactService.new(current_user, contact.user).accept_contact
+        Contacts::ContactShipService.new(current_user, contact.user).accept_contact
       end
       set_flash_and_redirect(:notice, 'All contacts has been accepted', contacts_path)
     else

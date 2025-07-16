@@ -18,7 +18,7 @@ module Api
             Authorizer.new.call
             Validator.new.call(params)
 
-            result = ::Contacts::ContactService.new(user, other_user).accept_contact
+            result = ::Contacts::ContactShipService.new(user, other_user).accept_contact
 
             raise Errors::ServiceError, [result.data, result.error_code] unless result.success?
 
@@ -28,7 +28,7 @@ module Api
           private
 
           def contact_record(user, other_user)
-            Contact.find_by(user: other_user, contact: user, status: :pending)
+            ContactShip.find_by(user: other_user, contact: user, status: :pending)
           end
         end
       end

@@ -14,7 +14,7 @@ RSpec.describe 'PATCH /api/v1/contacts/accept' do
         subject(:request) { patch '/api/v1/contacts/accept', params: contact_params.to_json, headers: }
 
         before do
-          Contacts::ContactService.new(other_user, user).request_contact
+          Contacts::ContactShipService.new(other_user, user).request_contact
           request
         end
 

@@ -25,11 +25,16 @@ RSpec.describe User do
 
   describe 'associations' do
     it { is_expected.to have_many(:messages) }
-    it { is_expected.to have_many(:sent_contacts).class_name('Contact').dependent(:destroy) }
+    it { is_expected.to have_many(:contacts).through(:contact_ships).source(:contact) }
+    it { is_expected.to have_many(:inverse_contacts).through(:inverse_contact_ships).source(:user) }
+    it { is_expected.to have_many(:contact_ships).dependent(:destroy) }
 
     it {
-      is_expected # rubocop:disable RSpec/ImplicitSubject
-        .to have_many(:received_contacts).class_name('Contact').with_foreign_key('contact_id').dependent(:destroy)
+      is_expected.to have_many(:inverse_contact_ships) # rubocop:disable RSpec/ImplicitSubject
+        .class_name('ContactShip')
+        .with_foreign_key('contact_id')
+        .dependent(:destroy)
+        .inverse_of(:contact)
     }
 
     it { is_expected.to have_many(:notifications).dependent(:destroy) }

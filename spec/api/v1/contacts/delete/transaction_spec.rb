@@ -10,7 +10,7 @@ RSpec.describe Api::V1::Contacts::Delete::Transaction do
     let(:other_user) { create(:user) }
     let(:params) { { contact_id: other_user.id } }
 
-    before { Contacts::ContactService.new(other_user, user).request_contact }
+    before { Contacts::ContactShipService.new(other_user, user).request_contact }
 
     context 'with valid params' do
       it 'returns a successful response with status :ok' do
