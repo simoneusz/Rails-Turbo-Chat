@@ -9,8 +9,6 @@ Bundler.require(*Rails.groups)
 
 module TurboChat
   class Application < Rails::Application
-    config.middleware.use Rack::Attack
-
     config.load_defaults 7.1
 
     config.autoload_lib(ignore: %w[assets tasks])

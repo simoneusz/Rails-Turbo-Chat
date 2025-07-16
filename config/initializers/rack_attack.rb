@@ -1,5 +1,5 @@
 class Rack::Attack
-  throttle('req/ip', limit: 100, period: 5.minutes) do |req|
+  throttle('req/ip', limit: 6, period: 5.minutes) do |req|
     if req.path.start_with?('/api') && req.get?
       req.ip
     end
@@ -28,8 +28,6 @@ class Rack::Attack
       req.path == '/favicon.ico' ||
       req.path == '/up'
   end
-
-  ActiveSupport::Notifications.subscribe("rack.attack") do |name, start, finish, request_id, req|
-    Rails.logger.info "Rack::Attack throttled #{req.env['rack.attack.match_type']} for #{req.ip} on path #{req.path}"
-  end
 end
+
+Rails.application.config.middleware.use Rack::Attack
