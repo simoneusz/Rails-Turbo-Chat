@@ -24,7 +24,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/turbo_chat_test"
+      DATABASE_URL: "postgres://${{ secrets.DB_USERNAME }}:${{ secrets.DB_PASSWORD }}@localhost:5432/turbo_chat_test"
       DEVISE_JWT_SECRET_KEY: ${{ secrets.DEVISE_JWT_SECRET_KEY }}
     steps:
       - name: Checkout code
