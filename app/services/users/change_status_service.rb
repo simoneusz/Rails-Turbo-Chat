@@ -22,7 +22,7 @@ module Users
     private
 
     def valid_status?
-      User.statuses.keys.include?(@new_status)
+      User.statuses.key?(@new_status)
     end
 
     def user_not_found
