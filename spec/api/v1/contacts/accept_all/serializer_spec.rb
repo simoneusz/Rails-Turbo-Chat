@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Contacts::AcceptAll::Serializer do
-  let(:contact) { create(:contact) }
+  let(:contact) { create(:contact_ship) }
   let(:serialized_contact) { Api::V1::Serializers::ContactsSerializer.new(contact).serializable_hash }
 
   describe '#call' do
