@@ -6,6 +6,7 @@ require:
 plugins:
   - rubocop-factory_bot
   - rubocop-rspec
+  - rubocop-discourse
 AllCops:
   NewCops: enable
   Exclude:
@@ -28,3 +29,11 @@ RSpec/NestedGroups:
 Rails/DeprecatedActiveModelErrorsMethods:
   Exclude:
     - 'app/**/*/api/v1/**/*'
+Discourse/Plugins/CallRequiresPlugin:
+  Enabled: false
+Discourse/TimeEqMatcher:
+  Enabled: false
+Discourse/Plugins/UseRequireRelative:
+  Enabled: false
+Discourse/Plugins/NamespaceConstants:
+  Enabled: false

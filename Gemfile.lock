@@ -440,6 +440,15 @@ GEM
       parser (>= 3.3.1.0)
     rubocop-capybara (2.21.0)
       rubocop (~> 1.41)
+    rubocop-discourse (3.11.0)
+      activesupport (>= 6.1)
+      lint_roller (>= 1.1.0)
+      rubocop (>= 1.72.0)
+      rubocop-capybara (>= 2.0.0)
+      rubocop-factory_bot (>= 2.0.0)
+      rubocop-rails (>= 2.25.0)
+      rubocop-rspec (>= 3.0.1)
+      rubocop-rspec_rails (>= 2.30.0)
     rubocop-erb (0.5.5)
       better_html
       rubocop (~> 1.45)
@@ -593,6 +602,7 @@ DEPENDENCIES
   rspec_jsonapi_serializer
   rubocop
   rubocop-capybara (~> 2.21)
+  rubocop-discourse
   rubocop-erb (~> 0.5.5)
   rubocop-factory_bot (~> 2.27)
   rubocop-rails

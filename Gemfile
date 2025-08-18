@@ -41,6 +41,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 7.0.0'
   gem 'rubocop', require: false
   gem 'rubocop-capybara', '~> 2.21'
+  gem 'rubocop-discourse'
   gem 'rubocop-erb', '~> 0.5.5'
   gem 'rubocop-factory_bot', '~> 2.27'
   gem 'rubocop-rails', require: false
