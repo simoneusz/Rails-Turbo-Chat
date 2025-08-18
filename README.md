@@ -45,9 +45,25 @@ Modern, real-time chat application inspired by Slack, Skype and Discord — offe
 
 RSpec for unit and functional tests
 
-## 🎯 TODO
+## 🎯 API 
 
-- External API with authorizations, validations and serializations
+RESTful API built with Ruby on Rails that serves as the backbone for a real-time chat application with user management, room-based messaging, and social features.
+### Core Features
+- Authentication & Authorization: JWT-based authentication with role-based access control
+- Real-time Messaging: WebSocket support for instant message delivery
+- Room Management: public/private rooms with participant management
+- Contact System: friend requests and contact management
+- Message Reactions: emoji reactions and threaded conversations
+- User Presence: user statuses (online, offline, etc.) tracking and notifications
+- Search & Filtering: advanced custom DLS for API quering, capabilities with pagination
+- Error Handling & Validation: json error responses with propper HTTP status codes
+
+### API Architecture & Design Patterns:
+- Transaction Pattern: Each API endpoint uses dedicated Transaction classes that orchestrate the entire request lifecycle
+- Service Layer: Business logic is encapsulated in focused Service classes that handle specific domain operations
+- Authorization Layer: Pundit-based authorization with dedicated Authorizer classes for each action
+- Validation Layer: Dry-validation powered Validator classes ensure data integrity
+- Serialization Layer: JSONAPI::Serializer provides consistent, standardized JSON responses
 
 ## 🚀 Installation & Setup
 Check ruby and rails versions before initializing the project
