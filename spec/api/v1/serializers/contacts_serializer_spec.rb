@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Serializers::ContactsSerializer, type: :serializer do
   subject(:serializer) { described_class.new(contact) }
 
-  let(:contact) { create(:contact) }
+  let(:contact) { create(:contact_ship) }
 
   describe 'attributes' do
     it { is_expected.to serialize_attribute(:id) }

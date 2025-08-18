@@ -2,6 +2,7 @@
 
 module TransactionResponse
   extend ActiveSupport::Concern
+
   # Builds transaction response
   #
   # @param status [Symbol] HTTP status code

@@ -7,6 +7,7 @@ module Api
         # Orchestrates favorite#toggle action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates favorite#toggle action
           #
           # @param params [ActionController::Parameters] params for toggle favorite

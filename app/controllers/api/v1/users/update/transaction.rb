@@ -7,6 +7,7 @@ module Api
         # Orchestrates user#update action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates user#update action
           #
           # @param params [ActionController::Parameters] params for update user

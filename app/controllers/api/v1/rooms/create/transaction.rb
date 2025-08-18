@@ -7,6 +7,7 @@ module Api
         # Orchestrates room#create action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates room#create action
           #
           # @param room_params [ActionController::Parameters] params for create room

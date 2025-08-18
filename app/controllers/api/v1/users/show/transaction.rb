@@ -7,6 +7,7 @@ module Api
         # Orchestrates user#show action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates user#show action
           #
           # @param user [User] user instance

@@ -7,6 +7,7 @@ module Api
         # Orchestrates room#dms action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates room#dms action
           #
           # @param current_user [User] current logged user

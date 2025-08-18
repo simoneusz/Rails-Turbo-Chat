@@ -25,7 +25,7 @@ RSpec.describe 'GET /api/v1/contacts' do
         end
 
         it 'returns serialized contacts' do
-          expect(json['data'].map { |contact| contact['id'] }).to include(other_user.id.to_s)
+          expect(json['data'].pluck('id')).to include(other_user.id.to_s)
         end
       end
     end
