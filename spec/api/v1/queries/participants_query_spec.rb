@@ -23,9 +23,7 @@ RSpec.describe Api::V1::Queries::ParticipantsQuery do
 
   describe '.sort_definition' do
     it 'includes allowed sorts' do
-      expect(described_class.sorts_definition.map do |array|
-        array[0]
-      end).to match_array(%w[id role created_at updated_at])
+      expect(described_class.sorts_definition.pluck(0)).to match_array(%w[id role created_at updated_at])
     end
   end
 end

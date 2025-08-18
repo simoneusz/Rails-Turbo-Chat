@@ -6,6 +6,7 @@ module Api
       module Update
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates room#update action
           #
           # @param room [Room] room instance

@@ -7,6 +7,7 @@ module Api
         # Orchestrates message#create action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates message#create action
           #
           # @param message_params [ActionController::Parameters] params for create message

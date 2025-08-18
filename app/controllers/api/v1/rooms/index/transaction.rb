@@ -7,6 +7,7 @@ module Api
         # Orchestrates room#all action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates room#all action
           #
           # @param rooms [Room::ActiveRecord_Relation] rooms to be filtered

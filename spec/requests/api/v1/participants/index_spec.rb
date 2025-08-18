@@ -25,7 +25,7 @@ RSpec.describe 'GET /api/v1/rooms/:room_id/participants' do
         end
 
         it 'returns serialized participants' do
-          expect(json['data'].map { |p| p['id'] }).to include(participant.id.to_s)
+          expect(json['data'].pluck('id')).to include(participant.id.to_s)
         end
       end
     end

@@ -7,6 +7,7 @@ module Api
         # Orchestrates participant#index action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates participant#index action
           #
           # @param params [ActionController::Parameters] params for filter participants

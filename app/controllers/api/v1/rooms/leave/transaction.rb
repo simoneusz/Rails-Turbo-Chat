@@ -7,6 +7,7 @@ module Api
         # Orchestrates room#leave action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates room#leave action
           #
           # @param room [Room] room instance

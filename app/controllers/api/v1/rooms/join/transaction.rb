@@ -7,6 +7,7 @@ module Api
         # Orchestrates room#join action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates room#join action
           #
           # @param room [Room] room instance

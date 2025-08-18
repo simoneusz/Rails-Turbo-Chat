@@ -7,6 +7,7 @@ module Api
         # Orchestrates message#destroy action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates message#destroy action
           #
           # @param message_id [Integer] message id

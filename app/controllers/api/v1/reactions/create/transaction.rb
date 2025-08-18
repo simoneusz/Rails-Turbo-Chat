@@ -7,6 +7,7 @@ module Api
         # Orchestrates reaction#create action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates reaction#create action
           #
           # @param params [ActionController::Parameters] params for create reaction

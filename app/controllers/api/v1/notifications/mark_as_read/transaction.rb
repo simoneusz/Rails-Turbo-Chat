@@ -7,6 +7,7 @@ module Api
         # Orchestrates notification#mark_as_read action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates notification#mark_as_read action
           #
           # @param current_user [User] current logged user

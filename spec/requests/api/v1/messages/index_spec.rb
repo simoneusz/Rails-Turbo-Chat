@@ -26,7 +26,7 @@ RSpec.describe 'GET /api/v1/rooms/:room_id/messages' do
         end
 
         it 'returns serialized messages' do
-          expect(json['data'].map { |msg| msg['id'] }).to include(message.id.to_s)
+          expect(json['data'].pluck('id')).to include(message.id.to_s)
         end
       end
     end

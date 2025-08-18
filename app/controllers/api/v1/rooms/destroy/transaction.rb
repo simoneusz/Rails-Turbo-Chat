@@ -7,6 +7,7 @@ module Api
         # Orchestrates room#destroy action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates room#destroy action
           #
           # @param room [Room] room instance

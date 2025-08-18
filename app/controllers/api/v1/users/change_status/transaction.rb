@@ -7,6 +7,7 @@ module Api
         # Orchestrates user#change_status action
         class Transaction
           include ::TransactionResponse
+
           # Orchestrates user#change_status action
           #
           # @param params [ActionController::Parameters] params for change status
