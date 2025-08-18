@@ -8,6 +8,7 @@ plugins:
   - rubocop-rspec
   - rubocop-discourse
   - rubocop-performance
+  - rubocop-rake
 AllCops:
   NewCops: enable
   Exclude:
