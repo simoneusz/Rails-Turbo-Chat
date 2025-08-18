@@ -213,6 +213,7 @@ GEM
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
     ffi (1.17.1-x86_64-linux-musl)
+    foreman (0.89.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -589,6 +590,7 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails
   faker
+  foreman
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
